@@ -1,0 +1,24 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Local/generated indexes
+indexes/*.sqlite
+indexes/*.sqlite-*
+indexes/*.summary.json
+derived/text/*.json
+derived/text/ocr/
+
+# Raw release data should live outside this repo.
+ufo_war_release/
+data/
+
+# OS/editor noise
+.DS_Store
+.idea/
+.vscode/
+

@@ -1,0 +1,10 @@
+{
+  "source_root": "/absolute/path/to/ufo_war_release",
+  "db": "indexes/uap_release.sqlite",
+  "model": "BAAI/bge-small-en-v1.5",
+  "notes": [
+    "Keep raw downloaded WAR/DVIDS files outside this repo.",
+    "Run `make setup`, then `make rebuild SOURCE_ROOT=/absolute/path/to/ufo_war_release`.",
+    "The SQLite DB and derived PDF text caches are generated artifacts ignored by git."
+  ]
+}
