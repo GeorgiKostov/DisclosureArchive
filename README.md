@@ -47,6 +47,37 @@ make index SOURCE_ROOT=/absolute/path/to/ufo_war_release
 make rebuild SOURCE_ROOT=/absolute/path/to/ufo_war_release
 ```
 
+## OCR Scanned PDFs
+
+OCR means optical character recognition: the computer looks at a scanned page image
+and turns the visible letters into text. It is needed for the older FBI/NARA-style
+PDFs where `pdfplumber` sees pages but extracts little or no text.
+
+Install the OCR engine on macOS:
+
+```bash
+brew install tesseract
+```
+
+Then run OCR over text-poor pages:
+
+```bash
+make ocr SOURCE_ROOT=/absolute/path/to/ufo_war_release
+make index SOURCE_ROOT=/absolute/path/to/ufo_war_release
+```
+
+OCR one specific PDF first:
+
+```bash
+make ocr-one \
+  SOURCE_ROOT=/absolute/path/to/ufo_war_release \
+  PDF=/absolute/path/to/ufo_war_release/documents/65_hs1-834228961_62-hq-83894_section_1.pdf
+make index SOURCE_ROOT=/absolute/path/to/ufo_war_release
+```
+
+OCR output is stored as generated JSON under `derived/text/ocr/` and is ignored by
+git. When OCR text changes, the indexer detects it and adds `ocr_text` chunks.
+
 ## Search
 
 Keyword search:

@@ -26,6 +26,7 @@ from .common import (
 )
 from .db import connect, init_db, reset_db
 from .embeddings import embed_texts, missing_embedding_chunks, pack_vector
+from .ocr import default_ocr_cache_path
 
 
 def now_iso() -> str:
@@ -247,6 +248,16 @@ def caption_texts(source_root: Path, video_id: str) -> List[Tuple[Path, str]]:
     return out
 
 
+def ocr_pages(derived_root: Path, pdf_path: Path) -> List[Dict]:
+    path = default_ocr_cache_path(derived_root, pdf_path)
+    if not path.exists():
+        return []
+    data = read_json(path, {})
+    if data.get("file_hash") != sha1_file(pdf_path):
+        return []
+    return data.get("pages", [])
+
+
 def index_record(conn, source_root: Path, derived_root: Path, record, entries: List[Dict], video: Optional[Dict]) -> Dict:
     primary_paths: List[Path] = []
     asset_hashes: List[str] = []
@@ -258,6 +269,9 @@ def index_record(conn, source_root: Path, derived_root: Path, record, entries: L
             primary_paths.append(path)
             h, _ = file_info(path)
             asset_hashes.append(h)
+            ocr_path = default_ocr_cache_path(derived_root, path)
+            if ocr_path.exists():
+                asset_hashes.append(sha1_file(ocr_path))
 
     vpath = None
     caption_paths: List[Path] = []
@@ -311,6 +325,7 @@ def index_record(conn, source_root: Path, derived_root: Path, record, entries: L
 
     total_pdf_pages = 0
     total_pdf_text_chars = 0
+    total_ocr_chars = 0
     for pdf_path in primary_paths:
         if pdf_path.suffix.lower() != ".pdf":
             continue
@@ -332,6 +347,26 @@ def index_record(conn, source_root: Path, derived_root: Path, record, entries: L
                     metadata={"local_path": str(pdf_path), "page": page.get("page")},
                 )
                 chunk_index += 1
+
+        ocr_chunk_index = 1
+        for page in ocr_pages(derived_root, pdf_path):
+            page_text = clean(page.get("text"))
+            total_ocr_chars += len(page_text)
+            for part in chunk_text(page_text):
+                add_chunk(
+                    conn,
+                    record=record,
+                    source_kind="ocr_text",
+                    page_number=int(page.get("page") or 0),
+                    chunk_index=ocr_chunk_index,
+                    text=part,
+                    metadata={
+                        "local_path": str(pdf_path),
+                        "page": page.get("page"),
+                        "ocr": True,
+                    },
+                )
+                ocr_chunk_index += 1
 
     if video:
         video_extra = "\n".join(
@@ -368,6 +403,7 @@ def index_record(conn, source_root: Path, derived_root: Path, record, entries: L
         "title": record.title,
         "pages": total_pdf_pages,
         "pdf_text_chars": total_pdf_text_chars,
+        "ocr_text_chars": total_ocr_chars,
         "skipped": False,
     }
 
@@ -418,7 +454,19 @@ def pdf_cache_totals(derived_root: Path) -> Dict[str, int]:
         cached_pages = cached.get("pages", [])
         pages += len(cached_pages)
         chars += sum(len(clean(page.get("text"))) for page in cached_pages)
-    return {"pdf_pages_cached_total": pages, "pdf_text_chars_cached_total": chars}
+    ocr_pages_total = 0
+    ocr_chars = 0
+    for path in (derived_root / "text" / "ocr").glob("*.json"):
+        cached = read_json(path, {})
+        cached_pages = cached.get("pages", [])
+        ocr_pages_total += len(cached_pages)
+        ocr_chars += sum(len(clean(page.get("text"))) for page in cached_pages)
+    return {
+        "pdf_pages_cached_total": pages,
+        "pdf_text_chars_cached_total": chars,
+        "ocr_pages_cached_total": ocr_pages_total,
+        "ocr_text_chars_cached_total": ocr_chars,
+    }
 
 
 def main(argv: Optional[List[str]] = None) -> int:
@@ -485,6 +533,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         "embeddings_total": conn.execute("SELECT count(*) FROM embeddings").fetchone()[0],
         "pdf_pages_processed_this_run": sum(item["pages"] for item in results),
         "pdf_text_chars_processed_this_run": sum(item["pdf_text_chars"] for item in results),
+        "ocr_text_chars_processed_this_run": sum(item.get("ocr_text_chars", 0) for item in results),
         **cache_totals,
         "model": args.model,
         "indexed_at": now_iso(),

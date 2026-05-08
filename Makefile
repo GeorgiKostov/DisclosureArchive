@@ -2,7 +2,7 @@ PYTHON ?= python3
 SOURCE_ROOT ?= /Users/georgikostov/Desktop/ufo_war_release
 DB ?= indexes/uap_release.sqlite
 
-.PHONY: setup index rebuild search-vector search-hybrid stats
+.PHONY: setup index rebuild ocr ocr-one search-vector search-hybrid stats
 
 setup:
 	$(PYTHON) -m venv .venv
@@ -14,6 +14,12 @@ index:
 
 rebuild:
 	. .venv/bin/activate && python -m ufo_indexer.index --source-root "$(SOURCE_ROOT)" --db "$(DB)" --rebuild
+
+ocr:
+	. .venv/bin/activate && python -m ufo_indexer.ocr --source-root "$(SOURCE_ROOT)"
+
+ocr-one:
+	. .venv/bin/activate && python -m ufo_indexer.ocr --source-root "$(SOURCE_ROOT)" --pdf "$(PDF)"
 
 search-hybrid:
 	. .venv/bin/activate && python -m ufo_indexer.search --db "$(DB)" --mode hybrid --q "$(Q)"
