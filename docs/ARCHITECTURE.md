@@ -148,3 +148,13 @@ LLM-ready JSON and Markdown. Evidence items preserve provenance fields including
 title, agency, incident date/location, source kind, page number, local path, and
 chunk id. OCR-derived text is labeled as `ocr_text` so downstream summaries can
 distinguish OCR text from native PDF text and metadata.
+
+## Local Search UI
+
+`python -m ufo_indexer.web` runs a local-only HTTP server on `127.0.0.1`.
+The server uses standard-library HTTP handling and reuses the existing search
+and evidence-pack modules. It exposes `/api/health`, `/api/search`, and
+`/api/evidence-pack`, plus a guarded `/file` endpoint for index-referenced local
+files. The single-page browser UI includes extractive summaries, ranked result
+cards, provenance references, OCR labels, follow-up suggestions, and clickable
+source links.

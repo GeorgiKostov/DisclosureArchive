@@ -30,3 +30,4 @@
 - LLM-ready export does not require a new vector database at current scale; the useful layer is provenance-preserving packaging over the existing SQLite FTS/vector/hybrid search.
 - Long natural-language queries can be too strict for SQLite FTS when OCR has spelling damage; a fallback OR query only after strict FTS returns nothing improves recall without disturbing exact matches.
 - Passing top-five retrieval does not mean ranking is ideal; New Haven now passes but still sits behind broader flying-saucer chunks, making it a useful reranking test case.
+- A useful first UI can stay dependency-free: a standard-library localhost server is enough to expose search, evidence packs, summaries, and suggestions over the existing SQLite index.

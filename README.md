@@ -158,6 +158,9 @@ indexer detects it and adds `ocr_text` chunks.
 
 ## Search
 
+For a plain-English explanation of the whole search stack, read
+`docs/SEARCH_EXPLAINED.md`.
+
 Keyword search:
 
 ```bash
@@ -221,6 +224,34 @@ This also writes `reports/evidence_pack.md`. Each result includes rank, score,
 title, agency, incident date/location, source kind, page number, chunk id, local
 path, snippet, and provenance guidance. Use `--include-text` when the downstream
 LLM needs full chunk text instead of snippets.
+
+## Local Search UI
+
+On Windows, double-click this repo-root launcher:
+
+```text
+Start-DisclosureArchive-Search.cmd
+```
+
+It starts the local server and opens the browser. Keep the launcher window open
+while searching; close it to stop the server. If the server is already running,
+the launcher simply opens the existing page.
+
+Run the browser interface on localhost:
+
+```bash
+python -m ufo_indexer.web \
+  --db indexes/uap_release.sqlite \
+  --host 127.0.0.1 \
+  --port 8765
+```
+
+Then open `http://127.0.0.1:8765`. The UI uses the same keyword, vector, hybrid,
+and evidence-pack code as the CLI. It shows ranked result cards, provenance
+references, extractive summaries, OCR labels, and clickable follow-up
+suggestions without requiring an LLM API key. Results with local files include
+an `Open source` link that opens the indexed PDF/image/video through the local
+server.
 
 ## Transfer To Another Machine
 

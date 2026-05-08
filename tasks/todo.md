@@ -6,5 +6,6 @@
 - Run a small second-pass benchmark on a few genuine OCR failures using OCRmyPDF and/or PaddleOCR, comparing against the Tesseract retry output.
 - Add more curated retrieval eval queries and preserve the current 15/15 hybrid baseline before tuning ranking further.
 - Review cases where the expected result is present but not rank 1, such as `new_haven_flying_saucers`, to decide whether reranking is useful.
-- Add a small evidence-pack review workflow that can save selected result sets for manual research notes.
+- Use the local search UI for a manual research pass and note which result-card fields, filters, or suggestion types are missing.
+- Add a saved-search or note-taking workflow if the local UI proves useful for repeated research passes.
 - Consider optional reranking after evidence-pack review exposes where hybrid ranking is insufficient.

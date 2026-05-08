@@ -37,6 +37,7 @@ Z:\Projects\Repositories\Disclosure\DisclosureArchive\DisclosureArchivePackage
 - Hybrid, keyword, and vector search CLI.
 - Retrieval evaluation CLI and curated query set for keyword/vector/hybrid quality checks.
 - Evidence-pack export CLI for LLM-ready JSON/Markdown search bundles.
+- Local browser search UI with health, search, and evidence-pack API endpoints.
 - Windows transfer package instructions.
 - Mac export and package verification scripts.
 - Windows import smoke-test script.
@@ -83,8 +84,9 @@ Broad OCR update:
 - Retry smoke test with 300 DPI and PSM 11 on `dow-uap-d4-mission-report-arabian-gulf-2020.pdf` reduced zero-text pages from 62 to 60 and reindexed the DB to 7610 chunks, 6388 `ocr_text` chunks, and 7610 embeddings.
 - Retrieval eval report after FTS fallback: 15 curated queries; hybrid passed 15, vector passed 14, keyword passed 14. Hybrid best matches included 6 metadata, 6 OCR text, and 3 PDF text hits. `new_haven_flying_saucers` now passes in top five, though not at rank 1.
 - Evidence-pack smoke test generated for `flying discs flight service regulation 1949`; the pack contains 8 ranked results with provenance, source labels, snippets/full text, page numbers, local paths, and OCR/source-use guidance.
+- Local search UI added via `python -m ufo_indexer.web --db indexes/uap_release.sqlite --host 127.0.0.1 --port 8765`; it reuses existing search/evidence-pack code and shows summaries, references, suggestions, OCR labels, evidence-pack previews, and guarded `Open source` links for indexed local files.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.
-3. Use evidence packs for a small manual research pass and note what provenance fields or ranking changes are missing.
+3. Use the local search UI for a small manual research pass and note what fields, filters, or saved-note workflows are missing.
 4. Decide whether a small OCRmyPDF or PaddleOCR comparison is warranted for genuinely weak OCR pages.

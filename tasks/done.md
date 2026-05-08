@@ -45,3 +45,8 @@
 - Investigated the `new_haven_flying_saucers` retrieval miss; the target OCR chunk existed and shorter keyword search found it, but the longer query was too strict for FTS and vector search ranked neighboring FBI material higher.
 - Added a conservative keyword fallback: strict SQLite FTS first, then OR-style FTS only when strict matching returns no rows.
 - Reran retrieval evaluation after the fallback; hybrid now passes 15/15 curated queries, vector 14/15, and keyword 14/15.
+- Added `python -m ufo_indexer.web` and `make web` for a local browser search interface backed by the existing SQLite hybrid/vector/keyword search.
+- Added local JSON endpoints for health, search, and evidence-pack retrieval plus a single-page UI with result cards, extractive summaries, OCR labels, provenance references, and follow-up suggestions.
+- Added `Start-DisclosureArchive-Search.cmd` at the repo root so Windows can launch the local search UI by double-clicking.
+- Added guarded local source-file links to the web UI; result cards now include an `Open source` link for indexed PDFs/images/videos.
+- Added `docs/SEARCH_EXPLAINED.md`, a plain-English step-by-step explanation of raw files, OCR, chunks, SQLite FTS, embeddings, hybrid search, the local UI, source links, and evidence packs.

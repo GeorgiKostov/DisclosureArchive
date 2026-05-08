@@ -8,7 +8,7 @@ REVIEW_REASONS ?= zero_text_pages low_avg_chars
 OCR_DPI ?= 300
 OCR_PSM ?= 11
 
-.PHONY: setup index rebuild classify ocr ocr-classified ocr-status ocr-retry ocr-one eval-search evidence-pack search-vector search-hybrid stats export-package verify-package
+.PHONY: setup index rebuild classify ocr ocr-classified ocr-status ocr-retry ocr-one eval-search evidence-pack web search-vector search-hybrid stats export-package verify-package
 
 setup:
 	$(PYTHON) -m venv .venv
@@ -44,6 +44,9 @@ eval-search:
 
 evidence-pack:
 	. .venv/bin/activate && python -m ufo_indexer.evidence_pack --db "$(DB)" --q "$(Q)" --mode hybrid --out reports/evidence_pack.json
+
+web:
+	. .venv/bin/activate && python -m ufo_indexer.web --db "$(DB)" --host 127.0.0.1 --port 8765
 
 search-hybrid:
 	. .venv/bin/activate && python -m ufo_indexer.search --db "$(DB)" --mode hybrid --q "$(Q)"
