@@ -10,3 +10,23 @@
 - The raw release folder once contained a macOS `.venv`; exclude/remove that from transfer packages.
 - Hybrid search works well for case discovery; vector search is useful for similar descriptions such as orb formations.
 - Export scripts should check that `/Volumes/DisclosureTransfer` is actually mounted so a missing external drive does not silently create a local folder.
+- Text/OCR cache filenames currently include the absolute PDF path hash, so copied Mac caches are not automatically reused after a Windows rebuild.
+- When path-keyed OCR caches are copied to Windows, duplicate the cache under the Windows path key before reindexing or OCR-derived chunks will disappear.
+- Portable cache keys should be based on `SOURCE_ROOT`-relative paths, with `file_hash` fallback for old packages and copied cache migration.
+- Cache summary stats need to account for legacy/portable duplicate cache files during migration.
+- Classification should drive OCR selection; low-text files can need all-page OCR even when no page falls below the default text-poor threshold.
+- This Windows environment does not currently expose `tesseract` on PATH; targeted OCR is blocked until Tesseract is installed.
+- Tesseract may be installed but absent from PATH; pass `--tesseract-bin "C:\Program Files\Tesseract-OCR\tesseract.exe"` on Windows.
+- Python `NamedTemporaryFile` keeps files locked on Windows; close temp image files before invoking Tesseract.
+- SQLite FTS queries need punctuation-safe tokenization; apostrophes in user queries such as `o'clock` can otherwise crash FTS.
+- OCR parallelism should be PDF-level, not page-level, so cache writes stay isolated; 12 workers was effective on the 24-logical-CPU Windows workstation.
+- Very high OCR worker counts such as 20-30 may work, but start lower because each worker can render pages and spawn Tesseract, which can saturate CPU, disk, and memory quickly.
+- OCR completion and OCR quality are different checks; after the broad pass, every expected page was cached, but zero-text/low-text outputs still need review before treating OCR as fully useful.
+- Selected-page OCR retries must merge into existing per-PDF caches; replacing a cache with only retried pages would silently discard already-good OCR text.
+- Tesseract PSM/DPI changes can improve a page slightly but may not fix pages that are truly image-only, redacted, or mostly non-text.
+- Retrieval evaluation should keep a few honest misses; the New Haven query is useful because it exposes OCR/ranking weakness in dense FBI flying-saucer material.
+- Hybrid search currently benefits from vector retrieval on semantic modern-military queries where strict keyword FTS can return no results.
+- Evidence packs should label `source_kind` prominently because metadata, native PDF text, OCR text, captions, and video metadata carry different reliability and review needs.
+- LLM-ready export does not require a new vector database at current scale; the useful layer is provenance-preserving packaging over the existing SQLite FTS/vector/hybrid search.
+- Long natural-language queries can be too strict for SQLite FTS when OCR has spelling damage; a fallback OR query only after strict FTS returns nothing improves recall without disturbing exact matches.
+- Passing top-five retrieval does not mean ranking is ideal; New Haven now passes but still sits behind broader flying-saucer chunks, making it a useful reranking test case.

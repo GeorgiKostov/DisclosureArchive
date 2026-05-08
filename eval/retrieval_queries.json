@@ -1,0 +1,181 @@
+{
+  "version": 1,
+  "description": "Curated retrieval checks for DisclosureArchive keyword, vector, and hybrid search.",
+  "queries": [
+    {
+      "id": "apollo17_grimaldi_flash",
+      "query": "lunar surface flash Grimaldi",
+      "expected": [
+        {
+          "title_contains": "Apollo 17",
+          "source_kinds": ["pdf_text"],
+          "text_contains": ["Grimaldi"]
+        }
+      ]
+    },
+    {
+      "id": "usper_orb_formation",
+      "query": "helicopter crew saw hot orange orbs split and flare in formation",
+      "expected": [
+        {
+          "title_contains": "USPER Statement",
+          "source_kinds": ["pdf_text"],
+          "text_contains": ["orbs", "formation"]
+        }
+      ]
+    },
+    {
+      "id": "gemini_bogey_transcript",
+      "query": "Gemini bogey ten o'clock high unidentified object",
+      "expected": [
+        {
+          "title_contains": "Gemini 7",
+          "source_kinds": ["pdf_text", "ocr_text"],
+          "text_contains": ["bogey"]
+        },
+        {
+          "title_contains": "255_t_763",
+          "source_kinds": ["ocr_text"],
+          "text_contains": ["BOGEY"]
+        }
+      ]
+    },
+    {
+      "id": "fbi_2023_fd302",
+      "query": "Federal Bureau of Investigation date of entry September 2023",
+      "expected": [
+        {
+          "title_contains": "FBI September 2023",
+          "source_kinds": ["ocr_text"],
+          "text_contains": ["FEDERAL BUREAU OF INVESTIGATION"]
+        }
+      ]
+    },
+    {
+      "id": "flying_discs_fsr_1949",
+      "query": "flying discs flight service regulation 1949",
+      "expected": [
+        {
+          "title_contains": "Flying Discs 1949",
+          "source_kinds": ["metadata", "ocr_text"],
+          "text_contains": ["Flight Service Regulation"]
+        },
+        {
+          "title_contains": "62-HQ-83894",
+          "source_kinds": ["ocr_text"],
+          "text_contains": ["FLYING DISCS"]
+        }
+      ]
+    },
+    {
+      "id": "project_blue_book_termination",
+      "query": "termination of Project Blue Book Air Force regulation establishing controlling",
+      "expected": [
+        {
+          "title_contains": "62-HQ-83894_Section_10",
+          "source_kinds": ["ocr_text"],
+          "text_contains": ["Project Blue Book"]
+        }
+      ]
+    },
+    {
+      "id": "af_form_112_director_intelligence",
+      "query": "AF Form 112 forwarded Director of Intelligence Headquarters United States Air Force",
+      "expected": [
+        {
+          "title_contains": "62-HQ-83894_Serial_164",
+          "source_kinds": ["ocr_text"],
+          "text_contains": ["AF Form 112"]
+        }
+      ]
+    },
+    {
+      "id": "bethel_caa_aircraft_vicinity",
+      "query": "Bethel Civil Aeronautics Administration station aircraft in the vicinity",
+      "expected": [
+        {
+          "title_contains": "Incident_Summaries",
+          "source_kinds": ["ocr_text"],
+          "text_contains": ["Bethel"]
+        },
+        {
+          "title_contains": "62-HQ-83894_Section_2",
+          "source_kinds": ["ocr_text"],
+          "text_contains": ["BETHEL"]
+        }
+      ]
+    },
+    {
+      "id": "new_haven_flying_saucers",
+      "query": "New Haven flying saucers July 18 1947 office memorandum",
+      "expected": [
+        {
+          "title_contains": "62-HQ-83894_Section_1",
+          "source_kinds": ["ocr_text"],
+          "text_contains": ["NEW HAVEN"]
+        }
+      ]
+    },
+    {
+      "id": "hickam_cardboard_cane_fields",
+      "query": "Hickam flying disc cardboard metallic substance funneled air currents cane fields",
+      "expected": [
+        {
+          "title_contains": "Flying Discs 1949",
+          "source_kinds": ["ocr_text"],
+          "text_contains": ["Hickam"]
+        }
+      ]
+    },
+    {
+      "id": "vandenberg_launch_summary",
+      "query": "Launch Summary Vandenberg AFB 2000",
+      "expected": [
+        {
+          "title_contains": "Vandenberg AFB",
+          "source_kinds": ["pdf_text", "metadata"]
+        }
+      ]
+    },
+    {
+      "id": "persian_gulf_august_2020",
+      "query": "mission report Persian Gulf August 2020",
+      "expected": [
+        {
+          "title_contains": "Persian Gulf, August 2020",
+          "source_kinds": ["metadata", "ocr_text"]
+        }
+      ]
+    },
+    {
+      "id": "skylab_technical_debriefing",
+      "query": "Skylab technical crew debriefing 1973",
+      "expected": [
+        {
+          "title_contains": "Skylab",
+          "source_kinds": ["metadata", "ocr_text"]
+        }
+      ]
+    },
+    {
+      "id": "western_us_fbi_photos",
+      "query": "FBI photo western United States late 2025",
+      "expected": [
+        {
+          "title_contains": "FBI Photo",
+          "source_kinds": ["metadata"]
+        }
+      ]
+    },
+    {
+      "id": "unresolved_uap_kuwait",
+      "query": "unresolved UAP report Kuwait May 2022 Iraq",
+      "expected": [
+        {
+          "title_contains": "Kuwait",
+          "source_kinds": ["metadata", "ocr_text"]
+        }
+      ]
+    }
+  ]
+}

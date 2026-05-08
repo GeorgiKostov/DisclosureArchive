@@ -13,3 +13,35 @@
 - Verified transfer package DB integrity and search for `lunar surface flash Grimaldi`.
 - Added agent/task/project memory scaffold.
 - Added reproducible other-machine handoff docs, Mac export/verify scripts, and a Windows import smoke-test script.
+- Imported `DisclosureArchivePackage/` on Windows under `Z:\Projects\Repositories\Disclosure\DisclosureArchive`.
+- Rebuilt the Windows SQLite index against `DisclosureArchivePackage\ufo_war_release`, replacing Mac asset paths with Windows paths.
+- Restored the transferred OCR cache for `65_hs1-834228961_62-hq-83894_serial_403.pdf` under the Windows cache key.
+- Verified Windows DB integrity and smoke searches for `lunar surface flash Grimaldi` and the USPER orb-formation query.
+- Made PDF extraction and OCR cache names portable by keying them from paths relative to `SOURCE_ROOT`.
+- Added fallback cache discovery by `file_hash` so older absolute-path Mac caches are reused and migrated on Windows.
+- Updated cache summary counting so migrated legacy/portable cache pairs do not inflate page totals.
+- Added `python -m ufo_indexer.classify` to classify PDFs as `text_native`, `scan_only`, `mixed`, or `low_text`.
+- Added generated JSON/Markdown PDF classification reports under ignored `reports/pdf_classification.*`.
+- Extended `python -m ufo_indexer.ocr` with `--from-classification` and `--classes` for targeted OCR.
+- Ran classification on Windows: 117 PDFs, 65 scan-only, 10 mixed, 2 low-text, 40 text-native.
+- Located Windows Tesseract at `C:\Program Files\Tesseract-OCR\tesseract.exe` and verified version 5.4.0.
+- Fixed Windows OCR temp-file handling so Tesseract can read rendered page images.
+- Ran a five-document OCR smoke sample and reindexed; chunks/embeddings increased from 1229 to 1244.
+- Verified newly searchable OCR text for Gemini 7 “bogey” transcript and FBI September 2023 302 records.
+- Added `--workers` to `python -m ufo_indexer.ocr` for PDF-level parallel OCR.
+- Ran the broader classified OCR pass on Windows with 12 workers and the explicit Tesseract path.
+- Reindexed after broad OCR; chunks/embeddings increased to 7608, including 6386 `ocr_text` chunks.
+- Verified post-OCR SQLite integrity plus searches for Apollo 17 Grimaldi, USPER orb formation, Gemini 7 bogey transcript, FBI September 2023 FD-302 records, and legacy flying-disc records.
+- Added `python -m ufo_indexer.ocr_status` and `make ocr-status` to audit OCR cache coverage and review candidates.
+- Generated the OCR status report: 3633/3633 expected OCR pages cached, 0 OCR error pages, and 35 PDFs flagged for review because of zero-text or very-low-text OCR output.
+- Extended OCR with `--from-status` and `--review-reasons` so selected weak pages can be retried from `reports/ocr_status.json`.
+- Made selected-page retries merge back into the existing per-PDF OCR cache instead of replacing untouched pages.
+- Ran a retry smoke test on one low-text DOW PDF with 300 DPI and Tesseract PSM 11; OCR chars improved only slightly, then reindexed to 7610 chunks and 6388 `ocr_text` chunks.
+- Added a tracked retrieval evaluation query set at `eval/retrieval_queries.json` covering NASA, modern military, FBI legacy OCR, DOW reports, and metadata-heavy records.
+- Added `python -m ufo_indexer.eval_search` and `make eval-search` to compare keyword, vector, and hybrid retrieval against curated expectations.
+- Generated the retrieval evaluation report: 15 queries, hybrid passed 14, vector passed 14, keyword passed 12; the remaining hybrid miss is the New Haven flying-saucers query.
+- Added `python -m ufo_indexer.evidence_pack` and `make evidence-pack` to export LLM-ready JSON/Markdown search bundles with provenance.
+- Generated an evidence-pack smoke test for `flying discs flight service regulation 1949`; output includes metadata, OCR text, page numbers, local paths, chunk IDs, scores, snippets, and OCR/source-use guidance.
+- Investigated the `new_haven_flying_saucers` retrieval miss; the target OCR chunk existed and shorter keyword search found it, but the longer query was too strict for FTS and vector search ranked neighboring FBI material higher.
+- Added a conservative keyword fallback: strict SQLite FTS first, then OR-style FTS only when strict matching returns no rows.
+- Reran retrieval evaluation after the fallback; hybrid now passes 15/15 curated queries, vector 14/15, and keyword 14/15.

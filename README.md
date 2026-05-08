@@ -53,16 +53,91 @@ OCR means optical character recognition: the computer looks at a scanned page im
 and turns the visible letters into text. It is needed for the older FBI/NARA-style
 PDFs where `pdfplumber` sees pages but extracts little or no text.
 
+Classify PDFs first so OCR work is targeted:
+
+```bash
+python -m ufo_indexer.classify \
+  --source-root /absolute/path/to/ufo_war_release \
+  --derived-root derived \
+  --out reports/pdf_classification.json
+```
+
+This also writes `reports/pdf_classification.md`, grouped by `scan_only`,
+`low_text`, `mixed`, and `text_native`.
+
 Install the OCR engine on macOS:
 
 ```bash
 brew install tesseract
 ```
 
-Then run OCR over text-poor pages:
+On Windows:
+
+```powershell
+winget install UB-Mannheim.TesseractOCR
+```
+
+Then run OCR over classified scan/low-text/mixed PDFs:
 
 ```bash
-make ocr SOURCE_ROOT=/absolute/path/to/ufo_war_release
+python -m ufo_indexer.ocr \
+  --source-root /absolute/path/to/ufo_war_release \
+  --from-classification reports/pdf_classification.json \
+  --classes scan_only low_text mixed \
+  --workers 4
+make index SOURCE_ROOT=/absolute/path/to/ufo_war_release
+```
+
+Audit OCR coverage and review candidates without rerunning OCR:
+
+```bash
+python -m ufo_indexer.ocr_status \
+  --source-root /absolute/path/to/ufo_war_release \
+  --classification reports/pdf_classification.json \
+  --out reports/ocr_status.json
+```
+
+This also writes `reports/ocr_status.md`, including cached/expected page counts,
+zero-text OCR pages, OCR errors, low-average-character outputs, and retry/review
+candidates.
+
+Retry only candidates from the OCR status report:
+
+```bash
+python -m ufo_indexer.ocr \
+  --source-root /absolute/path/to/ufo_war_release \
+  --from-status reports/ocr_status.json \
+  --review-reasons zero_text_pages low_avg_chars \
+  --dpi 300 \
+  --psm 11
+```
+
+Status-driven retries rerun only the flagged pages when page numbers are known
+and merge the new text back into the existing per-PDF OCR cache. Rebuild the
+index afterward if the retry improves OCR text:
+
+```bash
+make index SOURCE_ROOT=/absolute/path/to/ufo_war_release
+```
+
+Use `--workers` for PDF-level parallelism. A value near half the machine's
+logical CPUs is a good starting point for broad OCR; the Windows workstation
+completed the classified weak-PDF pass with `--workers 12`. Tesseract can be
+passed explicitly if it is installed but not on `PATH`:
+
+```powershell
+.\.venv\Scripts\python -m ufo_indexer.ocr `
+  --source-root DisclosureArchivePackage\ufo_war_release `
+  --from-classification reports\pdf_classification.json `
+  --classes scan_only low_text mixed `
+  --workers 12 `
+  --tesseract-bin "C:\Program Files\Tesseract-OCR\tesseract.exe"
+```
+
+Or run OCR over all candidate text-poor pages:
+
+```bash
+make ocr SOURCE_ROOT=/absolute/path/to/ufo_war_release OCR_WORKERS=4
 make index SOURCE_ROOT=/absolute/path/to/ufo_war_release
 ```
 
@@ -76,7 +151,10 @@ make index SOURCE_ROOT=/absolute/path/to/ufo_war_release
 ```
 
 OCR output is stored as generated JSON under `derived/text/ocr/` and is ignored by
-git. When OCR text changes, the indexer detects it and adds `ocr_text` chunks.
+git. Cache names are keyed from each file path relative to `SOURCE_ROOT`, so they
+survive Mac/Windows transfers. Older absolute-path cache names are still detected
+by file hash and migrated on the next index/OCR run. When OCR text changes, the
+indexer detects it and adds `ocr_text` chunks.
 
 ## Search
 
@@ -98,12 +176,51 @@ Hybrid search:
 python -m ufo_indexer.search --db indexes/uap_release.sqlite --mode hybrid --q "diamond shaped object SWIR Greece 434 knots"
 ```
 
+Keyword search uses strict full-text matching first, then falls back to a broader
+OR-style full-text query only when strict matching returns nothing. This keeps
+exact searches stable while helping longer natural-language queries over noisy
+OCR text.
+
 Or:
 
 ```bash
 make search-hybrid Q="lunar surface flash Grimaldi"
 make search-vector Q="helicopter crew saw hot orbs split and flare in formation"
 ```
+
+## Evaluate Retrieval
+
+Run the curated retrieval evaluation after OCR, chunking, embedding, or ranking
+changes:
+
+```bash
+python -m ufo_indexer.eval_search \
+  --db indexes/uap_release.sqlite \
+  --queries eval/retrieval_queries.json \
+  --out reports/retrieval_eval.json
+```
+
+This writes `reports/retrieval_eval.json` and `reports/retrieval_eval.md`.
+The eval compares keyword, vector, and hybrid search, then marks whether
+expected evidence appears in the top five results. `hybrid` is the user-facing
+default; keyword and vector are included to explain failures.
+
+## Export Evidence Packs
+
+Export LLM-ready evidence bundles from search results:
+
+```bash
+python -m ufo_indexer.evidence_pack \
+  --db indexes/uap_release.sqlite \
+  --q "flying discs flight service regulation 1949" \
+  --mode hybrid \
+  --out reports/evidence_pack.json
+```
+
+This also writes `reports/evidence_pack.md`. Each result includes rank, score,
+title, agency, incident date/location, source kind, page number, chunk id, local
+path, snippet, and provenance guidance. Use `--include-text` when the downstream
+LLM needs full chunk text instead of snippets.
 
 ## Transfer To Another Machine
 
@@ -130,8 +247,17 @@ and the Codex pickup prompt live in `README_WINDOWS_IMPORT.txt`.
 The indexer is safe to rerun. Stable IDs and content hashes let it update new
 or changed files without changing the raw archive.
 
+After changing extraction, OCR, cache naming, chunking, or embeddings, verify
+with:
+
+```bash
+make rebuild SOURCE_ROOT=/absolute/path/to/ufo_war_release
+make search-hybrid Q="lunar surface flash Grimaldi"
+```
+
 ## OCR Note
 
-Many historical PDFs are scans. This project indexes their release metadata now,
-but full text requires a later OCR pass. Add OCR-derived text files under
-`derived/text/ocr/` or extend `index.py` with an OCR extractor when ready.
+Many historical PDFs are scans. The recommended workflow is to classify first,
+OCR `scan_only`, `low_text`, and `mixed` PDFs, then reindex so OCR pages become
+`ocr_text` chunks. For this archive, the broad classified OCR pass added 6,386
+OCR chunks while preserving the raw source PDFs.

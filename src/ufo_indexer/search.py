@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -17,18 +18,34 @@ def snippet(text: str, max_chars: int = 420) -> str:
     return text[: max_chars - 1].rstrip() + "..."
 
 
+def fts_terms(query: str) -> List[str]:
+    return re.findall(r"[\w]+", clean(query))
+
+
+def fts_query(query: str) -> str:
+    return " ".join(fts_terms(query))
+
+
+def fts_or_query(query: str) -> str:
+    return " OR ".join(fts_terms(query))
+
+
 def keyword_search(conn, query: str, limit: int) -> List[Tuple[float, object]]:
-    rows = conn.execute(
-        """
-        SELECT c.*, bm25(chunks_fts) AS score
-        FROM chunks_fts
-        JOIN chunks c ON c.chunk_id = chunks_fts.chunk_id
-        WHERE chunks_fts MATCH ?
-        ORDER BY score
-        LIMIT ?
-        """,
-        (query, limit),
-    ).fetchall()
+    strict_query = fts_query(query)
+    if not strict_query:
+        return []
+    sql = """
+    SELECT c.*, bm25(chunks_fts) AS score
+    FROM chunks_fts
+    JOIN chunks c ON c.chunk_id = chunks_fts.chunk_id
+    WHERE chunks_fts MATCH ?
+    ORDER BY score
+    LIMIT ?
+    """
+    rows = conn.execute(sql, (strict_query, limit)).fetchall()
+    if not rows and len(fts_terms(query)) > 1:
+        fallback_query = fts_or_query(query)
+        rows = conn.execute(sql, (fallback_query, limit)).fetchall()
     return [(1.0 / (1.0 + abs(float(row["score"]))), row) for row in rows]
 
 

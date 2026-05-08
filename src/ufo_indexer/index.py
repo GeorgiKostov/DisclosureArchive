@@ -26,7 +26,7 @@ from .common import (
 )
 from .db import connect, init_db, reset_db
 from .embeddings import embed_texts, missing_embedding_chunks, pack_vector
-from .ocr import default_ocr_cache_path
+from .ocr import default_ocr_cache_path, extracted_cache_path, portable_source_key, read_portable_cache, reusable_ocr_cache
 
 
 def now_iso() -> str:
@@ -200,7 +200,7 @@ def metadata_text(record, extra: Optional[str] = None) -> str:
     return "\n".join(p for p in parts if clean(p))
 
 
-def extract_pdf_pages(pdf_path: Path, cache_path: Path) -> List[Dict]:
+def extract_pdf_pages(pdf_path: Path, cache_path: Path, source_root: Optional[Path] = None) -> List[Dict]:
     file_hash = sha1_file(pdf_path)
     if cache_path.exists():
         cached = read_json(cache_path, {})
@@ -227,6 +227,7 @@ def extract_pdf_pages(pdf_path: Path, cache_path: Path) -> List[Dict]:
         cache_path,
         {
             "source_path": str(pdf_path),
+            "source_key": portable_source_key(pdf_path, source_root),
             "file_hash": file_hash,
             "seconds": round(time.time() - start, 2),
             "error": error,
@@ -248,13 +249,26 @@ def caption_texts(source_root: Path, video_id: str) -> List[Tuple[Path, str]]:
     return out
 
 
-def ocr_pages(derived_root: Path, pdf_path: Path) -> List[Dict]:
-    path = default_ocr_cache_path(derived_root, pdf_path)
-    if not path.exists():
+def ocr_pages(derived_root: Path, pdf_path: Path, source_root: Path) -> List[Dict]:
+    cache_path, data = read_portable_cache(
+        derived_root=derived_root,
+        pdf_path=pdf_path,
+        source_root=source_root,
+        ocr=True,
+    )
+    if not data or not reusable_ocr_cache(data):
         return []
-    data = read_json(path, {})
-    if data.get("file_hash") != sha1_file(pdf_path):
-        return []
+    portable_path = default_ocr_cache_path(derived_root, pdf_path, source_root)
+    migrated = False
+    if data.get("source_key") != portable_source_key(pdf_path, source_root):
+        data = {
+            **data,
+            "source_path": str(pdf_path),
+            "source_key": portable_source_key(pdf_path, source_root),
+        }
+        migrated = True
+    if cache_path != portable_path or not portable_path.exists() or migrated:
+        write_json(portable_path, data)
     return data.get("pages", [])
 
 
@@ -269,8 +283,13 @@ def index_record(conn, source_root: Path, derived_root: Path, record, entries: L
             primary_paths.append(path)
             h, _ = file_info(path)
             asset_hashes.append(h)
-            ocr_path = default_ocr_cache_path(derived_root, path)
-            if ocr_path.exists():
+            ocr_path, _ = read_portable_cache(
+                derived_root=derived_root,
+                pdf_path=path,
+                source_root=source_root,
+                ocr=True,
+            )
+            if ocr_path and ocr_path.exists():
                 asset_hashes.append(sha1_file(ocr_path))
 
     vpath = None
@@ -329,8 +348,27 @@ def index_record(conn, source_root: Path, derived_root: Path, record, entries: L
     for pdf_path in primary_paths:
         if pdf_path.suffix.lower() != ".pdf":
             continue
-        cache_path = derived_root / "text" / f"{sha1_text(str(pdf_path))[:16]}.json"
-        pages = extract_pdf_pages(pdf_path, cache_path)
+        cache_path = extracted_cache_path(derived_root, pdf_path, source_root)
+        existing_cache_path, cached = read_portable_cache(
+            derived_root=derived_root,
+            pdf_path=pdf_path,
+            source_root=source_root,
+            ocr=False,
+        )
+        if cached:
+            migrated = False
+            if cached.get("source_key") != portable_source_key(pdf_path, source_root):
+                cached = {
+                    **cached,
+                    "source_path": str(pdf_path),
+                    "source_key": portable_source_key(pdf_path, source_root),
+                }
+                migrated = True
+            pages = cached.get("pages", [])
+            if (existing_cache_path and existing_cache_path != cache_path) or not cache_path.exists() or migrated:
+                write_json(cache_path, cached)
+        else:
+            pages = extract_pdf_pages(pdf_path, cache_path, source_root)
         total_pdf_pages += len(pages)
         chunk_index = 1
         for page in pages:
@@ -349,7 +387,7 @@ def index_record(conn, source_root: Path, derived_root: Path, record, entries: L
                 chunk_index += 1
 
         ocr_chunk_index = 1
-        for page in ocr_pages(derived_root, pdf_path):
+        for page in ocr_pages(derived_root, pdf_path, source_root):
             page_text = clean(page.get("text"))
             total_ocr_chars += len(page_text)
             for part in chunk_text(page_text):
@@ -447,18 +485,32 @@ def build_embeddings(conn, model_name: str, batch_size: int) -> int:
 
 
 def pdf_cache_totals(derived_root: Path) -> Dict[str, int]:
+    def cache_identity(path: Path, cached: Dict) -> Tuple[str, str]:
+        source_name = Path(cached.get("source_path") or path.name).name
+        return (cached.get("file_hash") or str(path), source_name)
+
     pages = 0
     chars = 0
+    seen_text_caches = set()
     for path in (derived_root / "text").glob("*.json"):
         cached = read_json(path, {})
+        cache_key = cache_identity(path, cached)
+        if cache_key in seen_text_caches:
+            continue
+        seen_text_caches.add(cache_key)
         cached_pages = cached.get("pages", [])
         pages += len(cached_pages)
         chars += sum(len(clean(page.get("text"))) for page in cached_pages)
     ocr_pages_total = 0
     ocr_chars = 0
+    seen_ocr_caches = set()
     for path in (derived_root / "text" / "ocr").glob("*.json"):
         cached = read_json(path, {})
-        cached_pages = cached.get("pages", [])
+        cache_key = cache_identity(path, cached)
+        if cache_key in seen_ocr_caches:
+            continue
+        seen_ocr_caches.add(cache_key)
+        cached_pages = [page for page in cached.get("pages", []) if not page.get("error")]
         ocr_pages_total += len(cached_pages)
         ocr_chars += sum(len(clean(page.get("text"))) for page in cached_pages)
     return {

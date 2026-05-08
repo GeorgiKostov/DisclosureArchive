@@ -12,10 +12,20 @@ indexes/*.sqlite-*
 indexes/*.summary.json
 derived/text/*.json
 derived/text/ocr/
+derived/debug_render/
+reports/pdf_classification.json
+reports/pdf_classification.md
+reports/ocr_status.json
+reports/ocr_status.md
+reports/retrieval_eval.json
+reports/retrieval_eval.md
+reports/evidence_pack*.json
+reports/evidence_pack*.md
 
 # Raw release data should live outside this repo.
 ufo_war_release/
 data/
+DisclosureArchivePackage/
 
 # OS/editor noise
 .DS_Store

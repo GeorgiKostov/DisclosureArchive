@@ -25,6 +25,14 @@ The indexer accepts the source directory via `--source-root` or `make SOURCE_ROO
 indexes/uap_release.sqlite
 indexes/uap_release.summary.json
 derived/text/*.json
+reports/pdf_classification.json
+reports/pdf_classification.md
+reports/ocr_status.json
+reports/ocr_status.md
+reports/retrieval_eval.json
+reports/retrieval_eval.md
+reports/evidence_pack*.json
+reports/evidence_pack*.md
 ```
 
 These are ignored by git. Rebuild them from source data.
@@ -73,18 +81,70 @@ When new release files arrive:
 2. Run `make index SOURCE_ROOT=/path/to/ufo_war_release`.
 3. Changed/new records are processed; unchanged records are skipped.
 
-Use `make rebuild` when changing chunking, extraction, or embedding settings.
+Use `make rebuild` when changing chunking, extraction, OCR cache naming, or
+embedding settings.
 
 ## OCR Extension Point
 
-Many historical PDFs are scan-only. Add OCR text under `derived/text/ocr/` or
-extend `src/ufo_indexer/index.py` to run an OCR tool before chunking. Good future
-options:
+Many historical PDFs are scan-only. Use `python -m ufo_indexer.classify` to
+produce `reports/pdf_classification.json` and `.md`, grouped as `scan_only`,
+`low_text`, `mixed`, and `text_native`. The OCR command can consume that report:
 
-- `python -m ufo_indexer.ocr` for the built-in Tesseract page OCR pipeline.
-- `ocrmypdf` for searchable PDF derivatives.
-- A separate OCR table with confidence and page-image references.
+```bash
+python -m ufo_indexer.ocr \
+  --source-root /path/to/ufo_war_release \
+  --from-classification reports/pdf_classification.json \
+  --classes scan_only low_text mixed \
+  --workers 4
+```
 
 The built-in OCR pipeline renders selected pages with `pypdfium2`, sends them to
 the local `tesseract` binary, and writes per-page JSON to `derived/text/ocr/`.
-The main indexer then adds those pages as `ocr_text` chunks.
+`--workers` parallelizes at the PDF level, preserving existing OCR caches while
+letting broad classified passes use multiple CPU cores. The main indexer then
+adds those pages as `ocr_text` chunks. Source PDFs are never modified.
+
+Use `python -m ufo_indexer.ocr_status` after OCR to audit cache coverage and
+quality signals. The report compares expected OCR pages from
+`reports/pdf_classification.json` with cached OCR pages, then flags missing,
+partial, zero-text, error, and very-low-character outputs for review.
+
+The OCR command can consume `reports/ocr_status.json` with `--from-status` to
+retry only review candidates. When retrying selected pages, the OCR cache writer
+merges replacement page text into the existing per-PDF cache instead of
+discarding pages that were not rerun.
+
+PDF extraction and OCR cache filenames are keyed from the source file path
+relative to `SOURCE_ROOT` when possible, for example `documents/example.pdf`.
+This keeps generated cache names portable across Mac and Windows checkouts. The
+indexer and OCR command also fall back to older absolute-path cache files by
+matching `file_hash`, then write a portable cache copy on the next run.
+
+After changing extraction, OCR, cache naming, or embeddings, verify with:
+
+```bash
+make rebuild SOURCE_ROOT=/absolute/path/to/ufo_war_release
+make search-hybrid Q="lunar surface flash Grimaldi"
+```
+
+## Retrieval Evaluation
+
+`python -m ufo_indexer.eval_search` runs curated queries from
+`eval/retrieval_queries.json` through keyword, vector, and hybrid search. The
+generated report records top results, pass/fail status, best matching rank, and
+whether expected OCR/PDF/metadata evidence surfaced. Use it before tuning
+hybrid scoring, changing embeddings, or adding reranking.
+
+Keyword retrieval first uses strict SQLite FTS matching. If strict matching
+returns no rows for a multi-term query, it retries with an OR-style FTS query so
+longer natural-language searches can still surface noisy OCR chunks. Hybrid
+search benefits from this fallback while preserving exact-match behavior when
+strict FTS succeeds.
+
+## Evidence Packs
+
+`python -m ufo_indexer.evidence_pack` exports ranked search results as
+LLM-ready JSON and Markdown. Evidence items preserve provenance fields including
+title, agency, incident date/location, source kind, page number, local path, and
+chunk id. OCR-derived text is labeled as `ocr_text` so downstream summaries can
+distinguish OCR text from native PDF text and metadata.
