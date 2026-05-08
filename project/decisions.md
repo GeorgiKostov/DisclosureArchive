@@ -13,4 +13,6 @@
 - Store OCR caches under `derived/text/ocr/`.
 - Use `sqlite3 .backup` for transfer-safe DB copies.
 - Use external-drive transfer for the Windows PC data package.
-
+- Keep the other-machine handoff as tracked docs/scripts so a fresh clone can reproduce package export/import.
+- Generate transfer package manifests and checksums outside Git; never stage the package itself.
+- Keep the MVP local-first on SQLite FTS plus local vectors until retrieval quality is trusted.

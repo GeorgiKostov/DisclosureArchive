@@ -16,6 +16,11 @@ The first release imported is the WAR UFO page release from May 8, 2026. The pro
 - Hybrid search CLI
 - Transfer workflow for continuing work on Windows
 
+The near-term MVP is evidence-first searchable archival infrastructure, not a
+chatbot: process PDFs as completely as possible, preserve provenance, support
+fast keyword/vector/hybrid retrieval, and prepare citation-backed evidence packs
+for later entity, location, timeline, and incident extraction.
+
 ## Current canonical repo
 
 ```text
@@ -42,6 +47,15 @@ Transfer package:
 /Users/georgikostov/Desktop/DisclosureArchivePackage
 ```
 
+Canonical handoff instructions:
+
+```text
+README_WINDOWS_IMPORT.txt
+scripts/export_transfer_package.sh
+scripts/verify_transfer_package.sh
+scripts/windows_import_smoke.ps1
+```
+
 ## Current indexed stats
 
 As of the latest verified local build:
@@ -61,4 +75,3 @@ As of the latest verified local build:
 - Modern military: Western US Event, USPER statement, Greece, Syria, INDOPACOM, Middle East clips.
 - State Department: Kazakhstan 1994, Papua New Guinea 1985, Georgia 2001.
 - FBI legacy: 62-HQ-83894 and related serials, largely scan-only until OCR.
-

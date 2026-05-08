@@ -30,8 +30,10 @@ C:\DisclosureArchive\ufo_war_release
 ## Package verification
 
 ```bash
-find /path/to/DisclosureArchivePackage/ufo_war_release -maxdepth 2 -type f | wc -l
-find /path/to/DisclosureArchivePackage/derived -maxdepth 3 -type f | wc -l
-sqlite3 /path/to/DisclosureArchivePackage/indexes/uap_release.sqlite "PRAGMA integrity_check;"
+EXPORT=/Volumes/DisclosureTransfer/DisclosureArchivePackage make export-package
+EXPORT=/Volumes/DisclosureTransfer/DisclosureArchivePackage make verify-package
 ```
 
+The export script refuses to write to an unmounted `/Volumes/DisclosureTransfer`
+path, uses `sqlite3 .backup`, excludes `.git`/`.venv` from raw archive transfer,
+and writes `MANIFEST.txt` plus optional `CHECKSUMS.sha256`.

@@ -12,4 +12,4 @@
 - Created local Windows transfer package at `/Users/georgikostov/Desktop/DisclosureArchivePackage`.
 - Verified transfer package DB integrity and search for `lunar surface flash Grimaldi`.
 - Added agent/task/project memory scaffold.
-
+- Added reproducible other-machine handoff docs, Mac export/verify scripts, and a Windows import smoke-test script.

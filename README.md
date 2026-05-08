@@ -105,6 +105,20 @@ make search-hybrid Q="lunar surface flash Grimaldi"
 make search-vector Q="helicopter crew saw hot orbs split and flare in formation"
 ```
 
+## Transfer To Another Machine
+
+Use the tracked handoff workflow instead of copying generated DB files by hand:
+
+```bash
+EXPORT=/Volumes/DisclosureTransfer/DisclosureArchivePackage make export-package
+EXPORT=/Volumes/DisclosureTransfer/DisclosureArchivePackage make verify-package
+```
+
+The export script copies the raw archive and derived text/OCR cache, creates a
+clean SQLite backup with `sqlite3 .backup`, copies the summary JSON, and writes a
+manifest/checksum file for the transfer package. Full Windows import instructions
+and the Codex pickup prompt live in `README_WINDOWS_IMPORT.txt`.
+
 ## Design
 
 - `documents`: one row per release CSV item plus useful DVIDS metadata.

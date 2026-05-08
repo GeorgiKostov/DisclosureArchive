@@ -29,6 +29,30 @@ derived/text/*.json
 
 These are ignored by git. Rebuild them from source data.
 
+## Transfer Package
+
+The other-machine handoff package is generated outside Git:
+
+```text
+DisclosureArchivePackage/
+  ufo_war_release/
+  indexes/
+    uap_release.sqlite
+    uap_release.summary.json
+  derived/
+  MANIFEST.txt
+  CHECKSUMS.sha256
+```
+
+Create it with:
+
+```bash
+EXPORT=/Volumes/DisclosureTransfer/DisclosureArchivePackage make export-package
+```
+
+The package DB must be made with `sqlite3 .backup`; do not treat live
+`uap_release.sqlite-wal` or `uap_release.sqlite-shm` files as portable state.
+
 ## SQLite Tables
 
 - `documents`: one row per CSV release record.

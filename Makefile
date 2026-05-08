@@ -1,8 +1,9 @@
 PYTHON ?= python3
 SOURCE_ROOT ?= /Users/georgikostov/Desktop/ufo_war_release
 DB ?= indexes/uap_release.sqlite
+EXPORT ?= /Volumes/DisclosureTransfer/DisclosureArchivePackage
 
-.PHONY: setup index rebuild ocr ocr-one search-vector search-hybrid stats
+.PHONY: setup index rebuild ocr ocr-one search-vector search-hybrid stats export-package verify-package
 
 setup:
 	$(PYTHON) -m venv .venv
@@ -29,3 +30,9 @@ search-vector:
 
 stats:
 	. .venv/bin/activate && python -c 'import sqlite3; conn=sqlite3.connect("$(DB)"); [print(t, conn.execute(f"select count(*) from {t}").fetchone()[0]) for t in ["documents","assets","chunks","embeddings"]]'
+
+export-package:
+	EXPORT="$(EXPORT)" SOURCE_ROOT="$(SOURCE_ROOT)" DB="$(DB)" ./scripts/export_transfer_package.sh
+
+verify-package:
+	./scripts/verify_transfer_package.sh "$(EXPORT)"

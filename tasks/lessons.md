@@ -9,4 +9,4 @@
 - macOS system `rsync` is old and does not support `--info=progress2`; use `--progress --stats` or install newer rsync.
 - The raw release folder once contained a macOS `.venv`; exclude/remove that from transfer packages.
 - Hybrid search works well for case discovery; vector search is useful for similar descriptions such as orb formations.
-
+- Export scripts should check that `/Volumes/DisclosureTransfer` is actually mounted so a missing external drive does not silently create a local folder.
