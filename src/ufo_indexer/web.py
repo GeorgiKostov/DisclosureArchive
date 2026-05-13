@@ -570,6 +570,11 @@ HTML = r"""<!doctype html>
         <option value="caption">Captions</option>
         <option value="video_metadata">Video metadata</option>
       </select>
+      <select id="sortOrder" aria-label="Sort results">
+        <option value="relevance">Sort: relevance</option>
+        <option value="year_desc">Sort: newest year</option>
+        <option value="year_asc">Sort: oldest year</option>
+      </select>
       <select id="limit" aria-label="Result limit">
         <option value="5" selected>5 results</option>
         <option value="8">8 results</option>
@@ -844,11 +849,12 @@ HTML = r"""<!doctype html>
     }
 
     function renderResults(results) {
+      const sortedResults = sortResults(results);
       if (!results.length) {
         $("results").innerHTML = `<div class="empty">No results for this search.</div>`;
         return;
       }
-      $("results").innerHTML = results.map((item) => {
+      $("results").innerHTML = sortedResults.map((item) => {
         const page = item.page_number ? `page ${item.page_number}` : "no page";
         return `
           <article class="result">
@@ -875,6 +881,24 @@ HTML = r"""<!doctype html>
       document.querySelectorAll(".source-summary-button").forEach((button) => {
         button.addEventListener("click", () => summarizeSource(button.dataset.docId, button));
       });
+    }
+
+    function resultYear(item) {
+      const text = [item.incident_date, item.title].filter(Boolean).join(" ");
+      const match = text.match(/\b(18|19|20)\d{2}\b/);
+      return match ? Number(match[0]) : 0;
+    }
+
+    function sortResults(results) {
+      const sort = $("sortOrder") ? $("sortOrder").value : "relevance";
+      const copy = [...results];
+      if (sort === "year_desc") {
+        return copy.sort((a, b) => resultYear(b) - resultYear(a) || a.rank - b.rank);
+      }
+      if (sort === "year_asc") {
+        return copy.sort((a, b) => (resultYear(a) || 9999) - (resultYear(b) || 9999) || a.rank - b.rank);
+      }
+      return copy;
     }
 
     function renderSuggestions(suggestions) {
@@ -969,6 +993,7 @@ HTML = r"""<!doctype html>
       runSearch();
     });
     $("sourceKind").addEventListener("change", runSearch);
+    $("sortOrder").addEventListener("change", () => renderResults(state.lastResults || []));
     $("limit").addEventListener("change", runSearch);
     if ($("packButton")) $("packButton").addEventListener("click", buildPack);
 
