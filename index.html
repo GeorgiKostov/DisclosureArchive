@@ -470,7 +470,7 @@
       performSearch();
     });
 
-    fetch("data/documents.json")
+    fetch(`data/documents.json?v=${Date.now()}`, { cache: "no-store" })
       .then((response) => response.json())
       .then((payload) => {
         archive = payload;
