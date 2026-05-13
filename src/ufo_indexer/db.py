@@ -71,10 +71,28 @@ CREATE TABLE IF NOT EXISTS embeddings (
   FOREIGN KEY(chunk_id) REFERENCES chunks(chunk_id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS locations (
+  location_id TEXT PRIMARY KEY,
+  doc_id TEXT NOT NULL,
+  chunk_id TEXT,
+  raw_location TEXT NOT NULL,
+  normalized_location TEXT,
+  latitude REAL NOT NULL,
+  longitude REAL NOT NULL,
+  precision TEXT NOT NULL,
+  confidence REAL NOT NULL,
+  source_kind TEXT NOT NULL,
+  method TEXT NOT NULL,
+  metadata_json TEXT,
+  FOREIGN KEY(doc_id) REFERENCES documents(doc_id) ON DELETE CASCADE
+);
+
 CREATE INDEX IF NOT EXISTS idx_chunks_doc ON chunks(doc_id);
 CREATE INDEX IF NOT EXISTS idx_chunks_hash ON chunks(text_hash);
 CREATE INDEX IF NOT EXISTS idx_documents_title ON documents(title);
 CREATE INDEX IF NOT EXISTS idx_documents_agency ON documents(agency);
+CREATE INDEX IF NOT EXISTS idx_locations_doc ON locations(doc_id);
+CREATE INDEX IF NOT EXISTS idx_locations_latlon ON locations(latitude, longitude);
 """
 
 

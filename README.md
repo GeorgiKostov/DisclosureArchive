@@ -249,9 +249,58 @@ python -m ufo_indexer.web \
 Then open `http://127.0.0.1:8765`. The UI uses the same keyword, vector, hybrid,
 and evidence-pack code as the CLI. It shows ranked result cards, provenance
 references, extractive summaries, OCR labels, and clickable follow-up
-suggestions without requiring an LLM API key. Results with local files include
-an `Open source` link that opens the indexed PDF/image/video through the local
-server.
+suggestions without requiring an LLM API key. Results include a small map of
+indexed locations when coordinates or geocoded incident locations are available.
+Local thumbnails/images and videos are previewed directly from the indexed asset
+paths. The primary action link is the `Government source` button, which opens
+the original WAR/DVIDS source URL recorded during download instead of exposing a
+local PDF path as the main UI action.
+Each result also includes a local readable summary and a cleaned source excerpt.
+These are extractive helpers over indexed text/OCR, not proof of the underlying
+claim and not a substitute for checking the source PDF/video.
+Use `Summarize source` on a result card to generate a fuller local summary for
+the whole indexed source document/PDF. The server reads the document's indexed
+native PDF text, OCR text, captions, and video metadata when available, then
+returns a quick summary, the likely mysterious/UAP element, a more detailed
+contents breakdown, page/chunk references, and a source-mix note.
+
+## Static Public Site Export
+
+Generate an online-ready static search page from the current SQLite index:
+
+```bash
+python -m ufo_indexer.export_site \
+  --db indexes/uap_release.sqlite \
+  --out public_site
+```
+
+or:
+
+```bash
+make export-site DB=indexes/uap_release.sqlite
+```
+
+The export writes `public_site/index.html` and
+`public_site/data/documents.json`. The JSON contains one precomputed,
+deterministic summary per document, public government source/thumbnail/video
+URLs, tags, locations, related-document references, and page/chunk references.
+It intentionally excludes raw downloads, generated SQLite databases, local file
+paths, derived OCR caches, and full OCR text. The static page uses a dark
+terminal-style template, performs client-side search over titles, metadata,
+tags, summaries, and cited snippets, and links readers back to the government
+source files for verification.
+
+To publish the generated site to GitHub Pages:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/publish_github_pages.ps1
+```
+
+The script regenerates `public_site/`, validates that the public JSON does not
+contain local/private path markers, copies only the static files to a temporary
+checkout, adds `.nojekyll`, and pushes a `gh-pages` branch. In GitHub repository
+settings, configure Pages to deploy from the `gh-pages` branch root if it is not
+already enabled.
 
 ## Transfer To Another Machine
 
@@ -274,6 +323,8 @@ and the Codex pickup prompt live in `README_WINDOWS_IMPORT.txt`.
 - `chunks`: stable, citable text chunks with document metadata.
 - `chunks_fts`: SQLite FTS5 index for exact term search.
 - `embeddings`: local embedding vectors stored as normalized float32 blobs.
+- `locations`: provenance-preserving latitude/longitude records from explicit
+  coordinate text or conservative incident-location geocoding.
 
 The indexer is safe to rerun. Stable IDs and content hashes let it update new
 or changed files without changing the raw archive.

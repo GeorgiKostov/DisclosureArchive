@@ -15,6 +15,7 @@ from .db import connect
 from .evidence_pack import build_pack, markdown_report, source_label
 from .search import hybrid_search, keyword_search, snippet
 from .embeddings import vector_search
+from .summary import source_summary as build_source_summary
 
 
 HTML = r"""<!doctype html>
@@ -148,10 +149,7 @@ HTML = r"""<!doctype html>
     }
     .grid {
       margin-top: 18px;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 340px;
-      gap: 18px;
-      align-items: start;
+      display: block;
     }
     .summary, .side, .result, .empty {
       background: var(--panel);
@@ -159,6 +157,7 @@ HTML = r"""<!doctype html>
       border-radius: 8px;
     }
     .summary {
+      display: none;
       padding: 16px;
       margin-bottom: 14px;
     }
@@ -177,8 +176,46 @@ HTML = r"""<!doctype html>
     }
     .summary li { margin: 5px 0; }
     .result {
-      padding: 15px;
+      padding: 0;
       margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .result-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      gap: 0;
+      align-items: start;
+    }
+    .result-media {
+      width: 220px;
+      height: 180px;
+      border-left: 1px solid var(--line);
+      background: #eef1ed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-self: start;
+      position: sticky;
+      top: 10px;
+      overflow: hidden;
+    }
+    .result-media a { width: 100%; height: 100%; display: block; }
+    .result-media img,
+    .result-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #101416;
+    }
+    .result-media .placeholder {
+      color: var(--muted);
+      font-size: 12px;
+      padding: 12px;
+      text-align: center;
+    }
+    .result-main {
+      padding: 15px;
     }
     .result-head {
       display: flex;
@@ -193,6 +230,7 @@ HTML = r"""<!doctype html>
       letter-spacing: 0;
     }
     .score {
+      display: none;
       white-space: nowrap;
       color: var(--muted);
       font-variant-numeric: tabular-nums;
@@ -215,6 +253,39 @@ HTML = r"""<!doctype html>
       color: var(--muted);
       font-size: 12px;
     }
+    .chip.debug {
+      display: none;
+    }
+    .tags {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 8px;
+      background: var(--soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 650;
+    }
+    .doc-summary {
+      margin-top: 12px;
+      color: #25292b;
+    }
+    .doc-summary p {
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+    .refs {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
     .chip.ocr {
       background: var(--warn);
       color: #6f4100;
@@ -223,6 +294,156 @@ HTML = r"""<!doctype html>
     .snippet {
       margin: 12px 0 0;
       color: #272b2e;
+      overflow-wrap: anywhere;
+    }
+    .reader-summary {
+      margin-top: 12px;
+      padding: 11px 12px;
+      border-left: 3px solid var(--accent);
+      background: #f4f8f6;
+      color: #222729;
+      border-radius: 6px;
+    }
+    .reader-summary h4 {
+      margin: 0 0 5px;
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+    .reader-summary p {
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+    details.cleaned {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fbfbf8;
+    }
+    details.cleaned summary {
+      cursor: pointer;
+      padding: 8px 10px;
+      color: var(--accent);
+      font-weight: 650;
+    }
+    .cleaned-text {
+      padding: 0 10px 10px;
+      color: #272b2e;
+      overflow-wrap: anywhere;
+    }
+    .source-summary {
+      margin-top: 10px;
+      border: 1px solid #cbd6d3;
+      border-radius: 8px;
+      background: #fbfbf8;
+      overflow: hidden;
+    }
+    .source-summary-body {
+      padding: 11px 12px;
+      color: #25292b;
+    }
+    .source-summary-body h4 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+    .source-summary-body p {
+      margin: 7px 0;
+    }
+    .source-summary-body ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+    .source-summary-body li {
+      margin: 5px 0;
+    }
+    .source-summary-body .note {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .summary-progress {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #d8e1de;
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex: 0 0 auto;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .links {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .icon-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 38px;
+      height: 38px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fbfbf8;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .icon-button:hover {
+      text-decoration: none;
+      filter: brightness(0.98);
+      border-color: #b7c8c4;
+      background: var(--soft);
+    }
+    .icon-button svg {
+      width: 19px;
+      height: 19px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      pointer-events: none;
+    }
+    .summary-button {
+      gap: 7px;
+      width: auto;
+      font-weight: 700;
+    }
+    .media-strip {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+    .media-preview {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fbfbf8;
+    }
+    .media-preview img,
+    .media-preview video {
+      display: block;
+      width: 100%;
+      max-height: 240px;
+      background: #101416;
+      object-fit: contain;
+    }
+    .media-caption {
+      padding: 7px 8px;
+      color: var(--muted);
+      font-size: 12px;
       overflow-wrap: anywhere;
     }
     code, .path {
@@ -241,6 +462,36 @@ HTML = r"""<!doctype html>
       padding: 14px;
       position: sticky;
       top: 12px;
+    }
+    .map {
+      width: 100%;
+      aspect-ratio: 1.8 / 1;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(#f8fbfb, #eef4f2);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .map svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .map-grid {
+      stroke: #d8e1de;
+      stroke-width: 0.5;
+    }
+    .map-point {
+      fill: var(--accent-2);
+      stroke: #fff;
+      stroke-width: 1.6;
+    }
+    .map-labels {
+      margin: -6px 0 16px;
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 12px;
     }
     .suggestions {
       display: grid;
@@ -279,7 +530,9 @@ HTML = r"""<!doctype html>
       min-height: 20px;
     }
     @media (max-width: 860px) {
-      .grid { grid-template-columns: 1fr; }
+      .grid { display: block; }
+      .result-shell { grid-template-columns: 1fr; }
+      .result-media { width: 100%; height: 170px; border-left: 0; border-top: 1px solid var(--line); position: static; }
       .side { position: static; }
       .searchbar { grid-template-columns: 1fr; }
       .seg { grid-template-columns: repeat(3, 1fr); width: 100%; }
@@ -315,8 +568,8 @@ HTML = r"""<!doctype html>
         <option value="video_metadata">Video metadata</option>
       </select>
       <select id="limit" aria-label="Result limit">
-        <option value="5">5 results</option>
-        <option value="8" selected>8 results</option>
+        <option value="5" selected>5 results</option>
+        <option value="8">8 results</option>
         <option value="12">12 results</option>
         <option value="20">20 results</option>
       </select>
@@ -330,14 +583,6 @@ HTML = r"""<!doctype html>
         </section>
         <section id="results"></section>
       </div>
-      <aside class="side">
-        <h2>Dig Deeper</h2>
-        <div class="suggestions" id="suggestions"></div>
-        <div class="pack-actions">
-          <button type="button" id="packButton">Build Evidence Pack</button>
-          <textarea id="packPreview" readonly placeholder="Evidence-pack preview"></textarea>
-        </div>
-      </aside>
     </section>
   </main>
   <script>
@@ -356,6 +601,222 @@ HTML = r"""<!doctype html>
 
     function fileUrl(path) {
       return `/file?path=${encodeURIComponent(path)}`;
+    }
+
+    function assetLabel(asset) {
+      const kind = asset.kind || "asset";
+      if (kind === "thumbnail") return "Thumbnail";
+      if (kind === "document") return "PDF";
+      if (kind === "video") return "Video";
+      if (kind === "caption") return "Caption";
+      return kind;
+    }
+
+    function icon(name) {
+      const icons = {
+        link: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"></path><path d="M14 11a5 5 0 0 0-7.1 0l-2 2a5 5 0 0 0 7.1 7.1l1.1-1.1"></path></svg>`,
+        pdf: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M7 16h1.5a1.5 1.5 0 0 0 0-3H7v5"></path><path d="M12 13v5h1.2a2.5 2.5 0 0 0 0-5H12z"></path><path d="M17 18v-5h2"></path><path d="M17 15h1.5"></path></svg>`,
+        summary: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16"></path><path d="M4 9h16"></path><path d="M4 14h10"></path><path d="M4 19h7"></path><path d="M17 15l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"></path></svg>`
+      };
+      return icons[name] || "";
+    }
+
+    function renderLinks(item) {
+      const links = [];
+      if (item.source_url) {
+        links.push(`<a class="icon-button" href="${esc(item.source_url)}" target="_blank" rel="noopener" aria-label="Government source" title="Government source">${icon("link")}</a>`);
+      }
+      return links.length ? `<div class="links">${links.join("")}</div>` : "";
+    }
+
+    function primaryMedia(item) {
+      const assets = item.assets || [];
+      return assets.find((asset) => asset.kind === "thumbnail" && asset.local_path)
+        || assets.find((asset) => asset.media_type === "image" && asset.local_path)
+        || assets.find((asset) => asset.media_type === "video" && asset.local_path);
+    }
+
+    function renderPrimaryMedia(item) {
+      const asset = primaryMedia(item);
+      if (!asset) return `<div class="result-media"><div class="placeholder">No preview</div></div>`;
+      const url = fileUrl(asset.local_path);
+      if (asset.media_type === "video") {
+        return `<div class="result-media"><video controls preload="metadata" src="${url}"></video></div>`;
+      }
+      return `<div class="result-media"><a href="${url}" target="_blank" rel="noopener"><img loading="lazy" src="${url}" alt="${esc(assetLabel(asset))} preview"></a></div>`;
+    }
+
+    function renderMedia(item) {
+      const main = primaryMedia(item);
+      const previews = (item.assets || []).filter((asset) =>
+        asset.local_path && asset !== main && asset.media_type === "video"
+      );
+      if (!previews.length) return "";
+      return `<div class="media-strip">${previews.map((asset) => {
+        const url = fileUrl(asset.local_path);
+        const caption = `${assetLabel(asset)}${asset.bytes ? " | " + Math.round(asset.bytes / 1024) + " KB" : ""}`;
+        if (asset.media_type === "video") {
+          return `
+            <div class="media-preview">
+              <video controls preload="metadata" src="${url}"></video>
+              <div class="media-caption">${esc(caption)}</div>
+            </div>
+          `;
+        }
+        return `
+          <div class="media-preview">
+            <a href="${url}" target="_blank" rel="noopener"><img loading="lazy" src="${url}" alt="${esc(assetLabel(asset))} preview"></a>
+            <div class="media-caption">${esc(caption)}</div>
+          </div>
+        `;
+      }).join("")}</div>`;
+    }
+
+    function summaryId(docId) {
+      return `source-summary-${String(docId || "").replace(/[^A-Za-z0-9_-]/g, "-")}`;
+    }
+
+    function renderSourceSummaryControl(item) {
+      return `
+        <div class="source-summary">
+          <div class="links" style="margin:0; padding:10px 10px 0">
+            <button type="button" class="icon-button summary-button source-summary-button" data-doc-id="${esc(item.doc_id)}" aria-label="Read full summary" title="Read full summary">${icon("summary")}<span>Summary</span></button>
+          </div>
+          <div class="source-summary-body" id="${summaryId(item.doc_id)}">
+            <p class="note">Shows UAP element, detailed contents, and page/chunk references.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTags(tags) {
+      if (!tags || !tags.length) return "";
+      return `<div class="tags">${tags.slice(0, 8).map((tag) => `<span class="tag">${esc(tag)}</span>`).join("")}</div>`;
+    }
+
+    function renderRefs(refs) {
+      if (!refs || !refs.length) return "";
+      return `<div class="refs">Refs: ${refs.slice(0, 3).map((ref) => esc(ref.label || ref)).join(" | ")}</div>`;
+    }
+
+    function renderSourceSummary(payload) {
+      const mystery = (payload.mysterious_uap_element || []).map((point) => `<li>${esc(point.label || point.text || point)}</li>`).join("");
+      const details = (payload.detailed_contents || payload.key_points || []).map((point) => `<li>${esc(point.label || point.text || point)}</li>`).join("");
+      const refs = (payload.references || []).map((ref) => `<li>${esc(ref.label || ref)}</li>`).join("");
+      return `
+        <h4>${esc(payload.title || "Source Summary")}</h4>
+        <p><strong>Quick summary:</strong> ${esc(payload.quick_summary || payload.overview || "No summary could be generated.")}</p>
+        <p><strong>Mysterious UAP element:</strong></p>
+        ${mystery ? `<ul>${mystery}</ul>` : `<p class="note">No clear anomaly-focused passage was found in the indexed text.</p>`}
+        <p><strong>More detailed contents:</strong></p>
+        ${details ? `<ul>${details}</ul>` : ""}
+        ${refs ? `<p class="note">References</p><ul>${refs}</ul>` : ""}
+        <p class="note">${esc(payload.source_note || "")}</p>
+      `;
+    }
+
+    const summaryStages = [
+      "Reading indexed PDF/OCR/caption text...",
+      "Cleaning OCR noise...",
+      "Selecting the clearest source sentences...",
+      "Attaching page and chunk references...",
+      "Writing source summary..."
+    ];
+
+    function renderSummaryProgress(message) {
+      return `
+        <div class="summary-progress" role="status" aria-live="polite">
+          <span class="spinner" aria-hidden="true"></span>
+          <span>${esc(message)}</span>
+        </div>
+      `;
+    }
+
+    async function summarizeSource(docId, button) {
+      const target = $(summaryId(docId));
+      if (!target) return;
+      const originalHtml = button.innerHTML;
+      const originalLabel = button.getAttribute("aria-label") || "Expand detailed summary";
+      let stageIndex = 0;
+      button.disabled = true;
+      button.setAttribute("aria-label", "Reading source");
+      button.title = "Reading source";
+      target.innerHTML = renderSummaryProgress(summaryStages[stageIndex]);
+      const progressTimer = window.setInterval(() => {
+        stageIndex = Math.min(stageIndex + 1, summaryStages.length - 1);
+        button.setAttribute("aria-label", summaryStages[stageIndex].replace("...", ""));
+        button.title = summaryStages[stageIndex].replace("...", "");
+        target.innerHTML = renderSummaryProgress(summaryStages[stageIndex]);
+        if (stageIndex === summaryStages.length - 1) {
+          window.clearInterval(progressTimer);
+        }
+      }, 650);
+      try {
+        const minimumDisplay = new Promise((resolve) => window.setTimeout(resolve, 1400));
+        const [payload] = await Promise.all([
+          api("/api/source-summary", { doc_id: docId }),
+          minimumDisplay
+        ]);
+        window.clearInterval(progressTimer);
+        target.innerHTML = renderSourceSummary(payload);
+        button.setAttribute("aria-label", "Summary ready");
+        button.title = "Summary ready";
+      } catch (error) {
+        window.clearInterval(progressTimer);
+        target.innerHTML = `<p class="note">Source summary failed: ${esc(error.message)}</p>`;
+        button.innerHTML = originalHtml;
+        button.setAttribute("aria-label", originalLabel);
+        button.title = originalLabel;
+      } finally {
+        button.disabled = false;
+        if (button.getAttribute("aria-label") === "Summary ready") {
+          window.setTimeout(() => {
+            button.setAttribute("aria-label", "Refresh summary");
+            button.title = "Refresh summary";
+          }, 1200);
+        }
+      }
+    }
+
+    function pointTitle(location) {
+      const bits = [
+        location.normalized_location || location.raw_location,
+        location.precision,
+        `confidence ${Number(location.confidence).toFixed(2)}`,
+        location.title
+      ].filter(Boolean);
+      return bits.join(" | ");
+    }
+
+    function renderMap(locations) {
+      if (!$("map") || !$("mapLabels")) return;
+      const unique = [];
+      const seen = new Set();
+      (locations || []).forEach((location) => {
+        const key = `${location.doc_id}:${location.latitude}:${location.longitude}:${location.raw_location}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        unique.push(location);
+      });
+      if (!unique.length) {
+        $("map").innerHTML = `<div class="empty">No mappable locations in these results.</div>`;
+        $("mapLabels").innerHTML = "";
+        return;
+      }
+      const grid = [
+        ...[-120, -60, 0, 60, 120].map((lon) => `<line class="map-grid" x1="${(lon + 180) / 360 * 100}" y1="0" x2="${(lon + 180) / 360 * 100}" y2="100"></line>`),
+        ...[-60, -30, 0, 30, 60].map((lat) => `<line class="map-grid" x1="0" y1="${(90 - lat) / 180 * 100}" x2="100" y2="${(90 - lat) / 180 * 100}"></line>`)
+      ].join("");
+      const points = unique.map((location) => {
+        const x = (Number(location.longitude) + 180) / 360 * 100;
+        const y = (90 - Number(location.latitude)) / 180 * 100;
+        const radius = location.precision === "coordinate" ? 4.5 : 3.5;
+        return `<circle class="map-point" cx="${x}" cy="${y}" r="${radius}"><title>${esc(pointTitle(location))}</title></circle>`;
+      }).join("");
+      $("map").innerHTML = `<svg viewBox="0 0 100 100" role="img" aria-label="Search result locations">${grid}${points}</svg>`;
+      $("mapLabels").innerHTML = unique.slice(0, 6).map((location) =>
+        `<div>${esc(location.normalized_location || location.raw_location)} · ${esc(location.precision)} · ${Number(location.confidence).toFixed(2)}</div>`
+      ).join("");
     }
 
     function api(path, params) {
@@ -386,36 +847,35 @@ HTML = r"""<!doctype html>
       }
       $("results").innerHTML = results.map((item) => {
         const page = item.page_number ? `page ${item.page_number}` : "no page";
-        const path = item.local_path ? `
-          <div class="path">
-            ${esc(item.local_path)}
-            <div style="margin-top:8px">
-              <a href="${fileUrl(item.local_path)}" target="_blank" rel="noopener">Open source</a>
-            </div>
-          </div>
-        ` : "";
         return `
           <article class="result">
-            <div class="result-head">
-              <h3>${item.rank}. ${esc(item.title)}</h3>
-              <div class="score">${Number(item.score).toFixed(4)}</div>
+            <div class="result-shell">
+              <div class="result-main">
+                <div class="result-head">
+                  <h3>${item.rank}. ${esc(item.title)}</h3>
+                  <div class="score">${Number(item.score).toFixed(4)}</div>
+                </div>
+                ${renderTags(item.tags)}
+                <section class="doc-summary">
+                  <p>${esc(item.doc_summary || item.readable_summary || item.snippet)}</p>
+                  ${renderRefs(item.references)}
+                </section>
+                ${renderLinks(item)}
+                ${renderSourceSummaryControl(item)}
+                ${renderMedia(item)}
+              </div>
+              ${renderPrimaryMedia(item)}
             </div>
-            <div class="meta">
-              <span class="${sourceClass(item.source_kind)}">${esc(item.source_label)}</span>
-              <span class="chip">${esc(item.agency || "unknown agency")}</span>
-              <span class="chip">${esc(item.incident_date || "unknown date")}</span>
-              <span class="chip">${esc(item.incident_location || "unknown location")}</span>
-              <span class="chip">${esc(page)}</span>
-              <span class="chip">${esc(item.chunk_id)}</span>
-            </div>
-            <p class="snippet">${esc(item.snippet)}</p>
-            ${path}
           </article>
         `;
       }).join("");
+      document.querySelectorAll(".source-summary-button").forEach((button) => {
+        button.addEventListener("click", () => summarizeSource(button.dataset.docId, button));
+      });
     }
 
     function renderSuggestions(suggestions) {
+      if (!$("suggestions")) return;
       if (!suggestions.length) {
         $("suggestions").innerHTML = `<div class="empty">No suggestions yet.</div>`;
         return;
@@ -448,7 +908,7 @@ HTML = r"""<!doctype html>
       if (!q) return;
       state.lastQuery = q;
       $("status").textContent = "Searching...";
-      $("packPreview").value = "";
+      if ($("packPreview")) $("packPreview").value = "";
       try {
         const payload = await api("/api/search", {
           q,
@@ -459,6 +919,7 @@ HTML = r"""<!doctype html>
         state.lastResults = payload.results;
         renderSummary(payload.summary);
         renderResults(payload.results);
+        renderMap(payload.locations);
         renderSuggestions(payload.suggestions);
         $("status").textContent = `${payload.results.length} results in ${payload.elapsed_ms} ms`;
       } catch (error) {
@@ -469,6 +930,7 @@ HTML = r"""<!doctype html>
     async function buildPack() {
       const q = $("query").value.trim();
       if (!q) return;
+      if (!$("packPreview")) return;
       $("packPreview").value = "Building evidence pack...";
       try {
         const payload = await api("/api/evidence-pack", {
@@ -505,7 +967,7 @@ HTML = r"""<!doctype html>
     });
     $("sourceKind").addEventListener("change", runSearch);
     $("limit").addEventListener("change", runSearch);
-    $("packButton").addEventListener("click", buildPack);
+    if ($("packButton")) $("packButton").addEventListener("click", buildPack);
 
     api("/api/health").then((health) => {
       $("health").textContent = `${health.documents} docs | ${health.chunks} chunks | ${health.embeddings} embeddings`;
@@ -559,6 +1021,106 @@ STOPWORDS = {
 }
 
 
+OCR_FIXES = [
+    (re.compile(r"\bU\s*F\s*O\b", re.IGNORECASE), "UFO"),
+    (re.compile(r"\bU\s*A\s*P\b", re.IGNORECASE), "UAP"),
+    (re.compile(r"\bA\s*F\s*B\b", re.IGNORECASE), "AFB"),
+    (re.compile(r"\bF\s*B\s*I\b", re.IGNORECASE), "FBI"),
+    (re.compile(r"\bD\s*O\s*D\b", re.IGNORECASE), "DOD"),
+]
+
+
+def readable_text(text: str) -> str:
+    text = clean(text)
+    text = re.sub(r"-\s+", "", text)
+    text = re.sub(r"[_~`|{}\[\]<>]{2,}", " ", text)
+    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"(?<=[a-z])(?=[A-Z][a-z])", " ", text)
+    for pattern, replacement in OCR_FIXES:
+        text = pattern.sub(replacement, text)
+    return clean(text)
+
+
+def sentence_quality(sentence: str) -> float:
+    if not sentence:
+        return 0.0
+    chars = len(sentence)
+    letters = sum(1 for char in sentence if char.isalpha())
+    punctuation_noise = sum(1 for char in sentence if char in "_~`|{}[]<>")
+    if chars < 35 or chars > 360:
+        return 0.1
+    return (letters / max(chars, 1)) - (punctuation_noise / max(chars, 1))
+
+
+def split_sentences(text: str) -> List[str]:
+    text = re.sub(r"[-=+.]{3,}", ". ", text)
+    candidates = re.split(r"(?<=[.!?])\s+(?=[A-Z0-9])", text)
+    if len(candidates) == 1:
+        candidates = re.split(r"\s{2,}|;\s+", text)
+    out = []
+    for item in candidates:
+        item = clean(item)
+        if len(item) > 320:
+            item = item[:320].rsplit(" ", 1)[0] + "."
+        if sentence_quality(item) >= 0.45:
+            out.append(item)
+    return out
+
+
+def query_terms(query: str) -> set[str]:
+    return {term.lower() for term in re.findall(r"[A-Za-z][A-Za-z0-9-]{2,}", query) if term.lower() not in STOPWORDS}
+
+
+def readable_summary(text: str, source_kind: str, query: str, max_sentences: int = 2) -> str:
+    cleaned = readable_text(text)
+    sentences = split_sentences(cleaned)
+    if not sentences:
+        fallback = snippet(cleaned, max_chars=320)
+        if not fallback:
+            return "No readable text could be generated from this result."
+        prefix = "OCR-readable excerpt" if source_kind == "ocr_text" else "Readable excerpt"
+        return f"{prefix}: {fallback}"
+
+    terms = query_terms(query)
+    ranked = []
+    for index, sentence in enumerate(sentences[:18]):
+        lowered = sentence.lower()
+        term_hits = sum(1 for term in terms if term in lowered)
+        score = term_hits * 3 + sentence_quality(sentence) + max(0, 4 - index) * 0.15
+        ranked.append((score, index, sentence))
+    selected = sorted(sorted(ranked, key=lambda item: item[0], reverse=True)[:max_sentences], key=lambda item: item[1])
+    summary = " ".join(humanize_sentence(sentence) for _, _, sentence in selected)
+    label = "OCR text says" if source_kind == "ocr_text" else "Source text says"
+    return f"{label}: {summary}"
+
+
+def cleaned_excerpt(text: str) -> str:
+    return snippet(humanize_sentence(readable_text(text)), max_chars=900)
+
+
+def humanize_sentence(sentence: str) -> str:
+    letters = [char for char in sentence if char.isalpha()]
+    if not letters:
+        return sentence
+    upper_ratio = sum(1 for char in letters if char.isupper()) / len(letters)
+    if upper_ratio < 0.72:
+        return sentence
+    text = sentence.lower()
+    replacements = {
+        "ufo": "UFO",
+        "uap": "UAP",
+        "fbi": "FBI",
+        "dod": "DOD",
+        "nasa": "NASA",
+        "p.a.o.": "P.A.O.",
+        "gemini": "Gemini",
+        "houston": "Houston",
+    }
+    for old, new in replacements.items():
+        text = re.sub(rf"\b{re.escape(old)}\b", new, text)
+    return text[:1].upper() + text[1:]
+
+
 def parse_bool(value: str) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
@@ -588,9 +1150,181 @@ def row_metadata(row) -> Dict:
     return json.loads(row["metadata_json"] or "{}")
 
 
-def result_item(score: float, row, rank: int) -> Dict:
+def media_type(kind: str, local_path: str) -> str:
+    mime = mimetypes.guess_type(local_path)[0] or ""
+    if mime.startswith("image/"):
+        return "image"
+    if mime.startswith("video/"):
+        return "video"
+    if mime == "application/pdf" or kind == "document":
+        return "document"
+    if kind == "caption" or mime.startswith("text/"):
+        return "text"
+    return "file"
+
+
+def document_source_url(conn, doc_id: str) -> str:
+    row = conn.execute("SELECT source_url FROM documents WHERE doc_id = ?", (doc_id,)).fetchone()
+    return clean(row["source_url"]) if row else ""
+
+
+def result_assets(conn, doc_id: str) -> List[Dict]:
+    rows = conn.execute(
+        """
+        SELECT kind, local_path, source_url, bytes, metadata_json
+        FROM assets
+        WHERE doc_id = ?
+        ORDER BY
+          CASE kind
+            WHEN 'thumbnail' THEN 0
+            WHEN 'video' THEN 1
+            WHEN 'document' THEN 2
+            WHEN 'caption' THEN 3
+            ELSE 4
+          END,
+          local_path
+        """,
+        (doc_id,),
+    ).fetchall()
+    assets = []
+    seen = set()
+    for row in rows:
+        local_path = clean(row["local_path"])
+        source_url = clean(row["source_url"])
+        key = (row["kind"], local_path, source_url)
+        if key in seen:
+            continue
+        seen.add(key)
+        assets.append(
+            {
+                "kind": row["kind"],
+                "local_path": local_path,
+                "source_url": source_url,
+                "bytes": row["bytes"] or 0,
+                "media_type": media_type(row["kind"], local_path),
+            }
+        )
+    return assets
+
+
+def result_locations(conn, doc_id: str) -> List[Dict]:
+    rows = conn.execute(
+        """
+        SELECT l.*, d.title, d.agency, d.incident_date, d.incident_location
+        FROM locations l
+        JOIN documents d ON d.doc_id = l.doc_id
+        WHERE l.doc_id = ?
+        ORDER BY l.confidence DESC, l.precision, l.raw_location
+        """,
+        (doc_id,),
+    ).fetchall()
+    return [
+        {
+            "location_id": row["location_id"],
+            "doc_id": row["doc_id"],
+            "chunk_id": row["chunk_id"],
+            "raw_location": row["raw_location"],
+            "normalized_location": row["normalized_location"],
+            "latitude": row["latitude"],
+            "longitude": row["longitude"],
+            "precision": row["precision"],
+            "confidence": row["confidence"],
+            "source_kind": row["source_kind"],
+            "method": row["method"],
+            "title": row["title"],
+            "agency": row["agency"],
+            "incident_date": row["incident_date"],
+            "incident_location": row["incident_location"],
+        }
+        for row in rows
+    ]
+
+
+TAG_STOPWORDS = STOPWORDS | {
+    "available",
+    "case",
+    "chunks",
+    "contains",
+    "contents",
+    "detailed",
+    "department",
+    "document",
+    "file",
+    "flying",
+    "includes",
+    "incident",
+    "indexed",
+    "investigative",
+    "compliance",
+    "native",
+    "object",
+    "objects",
+    "page",
+    "pages",
+    "pdf",
+    "primarily",
+    "quick",
+    "record",
+    "release",
+    "report",
+    "reports",
+    "source",
+    "service",
+    "summary",
+    "text",
+    "unidentified",
+    "written",
+}
+
+
+def summary_tags(payload: Dict, row) -> List[str]:
+    tags = []
+    if row["source_kind"] == "ocr_text":
+        tags.append("OCR")
+
+    mystery_text = " ".join(
+        clean(item.get("text") or item.get("label") or "") if isinstance(item, dict) else clean(item)
+        for item in payload.get("mysterious_uap_element") or []
+    )
+    text = " ".join(
+        [
+            clean(row["title"]),
+            clean(payload.get("quick_summary")),
+            mystery_text,
+        ]
+    )
+    for term in re.findall(r"[A-Za-z][A-Za-z0-9-]{3,}", text):
+        key = term.lower().strip("-")
+        if key in TAG_STOPWORDS or len(key) < 4 or any(char.isdigit() for char in key):
+            continue
+        if key.startswith(("hs", "hq", "serial", "section")):
+            continue
+        label = "UFOs" if key in {"ufo", "ufos"} else key.upper() if key in {"uap", "fbi", "dod", "nasa", "caa", "mats", "aacs"} else key.title()
+        if label not in tags:
+            tags.append(label)
+        if len(tags) >= 8:
+            break
+    return tags
+
+
+def compact_doc_summary(payload: Dict) -> str:
+    quick = clean(payload.get("quick_summary"))
+    mystery = payload.get("mysterious_uap_element") or []
+    if mystery:
+        first_item = mystery[0]
+        first_text = first_item.get("text") or first_item.get("label") or "" if isinstance(first_item, dict) else first_item
+        first_mystery = re.sub(r"\s+\([^)]*\)$", "", clean(first_text))
+        if first_mystery and first_mystery not in quick:
+            quick = f"{quick} UAP element: {first_mystery}"
+    return snippet(quick, max_chars=620)
+
+
+def result_item(conn, score: float, row, rank: int, query: str) -> Dict:
     metadata = row_metadata(row)
     text = clean(row["text"])
+    doc_source_url = document_source_url(conn, row["doc_id"])
+    source_url = clean(metadata.get("source_url")) or doc_source_url
+    summary_payload = build_source_summary(conn, row["doc_id"])
     return {
         "rank": rank,
         "score": score,
@@ -605,8 +1339,15 @@ def result_item(score: float, row, rank: int) -> Dict:
         "page_number": row["page_number"],
         "chunk_index": row["chunk_index"],
         "local_path": clean(metadata.get("local_path")),
-        "source_url": clean(metadata.get("source_url")),
+        "source_url": source_url,
+        "assets": result_assets(conn, row["doc_id"]),
+        "locations": result_locations(conn, row["doc_id"]),
         "snippet": snippet(text, max_chars=700),
+        "readable_summary": readable_summary(text, row["source_kind"], query),
+        "cleaned_excerpt": cleaned_excerpt(text),
+        "doc_summary": compact_doc_summary(summary_payload),
+        "tags": summary_tags(summary_payload, row),
+        "references": summary_payload.get("references", [])[:4],
         "provenance": {
             "title": row["title"],
             "agency": row["agency"],
@@ -635,10 +1376,29 @@ def filtered_results(
     for score, row in rows:
         if source_kind and row["source_kind"] != source_kind:
             continue
-        items.append(result_item(score, row, len(items) + 1))
+        items.append(result_item(conn, score, row, len(items) + 1, query))
         if len(items) >= limit:
             break
     return items
+
+
+def result_location_payload(results: List[Dict]) -> List[Dict]:
+    out = []
+    seen = set()
+    for item in results:
+        for location in item.get("locations", []):
+            key = (
+                location["doc_id"],
+                location["chunk_id"],
+                location["raw_location"],
+                location["latitude"],
+                location["longitude"],
+            )
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(location)
+    return out
 
 
 def summarize_results(query: str, results: List[Dict]) -> Dict:
@@ -717,6 +1477,176 @@ def suggestions(query: str, results: List[Dict]) -> List[Dict]:
     return deduped[:7]
 
 
+UAP_TERMS = {
+    "uap",
+    "ufo",
+    "unidentified",
+    "object",
+    "objects",
+    "bogey",
+    "sighting",
+    "sightings",
+    "light",
+    "lights",
+    "orb",
+    "orbs",
+    "disc",
+    "disk",
+    "saucer",
+    "aerial",
+    "anomaly",
+    "unknown",
+    "formation",
+    "tumbling",
+}
+
+
+def sentence_ref(row) -> str:
+    page = f"page {row['page_number']}" if row["page_number"] else "no page"
+    return f"{source_label(row['source_kind'])}, {page}, chunk {row['chunk_id']}"
+
+
+def sentence_line(row, sentence: str) -> str:
+    page = f"page {row['page_number']}" if row["page_number"] else "no page"
+    return f"{sentence} ({source_label(row['source_kind'])}, {page})"
+
+
+def sentence_has_uap_terms(sentence: str) -> bool:
+    words = set(re.findall(r"[a-z][a-z0-9-]+", sentence.lower()))
+    return bool(words & UAP_TERMS)
+
+
+def unique_sentence_items(items: List[Tuple[float, object, str]], limit: int, chronological: bool = False) -> List[Tuple[object, str]]:
+    selected = []
+    seen = set()
+    iterable = items if chronological else sorted(items, key=lambda item: item[0], reverse=True)
+    for _, row, sentence in iterable:
+        sentence = humanize_sentence(sentence)
+        key = re.sub(r"[^a-z0-9]+", " ", sentence.lower()).strip()[:100]
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        selected.append((row, sentence))
+        if len(selected) >= limit:
+            break
+    return selected
+
+
+def source_summary(conn, doc_id: str) -> Dict:
+    doc = conn.execute(
+        """
+        SELECT doc_id, title, agency, incident_date, incident_location, description, source_url
+        FROM documents
+        WHERE doc_id = ?
+        """,
+        (doc_id,),
+    ).fetchone()
+    if not doc:
+        raise ValueError("document not found")
+
+    rows = conn.execute(
+        """
+        SELECT source_kind, page_number, chunk_index, chunk_id, text
+        FROM chunks
+        WHERE doc_id = ?
+        ORDER BY
+          CASE source_kind
+            WHEN 'pdf_text' THEN 0
+            WHEN 'ocr_text' THEN 1
+            WHEN 'caption' THEN 2
+            WHEN 'video_metadata' THEN 3
+            WHEN 'metadata' THEN 4
+            ELSE 5
+          END,
+          page_number,
+          chunk_index
+        """,
+        (doc_id,),
+    ).fetchall()
+    evidence_rows = [row for row in rows if row["source_kind"] in {"pdf_text", "ocr_text", "caption", "video_metadata"}]
+    if not evidence_rows:
+        evidence_rows = rows
+
+    source_counts: Dict[str, int] = {}
+    for row in evidence_rows:
+        source_counts[row["source_kind"]] = source_counts.get(row["source_kind"], 0) + 1
+
+    sentences: List[Tuple[float, object, str]] = []
+    chronological_sentences: List[Tuple[float, object, str]] = []
+    for row in evidence_rows:
+        text = readable_text(row["text"])
+        for sentence in split_sentences(text)[:5]:
+            quality = sentence_quality(sentence)
+            if row["source_kind"] in {"pdf_text", "ocr_text"}:
+                quality += 0.2
+            if row["page_number"]:
+                quality += 0.1
+            sentences.append((quality, row, sentence))
+            chronological_sentences.append((quality, row, sentence))
+
+    title = clean(doc["title"])
+    location = clean(doc["incident_location"])
+    date = clean(doc["incident_date"])
+    agency = clean(doc["agency"])
+    overview_bits = [f"{title} is indexed as a {agency or 'source'} record"]
+    if date and date != "N/A":
+        overview_bits.append(f"with incident date {date}")
+    if location and location != "N/A":
+        overview_bits.append(f"and location {location}")
+    overview = " ".join(overview_bits) + "."
+    description = readable_text(doc["description"])
+    if description:
+        overview = f"{overview} {snippet(humanize_sentence(description), max_chars=280)}"
+
+    top_items = unique_sentence_items(sentences, 5)
+    uap_items = unique_sentence_items(
+        [(score + 0.8, row, sentence) for score, row, sentence in sentences if sentence_has_uap_terms(sentence)],
+        4,
+    )
+    detail_items = unique_sentence_items(chronological_sentences, 10, chronological=True)
+
+    if top_items:
+        quick_summary = f"{overview} Main readable passages include: " + " ".join(sentence for _, sentence in top_items[:2])
+    else:
+        quick_summary = overview
+
+    mysterious_uap_element = [sentence_line(row, sentence) for row, sentence in uap_items]
+    if not mysterious_uap_element:
+        mysterious_uap_element = [
+            "No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection."
+        ]
+
+    detailed_contents = [sentence_line(row, sentence) for row, sentence in detail_items]
+    if not detailed_contents:
+        detailed_contents = [
+            "No readable PDF/OCR/caption sentences were available for this source. Try opening the PDF or running OCR review for this document."
+        ]
+
+    references = []
+    for row, _ in [*top_items, *uap_items, *detail_items]:
+        ref = sentence_ref(row)
+        if ref not in references:
+            references.append(ref)
+
+    mix = ", ".join(f"{count} {source_label(kind)} chunks" for kind, count in sorted(source_counts.items()))
+    source_note = f"Summary generated locally from the entire indexed source text for this document. Source mix: {mix or 'no indexed text chunks'}. OCR text may contain recognition errors; verify important points against the source file."
+    return {
+        "doc_id": doc["doc_id"],
+        "title": title,
+        "agency": agency,
+        "incident_date": date,
+        "incident_location": location,
+        "source_url": clean(doc["source_url"]),
+        "overview": overview,
+        "quick_summary": quick_summary,
+        "mysterious_uap_element": mysterious_uap_element,
+        "detailed_contents": detailed_contents,
+        "key_points": detailed_contents,
+        "references": references[:10],
+        "source_note": source_note,
+    }
+
+
 def health_payload(db: Path) -> Dict:
     conn = connect(db)
     counts = {
@@ -791,6 +1721,8 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_json(health_payload(self.server.db))
             elif parsed.path == "/api/search":
                 self.handle_search(params)
+            elif parsed.path == "/api/source-summary":
+                self.handle_source_summary(params)
             elif parsed.path == "/api/evidence-pack":
                 self.handle_evidence_pack(params)
             elif parsed.path == "/file":
@@ -829,9 +1761,18 @@ class Handler(BaseHTTPRequestHandler):
             "elapsed_ms": int((time.time() - start) * 1000),
             "summary": summarize_results(query, results),
             "suggestions": suggestions(query, results),
+            "locations": result_location_payload(results),
             "results": results,
         }
         self.send_json(payload)
+
+    def handle_source_summary(self, params: Dict[str, List[str]]) -> None:
+        doc_id = clean(first(params, "doc_id"))
+        if not doc_id:
+            self.send_json({"error": "missing doc_id"}, HTTPStatus.BAD_REQUEST)
+            return
+        conn = connect(self.server.db)
+        self.send_json(build_source_summary(conn, doc_id))
 
     def handle_evidence_pack(self, params: Dict[str, List[str]]) -> None:
         query = clean(first(params, "q"))
@@ -898,3 +1839,4 @@ def main(argv: Optional[List[str]] = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+    "primarily",

@@ -8,7 +8,7 @@ REVIEW_REASONS ?= zero_text_pages low_avg_chars
 OCR_DPI ?= 300
 OCR_PSM ?= 11
 
-.PHONY: setup index rebuild classify ocr ocr-classified ocr-status ocr-retry ocr-one eval-search evidence-pack web search-vector search-hybrid stats export-package verify-package
+.PHONY: setup index rebuild classify ocr ocr-classified ocr-status ocr-retry ocr-one eval-search evidence-pack web search-vector search-hybrid stats export-site export-package verify-package
 
 setup:
 	$(PYTHON) -m venv .venv
@@ -56,6 +56,9 @@ search-vector:
 
 stats:
 	. .venv/bin/activate && python -c 'import sqlite3; conn=sqlite3.connect("$(DB)"); [print(t, conn.execute(f"select count(*) from {t}").fetchone()[0]) for t in ["documents","assets","chunks","embeddings"]]'
+
+export-site:
+	. .venv/bin/activate && python -m ufo_indexer.export_site --db "$(DB)" --out public_site
 
 export-package:
 	EXPORT="$(EXPORT)" SOURCE_ROOT="$(SOURCE_ROOT)" DB="$(DB)" ./scripts/export_transfer_package.sh

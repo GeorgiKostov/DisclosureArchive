@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -54,6 +55,190 @@ def file_info(path: Optional[Path]) -> Tuple[str, int]:
     if not path or not path.exists():
         return "", 0
     return sha1_file(path), path.stat().st_size
+
+
+GEOCODE_LOCATIONS = {
+    "aegean sea": (38.5, 25.0, "region", 0.45),
+    "arabian gulf": (26.8, 52.0, "region", 0.45),
+    "arabian sea": (15.0, 65.0, "region", 0.35),
+    "azerbaijan": (40.3, 47.7, "country", 0.55),
+    "detroit, mi": (42.3314, -83.0458, "city", 0.8),
+    "djibouti": (11.8251, 42.5903, "country", 0.55),
+    "east china sea": (29.0, 125.0, "region", 0.35),
+    "georgia": (42.3154, 43.3569, "country", 0.5),
+    "germany": (51.1657, 10.4515, "country", 0.55),
+    "greece": (39.0742, 21.8243, "country", 0.55),
+    "gulf of aden": (12.0, 48.0, "region", 0.45),
+    "gulf of oman": (25.0, 58.0, "region", 0.45),
+    "iran": (32.4279, 53.6880, "country", 0.55),
+    "iraq": (33.2232, 43.6793, "country", 0.55),
+    "japan": (36.2048, 138.2529, "country", 0.55),
+    "kazakhstan": (48.0196, 66.9237, "country", 0.55),
+    "mediterranean sea": (35.0, 18.0, "region", 0.35),
+    "mexico": (23.6345, -102.5528, "country", 0.55),
+    "middle east": (29.3, 47.6, "region", 0.3),
+    "netherlands": (52.1326, 5.2913, "country", 0.55),
+    "north america": (48.0, -100.0, "region", 0.25),
+    "pacific ocean": (0.0, -160.0, "region", 0.2),
+    "papua new guinea": (-6.3150, 143.9555, "country", 0.55),
+    "persian gulf": (26.8, 52.0, "region", 0.45),
+    "southern united states": (33.0, -90.0, "region", 0.35),
+    "strait of hormuz": (26.6, 56.25, "region", 0.5),
+    "syria": (34.8021, 38.9968, "country", 0.55),
+    "turkmenistan": (38.9697, 59.5563, "country", 0.55),
+    "united arab emirates": (23.4241, 53.8478, "country", 0.55),
+    "united states": (39.8283, -98.5795, "country", 0.45),
+    "western united states": (39.0, -114.0, "region", 0.35),
+}
+
+
+DECIMAL_COORD_RE = re.compile(
+    r"(?<![\d.])([+-]?(?:[0-8]?\d|90)\.\d{2,})\s*,\s*([+-]?(?:1[0-7]\d|[0-9]?\d|180)\.\d{2,})(?![\d.])"
+)
+DMS_COORD_RE = re.compile(
+    r"(\d{1,2})\s*[°º]\s*(\d{1,2})?\s*['’]?\s*(\d{1,2}(?:\.\d+)?)?\s*[\"”]?\s*([NS])"
+    r"[\s,;/]+"
+    r"(\d{1,3})\s*[°º]\s*(\d{1,2})?\s*['’]?\s*(\d{1,2}(?:\.\d+)?)?\s*[\"”]?\s*([EW])",
+    re.IGNORECASE,
+)
+
+
+def dms_to_decimal(degrees: str, minutes: Optional[str], seconds: Optional[str], hemi: str) -> float:
+    value = float(degrees) + (float(minutes or 0) / 60.0) + (float(seconds or 0) / 3600.0)
+    return -value if hemi.upper() in {"S", "W"} else value
+
+
+def valid_dms(minutes: Optional[str], seconds: Optional[str]) -> bool:
+    return float(minutes or 0) < 60 and float(seconds or 0) < 60
+
+
+def clear_locations(conn, doc_id: str) -> None:
+    conn.execute("DELETE FROM locations WHERE doc_id = ?", (doc_id,))
+
+
+def add_location(
+    conn,
+    *,
+    doc_id: str,
+    chunk_id: Optional[str],
+    raw_location: str,
+    normalized_location: str,
+    latitude: float,
+    longitude: float,
+    precision: str,
+    confidence: float,
+    source_kind: str,
+    method: str,
+    metadata: Dict,
+) -> None:
+    if not (-90 <= latitude <= 90 and -180 <= longitude <= 180):
+        return
+    seed = "|".join(
+        [
+            doc_id,
+            chunk_id or "",
+            raw_location.lower(),
+            f"{latitude:.6f}",
+            f"{longitude:.6f}",
+            source_kind,
+            method,
+        ]
+    )
+    conn.execute(
+        """
+        INSERT OR IGNORE INTO locations (
+          location_id, doc_id, chunk_id, raw_location, normalized_location,
+          latitude, longitude, precision, confidence, source_kind, method,
+          metadata_json
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            sha1_text(seed)[:24],
+            doc_id,
+            chunk_id,
+            raw_location,
+            normalized_location,
+            latitude,
+            longitude,
+            precision,
+            confidence,
+            source_kind,
+            method,
+            json.dumps(metadata, ensure_ascii=False, sort_keys=True),
+        ),
+    )
+
+
+def add_incident_location(conn, record) -> None:
+    raw = clean(record.incident_location)
+    if not raw or raw == "N/A":
+        return
+    geo = GEOCODE_LOCATIONS.get(raw.lower())
+    if not geo:
+        return
+    latitude, longitude, precision, confidence = geo
+    add_location(
+        conn,
+        doc_id=record.doc_id,
+        chunk_id=None,
+        raw_location=raw,
+        normalized_location=raw,
+        latitude=latitude,
+        longitude=longitude,
+        precision=precision,
+        confidence=confidence,
+        source_kind="metadata",
+        method="incident_location_gazetteer",
+        metadata={"field": "incident_location"},
+    )
+
+
+def add_coordinate_locations(conn, record, chunk_id: Optional[str], source_kind: str, text: str) -> None:
+    for match in DECIMAL_COORD_RE.finditer(text):
+        latitude = float(match.group(1))
+        longitude = float(match.group(2))
+        add_location(
+            conn,
+            doc_id=record.doc_id,
+            chunk_id=chunk_id,
+            raw_location=match.group(0),
+            normalized_location=f"{latitude:.6f}, {longitude:.6f}",
+            latitude=latitude,
+            longitude=longitude,
+            precision="coordinate",
+            confidence=0.95,
+            source_kind=source_kind,
+            method="decimal_coordinate_regex",
+            metadata={},
+        )
+    for match in DMS_COORD_RE.finditer(text):
+        if not valid_dms(match.group(2), match.group(3)) or not valid_dms(match.group(6), match.group(7)):
+            continue
+        latitude = dms_to_decimal(match.group(1), match.group(2), match.group(3), match.group(4))
+        longitude = dms_to_decimal(match.group(5), match.group(6), match.group(7), match.group(8))
+        add_location(
+            conn,
+            doc_id=record.doc_id,
+            chunk_id=chunk_id,
+            raw_location=match.group(0),
+            normalized_location=f"{latitude:.6f}, {longitude:.6f}",
+            latitude=latitude,
+            longitude=longitude,
+            precision="coordinate",
+            confidence=0.95,
+            source_kind=source_kind,
+            method="dms_coordinate_regex",
+            metadata={},
+        )
+
+
+def add_locations_from_existing_chunks(conn, record) -> None:
+    for row in conn.execute(
+        "SELECT chunk_id, source_kind, text FROM chunks WHERE doc_id = ?",
+        (record.doc_id,),
+    ):
+        add_coordinate_locations(conn, record, row["chunk_id"], row["source_kind"], row["text"])
 
 
 def upsert_document(conn, record, content_hash: str) -> None:
@@ -142,10 +327,10 @@ def add_chunk(
     chunk_index: int,
     text: str,
     metadata: Dict,
-) -> None:
+) -> Optional[str]:
     text = clean(text)
     if not text:
-        return
+        return None
     text_hash = sha1_text(text)
     seed = "|".join([record.doc_id, source_kind, str(page_number or ""), str(chunk_index), text_hash])
     chunk_id = sha1_text(seed)[:24]
@@ -183,6 +368,8 @@ def add_chunk(
         """,
         (chunk_id, record.doc_id, record.title, record.agency, record.incident_location, text),
     )
+    add_coordinate_locations(conn, record, chunk_id, source_kind, text)
+    return chunk_id
 
 
 def metadata_text(record, extra: Optional[str] = None) -> str:
@@ -322,6 +509,9 @@ def index_record(conn, source_root: Path, derived_root: Path, record, entries: L
             add_asset(conn, record.doc_id, "caption", cpath, "", {"video_id": record.dvids_video_id})
 
     if unchanged:
+        clear_locations(conn, record.doc_id)
+        add_incident_location(conn, record)
+        add_locations_from_existing_chunks(conn, record)
         return {
             "doc_id": record.doc_id,
             "title": record.title,
@@ -330,6 +520,8 @@ def index_record(conn, source_root: Path, derived_root: Path, record, entries: L
             "skipped": True,
         }
 
+    clear_locations(conn, record.doc_id)
+    add_incident_location(conn, record)
     clear_chunks(conn, record.doc_id)
 
     add_chunk(
@@ -580,6 +772,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         "documents": conn.execute("SELECT count(*) FROM documents").fetchone()[0],
         "assets": conn.execute("SELECT count(*) FROM assets").fetchone()[0],
         "chunks": conn.execute("SELECT count(*) FROM chunks").fetchone()[0],
+        "locations": conn.execute("SELECT count(*) FROM locations").fetchone()[0],
         "documents_skipped_unchanged": sum(1 for item in results if item.get("skipped")),
         "embeddings_added": embedded,
         "embeddings_total": conn.execute("SELECT count(*) FROM embeddings").fetchone()[0],

@@ -21,6 +21,9 @@ reports/retrieval_eval.json
 reports/retrieval_eval.md
 reports/evidence_pack*.json
 reports/evidence_pack*.md
+reports/native_pdf_read_*.md
+reports/ocr_read_*.md
+public_site/
 
 # Raw release data should live outside this repo.
 ufo_war_release/

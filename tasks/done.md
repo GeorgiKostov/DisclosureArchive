@@ -50,3 +50,21 @@
 - Added `Start-DisclosureArchive-Search.cmd` at the repo root so Windows can launch the local search UI by double-clicking.
 - Added guarded local source-file links to the web UI; result cards now include an `Open source` link for indexed PDFs/images/videos.
 - Added `docs/SEARCH_EXPLAINED.md`, a plain-English step-by-step explanation of raw files, OCR, chunks, SQLite FTS, embeddings, hybrid search, the local UI, source links, and evidence packs.
+- Added a `locations` index table populated from conservative incident-location geocoding and explicit decimal/DMS coordinate extraction from chunks.
+- Updated the local search UI so results can show a simple map of mappable evidence locations, inline thumbnail/image/video previews from indexed assets, related PDF links, and a `Government source` button for the original download/source URL.
+- Ran a lightweight Windows reindex with `--skip-embeddings`; the local DB now has 105 location rows, 305 assets, 7,610 chunks, and 7,610 embeddings.
+- Added local readable summaries and cleaned source excerpts to web search result cards so OCR-heavy results are easier to scan without calling an external LLM.
+- Added a `Summarize source` button and `/api/source-summary` endpoint so the HTML UI can generate fuller local summaries for the whole indexed source document/PDF with key points, page/chunk references, and source-mix notes.
+- Added visible source-summary progress states in the HTML UI: the button and result card now show staged background work while indexed text is read, OCR is cleaned, key points are selected, and references are attached.
+- Updated source summaries to use three report sections: quick summary, mysterious/UAP element, and detailed contents, all generated from the full indexed source text for the selected document.
+- Generated a one-document native-PDF-only read artifact for `NASA-UAP-D3, Gemini 7 Transcript, 1965` at `reports/native_pdf_read_nasa_uap_d3_gemini_7_transcript_1965.md`; OCR was not used, and only 1 of 3 pages had native extracted text.
+- Simplified the local search UI around document cards: thumbnail/media preview, cleaned document-level OCR/PDF summary, topic tags, page/chunk references, government source link, local PDF link, and the detailed summary button.
+- Removed the noisy default sidebar/map/evidence-pack surfaces from the main search view and changed the default result count to 5 for easier scanning.
+- Removed the redundant visible metadata chip row from search result cards, leaving tags, summary, references, and source/PDF actions as the primary card surface.
+- Replaced text action buttons on result cards with compact SVG icon buttons: link icon for government source, PDF document icon for local PDF, and summary/spark icon for detailed summary.
+- Locked result-card media previews into a fixed right-side rail so expanding detailed summaries only grows the text column and does not stretch thumbnails/previews.
+- Added `python -m ufo_indexer.export_site` and `make export-site` to generate a static public search site with one precomputed deterministic summary per document, public government/media URLs, tags, locations, and structured page/chunk references.
+- Exported `public_site/` from the current Windows DB and verified it contains 162 documents, 146 source URLs, 131 thumbnails, no local path/package/cache/DB leakage, and a working summary payload for `342_HS1-416511228_319.1 Flying Discs 1949`.
+- Cleaned the release-facing UI so result actions use government/web source links only, summary details are opened by a labeled `Summary` button, and the static public template uses a dark terminal-style look.
+- Added `scripts/publish_github_pages.ps1` to publish the generated static site to a `gh-pages` branch without committing `public_site/`, raw downloads, generated SQLite DBs, or OCR caches to `main`.
+- Pushed the first generated static site to `origin/gh-pages` at commit `43e0adaa608e6e91ea1de5b9830acd61590964c3`; the GitHub Pages URL still returned 404 immediately afterward, so Pages likely needs to be enabled for the branch in repository settings.

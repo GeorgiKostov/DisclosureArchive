@@ -1,0 +1,781 @@
+from __future__ import annotations
+
+import argparse
+import json
+import mimetypes
+import re
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Dict, Iterable, List, Optional
+
+from .common import clean
+from .db import connect
+from .summary import STOPWORDS, source_summary
+
+
+PUBLIC_SITE_HTML = r"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DisclosureArchive Public Index</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050806;
+      --panel: rgba(9, 22, 16, 0.92);
+      --panel-2: rgba(5, 14, 10, 0.96);
+      --ink: #e7fff2;
+      --muted: #8fb39e;
+      --line: rgba(74, 255, 151, 0.22);
+      --accent: #42ff8c;
+      --accent-2: #72d7ff;
+      --warn: #ffd166;
+      --soft: rgba(66, 255, 140, 0.12);
+      --mark: rgba(255, 209, 102, 0.28);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(66,255,140,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(66,255,140,0.035) 1px, transparent 1px),
+        radial-gradient(circle at 20% 0%, rgba(114,215,255,0.16), transparent 30%),
+        radial-gradient(circle at 80% 18%, rgba(66,255,140,0.12), transparent 32%),
+        var(--bg);
+      background-size: 28px 28px, 28px 28px, auto, auto, auto;
+      color: var(--ink);
+      font: 14px/1.45 ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.035) 0, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 4px);
+      mix-blend-mode: overlay;
+      opacity: 0.45;
+    }
+    header {
+      background: linear-gradient(180deg, rgba(4, 18, 11, 0.98), rgba(4, 12, 8, 0.86));
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 0 34px rgba(66,255,140,0.12);
+    }
+    .wrap {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+    .top {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 23px;
+      letter-spacing: 0;
+      color: var(--accent);
+      text-shadow: 0 0 18px rgba(66,255,140,0.42);
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+    main { padding: 22px 0 36px; }
+    .search {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 118px;
+      gap: 10px;
+    }
+    input, button, select { font: inherit; }
+    input[type="search"] {
+      height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 13px;
+      background: rgba(0, 0, 0, 0.42);
+      color: var(--ink);
+      box-shadow: inset 0 0 18px rgba(66,255,140,0.06);
+    }
+    input[type="search"]::placeholder { color: #6f927d; }
+    button, .button {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: rgba(7, 24, 15, 0.92);
+      color: var(--ink);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+      font-weight: 650;
+      box-shadow: 0 0 0 1px rgba(66,255,140,0.04), 0 0 18px rgba(66,255,140,0.06);
+    }
+    button:hover, .button:hover {
+      border-color: rgba(66,255,140,0.55);
+      color: var(--accent);
+      text-decoration: none;
+    }
+    button.primary {
+      border-color: var(--accent);
+      background: linear-gradient(180deg, rgba(66,255,140,0.24), rgba(66,255,140,0.11));
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .tools {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    select {
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel-2);
+      padding: 0 10px;
+      color: var(--ink);
+    }
+    .status {
+      margin: 14px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .result {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: 0 12px 34px rgba(0,0,0,0.28), 0 0 22px rgba(66,255,140,0.05);
+    }
+    .shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      align-items: start;
+    }
+    .body { padding: 15px; }
+    .media {
+      width: 220px;
+      height: 180px;
+      border-left: 1px solid var(--line);
+      background: #020503;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: sticky;
+      top: 10px;
+    }
+    .media img, .media video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #111;
+    }
+    h2 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      letter-spacing: 0;
+      color: var(--accent);
+    }
+    h3 {
+      margin: 14px 0 6px;
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+    p { margin: 7px 0; }
+    ul { margin: 8px 0 0; padding-left: 18px; }
+    li { margin: 5px 0; }
+    .muted, .refs, .source-note {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 10px;
+    }
+    .tag {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 3px 8px;
+      background: var(--soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .icon-button {
+      min-width: 38px;
+      min-height: 34px;
+      padding: 0 10px;
+    }
+    .summary-button {
+      gap: 7px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .details {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+    .result.open .details { display: block; }
+    .empty {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      color: var(--muted);
+    }
+    mark { background: var(--mark); padding: 0 2px; }
+    a { color: var(--accent-2); }
+    a:hover { color: var(--accent); }
+    @media (max-width: 760px) {
+      .top { align-items: flex-start; flex-direction: column; padding: 16px 0; }
+      .meta { text-align: left; }
+      .search { grid-template-columns: 1fr; }
+      .shell { grid-template-columns: 1fr; }
+      .media { width: 100%; height: 170px; border-left: 0; border-top: 1px solid var(--line); position: static; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap top">
+      <div>
+        <h1>DisclosureArchive Public Index</h1>
+        <div class="muted">Precomputed summaries with government source links and page/chunk references.</div>
+      </div>
+      <div class="meta" id="meta">Loading archive...</div>
+    </div>
+  </header>
+  <main class="wrap">
+    <form class="search" id="searchForm">
+      <input id="q" type="search" autocomplete="off" placeholder="Search summaries, titles, agencies, tags, references">
+      <button class="primary" type="submit">Search</button>
+    </form>
+    <div class="tools">
+      <select id="agencyFilter" aria-label="Agency filter"></select>
+      <select id="sourceFilter" aria-label="Source filter">
+        <option value="">All source types</option>
+        <option value="pdf_text">PDF text</option>
+        <option value="ocr_text">OCR text</option>
+        <option value="caption">Captions</option>
+        <option value="video_metadata">Video metadata</option>
+        <option value="metadata">Metadata</option>
+      </select>
+      <button type="button" id="reset">Reset</button>
+    </div>
+    <div class="status" id="status">Loading...</div>
+    <section id="results"></section>
+  </main>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[char]));
+    const icon = (name) => {
+      if (name === "gov") return '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 21 18 0"/><path d="M5 21V10"/><path d="M19 21V10"/><path d="M3 10h18"/><path d="m12 3 9 7H3l9-7Z"/></svg>';
+      return '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>';
+    };
+    let archive = null;
+    let docs = [];
+
+    function searchable(doc) {
+      return [
+        doc.title, doc.agency, doc.incident_date, doc.incident_location,
+        doc.summary?.quick_summary, doc.summary?.overview,
+        ...(doc.summary?.mysterious_uap_element || []).map((item) => item.text || item.label),
+        ...(doc.summary?.detailed_contents || []).map((item) => item.text || item.label),
+        ...(doc.summary?.references || []).map((item) => item.snippet || item.label),
+        ...(doc.tags || [])
+      ].join(" ").toLowerCase();
+    }
+
+    function scoreDoc(doc, terms) {
+      if (!terms.length) return 1;
+      const haystack = doc._search;
+      let score = 0;
+      for (const term of terms) {
+        if (!haystack.includes(term)) return 0;
+        if ((doc.title || "").toLowerCase().includes(term)) score += 6;
+        if ((doc.tags || []).some((tag) => tag.toLowerCase().includes(term))) score += 4;
+        if ((doc.summary?.quick_summary || "").toLowerCase().includes(term)) score += 3;
+        score += 1;
+      }
+      return score;
+    }
+
+    function pageUrl(url, page) {
+      if (!url || !page) return url || "";
+      return `${url}#page=${page}`;
+    }
+
+    function sourceKinds(doc) {
+      return new Set((doc.summary?.references || []).map((ref) => ref.source_kind).filter(Boolean));
+    }
+
+    function renderMedia(doc) {
+      const media = doc.media || {};
+      if (media.thumbnail_url) {
+        return `<a href="${esc(media.document_url || doc.source_url || media.thumbnail_url)}" target="_blank" rel="noopener"><img loading="lazy" src="${esc(media.thumbnail_url)}" alt="${esc(doc.title)} thumbnail"></a>`;
+      }
+      if (media.video_url) {
+        return `<video controls preload="metadata" src="${esc(media.video_url)}"></video>`;
+      }
+      return `<div class="muted">No public preview</div>`;
+    }
+
+    function actionLinks(doc) {
+      const pdf = doc.media?.document_url || doc.source_url;
+      const gov = doc.source_url || pdf;
+      const links = [];
+      if (gov) links.push(`<a class="button icon-button" href="${esc(gov)}" target="_blank" rel="noopener" aria-label="Government source" title="Government source">${icon("gov")}</a>`);
+      links.push(`<button type="button" class="icon-button summary-button details-button" data-doc-id="${esc(doc.doc_id)}" aria-label="Read summary details" title="Read summary details">${icon("summary")}<span>Summary</span></button>`);
+      return `<div class="actions">${links.join("")}</div>`;
+    }
+
+    function renderTags(tags) {
+      if (!tags?.length) return "";
+      return `<div class="tags">${tags.slice(0, 10).map((tag) => `<button class="tag" type="button" data-tag="${esc(tag)}">${esc(tag)}</button>`).join("")}</div>`;
+    }
+
+    function renderRefs(doc) {
+      const refs = doc.summary?.references || [];
+      if (!refs.length) return "";
+      return `<div class="refs">Refs: ${refs.slice(0, 4).map((ref) => {
+        const href = pageUrl(doc.media?.document_url || doc.source_url, ref.page_number);
+        const label = ref.label || ref.chunk_id;
+        return href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>` : esc(label);
+      }).join(" | ")}</div>`;
+    }
+
+    function renderDetails(doc) {
+      const mystery = doc.summary?.mysterious_uap_element || [];
+      const details = doc.summary?.detailed_contents || [];
+      const related = doc.related_documents || [];
+      return `
+        <div class="details">
+          <h3>Mysterious UAP Element</h3>
+          <ul>${mystery.map((item) => `<li>${esc(item.label || item.text || item)}</li>`).join("")}</ul>
+          <h3>More Detailed Contents</h3>
+          <ul>${details.map((item) => `<li>${esc(item.label || item.text || item)}</li>`).join("")}</ul>
+          ${related.length ? `<h3>Related Documents</h3><ul>${related.map((item) => `<li><button class="tag" type="button" data-related="${esc(item.doc_id)}">${esc(item.title)}</button> <span class="muted">${esc(item.reason)}</span></li>`).join("")}</ul>` : ""}
+          ${renderRefs(doc)}
+          <p class="source-note">${esc(doc.summary?.source_note || "")}</p>
+        </div>
+      `;
+    }
+
+    function renderDoc(doc) {
+      return `
+        <article class="result" id="doc-${esc(doc.doc_id)}">
+          <div class="shell">
+            <div class="body">
+              <h2>${esc(doc.title)}</h2>
+              <div class="muted">${esc([doc.agency, doc.incident_date, doc.incident_location].filter(Boolean).join(" | "))}</div>
+              ${renderTags(doc.tags)}
+              <p>${esc(doc.summary?.quick_summary || doc.summary?.overview || "No summary available.")}</p>
+              ${renderRefs(doc)}
+              ${actionLinks(doc)}
+              ${renderDetails(doc)}
+            </div>
+            <div class="media">${renderMedia(doc)}</div>
+          </div>
+        </article>
+      `;
+    }
+
+    function agencyOptions() {
+      const agencies = [...new Set(docs.map((doc) => doc.agency).filter(Boolean))].sort();
+      $("agencyFilter").innerHTML = `<option value="">All agencies</option>` + agencies.map((agency) => `<option value="${esc(agency)}">${esc(agency)}</option>`).join("");
+    }
+
+    function performSearch() {
+      const q = $("q").value.trim().toLowerCase();
+      const agency = $("agencyFilter").value;
+      const source = $("sourceFilter").value;
+      const terms = q.split(/\s+/).filter(Boolean);
+      const scored = docs
+        .filter((doc) => !agency || doc.agency === agency)
+        .filter((doc) => !source || sourceKinds(doc).has(source))
+        .map((doc) => [scoreDoc(doc, terms), doc])
+        .filter(([score]) => score > 0)
+        .sort((a, b) => b[0] - a[0] || a[1].title.localeCompare(b[1].title))
+        .slice(0, 50)
+        .map(([, doc]) => doc);
+      $("status").textContent = `${scored.length} result${scored.length === 1 ? "" : "s"} shown from ${docs.length} documents.`;
+      $("results").innerHTML = scored.length ? scored.map(renderDoc).join("") : `<div class="empty">No matching documents.</div>`;
+    }
+
+    document.addEventListener("click", (event) => {
+      const tag = event.target.closest("[data-tag]");
+      if (tag) {
+        $("q").value = tag.dataset.tag;
+        performSearch();
+      }
+      const button = event.target.closest(".details-button");
+      if (button) {
+        const card = document.getElementById(`doc-${button.dataset.docId}`);
+        if (card) card.classList.toggle("open");
+      }
+      const related = event.target.closest("[data-related]");
+      if (related) {
+        const relatedDoc = docs.find((doc) => doc.doc_id === related.dataset.related);
+        $("q").value = relatedDoc ? relatedDoc.title : "";
+        $("agencyFilter").value = "";
+        $("sourceFilter").value = "";
+        performSearch();
+        const card = document.getElementById(`doc-${related.dataset.related}`);
+        if (card) {
+          card.scrollIntoView({ behavior: "smooth", block: "start" });
+          card.classList.add("open");
+        }
+      }
+    });
+    $("searchForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      performSearch();
+    });
+    $("agencyFilter").addEventListener("change", performSearch);
+    $("sourceFilter").addEventListener("change", performSearch);
+    $("reset").addEventListener("click", () => {
+      $("q").value = "";
+      $("agencyFilter").value = "";
+      $("sourceFilter").value = "";
+      performSearch();
+    });
+
+    fetch("data/documents.json")
+      .then((response) => response.json())
+      .then((payload) => {
+        archive = payload;
+        docs = payload.documents.map((doc) => ({ ...doc, _search: searchable(doc) }));
+        $("meta").textContent = `${payload.document_count} documents | ${payload.generated_at}`;
+        agencyOptions();
+        performSearch();
+      })
+      .catch((error) => {
+        $("status").textContent = `Failed to load public index: ${error.message}`;
+      });
+  </script>
+</body>
+</html>
+"""
+
+
+TAG_STOPWORDS = STOPWORDS | {
+    "available",
+    "case",
+    "chunks",
+    "civilian",
+    "compliance",
+    "contains",
+    "contents",
+    "detailed",
+    "department",
+    "document",
+    "file",
+    "flying",
+    "includes",
+    "incident",
+    "indexed",
+    "investigative",
+    "native",
+    "object",
+    "objects",
+    "page",
+    "pages",
+    "pdf",
+    "primarily",
+    "quick",
+    "record",
+    "release",
+    "report",
+    "reports",
+    "source",
+    "summary",
+    "text",
+    "unidentified",
+    "written",
+}
+
+
+def media_type(kind: str, url: str) -> str:
+    mime = mimetypes.guess_type(url)[0] or ""
+    if mime.startswith("image/"):
+        return "image"
+    if mime.startswith("video/"):
+        return "video"
+    if mime == "application/pdf" or kind == "document":
+        return "document"
+    if kind == "caption" or mime.startswith("text/"):
+        return "text"
+    return "file"
+
+
+def public_assets(conn, doc_id: str) -> List[Dict]:
+    rows = conn.execute(
+        """
+        SELECT kind, source_url, bytes
+        FROM assets
+        WHERE doc_id = ? AND coalesce(source_url, '') != ''
+        ORDER BY
+          CASE kind
+            WHEN 'thumbnail' THEN 0
+            WHEN 'document' THEN 1
+            WHEN 'video' THEN 2
+            WHEN 'caption' THEN 3
+            ELSE 4
+          END,
+          source_url
+        """,
+        (doc_id,),
+    ).fetchall()
+    assets = []
+    seen = set()
+    for row in rows:
+        url = clean(row["source_url"])
+        key = (row["kind"], url)
+        if key in seen:
+            continue
+        seen.add(key)
+        assets.append(
+            {
+                "kind": row["kind"],
+                "source_url": url,
+                "media_type": media_type(row["kind"], url),
+                "bytes": row["bytes"] or 0,
+            }
+        )
+    return assets
+
+
+def public_media(assets: List[Dict]) -> Dict:
+    def first(kind: str) -> str:
+        for asset in assets:
+            if asset["kind"] == kind:
+                return asset["source_url"]
+        return ""
+
+    return {
+        "thumbnail_url": first("thumbnail"),
+        "document_url": first("document"),
+        "video_url": first("video"),
+    }
+
+
+def public_locations(conn, doc_id: str) -> List[Dict]:
+    rows = conn.execute(
+        """
+        SELECT location_id, chunk_id, raw_location, normalized_location, latitude, longitude,
+               precision, confidence, source_kind, method
+        FROM locations
+        WHERE doc_id = ?
+        ORDER BY confidence DESC, precision, raw_location
+        """,
+        (doc_id,),
+    ).fetchall()
+    return [
+        {
+            "location_id": row["location_id"],
+            "chunk_id": row["chunk_id"],
+            "raw_location": row["raw_location"],
+            "normalized_location": row["normalized_location"],
+            "latitude": row["latitude"],
+            "longitude": row["longitude"],
+            "precision": row["precision"],
+            "confidence": row["confidence"],
+            "source_kind": row["source_kind"],
+            "method": row["method"],
+        }
+        for row in rows
+    ]
+
+
+def summary_text_items(summary: Dict, key: str) -> Iterable[str]:
+    for item in summary.get(key) or []:
+        if isinstance(item, dict):
+            yield clean(item.get("text") or item.get("label") or "")
+        else:
+            yield clean(item)
+
+
+def tags_for(doc, summary: Dict) -> List[str]:
+    tags = []
+    agency = clean(doc["agency"])
+    if agency and agency != "N/A":
+        tags.append(agency)
+    source_kinds = {ref.get("source_kind") for ref in summary.get("references", []) if ref.get("source_kind")}
+    if "ocr_text" in source_kinds:
+        tags.append("OCR")
+    if "pdf_text" in source_kinds:
+        tags.append("PDF text")
+
+    text = " ".join(
+        [
+            clean(doc["title"]),
+            clean(summary.get("quick_summary")),
+            " ".join(summary_text_items(summary, "mysterious_uap_element")),
+            " ".join(summary_text_items(summary, "detailed_contents")),
+        ]
+    )
+    for term in re.findall(r"[A-Za-z][A-Za-z0-9-]{3,}", text):
+        key = term.lower().strip("-")
+        if key in TAG_STOPWORDS or len(key) < 4 or any(char.isdigit() for char in key):
+            continue
+        if key.startswith(("hs", "hq", "serial", "section", "chunk")):
+            continue
+        label = "UFOs" if key in {"ufo", "ufos"} else key.upper() if key in {"uap", "fbi", "dod", "nasa", "caa", "mats", "aacs"} else key.title()
+        if label not in tags:
+            tags.append(label)
+        if len(tags) >= 10:
+            break
+    return tags
+
+
+def add_reference_urls(summary: Dict, document_url: str) -> Dict:
+    for key in ("mysterious_uap_element", "detailed_contents", "key_points"):
+        for item in summary.get(key) or []:
+            if isinstance(item, dict) and document_url and item.get("page_number"):
+                item["source_url"] = f"{document_url}#page={item['page_number']}"
+    for ref in summary.get("references") or []:
+        if document_url and ref.get("page_number"):
+            ref["source_url"] = f"{document_url}#page={ref['page_number']}"
+    return summary
+
+
+def related_tags(doc: Dict) -> set[str]:
+    excluded = {clean(doc.get("agency")).lower(), "ocr", "pdf text", "metadata"}
+    return {tag.lower() for tag in doc.get("tags", []) if tag.lower() not in excluded and len(tag) > 2}
+
+
+def attach_related_documents(documents: List[Dict]) -> None:
+    tag_sets = {doc["doc_id"]: related_tags(doc) for doc in documents}
+    by_id = {doc["doc_id"]: doc for doc in documents}
+    for doc in documents:
+        candidates = []
+        tags = tag_sets[doc["doc_id"]]
+        if not tags:
+            doc["related_documents"] = []
+            continue
+        for other_id, other_tags in tag_sets.items():
+            if other_id == doc["doc_id"]:
+                continue
+            overlap = sorted(tags & other_tags)
+            if not overlap:
+                continue
+            candidates.append((len(overlap), overlap, by_id[other_id]))
+        related = []
+        for _, overlap, other in sorted(candidates, key=lambda item: (-item[0], item[2]["title"]))[:5]:
+            related.append(
+                {
+                    "doc_id": other["doc_id"],
+                    "title": other["title"],
+                    "reason": "Shared tags: " + ", ".join(overlap[:3]),
+                }
+            )
+        doc["related_documents"] = related
+
+
+def export_documents(conn) -> List[Dict]:
+    rows = conn.execute(
+        """
+        SELECT doc_id, row_number, title, release_type, agency, release_date,
+               incident_date, incident_location, description, source_url
+        FROM documents
+        ORDER BY row_number, title
+        """
+    ).fetchall()
+    documents = []
+    for row in rows:
+        assets = public_assets(conn, row["doc_id"])
+        media = public_media(assets)
+        summary = add_reference_urls(source_summary(conn, row["doc_id"]), media["document_url"] or clean(row["source_url"]))
+        documents.append(
+            {
+                "doc_id": row["doc_id"],
+                "row_number": row["row_number"],
+                "title": clean(row["title"]),
+                "release_type": clean(row["release_type"]),
+                "agency": clean(row["agency"]),
+                "release_date": clean(row["release_date"]),
+                "incident_date": clean(row["incident_date"]),
+                "incident_location": clean(row["incident_location"]),
+                "description": clean(row["description"]),
+                "source_url": clean(row["source_url"]),
+                "media": media,
+                "assets": assets,
+                "locations": public_locations(conn, row["doc_id"]),
+                "tags": tags_for(row, summary),
+                "summary": summary,
+            }
+        )
+    attach_related_documents(documents)
+    return documents
+
+
+def validate_public_payload(payload: Dict) -> List[str]:
+    text = json.dumps(payload, ensure_ascii=False)
+    forbidden = ["DisclosureArchivePackage", "derived/", "derived\\", "indexes/uap_release.sqlite", "indexes\\uap_release.sqlite", "Z:\\", "C:\\Users"]
+    return [item for item in forbidden if item in text]
+
+
+def write_site(db: Path, out: Path) -> Dict:
+    conn = connect(db)
+    documents = export_documents(conn)
+    payload = {
+        "schema": "disclosurearchive.public_site.v1",
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "document_count": len(documents),
+        "documents": documents,
+    }
+    leaks = validate_public_payload(payload)
+    if leaks:
+        raise RuntimeError(f"public export contains forbidden local/private strings: {', '.join(leaks)}")
+
+    data_dir = out / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    (data_dir / "documents.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    (out / "index.html").write_text(PUBLIC_SITE_HTML, encoding="utf-8")
+    return {
+        "out": str(out),
+        "documents": len(documents),
+        "json": str(data_dir / "documents.json"),
+        "html": str(out / "index.html"),
+    }
+
+
+def main(argv: Optional[List[str]] = None) -> int:
+    parser = argparse.ArgumentParser(description="Export a static public summary/search site.")
+    parser.add_argument("--db", type=Path, default=Path("indexes/uap_release.sqlite"))
+    parser.add_argument("--out", type=Path, default=Path("public_site"))
+    args = parser.parse_args(argv)
+
+    result = write_site(args.db, args.out)
+    print(json.dumps(result, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

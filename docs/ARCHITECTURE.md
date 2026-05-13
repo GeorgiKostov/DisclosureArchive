@@ -68,12 +68,20 @@ The package DB must be made with `sqlite3 .backup`; do not treat live
 - `chunks`: citable text chunks from metadata, PDFs, video metadata, and captions.
 - `chunks_fts`: SQLite FTS5 full-text index.
 - `embeddings`: normalized local embeddings for semantic search.
+- `locations`: mappable latitude/longitude records with source kind, confidence,
+  precision, method, and optional chunk provenance.
 
 ## Incremental Behavior
 
 The indexer hashes document metadata plus associated asset hashes. If a record is
 unchanged and already has chunks, it updates asset rows but skips chunk extraction
 and embedding regeneration.
+
+Location extraction is also safe on incremental runs. The indexer refreshes each
+document's `locations` rows, geocodes known `incident_location` strings at
+country/region/city precision, and extracts explicit decimal or DMS coordinates
+from existing chunks. Coordinates from text are labeled as regex-derived and
+should still be checked against the source page.
 
 When new release files arrive:
 
@@ -156,5 +164,40 @@ The server uses standard-library HTTP handling and reuses the existing search
 and evidence-pack modules. It exposes `/api/health`, `/api/search`, and
 `/api/evidence-pack`, plus a guarded `/file` endpoint for index-referenced local
 files. The single-page browser UI includes extractive summaries, ranked result
-cards, provenance references, OCR labels, follow-up suggestions, and clickable
-source links.
+cards, provenance references, OCR labels, follow-up suggestions, media previews,
+government source links, labeled summary controls, local readable summaries,
+cleaned source excerpts, and a simple result-location map. The readable summaries are deterministic extractive
+helpers over the indexed chunk text; they are meant to reduce OCR noise in the
+UI while preserving source provenance.
+
+`/api/source-summary` accepts a `doc_id` and returns a fuller local source
+summary for that document. It reads indexed native PDF text, OCR text, captions,
+and video metadata from `chunks`, selects readable source sentences, and returns
+a quick summary, the likely mysterious/UAP element, a detailed contents
+breakdown, page/chunk references, and a source-mix note.
+
+## Static Public Site Export
+
+`python -m ufo_indexer.export_site` builds a dependency-free static site under
+`public_site/` from the SQLite index. The command exports
+`public_site/index.html` plus `public_site/data/documents.json`, with one public
+payload per document. Each payload includes document/release metadata,
+government source URLs, public asset URLs, locations, tags, related-document
+links, deterministic summary sections, and structured references back to
+chunk/page/source-kind provenance.
+
+The public export is intentionally summary-focused. It does not copy raw PDFs,
+videos, local thumbnails, generated SQLite databases, derived OCR caches, or full
+OCR text. It also validates that common local path markers such as Windows drive
+paths, `DisclosureArchivePackage`, `derived/`, and the local DB path do not leak
+into the JSON payload. The static HTML uses a dark terminal-style template,
+performs client-side search over the precomputed dataset, exposes a clear
+`Summary` button for detailed summary sections, and links verification actions
+back to the original WAR/DVIDS government URLs.
+
+`scripts/publish_github_pages.ps1` is the publish wrapper for GitHub Pages. It
+regenerates the static export, validates the JSON for local/private path
+markers, copies only the generated static files into a temporary checkout, adds
+`.nojekyll`, and pushes the result to the `gh-pages` branch. That keeps the
+generated publish artifact separate from `main`, where raw data, generated DBs,
+and generated static output remain ignored.

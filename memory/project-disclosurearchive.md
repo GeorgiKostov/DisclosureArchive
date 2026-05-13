@@ -42,6 +42,10 @@ Z:\Projects\Repositories\Disclosure\DisclosureArchive\DisclosureArchivePackage
 - Mac export and package verification scripts.
 - Windows import smoke-test script.
 - Agent scaffold for future continuity.
+- Search-result media enrichment: the web API now attaches related indexed assets to each result so the UI can preview thumbnails/images/videos and link related PDFs.
+- Location enrichment: `locations` table stores map-ready latitude/longitude rows from conservative incident-location geocoding and explicit decimal/DMS coordinate extraction with precision/confidence/method labels.
+- Search-result readability layer: web results include deterministic local readable summaries and cleaned source excerpts over indexed chunk text/OCR, with no external LLM call required.
+- Source-summary UI action: each result card has `Summarize source`, backed by `/api/source-summary`, which summarizes the whole indexed source document/PDF from chunks with key points, page/chunk references, and source-mix notes.
 
 ## Current verification
 
@@ -85,8 +89,29 @@ Broad OCR update:
 - Retrieval eval report after FTS fallback: 15 curated queries; hybrid passed 15, vector passed 14, keyword passed 14. Hybrid best matches included 6 metadata, 6 OCR text, and 3 PDF text hits. `new_haven_flying_saucers` now passes in top five, though not at rank 1.
 - Evidence-pack smoke test generated for `flying discs flight service regulation 1949`; the pack contains 8 ranked results with provenance, source labels, snippets/full text, page numbers, local paths, and OCR/source-use guidance.
 - Local search UI added via `python -m ufo_indexer.web --db indexes/uap_release.sqlite --host 127.0.0.1 --port 8765`; it reuses existing search/evidence-pack code and shows summaries, references, suggestions, OCR labels, evidence-pack previews, and guarded `Open source` links for indexed local files.
+- Current location-enriched DB after a skip-embedding index pass: 105 `locations` rows, 305 assets, 7,610 chunks, and 7,610 embeddings.
+- Local search UI now includes a simple result map, inline media previews, related PDF links, and a `Government source` button backed by stored WAR/DVIDS URLs.
+- Local search UI now shows a `Readable summary` and collapsible `Cleaned source excerpt` on each result card to reduce OCR noise while keeping the raw provenance nearby.
+- Browser verification passed for the `Summarize source` flow: search results showed buttons, clicking one produced a summary containing references and source-mix/verification notes.
+- Source-summary UI now shows staged progress text while the browser waits for `/api/source-summary`; a short minimum display time keeps the feedback visible even when summaries return quickly.
+- `/api/source-summary` now returns three explicit sections for the selected source: quick summary, mysterious/UAP element, and detailed contents, plus page/chunk references and source-mix notes.
+- Native PDF read test artifact created for `NASA-UAP-D3, Gemini 7 Transcript, 1965`: `reports/native_pdf_read_nasa_uap_d3_gemini_7_transcript_1965.md`. It used `pdfplumber` only, no OCR, and found native text on 1/3 pages with 2,421 extracted characters.
+- Search UI cards are now document-centered: thumbnail/media preview, cleaned document-level OCR/PDF summary as the main card text, topic tags, references, government source link, local PDF link, and `Expand detailed summary`.
+- The sidebar map, suggestions, evidence-pack preview, raw local paths, chunk IDs, and default cleaned-excerpt block are hidden from the primary UI to keep the surface focused.
+- The visible metadata chip row (`release metadata`, agency, date, location, page) was removed from cards because tags and summaries carry the useful context more cleanly.
+- Result card actions now use compact accessible SVG icon buttons: government link, local PDF, and detailed summary.
+- Result card media previews are locked into a fixed right-side rail; expanded summaries grow only the left text column.
+- Static public export is now available via `python -m ufo_indexer.export_site --db indexes/uap_release.sqlite --out public_site` or `make export-site`. It writes `public_site/index.html` plus `public_site/data/documents.json` with 162 precomputed deterministic document summaries, public government/media URLs, tags, locations, and structured references.
+- The public export deliberately excludes local file paths, raw downloads, full OCR text, generated SQLite databases, and derived OCR caches; the exporter validates common private/local path markers before writing publishable JSON.
+- Release UI cleanup: result actions now emphasize public government/web links only, detailed summaries use a labeled `Summary` button, and the static public page has a dark terminal-style visual treatment.
+- GitHub Pages publishing can use `powershell -ExecutionPolicy Bypass -File scripts/publish_github_pages.ps1`; it pushes only generated static files to `gh-pages` and leaves generated artifacts ignored on `main`.
+- First `gh-pages` publish succeeded to origin at commit `43e0adaa608e6e91ea1de5b9830acd61590964c3`; `https://georgikostov.github.io/DisclosureArchive/` returned 404 right after publish, so enable Pages from `gh-pages` branch root or wait for provisioning before public smoke testing.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.
 3. Use the local search UI for a small manual research pass and note what fields, filters, or saved-note workflows are missing.
 4. Decide whether a small OCRmyPDF or PaddleOCR comparison is warranted for genuinely weak OCR pages.
+5. Review `locations` rows for false positives and decide whether to add a larger offline gazetteer/manual override file.
+6. Evaluate whether optional real LLM summaries are worth adding behind an explicit API-key/config setting.
+7. Review the static public site as a publishing candidate and decide whether per-document routable pages or richer client-side search are needed.
+8. Enable GitHub Pages for the `gh-pages` branch root and smoke-test the live public URL after the first publish.

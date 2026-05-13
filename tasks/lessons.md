@@ -31,3 +31,10 @@
 - Long natural-language queries can be too strict for SQLite FTS when OCR has spelling damage; a fallback OR query only after strict FTS returns nothing improves recall without disturbing exact matches.
 - Passing top-five retrieval does not mean ranking is ideal; New Haven now passes but still sits behind broader flying-saucer chunks, making it a useful reranking test case.
 - A useful first UI can stay dependency-free: a standard-library localhost server is enough to expose search, evidence packs, summaries, and suggestions over the existing SQLite index.
+- Coordinate extraction needs validation guards: OCR can produce plausible-looking but invalid DMS strings, so minutes/seconds must be range-checked before labeling a row as coordinate precision.
+- The existing `assets` table is enough to attach thumbnails, PDFs, videos, captions, and government source URLs to search result cards without rebuilding embeddings.
+- A local extractive summary layer is a useful first pass for OCR-heavy results: clean obvious OCR artifacts, sentence-case all-caps transcripts, and keep a cleaned excerpt visible for source checking.
+- Source-level summaries work best as on-demand UI actions because they can read all chunks for the selected `doc_id` and include page/chunk references without slowing every search.
+- Static publication is feasible at the current archive scale: 162 document summary payloads fit in a small client-side JSON dataset, so the first public version does not need hosted SQLite or a Python server.
+- Public exports should treat government URLs as the canonical media/source layer and validate against local path leakage before writing publishable JSON.
+- For release-facing views, keep verification actions pointed at public government URLs and avoid exposing local `/file` links as primary controls.
