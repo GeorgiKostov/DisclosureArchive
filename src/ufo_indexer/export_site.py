@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import mimetypes
 import re
@@ -338,10 +339,19 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       return new Set((doc.summary?.references || []).map((ref) => ref.source_kind).filter(Boolean));
     }
 
+    function videoUrl(value) {
+      if (!value) return "";
+      if (typeof value === "string" && value.startsWith("http")) return value;
+      if (typeof value === "object" && value.src) return String(value.src);
+      const text = String(value);
+      const match = text.match(/['"]src['"]\s*:\s*['"]([^'"]+)['"]/);
+      return match ? match[1] : text;
+    }
+
     function hasMediaKind(doc, kind) {
       const assets = doc.assets || [];
       if (kind === "media_image") return Boolean(doc.media?.thumbnail_url) || assets.some((asset) => asset.media_type === "image" || asset.kind === "thumbnail");
-      if (kind === "media_video") return Boolean(doc.media?.video_url) || assets.some((asset) => asset.media_type === "video" || asset.kind === "video");
+      if (kind === "media_video") return Boolean(videoUrl(doc.media?.video_url)) || assets.some((asset) => asset.media_type === "video" || asset.kind === "video");
       return false;
     }
 
@@ -353,11 +363,13 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
 
     function renderMedia(doc) {
       const media = doc.media || {};
+      const playableVideo = videoUrl(media.video_url);
+      if (playableVideo) {
+        const poster = media.thumbnail_url ? ` poster="${esc(media.thumbnail_url)}"` : "";
+        return `<video controls preload="metadata"${poster} src="${esc(playableVideo)}"></video>`;
+      }
       if (media.thumbnail_url) {
         return `<a href="${esc(media.document_url || doc.source_url || media.thumbnail_url)}" target="_blank" rel="noopener"><img loading="lazy" src="${esc(media.thumbnail_url)}" alt="${esc(doc.title)} thumbnail"></a>`;
-      }
-      if (media.video_url) {
-        return `<video controls preload="metadata" src="${esc(media.video_url)}"></video>`;
       }
       return `<div class="muted">No public preview</div>`;
     }
@@ -365,8 +377,10 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     function actionLinks(doc) {
       const pdf = doc.media?.document_url || doc.source_url;
       const gov = doc.source_url || pdf;
+      const video = videoUrl(doc.media?.video_url);
       const links = [];
       if (gov) links.push(`<a class="button icon-button source-button" href="${esc(gov)}" target="_blank" rel="noopener" aria-label="Government source" title="Government source">${icon("source")}<span>Source</span></a>`);
+      if (video) links.push(`<a class="button icon-button source-button" href="${esc(video)}" target="_blank" rel="noopener" aria-label="Open video" title="Open video">${icon("source")}<span>Video</span></a>`);
       links.push(`<button type="button" class="icon-button summary-button details-button" data-doc-id="${esc(doc.doc_id)}" aria-label="Read summary details" title="Read summary details">${icon("summary")}<span>Summary</span></button>`);
       return `<div class="actions">${links.join("")}</div>`;
     }
@@ -482,7 +496,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       performSearch();
     });
 
-    fetch("data/documents.json")
+    fetch(`data/documents.json?v=${Date.now()}`, { cache: "no-store" })
       .then((response) => response.json())
       .then((payload) => {
         archive = payload;
@@ -550,10 +564,41 @@ def media_type(kind: str, url: str) -> str:
     return "file"
 
 
+def video_src_from_metadata(raw_source_url: str, metadata_json: str) -> str:
+    source_url = clean(raw_source_url)
+    if source_url.startswith("http"):
+        return source_url
+    if (source_url.startswith('"') and source_url.endswith('"')) or (source_url.startswith("'") and source_url.endswith("'")):
+        try:
+            unwrapped = ast.literal_eval(source_url)
+            if isinstance(unwrapped, str):
+                source_url = clean(unwrapped)
+                if source_url.startswith("http"):
+                    return source_url
+        except (SyntaxError, ValueError):
+            pass
+    if source_url.startswith("{"):
+        try:
+            value = ast.literal_eval(source_url)
+            if isinstance(value, dict) and clean(value.get("src")):
+                return clean(value.get("src"))
+        except (SyntaxError, ValueError):
+            pass
+    try:
+        metadata = json.loads(metadata_json or "{}")
+    except json.JSONDecodeError:
+        metadata = {}
+    for item in metadata.get("all_mp4s") or []:
+        src = clean(item.get("src"))
+        if src:
+            return src
+    return source_url
+
+
 def public_assets(conn, doc_id: str) -> List[Dict]:
     rows = conn.execute(
         """
-        SELECT kind, source_url, bytes
+        SELECT kind, source_url, bytes, metadata_json
         FROM assets
         WHERE doc_id = ? AND coalesce(source_url, '') != ''
         ORDER BY
@@ -571,7 +616,7 @@ def public_assets(conn, doc_id: str) -> List[Dict]:
     assets = []
     seen = set()
     for row in rows:
-        url = clean(row["source_url"])
+        url = video_src_from_metadata(row["source_url"], row["metadata_json"]) if row["kind"] == "video" else clean(row["source_url"])
         key = (row["kind"], url)
         if key in seen:
             continue
