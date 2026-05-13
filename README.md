@@ -258,11 +258,11 @@ local PDF path as the main UI action.
 Each result also includes a local readable summary and a cleaned source excerpt.
 These are extractive helpers over indexed text/OCR, not proof of the underlying
 claim and not a substitute for checking the source PDF/video.
-Use `Summarize source` on a result card to generate a fuller local summary for
-the whole indexed source document/PDF. The server reads the document's indexed
-native PDF text, OCR text, captions, and video metadata when available, then
-returns a quick summary, the likely mysterious/UAP element, a more detailed
-contents breakdown, page/chunk references, and a source-mix note.
+Use the `Summary` button on a result card to open a fuller local summary for the
+whole indexed source document/PDF. The server reads the document's indexed native
+PDF text, OCR text, captions, and video metadata when available, then returns a
+quick summary, the likely mysterious/UAP element, a more detailed contents
+breakdown, page/chunk references, and a source-mix note.
 
 ## Static Public Site Export
 
