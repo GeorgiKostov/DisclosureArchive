@@ -323,10 +323,19 @@
       return new Set((doc.summary?.references || []).map((ref) => ref.source_kind).filter(Boolean));
     }
 
+    function videoUrl(value) {
+      if (!value) return "";
+      if (typeof value === "string" && value.startsWith("http")) return value;
+      if (typeof value === "object" && value.src) return String(value.src);
+      const text = String(value);
+      const match = text.match(/['"]src['"]\s*:\s*['"]([^'"]+)['"]/);
+      return match ? match[1] : text;
+    }
+
     function hasMediaKind(doc, kind) {
       const assets = doc.assets || [];
       if (kind === "media_image") return Boolean(doc.media?.thumbnail_url) || assets.some((asset) => asset.media_type === "image" || asset.kind === "thumbnail");
-      if (kind === "media_video") return Boolean(doc.media?.video_url) || assets.some((asset) => asset.media_type === "video" || asset.kind === "video");
+      if (kind === "media_video") return Boolean(videoUrl(doc.media?.video_url)) || assets.some((asset) => asset.media_type === "video" || asset.kind === "video");
       return false;
     }
 
@@ -338,9 +347,10 @@
 
     function renderMedia(doc) {
       const media = doc.media || {};
-      if (media.video_url) {
+      const playableVideo = videoUrl(media.video_url);
+      if (playableVideo) {
         const poster = media.thumbnail_url ? ` poster="${esc(media.thumbnail_url)}"` : "";
-        return `<video controls preload="metadata"${poster} src="${esc(media.video_url)}"></video>`;
+        return `<video controls preload="metadata"${poster} src="${esc(playableVideo)}"></video>`;
       }
       if (media.thumbnail_url) {
         return `<a href="${esc(media.document_url || doc.source_url || media.thumbnail_url)}" target="_blank" rel="noopener"><img loading="lazy" src="${esc(media.thumbnail_url)}" alt="${esc(doc.title)} thumbnail"></a>`;
@@ -351,7 +361,7 @@
     function actionLinks(doc) {
       const pdf = doc.media?.document_url || doc.source_url;
       const gov = doc.source_url || pdf;
-      const video = doc.media?.video_url;
+      const video = videoUrl(doc.media?.video_url);
       const links = [];
       if (gov) links.push(`<a class="button icon-button source-button" href="${esc(gov)}" target="_blank" rel="noopener" aria-label="Government source" title="Government source">${icon("source")}<span>Source</span></a>`);
       if (video) links.push(`<a class="button icon-button source-button" href="${esc(video)}" target="_blank" rel="noopener" aria-label="Open video" title="Open video">${icon("source")}<span>Video</span></a>`);
