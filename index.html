@@ -272,6 +272,11 @@
         <option value="video_metadata">Video metadata</option>
         <option value="metadata">Metadata</option>
       </select>
+      <select id="sortFilter" aria-label="Sort results">
+        <option value="relevance">Sort: relevance</option>
+        <option value="year_desc">Sort: newest year</option>
+        <option value="year_asc">Sort: oldest year</option>
+      </select>
       <button type="button" id="reset">Reset</button>
     </div>
     <div class="status" id="status">Loading...</div>
@@ -312,6 +317,12 @@
         score += 1;
       }
       return score;
+    }
+
+    function docYear(doc) {
+      const text = [doc.incident_date, doc.release_date, doc.title].filter(Boolean).join(" ");
+      const matches = [...text.matchAll(/\b(18|19|20)\d{2}\b/g)].map((match) => Number(match[0]));
+      return matches.length ? matches[0] : 0;
     }
 
     function pageUrl(url, page) {
@@ -429,13 +440,18 @@
       const q = $("q").value.trim().toLowerCase();
       const agency = $("agencyFilter").value;
       const source = $("sourceFilter").value;
+      const sort = $("sortFilter").value;
       const terms = q.split(/\s+/).filter(Boolean);
       const scored = docs
         .filter((doc) => !agency || doc.agency === agency)
         .filter((doc) => matchesSourceFilter(doc, source))
         .map((doc) => [scoreDoc(doc, terms), doc])
         .filter(([score]) => score > 0)
-        .sort((a, b) => b[0] - a[0] || a[1].title.localeCompare(b[1].title))
+        .sort((a, b) => {
+          if (sort === "year_desc") return docYear(b[1]) - docYear(a[1]) || b[0] - a[0] || a[1].title.localeCompare(b[1].title);
+          if (sort === "year_asc") return (docYear(a[1]) || 9999) - (docYear(b[1]) || 9999) || b[0] - a[0] || a[1].title.localeCompare(b[1].title);
+          return b[0] - a[0] || a[1].title.localeCompare(b[1].title);
+        })
         .slice(0, 50)
         .map(([, doc]) => doc);
       $("status").textContent = `${scored.length} result${scored.length === 1 ? "" : "s"} shown from ${docs.length} documents.`;
@@ -459,6 +475,7 @@
         $("q").value = relatedDoc ? relatedDoc.title : "";
         $("agencyFilter").value = "";
         $("sourceFilter").value = "";
+        $("sortFilter").value = "relevance";
         performSearch();
         const card = document.getElementById(`doc-${related.dataset.related}`);
         if (card) {
@@ -473,10 +490,12 @@
     });
     $("agencyFilter").addEventListener("change", performSearch);
     $("sourceFilter").addEventListener("change", performSearch);
+    $("sortFilter").addEventListener("change", performSearch);
     $("reset").addEventListener("click", () => {
       $("q").value = "";
       $("agencyFilter").value = "";
       $("sourceFilter").value = "";
+      $("sortFilter").value = "relevance";
       performSearch();
     });
 
