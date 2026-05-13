@@ -338,11 +338,12 @@
 
     function renderMedia(doc) {
       const media = doc.media || {};
+      if (media.video_url) {
+        const poster = media.thumbnail_url ? ` poster="${esc(media.thumbnail_url)}"` : "";
+        return `<video controls preload="metadata"${poster} src="${esc(media.video_url)}"></video>`;
+      }
       if (media.thumbnail_url) {
         return `<a href="${esc(media.document_url || doc.source_url || media.thumbnail_url)}" target="_blank" rel="noopener"><img loading="lazy" src="${esc(media.thumbnail_url)}" alt="${esc(doc.title)} thumbnail"></a>`;
-      }
-      if (media.video_url) {
-        return `<video controls preload="metadata" src="${esc(media.video_url)}"></video>`;
       }
       return `<div class="muted">No public preview</div>`;
     }
@@ -350,8 +351,10 @@
     function actionLinks(doc) {
       const pdf = doc.media?.document_url || doc.source_url;
       const gov = doc.source_url || pdf;
+      const video = doc.media?.video_url;
       const links = [];
       if (gov) links.push(`<a class="button icon-button source-button" href="${esc(gov)}" target="_blank" rel="noopener" aria-label="Government source" title="Government source">${icon("source")}<span>Source</span></a>`);
+      if (video) links.push(`<a class="button icon-button source-button" href="${esc(video)}" target="_blank" rel="noopener" aria-label="Open video" title="Open video">${icon("source")}<span>Video</span></a>`);
       links.push(`<button type="button" class="icon-button summary-button details-button" data-doc-id="${esc(doc.doc_id)}" aria-label="Read summary details" title="Read summary details">${icon("summary")}<span>Summary</span></button>`);
       return `<div class="actions">${links.join("")}</div>`;
     }

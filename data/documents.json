@@ -1,6 +1,6 @@
 {
   "schema": "disclosurearchive.public_site.v1",
-  "generated_at": "2026-05-13T14:26:54+00:00",
+  "generated_at": "2026-05-13T14:39:31+00:00",
   "document_count": 162,
   "documents": [
     {
@@ -8247,13 +8247,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689232/DOD_111689232.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 19121943, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689232/DOD_111689232.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689232/DOD_111689232.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 19121943, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689232/DOD_111689232.mp4",
+          "media_type": "video",
           "bytes": 19126276
         }
       ],
@@ -14052,7 +14052,7 @@
       "media": {
         "thumbnail_url": "https://www.war.gov/medialink/ufo/release_1/thumbnail/dow-uap-d10-mission-report-middle-east-may-2022.jpg",
         "document_url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d10-mission-report-middle-east-may-2022.pdf",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688723/DOD_111688723.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 6809658, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688723/DOD_111688723.mp4"
       },
       "assets": [
         {
@@ -14069,8 +14069,8 @@
         },
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688723/DOD_111688723.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 6809658, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688723/DOD_111688723.mp4",
+          "media_type": "video",
           "bytes": 6814452
         }
       ],
@@ -14844,7 +14844,7 @@
       "media": {
         "thumbnail_url": "https://www.war.gov/medialink/ufo/release_1/thumbnail/dow-uap-d14-mission-report-iraq-may-2022.jpg",
         "document_url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d14-mission-report-iraq-may-2022.pdf",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688762/DOD_111688762.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 12748546, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688762/DOD_111688762.mp4"
       },
       "assets": [
         {
@@ -14861,8 +14861,8 @@
         },
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688762/DOD_111688762.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 12748546, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688762/DOD_111688762.mp4",
+          "media_type": "video",
           "bytes": 12752210
         }
       ],
@@ -15271,7 +15271,7 @@
       "media": {
         "thumbnail_url": "https://www.war.gov/medialink/ufo/release_1/thumbnail/dow-uap-d16-mission-report-syria-july-2022.jpg",
         "document_url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d16-mission-report-syria-july-2022.pdf",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688775/DOD_111688775.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 3977583, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688775/DOD_111688775.mp4"
       },
       "assets": [
         {
@@ -15288,8 +15288,8 @@
         },
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688775/DOD_111688775.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 3977583, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688775/DOD_111688775.mp4",
+          "media_type": "video",
           "bytes": 3982264
         }
       ],
@@ -15698,7 +15698,7 @@
       "media": {
         "thumbnail_url": "https://www.war.gov/medialink/ufo/release_1/thumbnail/dow-uap-d18-mission-report-iraq-december-2022.jpg",
         "document_url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d18-mission-report-iraq-december-2022.pdf",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688809/DOD_111688809.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 5295923, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688809/DOD_111688809.mp4"
       },
       "assets": [
         {
@@ -15715,8 +15715,8 @@
         },
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688809/DOD_111688809.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 5295923, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688809/DOD_111688809.mp4",
+          "media_type": "video",
           "bytes": 5300653
         }
       ],
@@ -16870,7 +16870,7 @@
       "media": {
         "thumbnail_url": "https://www.war.gov/medialink/ufo/release_1/thumbnail/dow-uap-d23-mission-report-united-arab-emirates-october-2023.jpg",
         "document_url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d23-mission-report-united-arab-emirates-october-2023.pdf",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688816/DOD_111688816.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 27488822, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688816/DOD_111688816.mp4"
       },
       "assets": [
         {
@@ -16887,8 +16887,8 @@
         },
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688816/DOD_111688816.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 27488822, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688816/DOD_111688816.mp4",
+          "media_type": "video",
           "bytes": 27493716
         }
       ],
@@ -17299,13 +17299,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688825/DOD_111688825.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 155880123, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688825/DOD_111688825.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688825/DOD_111688825.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 155880123, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688825/DOD_111688825.mp4",
+          "media_type": "video",
           "bytes": 155885289
         }
       ],
@@ -19182,7 +19182,7 @@
       "media": {
         "thumbnail_url": "https://www.war.gov/medialink/ufo/release_1/thumbnail/dow-uap-d32-mission-report,-syria-october-2024.jpg",
         "document_url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d32-mission-report,-syria-october-2024.pdf",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688970/DOD_111688970.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 639736, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688970/DOD_111688970.mp4"
       },
       "assets": [
         {
@@ -19199,8 +19199,8 @@
         },
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688970/DOD_111688970.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 639736, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688970/DOD_111688970.mp4",
+          "media_type": "video",
           "bytes": 644525
         }
       ],
@@ -19631,13 +19631,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688997/DOD_111688997.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 1829603, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688997/DOD_111688997.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688997/DOD_111688997.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 1829603, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688997/DOD_111688997.mp4",
+          "media_type": "video",
           "bytes": 1834659
         }
       ],
@@ -19845,13 +19845,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689005/DOD_111689005.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 422140, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689005/DOD_111689005.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689005/DOD_111689005.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 422140, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689005/DOD_111689005.mp4",
+          "media_type": "video",
           "bytes": 426911
         }
       ],
@@ -20059,7 +20059,7 @@
       "media": {
         "thumbnail_url": "https://www.war.gov/medialink/ufo/release_1/thumbnail/dow-uap-d33-mission-report-greece-october-2023.jpg",
         "document_url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d33-mission-report-greece-october-2023.pdf",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689011/DOD_111689011.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 198243046, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689011/DOD_111689011.mp4"
       },
       "assets": [
         {
@@ -20076,8 +20076,8 @@
         },
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689011/DOD_111689011.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 198243046, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689011/DOD_111689011.mp4",
+          "media_type": "video",
           "bytes": 198248609
         }
       ],
@@ -20478,7 +20478,7 @@
       "media": {
         "thumbnail_url": "https://www.war.gov/medialink/ufo/release_1/thumbnail/dow-uap-d35-mission-report-greece-october-2023.jpg",
         "document_url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d35-mission-report-greece-october-2023.pdf",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689022/DOD_111689022-1920x1080-9000k.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 6625380, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689022/DOD_111689022-1920x1080-9000k.mp4"
       },
       "assets": [
         {
@@ -20495,8 +20495,8 @@
         },
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689022/DOD_111689022-1920x1080-9000k.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 6625380, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689022/DOD_111689022-1920x1080-9000k.mp4",
+          "media_type": "video",
           "bytes": 6625380
         }
       ],
@@ -20897,7 +20897,7 @@
       "media": {
         "thumbnail_url": "https://www.war.gov/medialink/ufo/release_1/thumbnail/dow-uap-d38-range-fouler-debrief-middle-east-may-2020.jpg",
         "document_url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d38-range-fouler-debrief-middle-east-may-2020.pdf",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689030/DOD_111689030.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 142680684, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689030/DOD_111689030.mp4"
       },
       "assets": [
         {
@@ -20914,8 +20914,8 @@
         },
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689030/DOD_111689030.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 142680684, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689030/DOD_111689030.mp4",
+          "media_type": "video",
           "bytes": 142686223
         }
       ],
@@ -29220,13 +29220,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688723/DOD_111688723.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 6809658, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688723/DOD_111688723.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688723/DOD_111688723.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 6809658, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688723/DOD_111688723.mp4",
+          "media_type": "video",
           "bytes": 6814452
         }
       ],
@@ -29656,13 +29656,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688762/DOD_111688762.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 12748546, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688762/DOD_111688762.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688762/DOD_111688762.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 12748546, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688762/DOD_111688762.mp4",
+          "media_type": "video",
           "bytes": 12752210
         }
       ],
@@ -29870,13 +29870,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688775/DOD_111688775.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 3977583, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688775/DOD_111688775.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688775/DOD_111688775.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 3977583, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688775/DOD_111688775.mp4",
+          "media_type": "video",
           "bytes": 3982264
         }
       ],
@@ -30066,13 +30066,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688809/DOD_111688809.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 5295923, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688809/DOD_111688809.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688809/DOD_111688809.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 5295923, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688809/DOD_111688809.mp4",
+          "media_type": "video",
           "bytes": 5300653
         }
       ],
@@ -30280,13 +30280,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688816/DOD_111688816.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 27488822, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688816/DOD_111688816.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688816/DOD_111688816.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 27488822, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688816/DOD_111688816.mp4",
+          "media_type": "video",
           "bytes": 27493716
         }
       ],
@@ -30503,13 +30503,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688825/DOD_111688825.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 155880123, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688825/DOD_111688825.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688825/DOD_111688825.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 155880123, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688825/DOD_111688825.mp4",
+          "media_type": "video",
           "bytes": 155885289
         }
       ],
@@ -30717,13 +30717,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688954/DOD_111688954.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 15987170, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688954/DOD_111688954.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688954/DOD_111688954.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 15987170, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688954/DOD_111688954.mp4",
+          "media_type": "video",
           "bytes": 15992674
         }
       ],
@@ -31039,13 +31039,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688964/DOD_111688964.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 15440564, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688964/DOD_111688964.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688964/DOD_111688964.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 15440564, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688964/DOD_111688964.mp4",
+          "media_type": "video",
           "bytes": 15445575
         }
       ],
@@ -31262,13 +31262,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688970/DOD_111688970.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 639736, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688970/DOD_111688970.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688970/DOD_111688970.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 639736, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688970/DOD_111688970.mp4",
+          "media_type": "video",
           "bytes": 644525
         }
       ],
@@ -31476,13 +31476,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688997/DOD_111688997.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 1829603, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688997/DOD_111688997.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688997/DOD_111688997.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 1829603, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688997/DOD_111688997.mp4",
+          "media_type": "video",
           "bytes": 1834659
         }
       ],
@@ -31690,13 +31690,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689005/DOD_111689005.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 422140, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689005/DOD_111689005.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689005/DOD_111689005.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 422140, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689005/DOD_111689005.mp4",
+          "media_type": "video",
           "bytes": 426911
         }
       ],
@@ -31904,13 +31904,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689011/DOD_111689011.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 198243046, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689011/DOD_111689011.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689011/DOD_111689011.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 198243046, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689011/DOD_111689011.mp4",
+          "media_type": "video",
           "bytes": 198248609
         }
       ],
@@ -32199,13 +32199,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689022/DOD_111689022-1920x1080-9000k.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 6625380, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689022/DOD_111689022-1920x1080-9000k.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689022/DOD_111689022-1920x1080-9000k.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 6625380, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689022/DOD_111689022-1920x1080-9000k.mp4",
+          "media_type": "video",
           "bytes": 6625380
         }
       ],
@@ -32413,13 +32413,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689030/DOD_111689030.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 142680684, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689030/DOD_111689030.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689030/DOD_111689030.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 142680684, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689030/DOD_111689030.mp4",
+          "media_type": "video",
           "bytes": 142686223
         }
       ],
@@ -32708,13 +32708,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689044/DOD_111689044.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 8539068, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689044/DOD_111689044.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689044/DOD_111689044.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 8539068, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689044/DOD_111689044.mp4",
+          "media_type": "video",
           "bytes": 8543893
         }
       ],
@@ -32913,13 +32913,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689051/DOD_111689051.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 30702336, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689051/DOD_111689051.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689051/DOD_111689051.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 30702336, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689051/DOD_111689051.mp4",
+          "media_type": "video",
           "bytes": 30707537
         }
       ],
@@ -33118,13 +33118,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689057/DOD_111689057.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 1703321, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689057/DOD_111689057.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689057/DOD_111689057.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 1703321, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689057/DOD_111689057.mp4",
+          "media_type": "video",
           "bytes": 1708179
         }
       ],
@@ -33323,13 +33323,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689082/DOD_111689082.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 29386642, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689082/DOD_111689082.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689082/DOD_111689082.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 29386642, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689082/DOD_111689082.mp4",
+          "media_type": "video",
           "bytes": 29392078
         }
       ],
@@ -33591,13 +33591,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689083/DOD_111689083.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 116782267, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689083/DOD_111689083.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689083/DOD_111689083.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 116782267, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689083/DOD_111689083.mp4",
+          "media_type": "video",
           "bytes": 116787147
         }
       ],
@@ -33796,13 +33796,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689090/DOD_111689090.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 274706291, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689090/DOD_111689090.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689090/DOD_111689090.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 274706291, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689090/DOD_111689090.mp4",
+          "media_type": "video",
           "bytes": 274712045
         }
       ],
@@ -34100,13 +34100,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689759/DOD_111689759.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 9084323, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689759/DOD_111689759.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689759/DOD_111689759.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 9084323, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689759/DOD_111689759.mp4",
+          "media_type": "video",
           "bytes": 9089058
         }
       ],
@@ -34305,13 +34305,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689115/DOD_111689115.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 86769846, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689115/DOD_111689115.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689115/DOD_111689115.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 86769846, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689115/DOD_111689115.mp4",
+          "media_type": "video",
           "bytes": 86775527
         }
       ],
@@ -34609,13 +34609,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689123/DOD_111689123.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 14903234, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689123/DOD_111689123.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689123/DOD_111689123.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 14903234, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689123/DOD_111689123.mp4",
+          "media_type": "video",
           "bytes": 14908599
         }
       ],
@@ -34814,13 +34814,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689133/DOD_111689133.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 3000286, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689133/DOD_111689133.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689133/DOD_111689133.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 3000286, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689133/DOD_111689133.mp4",
+          "media_type": "video",
           "bytes": 3005135
         }
       ],
@@ -35019,13 +35019,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689142/DOD_111689142.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 15958237, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689142/DOD_111689142.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689142/DOD_111689142.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 15958237, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689142/DOD_111689142.mp4",
+          "media_type": "video",
           "bytes": 15963093
         }
       ],
@@ -35224,13 +35224,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689167/DOD_111689167.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 116756421, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689167/DOD_111689167.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689167/DOD_111689167.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 116756421, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689167/DOD_111689167.mp4",
+          "media_type": "video",
           "bytes": 116761162
         }
       ],
@@ -35416,13 +35416,13 @@
       "media": {
         "thumbnail_url": "",
         "document_url": "",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689168/DOD_111689168.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 17260783, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689168/DOD_111689168.mp4"
       },
       "assets": [
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689168/DOD_111689168.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 17260783, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689168/DOD_111689168.mp4",
+          "media_type": "video",
           "bytes": 17266193
         }
       ],
@@ -35630,7 +35630,7 @@
       "media": {
         "thumbnail_url": "https://www.war.gov/medialink/ufo/release_1/thumbnail/fbi-photo-a1.jpg",
         "document_url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-a1.png",
-        "video_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689168/DOD_111689168.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 17260783, 'bitrate': 0}"
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689168/DOD_111689168.mp4"
       },
       "assets": [
         {
@@ -35647,8 +35647,8 @@
         },
         {
           "kind": "video",
-          "source_url": "{'src': 'https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689168/DOD_111689168.mp4', 'type': 'video/mp4', 'height': 1080, 'width': 1920, 'size': 17260783, 'bitrate': 0}",
-          "media_type": "file",
+          "source_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689168/DOD_111689168.mp4",
+          "media_type": "video",
           "bytes": 17266193
         }
       ],
