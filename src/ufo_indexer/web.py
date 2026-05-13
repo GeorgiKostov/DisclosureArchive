@@ -562,6 +562,8 @@ HTML = r"""<!doctype html>
       </div>
       <select id="sourceKind" aria-label="Source kind">
         <option value="">All sources</option>
+        <option value="media_image">Photos</option>
+        <option value="media_video">Videos</option>
         <option value="metadata">Metadata</option>
         <option value="pdf_text">Native PDF text</option>
         <option value="ocr_text">OCR text</option>
@@ -1362,6 +1364,15 @@ def result_item(conn, score: float, row, rank: int, query: str) -> Dict:
     }
 
 
+def result_has_media(item: Dict, media_filter: str) -> bool:
+    assets = item.get("assets") or []
+    if media_filter == "media_image":
+        return any(asset.get("kind") == "thumbnail" or asset.get("media_type") == "image" for asset in assets)
+    if media_filter == "media_video":
+        return any(asset.get("kind") == "video" or asset.get("media_type") == "video" for asset in assets)
+    return True
+
+
 def filtered_results(
     conn,
     *,
@@ -1371,13 +1382,18 @@ def filtered_results(
     limit: int,
     source_kind: str,
 ) -> List[Dict]:
-    search_limit = limit * 5 if source_kind else limit
+    media_filter = source_kind if source_kind in {"media_image", "media_video"} else ""
+    chunk_source_kind = "" if media_filter else source_kind
+    search_limit = limit * 12 if media_filter else limit * 5 if chunk_source_kind else limit
     rows = run_search(conn, query, mode, model, search_limit)
     items = []
     for score, row in rows:
-        if source_kind and row["source_kind"] != source_kind:
+        if chunk_source_kind and row["source_kind"] != chunk_source_kind:
             continue
-        items.append(result_item(conn, score, row, len(items) + 1, query))
+        item = result_item(conn, score, row, len(items) + 1, query)
+        if media_filter and not result_has_media(item, media_filter):
+            continue
+        items.append(item)
         if len(items) >= limit:
             break
     return items
@@ -1742,7 +1758,7 @@ class Handler(BaseHTTPRequestHandler):
             mode = "hybrid"
         limit = clamp_int(first(params, "limit", "8"), 8, 1, 20)
         source_kind = first(params, "source_kind")
-        if source_kind not in {"", "metadata", "pdf_text", "ocr_text", "caption", "video_metadata"}:
+        if source_kind not in {"", "media_image", "media_video", "metadata", "pdf_text", "ocr_text", "caption", "video_metadata"}:
             source_kind = ""
         start = time.time()
         conn = connect(self.server.db)

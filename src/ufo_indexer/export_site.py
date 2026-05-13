@@ -279,6 +279,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       <select id="agencyFilter" aria-label="Agency filter"></select>
       <select id="sourceFilter" aria-label="Source filter">
         <option value="">All source types</option>
+        <option value="media_image">Photos</option>
+        <option value="media_video">Videos</option>
         <option value="pdf_text">PDF text</option>
         <option value="ocr_text">OCR text</option>
         <option value="caption">Captions</option>
@@ -334,6 +336,19 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
 
     function sourceKinds(doc) {
       return new Set((doc.summary?.references || []).map((ref) => ref.source_kind).filter(Boolean));
+    }
+
+    function hasMediaKind(doc, kind) {
+      const assets = doc.assets || [];
+      if (kind === "media_image") return Boolean(doc.media?.thumbnail_url) || assets.some((asset) => asset.media_type === "image" || asset.kind === "thumbnail");
+      if (kind === "media_video") return Boolean(doc.media?.video_url) || assets.some((asset) => asset.media_type === "video" || asset.kind === "video");
+      return false;
+    }
+
+    function matchesSourceFilter(doc, source) {
+      if (!source) return true;
+      if (source.startsWith("media_")) return hasMediaKind(doc, source);
+      return sourceKinds(doc).has(source);
     }
 
     function renderMedia(doc) {
@@ -419,7 +434,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       const terms = q.split(/\s+/).filter(Boolean);
       const scored = docs
         .filter((doc) => !agency || doc.agency === agency)
-        .filter((doc) => !source || sourceKinds(doc).has(source))
+        .filter((doc) => matchesSourceFilter(doc, source))
         .map((doc) => [scoreDoc(doc, terms), doc])
         .filter(([score]) => score > 0)
         .sort((a, b) => b[0] - a[0] || a[1].title.localeCompare(b[1].title))
