@@ -415,6 +415,7 @@ HTML = r"""<!doctype html>
       stroke-linejoin: round;
       pointer-events: none;
     }
+    .source-button,
     .summary-button {
       gap: 7px;
       width: auto;
@@ -614,9 +615,9 @@ HTML = r"""<!doctype html>
 
     function icon(name) {
       const icons = {
-        link: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"></path><path d="M14 11a5 5 0 0 0-7.1 0l-2 2a5 5 0 0 0 7.1 7.1l1.1-1.1"></path></svg>`,
+        source: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3.6 9h16.8"></path><path d="M3.6 15h16.8"></path><path d="M12 3a14 14 0 0 1 0 18"></path><path d="M12 3a14 14 0 0 0 0 18"></path><path d="M15 9h5v5"></path><path d="m20 9-6 6"></path></svg>`,
         pdf: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M7 16h1.5a1.5 1.5 0 0 0 0-3H7v5"></path><path d="M12 13v5h1.2a2.5 2.5 0 0 0 0-5H12z"></path><path d="M17 18v-5h2"></path><path d="M17 15h1.5"></path></svg>`,
-        summary: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16"></path><path d="M4 9h16"></path><path d="M4 14h10"></path><path d="M4 19h7"></path><path d="M17 15l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"></path></svg>`
+        summary: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"></path><path d="M14 2v5h5"></path><path d="M8 11h8"></path><path d="M8 15h8"></path><path d="M8 19h5"></path></svg>`
       };
       return icons[name] || "";
     }
@@ -624,7 +625,7 @@ HTML = r"""<!doctype html>
     function renderLinks(item) {
       const links = [];
       if (item.source_url) {
-        links.push(`<a class="icon-button" href="${esc(item.source_url)}" target="_blank" rel="noopener" aria-label="Government source" title="Government source">${icon("link")}</a>`);
+        links.push(`<a class="icon-button source-button" href="${esc(item.source_url)}" target="_blank" rel="noopener" aria-label="Government source" title="Government source">${icon("source")}<span>Source</span></a>`);
       }
       return links.length ? `<div class="links">${links.join("")}</div>` : "";
     }
