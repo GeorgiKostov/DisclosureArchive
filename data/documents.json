@@ -1,6 +1,6 @@
 {
   "schema": "disclosurearchive.public_site.v1",
-  "generated_at": "2026-05-14T16:13:29+00:00",
+  "generated_at": "2026-05-14T16:14:48+00:00",
   "document_count": 162,
   "documents": [
     {
@@ -36,7 +36,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Flying discs",
         "Unidentified object",
         "Saucers",
@@ -442,7 +441,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Air Force",
         "Flying discs",
         "Unidentified object",
@@ -869,7 +867,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Air Force",
         "Flying discs",
         "Unidentified object",
@@ -1295,7 +1292,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Flying discs",
         "Unidentified object",
         "Discs",
@@ -1713,7 +1709,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Flying discs",
         "Unidentified object",
         "Discs",
@@ -2139,7 +2134,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Flying discs",
         "Unidentified object",
         "Lights",
@@ -2513,6 +2507,11 @@
           "reason": "Shared tags: aerial phenomena, discs, flying discs"
         },
         {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: discs, flying discs, lights"
+        },
+        {
           "doc_id": "c95181d8eb1816d8",
           "title": "65_HS1-834228961_62-HQ-83894_Section_4",
           "reason": "Shared tags: discs, flying discs, lights"
@@ -2526,11 +2525,6 @@
           "doc_id": "e3250898c4b3efc8",
           "title": "65_HS1-834228961_62-HQ-83894_Section_9",
           "reason": "Shared tags: aerial phenomena, discs, flying discs"
-        },
-        {
-          "doc_id": "5996816a49ca51cd",
-          "title": "65_HS1-834228961_62-HQ-83894_Serial_220",
-          "reason": "Shared tags: discs, flying discs, lights"
         }
       ]
     },
@@ -2567,7 +2561,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Air Force",
         "Flying discs",
         "Unidentified object",
@@ -2937,6 +2930,11 @@
       },
       "related_documents": [
         {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: air force, discs, flying discs"
+        },
+        {
           "doc_id": "4950eff0b6bde22f",
           "title": "59_64634_711.5612[7-2852",
           "reason": "Shared tags: air force, flying discs, lights"
@@ -2954,11 +2952,6 @@
         {
           "doc_id": "6642fa4f7b4eb756",
           "title": "65_HS1-834228961_62-HQ-83894_Section_6",
-          "reason": "Shared tags: aerial phenomena, discs, flying discs"
-        },
-        {
-          "doc_id": "76ae2a6e79ff0827",
-          "title": "65_HS1-834228961_62-HQ-83894_Section_8",
           "reason": "Shared tags: aerial phenomena, discs, flying discs"
         }
       ]
@@ -2996,7 +2989,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Flying discs",
         "Unidentified object",
         "Discs",
@@ -3422,7 +3414,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Flying discs",
         "Unidentified object",
         "Aircraft",
@@ -3839,7 +3830,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Flying discs",
         "Unidentified object",
         "Saucers",
@@ -4175,7 +4165,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Air Force",
         "Flying discs",
         "Unidentified object",
@@ -4582,7 +4571,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Flying discs",
         "Unidentified object",
         "Discs",
@@ -4940,6 +4928,11 @@
           "reason": "Shared tags: discs, flying discs, lights"
         },
         {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: discs, flying discs, lights"
+        },
+        {
           "doc_id": "4950eff0b6bde22f",
           "title": "59_64634_711.5612[7-2852",
           "reason": "Shared tags: flying discs, lights, saucers"
@@ -4947,11 +4940,6 @@
         {
           "doc_id": "454b08e50354755b",
           "title": "65_HS1-834228961_62-HQ-83894_SUB_A",
-          "reason": "Shared tags: discs, flying discs, saucers"
-        },
-        {
-          "doc_id": "aaad8f12bf9f7acf",
-          "title": "65_HS1-834228961_62-HQ-83894_Section_1",
           "reason": "Shared tags: discs, flying discs, saucers"
         }
       ]
@@ -4989,7 +4977,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Flying discs",
         "Unidentified object",
         "Saucers",
@@ -5365,7 +5352,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Flying discs",
         "Unidentified object",
         "Discs"
@@ -5760,7 +5746,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Flying discs",
         "Unidentified object",
         "Saucers",
@@ -6138,6 +6123,11 @@
           "reason": "Shared tags: discs, flying discs, lights"
         },
         {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: discs, flying discs, lights"
+        },
+        {
           "doc_id": "4950eff0b6bde22f",
           "title": "59_64634_711.5612[7-2852",
           "reason": "Shared tags: flying discs, lights, saucers"
@@ -6145,11 +6135,6 @@
         {
           "doc_id": "454b08e50354755b",
           "title": "65_HS1-834228961_62-HQ-83894_SUB_A",
-          "reason": "Shared tags: discs, flying discs, saucers"
-        },
-        {
-          "doc_id": "aaad8f12bf9f7acf",
-          "title": "65_HS1-834228961_62-HQ-83894_Section_1",
           "reason": "Shared tags: discs, flying discs, saucers"
         }
       ]
@@ -6187,7 +6172,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Air Force",
         "Flying discs",
         "Unidentified object",
@@ -6606,7 +6590,6 @@
       "locations": [],
       "tags": [
         "War Department",
-        "Photos",
         "Air Force",
         "Flying discs",
         "Discs",
@@ -7035,7 +7018,6 @@
       "locations": [],
       "tags": [
         "War Department",
-        "Photos",
         "Air Force",
         "Flying discs",
         "Discs",
@@ -7442,7 +7424,6 @@
       "locations": [],
       "tags": [
         "NASA",
-        "Photos",
         "UFO",
         "Aerial phenomena",
         "Aircraft",
@@ -7809,14 +7790,14 @@
       },
       "related_documents": [
         {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: aircraft, lights, ufo"
+        },
+        {
           "doc_id": "8454b0f14b26dff0",
           "title": "State Department UAP Cable 1, Papua New Guinea, January 28, 1985",
           "reason": "Shared tags: aerial phenomena, aircraft, lights"
-        },
-        {
-          "doc_id": "990d4537136acf88",
-          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
-          "reason": "Shared tags: aircraft, ufo"
         },
         {
           "doc_id": "185eea4cee0882eb",
@@ -7869,7 +7850,6 @@
       "tags": [
         "NASA",
         "Low Earth Orbit",
-        "Photos",
         "Unidentified object",
         "Radar contact",
         "Gemini",
@@ -8599,7 +8579,6 @@
       "tags": [
         "War Department",
         "Germany",
-        "Photos",
         "Foo fighters",
         "Lights",
         "Rocket",
@@ -9039,7 +9018,6 @@
       "tags": [
         "War Department",
         "Netherlands",
-        "Photos",
         "Air Force",
         "Flying discs",
         "Unidentified object",
@@ -9439,7 +9417,6 @@
       "tags": [
         "War Department",
         "Azerbaijan",
-        "Photos",
         "Aircraft"
       ],
       "summary": {
@@ -9842,7 +9819,6 @@
       "locations": [],
       "tags": [
         "War Department",
-        "Photos",
         "Air Force",
         "Flying discs",
         "Unidentified object",
@@ -9850,7 +9826,8 @@
         "Discs",
         "UFO",
         "AACS",
-        "Aircraft"
+        "Aircraft",
+        "Lights"
       ],
       "summary": {
         "doc_id": "990d4537136acf88",
@@ -10213,6 +10190,21 @@
       },
       "related_documents": [
         {
+          "doc_id": "4950eff0b6bde22f",
+          "title": "59_64634_711.5612[7-2852",
+          "reason": "Shared tags: air force, flying discs, lights"
+        },
+        {
+          "doc_id": "c95181d8eb1816d8",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_4",
+          "reason": "Shared tags: aircraft, discs, flying discs"
+        },
+        {
+          "doc_id": "4a34364aba83d121",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_7",
+          "reason": "Shared tags: air force, discs, flying discs"
+        },
+        {
           "doc_id": "4e35062c093dc153",
           "title": "65_HS1-834228961_62-HQ-83894_Serial_164",
           "reason": "Shared tags: air force, aircraft, discs"
@@ -10221,21 +10213,6 @@
           "doc_id": "f2d7821d6a90b6f2",
           "title": "18_100754_ General 1946-7_Vol_2",
           "reason": "Shared tags: air force, aircraft, discs"
-        },
-        {
-          "doc_id": "251f3743bc8f994f",
-          "title": "18_6369445_General_1948_Vol_1",
-          "reason": "Shared tags: air force, aircraft, discs"
-        },
-        {
-          "doc_id": "4950eff0b6bde22f",
-          "title": "59_64634_711.5612[7-2852",
-          "reason": "Shared tags: air force, flying discs, ufo"
-        },
-        {
-          "doc_id": "454b08e50354755b",
-          "title": "65_HS1-834228961_62-HQ-83894_SUB_A",
-          "reason": "Shared tags: air force, discs, flying discs"
         }
       ]
     },
@@ -10311,7 +10288,6 @@
         "War Department",
         "-90.250000",
         "-84.150000",
-        "Photos",
         "Unidentified object",
         "Aircraft",
         "Fireball",
@@ -10678,6 +10654,11 @@
       },
       "related_documents": [
         {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: aircraft, lights, unidentified object"
+        },
+        {
           "doc_id": "185eea4cee0882eb",
           "title": "38_143685_box7_Incident_Summaries_1-100",
           "reason": "Shared tags: aircraft, lights, unidentified object"
@@ -10696,11 +10677,6 @@
           "doc_id": "23811320893c19b3",
           "title": "DOW-UAP-D61, Mission Report, Persian Gulf, August 2020",
           "reason": "Shared tags: aircraft, lights, unidentified object"
-        },
-        {
-          "doc_id": "ece50e6d637f83b5",
-          "title": "NASA-UAP-D6, Apollo 17 Technical Crew Debriefing, 1973",
-          "reason": "Shared tags: aircraft, fireball, lights"
         }
       ]
     },
@@ -10737,7 +10713,6 @@
       "locations": [],
       "tags": [
         "War Department",
-        "Photos",
         "Unidentified object",
         "Aircraft"
       ],
@@ -11161,7 +11136,6 @@
       "locations": [],
       "tags": [
         "War Department",
-        "Photos",
         "Unidentified object",
         "Aircraft",
         "Discs",
@@ -11528,14 +11502,14 @@
       },
       "related_documents": [
         {
-          "doc_id": "c95181d8eb1816d8",
-          "title": "65_HS1-834228961_62-HQ-83894_Section_4",
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
           "reason": "Shared tags: aircraft, discs, lights"
         },
         {
-          "doc_id": "990d4537136acf88",
-          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
-          "reason": "Shared tags: aircraft, discs, unidentified object"
+          "doc_id": "c95181d8eb1816d8",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_4",
+          "reason": "Shared tags: aircraft, discs, lights"
         },
         {
           "doc_id": "02eeb04b5c07466a",
@@ -11587,7 +11561,6 @@
       "locations": [],
       "tags": [
         "State Department",
-        "Photos",
         "Flying discs",
         "Saucers",
         "Lights",
@@ -12003,7 +11976,6 @@
       "locations": [],
       "tags": [
         "State Department",
-        "Photos",
         "Air Force",
         "Flying discs",
         "Unidentified object",
@@ -12363,6 +12335,11 @@
       },
       "related_documents": [
         {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: air force, flying discs, lights"
+        },
+        {
           "doc_id": "454b08e50354755b",
           "title": "65_HS1-834228961_62-HQ-83894_SUB_A",
           "reason": "Shared tags: air force, flying discs, moon"
@@ -12376,11 +12353,6 @@
           "doc_id": "2eb53ebd8952bdd8",
           "title": "341_110448_Records_Relating_to_the_Collection_and_Dissemination_of_Intelligence_1948-1955-TS_CONT_No.2_2-5300-2-5399",
           "reason": "Shared tags: air force, flying discs, saucers"
-        },
-        {
-          "doc_id": "990d4537136acf88",
-          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
-          "reason": "Shared tags: air force, flying discs, ufo"
         },
         {
           "doc_id": "73f2b456d8501c97",
@@ -12435,7 +12407,6 @@
       ],
       "tags": [
         "FBI",
-        "Photos",
         "Air Force",
         "Lights",
         "Aircraft"
@@ -12661,6 +12632,11 @@
       },
       "related_documents": [
         {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: air force, aircraft, lights"
+        },
+        {
           "doc_id": "23811320893c19b3",
           "title": "DOW-UAP-D61, Mission Report, Persian Gulf, August 2020",
           "reason": "Shared tags: air force, aircraft, lights"
@@ -12679,11 +12655,6 @@
           "doc_id": "1a8f055223cfaa5e",
           "title": "255_413270_UFO's_and_Defense_What_Should_we_Prepare_For",
           "reason": "Shared tags: aircraft, lights"
-        },
-        {
-          "doc_id": "990d4537136acf88",
-          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
-          "reason": "Shared tags: air force, aircraft"
         }
       ]
     },
@@ -12734,7 +12705,6 @@
       "tags": [
         "FBI",
         "Germany",
-        "Photos",
         "Unidentified object"
       ],
       "summary": {
@@ -13157,7 +13127,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Flying discs",
         "Unidentified object",
         "Discs",
@@ -13583,7 +13552,6 @@
       "locations": [],
       "tags": [
         "FBI",
-        "Photos",
         "Flying discs",
         "Unidentified object",
         "Saucers",
@@ -14030,7 +13998,6 @@
       "tags": [
         "War Department",
         "Iraq",
-        "Photos",
         "Videos",
         "Air Force",
         "AARO",
@@ -14374,6 +14341,11 @@
           "reason": "Shared tags: aaro, air force, anomalous object"
         },
         {
+          "doc_id": "4c2d179d11bf4ee3",
+          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
+          "reason": "Shared tags: aaro, air force, anomalous object"
+        },
+        {
           "doc_id": "af26db934b49ec62",
           "title": "DOW-UAP-D12, Mission Report, Iraq, May 2022",
           "reason": "Shared tags: aaro, air force, anomalous object"
@@ -14381,11 +14353,6 @@
         {
           "doc_id": "fb7c64204549e1ed",
           "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
-          "reason": "Shared tags: aaro, air force, anomalous object"
-        },
-        {
-          "doc_id": "4c2d179d11bf4ee3",
-          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
           "reason": "Shared tags: aaro, air force, anomalous object"
         },
         {
@@ -14442,7 +14409,6 @@
       "tags": [
         "War Department",
         "Iraq",
-        "Photos",
         "Air Force",
         "Aircraft",
         "Radar",
@@ -14740,6 +14706,11 @@
       },
       "related_documents": [
         {
+          "doc_id": "fb7c64204549e1ed",
+          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
+          "reason": "Shared tags: aaro, air force, aircraft"
+        },
+        {
           "doc_id": "4c2d179d11bf4ee3",
           "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
           "reason": "Shared tags: aaro, air force, aircraft"
@@ -14752,11 +14723,6 @@
         {
           "doc_id": "b05f90372db178f0",
           "title": "DOW-UAP-D16, Mission Report, Syria, July 2022",
-          "reason": "Shared tags: aaro, air force, aircraft"
-        },
-        {
-          "doc_id": "fb7c64204549e1ed",
-          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
           "reason": "Shared tags: aaro, air force, aircraft"
         },
         {
@@ -14819,7 +14785,6 @@
       "tags": [
         "War Department",
         "Syria",
-        "Photos",
         "Videos",
         "Air Force",
         "Aircraft",
@@ -15176,6 +15141,11 @@
           "reason": "Shared tags: aaro, air force, aircraft"
         },
         {
+          "doc_id": "fb7c64204549e1ed",
+          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
+          "reason": "Shared tags: aaro, air force, aircraft"
+        },
+        {
           "doc_id": "0f8c0035f0b957f4",
           "title": "DOW-UAP-D19, Mission Report, Syria, February 21, 2023",
           "reason": "Shared tags: aaro, air force, aircraft"
@@ -15183,11 +15153,6 @@
         {
           "doc_id": "4c2d179d11bf4ee3",
           "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
-          "reason": "Shared tags: aaro, air force, aircraft"
-        },
-        {
-          "doc_id": "26b6493a58cf6f05",
-          "title": "DOW-UAP-D3, Mission Report, Arabian Gulf, 2020",
           "reason": "Shared tags: aaro, air force, aircraft"
         }
       ]
@@ -15245,7 +15210,6 @@
       "tags": [
         "War Department",
         "Syria",
-        "Photos",
         "Videos",
         "Air Force",
         "Radar",
@@ -15602,6 +15566,11 @@
           "reason": "Shared tags: aaro, air force, aircraft"
         },
         {
+          "doc_id": "fb7c64204549e1ed",
+          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
+          "reason": "Shared tags: aaro, air force, aircraft"
+        },
+        {
           "doc_id": "0f8c0035f0b957f4",
           "title": "DOW-UAP-D19, Mission Report, Syria, February 21, 2023",
           "reason": "Shared tags: aaro, air force, aircraft"
@@ -15609,11 +15578,6 @@
         {
           "doc_id": "4c2d179d11bf4ee3",
           "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
-          "reason": "Shared tags: aaro, air force, aircraft"
-        },
-        {
-          "doc_id": "26b6493a58cf6f05",
-          "title": "DOW-UAP-D3, Mission Report, Arabian Gulf, 2020",
           "reason": "Shared tags: aaro, air force, aircraft"
         }
       ]
@@ -15671,14 +15635,14 @@
       "tags": [
         "War Department",
         "Iraq",
-        "Photos",
         "Videos",
         "AARO",
         "Air Force",
         "Media evidence",
         "Aircraft",
         "Anomalous object",
-        "DVIDS"
+        "DVIDS",
+        "Radar"
       ],
       "summary": {
         "doc_id": "fb7c64204549e1ed",
@@ -16008,11 +15972,6 @@
       },
       "related_documents": [
         {
-          "doc_id": "67714054015d3f3b",
-          "title": "DOW-UAP-PR21, Unresolved UAP Report, Iraq, May 2022",
-          "reason": "Shared tags: aaro, aircraft, anomalous object"
-        },
-        {
           "doc_id": "af26db934b49ec62",
           "title": "DOW-UAP-D12, Mission Report, Iraq, May 2022",
           "reason": "Shared tags: aaro, air force, aircraft"
@@ -16023,14 +15982,19 @@
           "reason": "Shared tags: aaro, air force, aircraft"
         },
         {
-          "doc_id": "4c808de075e77bf8",
-          "title": "DOW-UAP-PR23, Unresolved UAP Report, Iraq, December 2022",
-          "reason": "Shared tags: aaro, anomalous object, dvids"
+          "doc_id": "67714054015d3f3b",
+          "title": "DOW-UAP-PR21, Unresolved UAP Report, Iraq, May 2022",
+          "reason": "Shared tags: aaro, aircraft, anomalous object"
         },
         {
-          "doc_id": "b12de3be78ae8d5d",
-          "title": "DOW-UAP-PR45, Unresolved UAP Report, Middle East, 2020",
-          "reason": "Shared tags: aaro, air force, anomalous object"
+          "doc_id": "cd2d5f62f89e3977",
+          "title": "DOW-UAP-D14, Mission Report, Iraq, May 2022",
+          "reason": "Shared tags: aaro, air force, aircraft"
+        },
+        {
+          "doc_id": "b05f90372db178f0",
+          "title": "DOW-UAP-D16, Mission Report, Syria, July 2022",
+          "reason": "Shared tags: aaro, air force, aircraft"
         }
       ]
     },
@@ -16081,7 +16045,6 @@
       "tags": [
         "War Department",
         "Syria",
-        "Photos",
         "Air Force",
         "AARO",
         "Aircraft",
@@ -16441,7 +16404,6 @@
       "tags": [
         "War Department",
         "Iraq",
-        "Photos",
         "Air Force",
         "AARO",
         "Anomalous object",
@@ -16837,7 +16799,6 @@
       "tags": [
         "War Department",
         "Persian Gulf",
-        "Photos",
         "Videos",
         "Air Force",
         "Aircraft",
@@ -17468,7 +17429,6 @@
       "tags": [
         "War Department",
         "Mediterranean Sea",
-        "Photos",
         "Air Force",
         "AARO",
         "Anomalous object",
@@ -17878,7 +17838,6 @@
       "tags": [
         "War Department",
         "Gulf of Oman",
-        "Photos",
         "Air Force",
         "AARO",
         "Anomalous object"
@@ -18307,14 +18266,14 @@
       "tags": [
         "War Department",
         "Iraq",
-        "Photos",
         "Air Force",
         "Unidentified object",
         "Aircraft",
         "Weapons",
         "AARO",
         "Anomalous object",
-        "Radar"
+        "Radar",
+        "Missile"
       ],
       "summary": {
         "doc_id": "4c2d179d11bf4ee3",
@@ -18672,23 +18631,23 @@
           "reason": "Shared tags: aaro, air force, aircraft"
         },
         {
+          "doc_id": "fb7c64204549e1ed",
+          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
+          "reason": "Shared tags: aaro, air force, aircraft"
+        },
+        {
           "doc_id": "23811320893c19b3",
           "title": "DOW-UAP-D61, Mission Report, Persian Gulf, August 2020",
           "reason": "Shared tags: aaro, air force, aircraft"
         },
         {
+          "doc_id": "a62a3e4cb6146f59",
+          "title": "DOW-UAP-D10, Mission Report, Middle East, May 2022",
+          "reason": "Shared tags: aaro, air force, anomalous object"
+        },
+        {
           "doc_id": "cd2d5f62f89e3977",
           "title": "DOW-UAP-D14, Mission Report, Iraq, May 2022",
-          "reason": "Shared tags: aaro, air force, aircraft"
-        },
-        {
-          "doc_id": "b05f90372db178f0",
-          "title": "DOW-UAP-D16, Mission Report, Syria, July 2022",
-          "reason": "Shared tags: aaro, air force, aircraft"
-        },
-        {
-          "doc_id": "fb7c64204549e1ed",
-          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
           "reason": "Shared tags: aaro, air force, aircraft"
         }
       ]
@@ -18726,7 +18685,6 @@
       "locations": [],
       "tags": [
         "War Department",
-        "Photos",
         "Air Force",
         "Aircraft",
         "Radar",
@@ -19069,13 +19027,13 @@
           "reason": "Shared tags: aaro, air force, aircraft"
         },
         {
-          "doc_id": "4c2d179d11bf4ee3",
-          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
+          "doc_id": "fb7c64204549e1ed",
+          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
           "reason": "Shared tags: aaro, air force, aircraft"
         },
         {
-          "doc_id": "91710d7ac0628bd2",
-          "title": "DOW-UAP-D33, Mission Report, Greece, October 2023",
+          "doc_id": "4c2d179d11bf4ee3",
+          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
           "reason": "Shared tags: aaro, air force, aircraft"
         }
       ]
@@ -19133,7 +19091,6 @@
       "tags": [
         "War Department",
         "Syria",
-        "Photos",
         "Videos",
         "Lights",
         "AARO",
@@ -20005,7 +19962,6 @@
       "tags": [
         "War Department",
         "Aegean Sea",
-        "Photos",
         "Videos",
         "Air Force",
         "Radar",
@@ -20364,8 +20320,8 @@
           "reason": "Shared tags: aaro, air force, aircraft"
         },
         {
-          "doc_id": "4c2d179d11bf4ee3",
-          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
+          "doc_id": "fb7c64204549e1ed",
+          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
           "reason": "Shared tags: aaro, air force, aircraft"
         }
       ]
@@ -20423,7 +20379,6 @@
       "tags": [
         "War Department",
         "Aegean Sea",
-        "Photos",
         "Videos",
         "Air Force",
         "Radar",
@@ -20782,8 +20737,8 @@
           "reason": "Shared tags: aaro, air force, aircraft"
         },
         {
-          "doc_id": "4c2d179d11bf4ee3",
-          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
+          "doc_id": "fb7c64204549e1ed",
+          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
           "reason": "Shared tags: aaro, air force, aircraft"
         }
       ]
@@ -20841,7 +20796,6 @@
       "tags": [
         "War Department",
         "Persian Gulf",
-        "Photos",
         "Videos",
         "Radar"
       ],
@@ -21195,7 +21149,6 @@
       "locations": [],
       "tags": [
         "War Department",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -21412,8 +21365,7 @@
       ],
       "tags": [
         "War Department",
-        "Arabian Gulf",
-        "Photos"
+        "Arabian Gulf"
       ],
       "summary": {
         "doc_id": "ec7d742e05abba4e",
@@ -21769,7 +21721,6 @@
       "tags": [
         "War Department",
         "Arabian Sea",
-        "Photos",
         "Radar"
       ],
       "summary": {
@@ -22053,8 +22004,8 @@
           "reason": "Shared tags: radar"
         },
         {
-          "doc_id": "4c2d179d11bf4ee3",
-          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
+          "doc_id": "fb7c64204549e1ed",
+          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
           "reason": "Shared tags: radar"
         }
       ]
@@ -22092,7 +22043,6 @@
       "locations": [],
       "tags": [
         "War Department",
-        "Photos",
         "Air Force",
         "Anomalous object"
       ],
@@ -22516,7 +22466,6 @@
       "locations": [],
       "tags": [
         "War Department",
-        "Photos",
         "Air Force",
         "Missile",
         "Lights",
@@ -22884,6 +22833,11 @@
           "reason": "Shared tags: air force, usaf"
         },
         {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: air force, lights"
+        },
+        {
           "doc_id": "4950eff0b6bde22f",
           "title": "59_64634_711.5612[7-2852",
           "reason": "Shared tags: air force, lights"
@@ -22892,11 +22846,6 @@
           "doc_id": "b046ab1e25428177",
           "title": "65_HS1-101634279_100-DE-18221_Serial_844",
           "reason": "Shared tags: air force, lights"
-        },
-        {
-          "doc_id": "c95181d8eb1816d8",
-          "title": "65_HS1-834228961_62-HQ-83894_Section_4",
-          "reason": "Shared tags: lights, missile"
         }
       ]
     },
@@ -22947,7 +22896,6 @@
       "tags": [
         "War Department",
         "Mediterranean Sea",
-        "Photos",
         "UAP",
         "AARO",
         "Anomalous object"
@@ -23173,7 +23121,6 @@
       "tags": [
         "War Department",
         "2025",
-        "Photos",
         "Aircraft"
       ],
       "summary": {
@@ -23367,7 +23314,6 @@
       "tags": [
         "War Department",
         "Pacific Time Zone",
-        "Photos",
         "Lights"
       ],
       "summary": {
@@ -23691,6 +23637,11 @@
           "reason": "Shared tags: lights"
         },
         {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: lights"
+        },
+        {
           "doc_id": "185eea4cee0882eb",
           "title": "38_143685_box7_Incident_Summaries_1-100",
           "reason": "Shared tags: lights"
@@ -23698,11 +23649,6 @@
         {
           "doc_id": "02eeb04b5c07466a",
           "title": "38_143685_box_Incident_Summaries_101-172",
-          "reason": "Shared tags: lights"
-        },
-        {
-          "doc_id": "73f2b456d8501c97",
-          "title": "59_214434_SP 16 [7.18.1963]",
           "reason": "Shared tags: lights"
         }
       ]
@@ -23740,7 +23686,6 @@
       "locations": [],
       "tags": [
         "War Department",
-        "Photos",
         "Aircraft"
       ],
       "summary": {
@@ -23997,7 +23942,6 @@
       "tags": [
         "War Department",
         "Mediterranean Sea",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -24135,7 +24079,6 @@
       "tags": [
         "War Department",
         "Syria",
-        "Photos",
         "Media evidence",
         "Missile",
         "Aircraft",
@@ -24393,9 +24336,9 @@
           "reason": "Shared tags: aaro, aircraft, anomalous object"
         },
         {
-          "doc_id": "27827d10af436b15",
-          "title": "DOW-UAP-D32, Mission Report, Syria, October 2024",
-          "reason": "Shared tags: aaro, anomalous object, media evidence"
+          "doc_id": "4c2d179d11bf4ee3",
+          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
+          "reason": "Shared tags: aaro, aircraft, anomalous object"
         }
       ]
     },
@@ -24445,8 +24388,7 @@
       ],
       "tags": [
         "War Department",
-        "Arabian Sea",
-        "Photos"
+        "Arabian Sea"
       ],
       "summary": {
         "doc_id": "1f281c1d38903825",
@@ -24782,7 +24724,6 @@
       "tags": [
         "War Department",
         "Gulf of Aden",
-        "Photos",
         "Radar"
       ],
       "summary": {
@@ -25066,8 +25007,8 @@
           "reason": "Shared tags: radar"
         },
         {
-          "doc_id": "4c2d179d11bf4ee3",
-          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
+          "doc_id": "fb7c64204549e1ed",
+          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
           "reason": "Shared tags: radar"
         }
       ]
@@ -25105,7 +25046,6 @@
       "locations": [],
       "tags": [
         "War Department",
-        "Photos",
         "Radar"
       ],
       "summary": {
@@ -25389,8 +25329,8 @@
           "reason": "Shared tags: radar"
         },
         {
-          "doc_id": "4c2d179d11bf4ee3",
-          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
+          "doc_id": "fb7c64204549e1ed",
+          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
           "reason": "Shared tags: radar"
         }
       ]
@@ -25442,7 +25382,6 @@
       "tags": [
         "War Department",
         "Pacific Ocean",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -25579,7 +25518,6 @@
       "tags": [
         "War Department",
         "Persian Gulf",
-        "Photos",
         "Air Force",
         "Radar",
         "AARO",
@@ -25950,7 +25888,6 @@
       "tags": [
         "War Department",
         "Persian Gulf",
-        "Photos",
         "Air Force",
         "Unidentified object",
         "Lights",
@@ -26393,7 +26330,6 @@
       "tags": [
         "War Department",
         "Strait of Hormuz",
-        "Photos",
         "Air Force",
         "Aircraft",
         "Radar",
@@ -26741,8 +26677,8 @@
           "reason": "Shared tags: aaro, air force, aircraft"
         },
         {
-          "doc_id": "4c2d179d11bf4ee3",
-          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
+          "doc_id": "fb7c64204549e1ed",
+          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
           "reason": "Shared tags: aaro, air force, aircraft"
         }
       ]
@@ -26794,7 +26730,6 @@
       "tags": [
         "War Department",
         "Strait of Hormuz",
-        "Photos",
         "Air Force",
         "Radar",
         "AARO",
@@ -27151,8 +27086,8 @@
           "reason": "Shared tags: aaro, air force, aircraft"
         },
         {
-          "doc_id": "4c2d179d11bf4ee3",
-          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
+          "doc_id": "fb7c64204549e1ed",
+          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
           "reason": "Shared tags: aaro, air force, aircraft"
         }
       ]
@@ -27204,7 +27139,6 @@
       "tags": [
         "War Department",
         "Iran",
-        "Photos",
         "Radar",
         "AARO",
         "Aircraft",
@@ -27526,13 +27460,13 @@
           "reason": "Shared tags: aaro, aircraft, anomalous object"
         },
         {
-          "doc_id": "4c2d179d11bf4ee3",
-          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
+          "doc_id": "fb7c64204549e1ed",
+          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
           "reason": "Shared tags: aaro, aircraft, anomalous object"
         },
         {
-          "doc_id": "26b6493a58cf6f05",
-          "title": "DOW-UAP-D3, Mission Report, Arabian Gulf, 2020",
+          "doc_id": "4c2d179d11bf4ee3",
+          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
           "reason": "Shared tags: aaro, aircraft, anomalous object"
         }
       ]
@@ -27584,7 +27518,6 @@
       "tags": [
         "War Department",
         "Persian Gulf",
-        "Photos",
         "Air Force",
         "Aerial phenomena",
         "Radar",
@@ -27922,7 +27855,6 @@
       "locations": [],
       "tags": [
         "War Department",
-        "Photos",
         "Weapons",
         "AARO",
         "Anomalous object"
@@ -28091,7 +28023,6 @@
       "tags": [
         "War Department",
         "Syria",
-        "Photos",
         "AARO",
         "Anomalous object",
         "Aircraft",
@@ -28511,7 +28442,6 @@
       "tags": [
         "War Department",
         "Gulf of Aden",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -28909,7 +28839,6 @@
       "tags": [
         "War Department",
         "Mediterranean Sea",
-        "Photos",
         "UAP",
         "AARO",
         "Anomalous object"
@@ -29260,7 +29189,6 @@
       "tags": [
         "War Department",
         "Iraq",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -37005,7 +36933,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -37143,7 +37070,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -37281,7 +37207,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -37419,7 +37344,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -37577,7 +37501,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -37793,7 +37716,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -37918,7 +37840,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -38134,7 +38055,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -38350,7 +38270,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -38566,7 +38485,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -38782,7 +38700,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -38998,7 +38915,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -39156,7 +39072,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -39281,7 +39196,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -39497,7 +39411,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -39713,7 +39626,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -39929,7 +39841,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -40145,7 +40056,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -40303,7 +40213,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -40441,7 +40350,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -40579,7 +40487,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -40737,7 +40644,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object",
         "Helicopter"
@@ -40876,7 +40782,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -41014,7 +40919,6 @@
         "FBI",
         "2025",
         "Western United States",
-        "Photos",
         "AARO",
         "Anomalous object"
       ],
@@ -41139,7 +41043,6 @@
         "NASA",
         "1969",
         "Moon",
-        "Photos",
         "Lights",
         "Lunar observation",
         "Flight operations",
@@ -41538,7 +41441,6 @@
         "NASA",
         "1972",
         "Moon",
-        "Photos",
         "Lunar observation",
         "Apollo",
         "Astronauts",
@@ -41957,7 +41859,6 @@
         "NASA",
         "1965",
         "Moon",
-        "Photos",
         "Unidentified object",
         "Flight operations",
         "Radar contact",
@@ -42314,7 +42215,6 @@
       ],
       "locations": [],
       "tags": [
-        "Photos",
         "Lights",
         "Lunar observation",
         "Flight operations",
@@ -42732,7 +42632,6 @@
       ],
       "locations": [],
       "tags": [
-        "Photos",
         "Lunar observation",
         "Apollo",
         "Astronauts",
@@ -43078,7 +42977,6 @@
       ],
       "locations": [],
       "tags": [
-        "Photos",
         "Lunar observation",
         "Lights",
         "Apollo",
@@ -43437,7 +43335,6 @@
       ],
       "locations": [],
       "tags": [
-        "Photos",
         "Lights",
         "Anomalous object",
         "NASA"
@@ -45057,7 +44954,6 @@
       "tags": [
         "State Department",
         "Papua New Guinea",
-        "Photos",
         "Aircraft",
         "Aerial phenomena",
         "Lights",
@@ -45364,8 +45260,8 @@
           "reason": "Shared tags: aircraft, radar"
         },
         {
-          "doc_id": "185eea4cee0882eb",
-          "title": "38_143685_box7_Incident_Summaries_1-100",
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
           "reason": "Shared tags: aircraft, lights"
         }
       ]
@@ -45417,7 +45313,6 @@
       "tags": [
         "State Department",
         "Kazakhstan",
-        "Photos",
         "Lights",
         "Aircraft"
       ],
@@ -45727,6 +45622,11 @@
           "reason": "Shared tags: aircraft, lights"
         },
         {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: aircraft, lights"
+        },
+        {
           "doc_id": "185eea4cee0882eb",
           "title": "38_143685_box7_Incident_Summaries_1-100",
           "reason": "Shared tags: aircraft, lights"
@@ -45739,11 +45639,6 @@
         {
           "doc_id": "b046ab1e25428177",
           "title": "65_HS1-101634279_100-DE-18221_Serial_844",
-          "reason": "Shared tags: aircraft, lights"
-        },
-        {
-          "doc_id": "c95181d8eb1816d8",
-          "title": "65_HS1-834228961_62-HQ-83894_Section_4",
           "reason": "Shared tags: aircraft, lights"
         }
       ]
@@ -45796,7 +45691,6 @@
         "State Department",
         "2001",
         "Georgia",
-        "Photos",
         "UFO",
         "Aircraft"
       ],
@@ -46154,7 +46048,6 @@
       "tags": [
         "State Department",
         "Turkmenistan",
-        "Photos",
         "UFO"
       ],
       "summary": {
@@ -46516,7 +46409,6 @@
       "tags": [
         "State Department",
         "Mexico",
-        "Photos",
         "Aerial phenomena",
         "Lights"
       ],
@@ -46915,7 +46807,6 @@
         "State Department",
         "2025",
         "United States",
-        "Photos",
         "Orbs",
         "Aircraft",
         "Helicopter",
@@ -47242,6 +47133,11 @@
           "reason": "Shared tags: aircraft, lights"
         },
         {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: aircraft, lights"
+        },
+        {
           "doc_id": "185eea4cee0882eb",
           "title": "38_143685_box7_Incident_Summaries_1-100",
           "reason": "Shared tags: aircraft, lights"
@@ -47249,11 +47145,6 @@
         {
           "doc_id": "02eeb04b5c07466a",
           "title": "38_143685_box_Incident_Summaries_101-172",
-          "reason": "Shared tags: aircraft, lights"
-        },
-        {
-          "doc_id": "b046ab1e25428177",
-          "title": "65_HS1-101634279_100-DE-18221_Serial_844",
           "reason": "Shared tags: aircraft, lights"
         }
       ]
@@ -47305,7 +47196,6 @@
       "tags": [
         "FBI",
         "United States",
-        "Photos",
         "Lights"
       ],
       "summary": {
@@ -47511,7 +47401,6 @@
       "tags": [
         "FBI",
         "United States",
-        "Photos",
         "Lights"
       ],
       "summary": {
@@ -47877,8 +47766,7 @@
       ],
       "tags": [
         "FBI",
-        "United States",
-        "Photos"
+        "United States"
       ],
       "summary": {
         "doc_id": "8a4e9be08367e058",
@@ -48178,7 +48066,6 @@
       "tags": [
         "FBI",
         "United States",
-        "Photos",
         "Lights",
         "Drone"
       ],
@@ -48547,7 +48434,6 @@
         "War Department",
         "2023",
         "Western United States",
-        "Photos",
         "AARO",
         "Lights",
         "Orbs",
