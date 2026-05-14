@@ -68,3 +68,4 @@
 - Cleaned the release-facing UI so result actions use government/web source links only, summary details are opened by a labeled `Summary` button, and the static public template uses a dark terminal-style look.
 - Added `scripts/publish_github_pages.ps1` to publish the generated static site to a `gh-pages` branch without committing `public_site/`, raw downloads, generated SQLite DBs, or OCR caches to `main`.
 - Pushed the first generated static site to `origin/gh-pages` at commit `43e0adaa608e6e91ea1de5b9830acd61590964c3`; the GitHub Pages URL still returned 404 immediately afterward, so Pages likely needs to be enabled for the branch in repository settings.
+- Added country outlines to the public interactive globe and made mappable checkpoints open a compact document popup with summary text, source link, and a jump-to-result action.
