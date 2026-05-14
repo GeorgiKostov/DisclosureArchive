@@ -194,6 +194,11 @@ view with a compact search box, and a search workbench with filters, result
 cards, and an on-demand location globe. Search keeps the complete matching
 document set in memory but renders cards in 20-result batches, loading more on
 scroll with a manual fallback button.
+The exporter also emits `robots.txt`, `sitemap.xml`, root and well-known
+`security.txt`, canonical/social/structured-data metadata, a referrer policy,
+and a static-host `_headers` template. On GitHub Pages, browser-enforced meta
+policies apply, but `_headers` is only useful if the site later moves to a host
+that supports custom static headers.
 
 The public export is intentionally summary-focused. It does not copy raw PDFs,
 videos, local thumbnails, generated SQLite databases, derived OCR caches, or full

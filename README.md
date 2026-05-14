@@ -314,6 +314,13 @@ files for verification. The search view computes the full matching set but
 renders result cards in batches of 20, loading additional cards as the reader
 scrolls.
 
+The export also writes standard public-web hygiene files and metadata:
+`robots.txt`, `sitemap.xml`, `security.txt`, `/.well-known/security.txt`,
+Open Graph/Twitter card tags, canonical URL tags, JSON-LD structured data, a
+document referrer policy, and a conservative Content Security Policy meta tag.
+GitHub Pages does not apply custom response headers, so `_headers` is generated
+for future static hosts that support it.
+
 To publish the generated site to GitHub Pages:
 
 ```powershell

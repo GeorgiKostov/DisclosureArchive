@@ -4,6 +4,7 @@ param(
   [string]$Remote = "origin",
   [string]$Branch = "gh-pages",
   [string]$CustomDomain = $(if ($env:DISCLOSURE_CUSTOM_DOMAIN) { $env:DISCLOSURE_CUSTOM_DOMAIN } else { "disclosurearchive.org" }),
+  [string]$SiteUrl = $(if ($env:DISCLOSURE_SITE_URL) { $env:DISCLOSURE_SITE_URL } elseif ($env:DISCLOSURE_CUSTOM_DOMAIN) { "https://$($env:DISCLOSURE_CUSTOM_DOMAIN)" } else { "https://disclosurearchive.org" }),
   [string]$AnalyticsDomain = $env:DISCLOSURE_ANALYTICS_DOMAIN,
   [string]$AnalyticsScriptUrl = $(if ($env:DISCLOSURE_ANALYTICS_SCRIPT_URL) { $env:DISCLOSURE_ANALYTICS_SCRIPT_URL } else { "https://plausible.io/js/script.js" })
 )
@@ -24,7 +25,7 @@ Step "Regenerating static public site"
 Push-Location $repo
 try {
   $env:PYTHONPATH = "src"
-  $exportArgs = @("-m", "ufo_indexer.export_site", "--db", $Db, "--out", $Out)
+  $exportArgs = @("-m", "ufo_indexer.export_site", "--db", $Db, "--out", $Out, "--site-url", $SiteUrl)
   if ($AnalyticsDomain) {
     $exportArgs += @("--analytics-domain", $AnalyticsDomain, "--analytics-script-url", $AnalyticsScriptUrl)
   }

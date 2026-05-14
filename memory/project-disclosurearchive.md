@@ -123,6 +123,7 @@ Broad OCR update:
 - Public layout follow-up: the generated site initially opened with a curated `Best Of` section, then the search/filter/results workbench. The globe was hidden by default behind an `Open location globe` control and still used native touch events for one-finger rotation and two-finger pinch zoom.
 - Auto Pages publish: `scripts/install_auto_pages_publish.ps1` configures `core.hooksPath=.githooks`; `.githooks/pre-push` watches pushes to `origin/main` and runs `scripts/publish_github_pages.ps1` from the local machine before the main push completes so ignored DB/static artifacts still stay out of Git. Set `DISCLOSURE_SKIP_PAGES_PUBLISH=1` to skip once.
 - Public UX rework: `src/ufo_indexer/export_site.py` now renders a two-view static app with a `HIGHLIGHTS` landing page and a separate search/globe workbench. Highlights are expanded to 18 records, result cards no longer show duplicate `Refs:` rows, and the desktop globe height is capped to fit in the viewport.
+- Public SEO/security update: the static export now writes canonical/social/JSON-LD metadata, `robots.txt`, `sitemap.xml`, root and well-known `security.txt`, a CSP/referrer meta policy, and a `_headers` template for hosts that support static response headers. GitHub Pages still cannot apply custom `_headers`.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.

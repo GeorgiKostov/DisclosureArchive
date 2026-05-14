@@ -6,9 +6,11 @@ import json
 import mimetypes
 import os
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from html import escape as html_escape
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
+from urllib.parse import urlparse
 
 from .common import clean
 from .db import connect
@@ -21,6 +23,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Disclosure Archive</title>
+  <!-- SEO_META -->
+  <!-- SECURITY_META -->
+  <!-- STRUCTURED_DATA -->
   <!-- ANALYTICS_SNIPPET -->
   <style>
     :root {
@@ -2153,13 +2158,202 @@ def analytics_snippet(domain: str = "", script_url: str = "https://plausible.io/
     )
 
 
-def write_site(db: Path, out: Path, analytics_domain: str = "", analytics_script_url: str = "https://plausible.io/js/script.js") -> Dict:
+def normalize_site_url(site_url: str) -> str:
+    site_url = clean(site_url) or "https://disclosurearchive.org"
+    if not re.match(r"^https://[A-Za-z0-9.-]+(?::\d+)?(?:/.*)?$", site_url):
+        raise ValueError("site URL must be an HTTPS URL")
+    return site_url.rstrip("/")
+
+
+def origin_from_url(url: str) -> str:
+    parsed = urlparse(url)
+    if parsed.scheme and parsed.netloc:
+        return f"{parsed.scheme}://{parsed.netloc}"
+    return ""
+
+
+def seo_meta(site_url: str) -> str:
+    canonical = f"{site_url}/"
+    description = (
+        "Explore curated highlights and a searchable public index of the PURSUE "
+        "UFO/UAP release, with government source links, summaries, videos, photos, "
+        "and provenance-preserving references."
+    )
+    image = "https://www.war.gov/medialink/ufo/release_1/nasa-uap-vm6-apollo-17-1972.jpg"
+    title = "Disclosure Archive"
+    return "\n  ".join(
+        [
+            f'<meta name="description" content="{html_escape(description, quote=True)}">',
+            '<meta name="robots" content="index,follow,max-image-preview:large">',
+            '<meta name="googlebot" content="index,follow,max-image-preview:large">',
+            '<meta name="theme-color" content="#050806">',
+            f'<link rel="canonical" href="{html_escape(canonical, quote=True)}">',
+            '<link rel="sitemap" type="application/xml" href="/sitemap.xml">',
+            '<meta property="og:type" content="website">',
+            f'<meta property="og:url" content="{html_escape(canonical, quote=True)}">',
+            f'<meta property="og:title" content="{html_escape(title, quote=True)}">',
+            f'<meta property="og:description" content="{html_escape(description, quote=True)}">',
+            f'<meta property="og:image" content="{html_escape(image, quote=True)}">',
+            '<meta property="og:site_name" content="Disclosure Archive">',
+            '<meta name="twitter:card" content="summary_large_image">',
+            f'<meta name="twitter:title" content="{html_escape(title, quote=True)}">',
+            f'<meta name="twitter:description" content="{html_escape(description, quote=True)}">',
+            f'<meta name="twitter:image" content="{html_escape(image, quote=True)}">',
+        ]
+    )
+
+
+def csp_policy(analytics_script_url: str = "https://plausible.io/js/script.js") -> str:
+    analytics_origin = origin_from_url(analytics_script_url)
+    script_sources = ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"]
+    connect_sources = ["'self'", "https://cdn.jsdelivr.net"]
+    if analytics_origin:
+        script_sources.append(analytics_origin)
+        connect_sources.append(analytics_origin)
+    return "; ".join(
+        [
+            "default-src 'self'",
+            f"script-src {' '.join(dict.fromkeys(script_sources))}",
+            "style-src 'self' 'unsafe-inline'",
+            "img-src 'self' data: https:",
+            "media-src 'self' https:",
+            f"connect-src {' '.join(dict.fromkeys(connect_sources))}",
+            "font-src 'self'",
+            "object-src 'none'",
+            "base-uri 'self'",
+            "form-action 'self'",
+        ]
+    )
+
+
+def security_meta(analytics_script_url: str = "https://plausible.io/js/script.js") -> str:
+    policy = csp_policy(analytics_script_url)
+    return "\n  ".join(
+        [
+            '<meta name="referrer" content="strict-origin-when-cross-origin">',
+            f'<meta http-equiv="Content-Security-Policy" content="{html_escape(policy, quote=True)}">',
+        ]
+    )
+
+
+def structured_data(site_url: str, document_count: int) -> str:
+    canonical = f"{site_url}/"
+    graph = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "@id": f"{canonical}#website",
+                "name": "Disclosure Archive",
+                "url": canonical,
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": f"{canonical}#search?q={{search_term_string}}",
+                    "query-input": "required name=search_term_string",
+                },
+            },
+            {
+                "@type": "Dataset",
+                "@id": f"{canonical}#dataset",
+                "name": "Disclosure Archive public UFO/UAP release index",
+                "description": "Curated summaries and searchable metadata for the public PURSUE UFO/UAP release.",
+                "url": canonical,
+                "isAccessibleForFree": True,
+                "license": "https://www.usa.gov/government-works",
+                "keywords": ["UFO", "UAP", "PURSUE", "government records", "public archive"],
+                "distribution": {
+                    "@type": "DataDownload",
+                    "encodingFormat": "application/json",
+                    "contentUrl": f"{canonical}data/documents.json",
+                },
+                "measurementTechnique": "SQLite FTS, OCR, public source metadata, deterministic extractive summaries",
+                "variableMeasured": f"{document_count} public records",
+            },
+        ],
+    }
+    text = json.dumps(graph, ensure_ascii=False, separators=(",", ":"))
+    return f'<script type="application/ld+json">{text}</script>'
+
+
+def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str, analytics_script_url: str) -> None:
+    canonical = f"{site_url}/"
+    (out / "robots.txt").write_text(
+        "\n".join(
+            [
+                "User-agent: *",
+                "Allow: /",
+                "",
+                f"Sitemap: {canonical}sitemap.xml",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (out / "sitemap.xml").write_text(
+        "\n".join(
+            [
+                '<?xml version="1.0" encoding="UTF-8"?>',
+                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+                "  <url>",
+                f"    <loc>{html_escape(canonical)}</loc>",
+                f"    <lastmod>{html_escape(generated_at[:10])}</lastmod>",
+                "    <changefreq>weekly</changefreq>",
+                "    <priority>1.0</priority>",
+                "  </url>",
+                "</urlset>",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    expires = (datetime.now(timezone.utc) + timedelta(days=365)).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    security_txt = "\n".join(
+        [
+            f"Contact: {site_url}/",
+            "Contact: https://github.com/GeorgiKostov/DisclosureArchive/issues",
+            f"Expires: {expires}",
+            "Preferred-Languages: en",
+            f"Canonical: {site_url}/.well-known/security.txt",
+            "Policy: https://github.com/GeorgiKostov/DisclosureArchive/security/policy",
+            "",
+        ]
+    )
+    well_known = out / ".well-known"
+    well_known.mkdir(parents=True, exist_ok=True)
+    (well_known / "security.txt").write_text(security_txt, encoding="utf-8")
+    (out / "security.txt").write_text(security_txt, encoding="utf-8")
+    policy = csp_policy(analytics_script_url)
+    (out / "_headers").write_text(
+        "\n".join(
+            [
+                "/*",
+                f"  Content-Security-Policy: {policy}",
+                "  Referrer-Policy: strict-origin-when-cross-origin",
+                "  X-Content-Type-Options: nosniff",
+                "  X-Frame-Options: DENY",
+                "  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+
+def write_site(
+    db: Path,
+    out: Path,
+    analytics_domain: str = "",
+    analytics_script_url: str = "https://plausible.io/js/script.js",
+    site_url: str = "https://disclosurearchive.org",
+) -> Dict:
+    site_url = normalize_site_url(site_url)
     conn = connect(db)
     documents = export_documents(conn)
     featured = featured_documents(documents)
+    generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload = {
         "schema": "disclosurearchive.public_site.v1",
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "generated_at": generated_at,
         "document_count": len(documents),
         "featured_documents": featured,
         "documents": documents,
@@ -2171,14 +2365,24 @@ def write_site(db: Path, out: Path, analytics_domain: str = "", analytics_script
     data_dir = out / "data"
     data_dir.mkdir(parents=True, exist_ok=True)
     (data_dir / "documents.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    html = PUBLIC_SITE_HTML.replace("<!-- ANALYTICS_SNIPPET -->", analytics_snippet(analytics_domain, analytics_script_url))
+    html = (
+        PUBLIC_SITE_HTML.replace("<!-- SEO_META -->", seo_meta(site_url))
+        .replace("<!-- SECURITY_META -->", security_meta(analytics_script_url))
+        .replace("<!-- STRUCTURED_DATA -->", structured_data(site_url, len(documents)))
+        .replace("<!-- ANALYTICS_SNIPPET -->", analytics_snippet(analytics_domain, analytics_script_url))
+    )
     (out / "index.html").write_text(html, encoding="utf-8")
+    write_crawler_and_security_files(out, site_url, generated_at, analytics_script_url)
     return {
         "out": str(out),
         "documents": len(documents),
         "analytics": "enabled" if analytics_domain else "disabled",
+        "site_url": site_url,
         "json": str(data_dir / "documents.json"),
         "html": str(out / "index.html"),
+        "robots": str(out / "robots.txt"),
+        "sitemap": str(out / "sitemap.xml"),
+        "security": str(out / ".well-known" / "security.txt"),
     }
 
 
@@ -2188,9 +2392,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("--out", type=Path, default=Path("public_site"))
     parser.add_argument("--analytics-domain", default=os.environ.get("DISCLOSURE_ANALYTICS_DOMAIN", ""), help="Optional Plausible-compatible analytics domain, e.g. example.com")
     parser.add_argument("--analytics-script-url", default=os.environ.get("DISCLOSURE_ANALYTICS_SCRIPT_URL", "https://plausible.io/js/script.js"), help="Optional HTTPS Plausible-compatible script URL")
+    parser.add_argument("--site-url", default=os.environ.get("DISCLOSURE_SITE_URL", "https://disclosurearchive.org"), help="Canonical public HTTPS URL for SEO files")
     args = parser.parse_args(argv)
 
-    result = write_site(args.db, args.out, analytics_domain=args.analytics_domain, analytics_script_url=args.analytics_script_url)
+    result = write_site(args.db, args.out, analytics_domain=args.analytics_domain, analytics_script_url=args.analytics_script_url, site_url=args.site_url)
     print(json.dumps(result, indent=2))
     return 0
 

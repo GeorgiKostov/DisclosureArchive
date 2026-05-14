@@ -91,3 +91,4 @@
 - Tightened the desktop globe height so the opened location globe fits within the viewport, and removed duplicate visible `Refs:` link rows from public result cards while keeping reference data in the JSON payload.
 - Simplified the public site header to show only the title and navigation, removing the subtitle plus document count/timestamp metadata.
 - Changed public search results to keep the full match set but render 20 cards at a time, with scroll-triggered loading and a `Load more` fallback until all matching documents are shown.
+- Added static SEO/security hygiene to the public export: canonical/social/JSON-LD metadata, robots and sitemap files, root and well-known `security.txt`, a CSP/referrer meta policy, and a static-host `_headers` template.
