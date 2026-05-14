@@ -113,6 +113,7 @@ Broad OCR update:
 - Custom-domain publish support: `scripts/publish_github_pages.ps1` now writes a `CNAME` file for `disclosurearchive.org` by default, or the value from `DISCLOSURE_CUSTOM_DOMAIN` / `-CustomDomain`; the `gh-pages` branch was republished at `f272268bb5efe8cd4a7ba106d382d0eb8b260d92`.
 - Public tag update: static export tags now avoid process/source labels such as OCR, excerpt, metadata, and location; tags are generated from curated phrases/entities, agency/year/location hints, media type, object descriptors, and recurring UAP themes.
 - Public media layout update: real image/video records render with a larger media preview area, while ordinary document/PDF thumbnails remain compact; the Photos filter/tag now targets actual image assets, not generated PDF thumbnails.
+- Public globe layout update: the globe is visible by default, the checkpoint side list/toggle is removed, marker clicks only update the popup/selected marker, and result-opening actions no longer force `scrollIntoView`.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.
