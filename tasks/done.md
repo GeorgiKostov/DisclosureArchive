@@ -92,3 +92,4 @@
 - Simplified the public site header to show only the title and navigation, removing the subtitle plus document count/timestamp metadata.
 - Changed public search results to keep the full match set but render 20 cards at a time, with scroll-triggered loading and a `Load more` fallback until all matching documents are shown.
 - Added static SEO/security hygiene to the public export: canonical/social/JSON-LD metadata, robots and sitemap files, root and well-known `security.txt`, a CSP/referrer meta policy, and a static-host `_headers` template.
+- Removed the public search-view helper sentence under `Search The Index`.

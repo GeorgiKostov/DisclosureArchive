@@ -602,7 +602,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     <section class="view search-section" id="searchView" hidden>
       <div class="section-head">
         <h2>Search The Index</h2>
-        <p>Search indexed release records, summaries, source references, media, and mapped locations.</p>
       </div>
       <form class="search" id="searchForm">
         <input id="q" type="search" autocomplete="off" placeholder="Search summaries, titles, agencies, tags, references">
