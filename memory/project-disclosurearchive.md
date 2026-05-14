@@ -107,6 +107,7 @@ Broad OCR update:
 - GitHub Pages publishing can use `powershell -ExecutionPolicy Bypass -File scripts/publish_github_pages.ps1`; it pushes only generated static files to `gh-pages` and leaves generated artifacts ignored on `main`.
 - First `gh-pages` publish succeeded to origin at commit `43e0adaa608e6e91ea1de5b9830acd61590964c3`; `https://georgikostov.github.io/DisclosureArchive/` returned 404 right after publish, so enable Pages from `gh-pages` branch root or wait for provisioning before public smoke testing.
 - Public globe update: the generated static viewer now overlays country outlines on the interactive globe, and checkpoint clicks open a compact document overview with summary text, source link, and a `View result` action.
+- Public globe controls update: the globe no longer auto-spins, drag is user-controlled rotation, scroll-wheel zoom moves the camera in/out, and selected checkpoints/list items are highlighted blue.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.

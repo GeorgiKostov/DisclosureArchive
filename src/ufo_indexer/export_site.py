@@ -246,6 +246,12 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       border-color: rgba(255,209,102,0.55);
       color: var(--warn);
     }
+    .globe-location.active {
+      border-color: var(--accent-2);
+      color: var(--accent-2);
+      background: rgba(114,215,255,0.14);
+      box-shadow: 0 0 18px rgba(114,215,255,0.12);
+    }
     .result {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -397,7 +403,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       <div class="globe-stage">
         <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
         <div class="globe-popup" id="globePopup" hidden></div>
-        <div class="globe-help">Drag to rotate. Yellow checkpoints are OCR-extracted coordinates.</div>
+        <div class="globe-help">Drag to rotate. Scroll to zoom. Yellow checkpoints are OCR-extracted coordinates.</div>
       </div>
       <aside class="globe-side">
         <h2>Location Checkpoints</h2>
@@ -418,7 +424,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     };
     let archive = null;
     let docs = [];
-    const globeState = { ready: false, initializing: false, locations: [], markers: [], selected: null };
+    const globeState = { ready: false, initializing: false, locations: [], markers: [], selected: null, selectedIndex: null };
 
     function searchable(doc) {
       return [
@@ -608,6 +614,18 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       document.querySelectorAll("[data-location-index]").forEach((button) => {
         button.addEventListener("click", () => selectGlobeLocation(Number(button.dataset.locationIndex)));
       });
+      updateGlobeSelection();
+    }
+
+    function updateGlobeSelection() {
+      globeState.markers.forEach((marker, index) => {
+        const selected = index === globeState.selectedIndex;
+        marker.material = selected ? marker.userData.selectedMaterial : marker.userData.defaultMaterial;
+        marker.scale.setScalar(selected ? 1.8 : 1);
+      });
+      document.querySelectorAll("[data-location-index]").forEach((button) => {
+        button.classList.toggle("active", Number(button.dataset.locationIndex) === globeState.selectedIndex);
+      });
     }
 
     function renderSelectedLocation(location) {
@@ -734,11 +752,14 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       const markerGeometry = new THREE.SphereGeometry(0.025, 16, 16);
       const placeMaterial = new THREE.MeshBasicMaterial({ color: 0x42ff8c });
       const coordinateMaterial = new THREE.MeshBasicMaterial({ color: 0xffd166 });
+      const selectedMaterial = new THREE.MeshBasicMaterial({ color: 0x72d7ff });
       globeState.locations.forEach((location, index) => {
         const p = latLonVector(location.latitude, location.longitude, 1.045);
         const marker = new THREE.Mesh(markerGeometry, location.precision === "coordinate" ? coordinateMaterial : placeMaterial);
         marker.position.set(p.x, p.y, p.z);
         marker.userData.locationIndex = index;
+        marker.userData.defaultMaterial = marker.material;
+        marker.userData.selectedMaterial = selectedMaterial;
         globeGroup.add(marker);
         globeState.markers.push(marker);
       });
@@ -774,6 +795,12 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         lastX = event.clientX;
         lastY = event.clientY;
       });
+      canvas.addEventListener("wheel", (event) => {
+        event.preventDefault();
+        const delta = Math.sign(event.deltaY) * 0.26;
+        camera.position.z = Math.max(2.25, Math.min(6.2, camera.position.z + delta));
+        camera.updateProjectionMatrix();
+      }, { passive: false });
       canvas.addEventListener("pointerup", (event) => {
         dragging = false;
         if (moved) return;
@@ -787,7 +814,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       window.addEventListener("resize", resize);
       function animate() {
         requestAnimationFrame(animate);
-        if (!dragging) globeGroup.rotation.y += 0.0016;
         resize();
         renderer.render(scene, camera);
       }
@@ -800,6 +826,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     function selectGlobeLocation(index) {
       const location = globeState.locations[index];
       globeState.selected = location || null;
+      globeState.selectedIndex = location ? index : null;
+      updateGlobeSelection();
       renderSelectedLocation(globeState.selected);
       if (location) {
         $("q").value = location.title || locationLabel(location);
