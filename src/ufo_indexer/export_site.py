@@ -999,39 +999,153 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
 
 
 TAG_STOPWORDS = STOPWORDS | {
+    "additional",
     "available",
+    "caption",
+    "captions",
     "case",
     "chunks",
     "civilian",
     "compliance",
+    "complete",
+    "concerning",
     "contains",
     "contents",
+    "coordinates",
+    "dated",
+    "description",
+    "derived",
     "detailed",
+    "director",
     "department",
     "document",
+    "documents",
+    "excerpt",
     "file",
     "flying",
+    "general",
+    "government",
+    "include",
     "includes",
     "incident",
     "indexed",
+    "information",
     "investigative",
+    "location",
+    "locations",
+    "media",
+    "metadata",
     "native",
     "object",
     "objects",
+    "ocr",
     "page",
     "pages",
     "pdf",
     "primarily",
+    "provided",
     "quick",
+    "received",
     "record",
+    "recorded",
+    "records",
+    "reference",
+    "references",
     "release",
     "report",
     "reports",
+    "section",
+    "submitted",
     "source",
+    "sources",
     "summary",
     "text",
+    "thumbnail",
     "unidentified",
+    "video",
+    "which",
     "written",
+    "your",
+}
+
+TAG_ALIASES = {
+    "aacs": "AACS",
+    "aaro": "AARO",
+    "aerial": "Aerial phenomena",
+    "anomalous": "Anomalous object",
+    "anomaly": "Anomalous object",
+    "aircraft": "Aircraft",
+    "airplane": "Aircraft",
+    "airplanes": "Aircraft",
+    "apollo": "Apollo",
+    "astronaut": "Astronauts",
+    "astronauts": "Astronauts",
+    "ball": "Spherical object",
+    "balls": "Spherical object",
+    "bogey": "Radar contact",
+    "bogeys": "Radar contact",
+    "caa": "CAA",
+    "disc": "Discs",
+    "discs": "Discs",
+    "disk": "Discs",
+    "disks": "Discs",
+    "dod": "DOD",
+    "drone": "Drone",
+    "drones": "Drone",
+    "dvids": "DVIDS",
+    "fbi": "FBI",
+    "fireball": "Fireball",
+    "fireballs": "Fireball",
+    "foo": "Foo fighters",
+    "foofighter": "Foo fighters",
+    "foofighters": "Foo fighters",
+    "gemini": "Gemini",
+    "helicopter": "Helicopter",
+    "helicopters": "Helicopter",
+    "light": "Lights",
+    "lights": "Lights",
+    "missile": "Missile",
+    "missiles": "Missile",
+    "moon": "Moon",
+    "nasa": "NASA",
+    "orb": "Orbs",
+    "orbs": "Orbs",
+    "radar": "Radar",
+    "rocket": "Rocket",
+    "rockets": "Rocket",
+    "saucer": "Saucers",
+    "saucers": "Saucers",
+    "sphere": "Spherical object",
+    "spheres": "Spherical object",
+    "uap": "UAP",
+    "uaps": "UAP",
+    "ufo": "UFO",
+    "ufos": "UFO",
+    "usaf": "USAF",
+    "uss": "Navy",
+    "weapon": "Weapons",
+    "weapons": "Weapons",
+}
+
+TAG_PHRASES = [
+    (re.compile(r"\ball[- ]domain\s+anomal(?:y|ous)\s+resolution\b", re.I), "AARO"),
+    (re.compile(r"\bair\s+force\b", re.I), "Air Force"),
+    (re.compile(r"\bfoo[- ]?fighters?\b", re.I), "Foo fighters"),
+    (re.compile(r"\bflying\s+(?:disc|disk|saucer)s?\b", re.I), "Flying discs"),
+    (re.compile(r"\bradar\s+(?:contact|track|return|targets?)s?\b", re.I), "Radar contact"),
+    (re.compile(r"\b(?:unidentified|unknown)\s+(?:flying\s+)?objects?\b", re.I), "Unidentified object"),
+    (re.compile(r"\b(?:bright|flashing|blinking|green|red|white)\s+lights?\b", re.I), "Lights"),
+    (re.compile(r"\b(?:lunar|moon)\s+(?:surface|orbit|flash|phenomena)\b", re.I), "Lunar observation"),
+    (re.compile(r"\bhelicopter\s+(?:crew|sighting|encounter)\b", re.I), "Helicopter encounter"),
+    (re.compile(r"\bflight\s+(?:crew|service|safety|operations?)\b", re.I), "Flight operations"),
+    (re.compile(r"\b(?:photo|image|photograph|video|film)\s+(?:analysis|evidence|footage)\b", re.I), "Media evidence"),
+]
+
+AGENCY_TAGS = {
+    "Department of War": "War Department",
+    "Department of State": "State Department",
+    "FBI": "FBI",
+    "NASA": "NASA",
 }
 
 
@@ -1166,34 +1280,77 @@ def summary_text_items(summary: Dict, key: str) -> Iterable[str]:
             yield clean(item)
 
 
-def tags_for(doc, summary: Dict) -> List[str]:
+def add_tag(tags: List[str], label: str, limit: int = 10) -> None:
+    label = clean(label)
+    if not label or len(tags) >= limit:
+        return
+    if label.lower() in {tag.lower() for tag in tags}:
+        return
+    tags.append(label)
+
+
+def tag_year(value: str) -> str:
+    match = re.search(r"\b(18|19|20)\d{2}\b", clean(value))
+    return match.group(0) if match else ""
+
+
+def location_tag(location: str) -> str:
+    location = clean(location)
+    if not location or location == "N/A":
+        return ""
+    parts = [part.strip() for part in re.split(r"[,;/]", location) if part.strip()]
+    candidate = parts[-1] if parts else location
+    if len(candidate) < 3 or candidate.lower() in TAG_STOPWORDS:
+        return ""
+    return candidate[:40]
+
+
+def tags_for(doc, summary: Dict, assets: List[Dict], locations: List[Dict]) -> List[str]:
     tags = []
     agency = clean(doc["agency"])
-    if agency and agency != "N/A":
-        tags.append(agency)
-    source_kinds = {ref.get("source_kind") for ref in summary.get("references", []) if ref.get("source_kind")}
-    if "ocr_text" in source_kinds:
-        tags.append("OCR")
-    if "pdf_text" in source_kinds:
-        tags.append("PDF text")
+    add_tag(tags, AGENCY_TAGS.get(agency, agency if agency != "N/A" else ""))
+    add_tag(tags, tag_year(doc["incident_date"] or doc["release_date"] or clean(doc["title"])))
+    add_tag(tags, location_tag(doc["incident_location"]))
+    if not location_tag(doc["incident_location"]):
+        for location in locations[:2]:
+            add_tag(tags, location_tag(location.get("normalized_location") or location.get("raw_location")))
+    if any(asset.get("media_type") == "image" for asset in assets):
+        add_tag(tags, "Photos")
+    if any(asset.get("media_type") == "video" for asset in assets):
+        add_tag(tags, "Videos")
 
     text = " ".join(
         [
             clean(doc["title"]),
+            clean(doc["incident_location"]),
+            clean(doc["description"]),
             clean(summary.get("quick_summary")),
             " ".join(summary_text_items(summary, "mysterious_uap_element")),
             " ".join(summary_text_items(summary, "detailed_contents")),
         ]
     )
+    for pattern, label in TAG_PHRASES:
+        if pattern.search(text):
+            add_tag(tags, label)
+
+    weighted: Dict[str, int] = {}
     for term in re.findall(r"[A-Za-z][A-Za-z0-9-]{3,}", text):
         key = term.lower().strip("-")
         if key in TAG_STOPWORDS or len(key) < 4 or any(char.isdigit() for char in key):
             continue
         if key.startswith(("hs", "hq", "serial", "section", "chunk")):
             continue
-        label = "UFOs" if key in {"ufo", "ufos"} else key.upper() if key in {"uap", "fbi", "dod", "nasa", "caa", "mats", "aacs"} else key.title()
-        if label not in tags:
-            tags.append(label)
+        if key not in TAG_ALIASES:
+            continue
+        label = TAG_ALIASES[key]
+        if label.lower() in {tag.lower() for tag in tags}:
+            continue
+        weight = 3 if key in TAG_ALIASES else 1
+        weighted[label] = weighted.get(label, 0) + weight
+    for label, _ in sorted(weighted.items(), key=lambda item: (-item[1], item[0]))[:20]:
+        if weighted[label] < 2 and label.lower() not in {value.lower() for value in TAG_ALIASES.values()}:
+            continue
+        add_tag(tags, label)
         if len(tags) >= 10:
             break
     return tags
@@ -1211,8 +1368,19 @@ def add_reference_urls(summary: Dict, document_url: str) -> Dict:
 
 
 def related_tags(doc: Dict) -> set[str]:
-    excluded = {clean(doc.get("agency")).lower(), "ocr", "pdf text", "metadata"}
-    return {tag.lower() for tag in doc.get("tags", []) if tag.lower() not in excluded and len(tag) > 2}
+    excluded = {
+        clean(doc.get("agency")).lower(),
+        "photos",
+        "videos",
+        "metadata",
+        "war department",
+        "state department",
+    }
+    return {
+        tag.lower()
+        for tag in doc.get("tags", [])
+        if tag.lower() not in excluded and not re.fullmatch(r"(18|19|20)\d{2}", tag) and len(tag) > 2
+    }
 
 
 def attach_related_documents(documents: List[Dict]) -> None:
@@ -1256,6 +1424,7 @@ def export_documents(conn) -> List[Dict]:
     for row in rows:
         assets = public_assets(conn, row["doc_id"])
         media = public_media(assets)
+        locations = public_locations(conn, row["doc_id"])
         summary = add_reference_urls(source_summary(conn, row["doc_id"]), media["document_url"] or clean(row["source_url"]))
         documents.append(
             {
@@ -1271,8 +1440,8 @@ def export_documents(conn) -> List[Dict]:
                 "source_url": clean(row["source_url"]),
                 "media": media,
                 "assets": assets,
-                "locations": public_locations(conn, row["doc_id"]),
-                "tags": tags_for(row, summary),
+                "locations": locations,
+                "tags": tags_for(row, summary, assets, locations),
                 "summary": summary,
             }
         )

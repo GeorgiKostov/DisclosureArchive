@@ -72,3 +72,4 @@
 - Updated the public globe interaction model: removed automatic spinning, added scroll-wheel zoom, and made selected checkpoints/list items switch to an active blue highlight.
 - Renamed the public site header/browser title to `Disclosure Archive` and made the header title clickable as a full search/filter reset control.
 - Added optional Plausible-compatible analytics injection to the static export, with privacy-preserving UI event hooks for search, filters, summaries, outbound links, and globe interactions.
+- Reworked public document tags to remove process/source labels like OCR, excerpt, metadata, and location, replacing them with contextual archive tags such as sightings, object types, agencies, years, media type, aircraft/radar themes, and location hints.

@@ -110,6 +110,7 @@ Broad OCR update:
 - Public globe controls update: the globe no longer auto-spins, drag is user-controlled rotation, scroll-wheel zoom moves the camera in/out, and selected checkpoints/list items are highlighted blue.
 - Public header update: the site is now named `Disclosure Archive`, and clicking the title resets search, filters, open summaries, and globe checkpoint selection.
 - Public analytics support: `python -m ufo_indexer.export_site --analytics-domain <domain>` or `DISCLOSURE_ANALYTICS_DOMAIN=<domain>` injects a Plausible-compatible analytics script and coarse UI event hooks; exports without a domain remain analytics-free.
+- Public tag update: static export tags now avoid process/source labels such as OCR, excerpt, metadata, and location; tags are generated from curated phrases/entities, agency/year/location hints, media type, object descriptors, and recurring UAP themes.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.
