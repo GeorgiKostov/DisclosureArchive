@@ -173,6 +173,27 @@
       color: var(--muted);
       font-size: 12px;
     }
+    .globe-popup {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      width: min(340px, calc(100% - 28px));
+      border: 1px solid rgba(66,255,140,0.42);
+      border-radius: 8px;
+      background: rgba(2, 10, 6, 0.92);
+      box-shadow: 0 18px 42px rgba(0,0,0,0.42), 0 0 26px rgba(66,255,140,0.1);
+      padding: 12px;
+      z-index: 2;
+    }
+    .globe-popup[hidden] { display: none; }
+    .globe-popup h3 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+    .globe-popup p {
+      color: var(--ink);
+      font-size: 12px;
+    }
     .globe-side {
       border-left: 1px solid var(--line);
       padding: 13px;
@@ -359,6 +380,7 @@
     <section id="globePanel" class="globe-panel" hidden>
       <div class="globe-stage">
         <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
+        <div class="globe-popup" id="globePopup" hidden></div>
         <div class="globe-help">Drag to rotate. Yellow checkpoints are OCR-extracted coordinates.</div>
       </div>
       <aside class="globe-side">
@@ -429,6 +451,8 @@
             doc_id: doc.doc_id,
             title: doc.title,
             agency: doc.agency,
+            source_url: doc.source_url || doc.media?.document_url || "",
+            quick_summary: doc.summary?.quick_summary || doc.summary?.overview || "",
             latitude: lat,
             longitude: lon,
           });
@@ -574,6 +598,7 @@
       if (!$("globeSelected")) return;
       if (!location) {
         $("globeSelected").innerHTML = `${globeState.locations.length} mappable checkpoints. Yellow markers are OCR-extracted coordinates; green markers are metadata/gazetteer locations.`;
+        if ($("globePopup")) $("globePopup").hidden = true;
         return;
       }
       $("globeSelected").innerHTML = `
@@ -581,6 +606,25 @@
         <p>${esc(location.title || "")}</p>
         <p class="muted">${esc(location.precision || "")} · ${esc(location.method || "")} · confidence ${Number(location.confidence || 0).toFixed(2)}</p>
       `;
+      renderGlobePopup(location);
+    }
+
+    function renderGlobePopup(location) {
+      const popup = $("globePopup");
+      if (!popup || !location) return;
+      const fullSummary = location.quick_summary || "";
+      const summary = fullSummary ? fullSummary.slice(0, 360) : "No summary is available for this checkpoint.";
+      popup.innerHTML = `
+        <h3>${esc(locationLabel(location))}</h3>
+        <p class="muted">${esc(location.precision || "location")} - ${esc(location.method || "indexed location")}</p>
+        <p><strong>${esc(location.title || "Document")}</strong></p>
+        <p>${esc(summary)}${fullSummary.length > 360 ? "..." : ""}</p>
+        <div class="actions">
+          ${location.source_url ? `<a class="button source-button" href="${esc(location.source_url)}" target="_blank" rel="noopener">Source</a>` : ""}
+          <button type="button" class="summary-button" data-globe-doc="${esc(location.doc_id)}">View result</button>
+        </div>
+      `;
+      popup.hidden = false;
     }
 
     function latLonVector(lat, lon, radius) {
@@ -591,6 +635,34 @@
         y: radius * Math.cos(phi),
         z: radius * Math.sin(phi) * Math.sin(theta),
       };
+    }
+
+    async function addCountryBorders(THREE, globeGroup) {
+      try {
+        const [topology, topojson] = await Promise.all([
+          fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then((response) => response.json()),
+          import("https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/+esm"),
+        ]);
+        const countries = topojson.feature(topology, topology.objects.countries);
+        const borderMaterial = new THREE.LineBasicMaterial({ color: 0x72d7ff, transparent: true, opacity: 0.44 });
+        countries.features.forEach((feature) => {
+          const geom = feature.geometry;
+          if (!geom) return;
+          const polygons = geom.type === "Polygon" ? [geom.coordinates] : geom.coordinates;
+          polygons.forEach((polygon) => {
+            polygon.forEach((ring) => {
+              if (!ring || ring.length < 2) return;
+              const points = ring.map(([lon, lat]) => {
+                const p = latLonVector(lat, lon, 1.014);
+                return new THREE.Vector3(p.x, p.y, p.z);
+              });
+              globeGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), borderMaterial));
+            });
+          });
+        });
+      } catch (error) {
+        console.warn("Country borders could not be loaded", error);
+      }
     }
 
     async function initGlobe() {
@@ -642,6 +714,7 @@
         }
         globeGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), gridMaterial));
       }
+      await addCountryBorders(THREE, globeGroup);
       const markerGeometry = new THREE.SphereGeometry(0.025, 16, 16);
       const placeMaterial = new THREE.MeshBasicMaterial({ color: 0x42ff8c });
       const coordinateMaterial = new THREE.MeshBasicMaterial({ color: 0xffd166 });
@@ -715,6 +788,10 @@
       if (location) {
         $("q").value = location.title || locationLabel(location);
         performSearch();
+        window.setTimeout(() => {
+          const card = document.getElementById(`doc-${location.doc_id}`);
+          if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 80);
       }
     }
 
@@ -761,6 +838,23 @@
           card.scrollIntoView({ behavior: "smooth", block: "start" });
           card.classList.add("open");
         }
+      }
+      const globeDoc = event.target.closest("[data-globe-doc]");
+      if (globeDoc) {
+        const doc = docs.find((item) => item.doc_id === globeDoc.dataset.globeDoc);
+        if (!doc) return;
+        $("q").value = doc.title;
+        $("agencyFilter").value = "";
+        $("sourceFilter").value = "";
+        $("yearFilter").value = "";
+        performSearch();
+        window.setTimeout(() => {
+          const card = document.getElementById(`doc-${doc.doc_id}`);
+          if (card) {
+            card.scrollIntoView({ behavior: "smooth", block: "start" });
+            card.classList.add("open");
+          }
+        }, 80);
       }
     });
     $("searchForm").addEventListener("submit", (event) => {
