@@ -33,7 +33,7 @@ if [ ! -f "$publish_script" ]; then
   exit 0
 fi
 
-echo "DisclosureArchive: main pushed; publishing GitHub Pages from local index."
+echo "DisclosureArchive: publishing GitHub Pages before pushing main."
 
 if command -v pwsh >/dev/null 2>&1; then
   pwsh -NoProfile -File "$publish_script"

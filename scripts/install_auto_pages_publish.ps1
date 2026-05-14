@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 $repo = Resolve-Path (Join-Path $PSScriptRoot "..")
-$hook = Join-Path $repo ".githooks\post-push"
+$hook = Join-Path $repo ".githooks\pre-push"
 
 if (-not (Test-Path $hook)) {
   throw "Missing tracked hook: $hook"
@@ -13,5 +13,5 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host "Enabled DisclosureArchive auto Pages publish."
-Write-Host "After a successful push to origin/main, Git will run scripts/publish_github_pages.ps1."
+Write-Host "Before pushing origin/main, Git will run scripts/publish_github_pages.ps1."
 Write-Host "For a one-off skip, set DISCLOSURE_SKIP_PAGES_PUBLISH=1 before pushing."
