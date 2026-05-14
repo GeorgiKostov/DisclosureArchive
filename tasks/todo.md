@@ -12,5 +12,5 @@
 - Consider replacing the simple no-tile result map with Leaflet/OpenStreetMap or a bundled offline map if richer geographic exploration becomes important.
 - Decide whether to add optional real LLM summaries behind an explicit API-key setting after the local extractive summaries have been tested on noisy OCR results.
 - Review the static public site manually as a publishing candidate and decide whether to add per-document routable pages, Pagefind-style indexing, or richer map browsing.
-- Enable GitHub Pages in repository settings for the `gh-pages` branch root after the first static publish, then verify the public URL.
+- Add DNS records for `disclosurearchive.org` and `www.disclosurearchive.org`, then enable/verify GitHub Pages HTTPS once DNS propagates.
 - Consider optional reranking after evidence-pack review exposes where hybrid ranking is insufficient.

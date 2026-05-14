@@ -3,6 +3,7 @@ param(
   [string]$Out = "public_site",
   [string]$Remote = "origin",
   [string]$Branch = "gh-pages",
+  [string]$CustomDomain = $(if ($env:DISCLOSURE_CUSTOM_DOMAIN) { $env:DISCLOSURE_CUSTOM_DOMAIN } else { "disclosurearchive.org" }),
   [string]$AnalyticsDomain = $env:DISCLOSURE_ANALYTICS_DOMAIN,
   [string]$AnalyticsScriptUrl = $(if ($env:DISCLOSURE_ANALYTICS_SCRIPT_URL) { $env:DISCLOSURE_ANALYTICS_SCRIPT_URL } else { "https://plausible.io/js/script.js" })
 )
@@ -72,6 +73,9 @@ try {
   Step "Copying public site files"
   Copy-Item -Path (Join-Path $site "*") -Destination $publishRoot -Recurse -Force
   New-Item -ItemType File -Path (Join-Path $publishRoot ".nojekyll") -Force | Out-Null
+  if ($CustomDomain) {
+    Set-Content -Path (Join-Path $publishRoot "CNAME") -Value $CustomDomain.Trim() -NoNewline
+  }
 
   git -C $publishRoot add -A
   git -C $publishRoot commit -m "deploy: update public archive site"

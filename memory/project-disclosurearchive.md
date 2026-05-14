@@ -110,7 +110,9 @@ Broad OCR update:
 - Public globe controls update: the globe no longer auto-spins, drag is user-controlled rotation, scroll-wheel zoom moves the camera in/out, and selected checkpoints/list items are highlighted blue.
 - Public header update: the site is now named `Disclosure Archive`, and clicking the title resets search, filters, open summaries, and globe checkpoint selection.
 - Public analytics support: `python -m ufo_indexer.export_site --analytics-domain <domain>` or `DISCLOSURE_ANALYTICS_DOMAIN=<domain>` injects a Plausible-compatible analytics script and coarse UI event hooks; exports without a domain remain analytics-free.
+- Custom-domain publish support: `scripts/publish_github_pages.ps1` now writes a `CNAME` file for `disclosurearchive.org` by default, or the value from `DISCLOSURE_CUSTOM_DOMAIN` / `-CustomDomain`; the `gh-pages` branch was republished at `f272268bb5efe8cd4a7ba106d382d0eb8b260d92`.
 - Public tag update: static export tags now avoid process/source labels such as OCR, excerpt, metadata, and location; tags are generated from curated phrases/entities, agency/year/location hints, media type, object descriptors, and recurring UAP themes.
+- Public media layout update: real image/video records render with a larger media preview area, while ordinary document/PDF thumbnails remain compact; the Photos filter/tag now targets actual image assets, not generated PDF thumbnails.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.
@@ -119,4 +121,4 @@ Broad OCR update:
 5. Review `locations` rows for false positives and decide whether to add a larger offline gazetteer/manual override file.
 6. Evaluate whether optional real LLM summaries are worth adding behind an explicit API-key/config setting.
 7. Review the static public site as a publishing candidate and decide whether per-document routable pages or richer client-side search are needed.
-8. Enable GitHub Pages for the `gh-pages` branch root and smoke-test the live public URL after the first publish.
+8. Add DNS records for `disclosurearchive.org` and `www.disclosurearchive.org`, then enable/verify GitHub Pages HTTPS after DNS propagation.

@@ -282,6 +282,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       grid-template-columns: minmax(0, 1fr) 220px;
       align-items: start;
     }
+    .result.media-rich .shell {
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 42%);
+    }
     .body { padding: 15px; }
     .media {
       width: 220px;
@@ -294,6 +297,10 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       overflow: hidden;
       position: sticky;
       top: 10px;
+    }
+    .result.media-rich .media {
+      width: 100%;
+      height: clamp(260px, 32vw, 420px);
     }
     .media img, .media video {
       width: 100%;
@@ -377,6 +384,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       .search { grid-template-columns: 1fr; }
       .shell { grid-template-columns: 1fr; }
       .media { width: 100%; height: 170px; border-left: 0; border-top: 1px solid var(--line); position: static; }
+      .result.media-rich .shell { grid-template-columns: 1fr; }
+      .result.media-rich .media { height: min(360px, 62vw); }
       .globe-panel { grid-template-columns: 1fr; }
       .globe-side { border-left: 0; border-top: 1px solid var(--line); }
     }
@@ -523,9 +532,17 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       return match ? match[1] : text;
     }
 
+    function isImageUrl(value) {
+      return /\.(avif|gif|jpe?g|png|webp)(\?|#|$)/i.test(String(value || ""));
+    }
+
+    function isRichMedia(doc) {
+      return Boolean(videoUrl(doc.media?.video_url)) || isImageUrl(doc.media?.document_url);
+    }
+
     function hasMediaKind(doc, kind) {
       const assets = doc.assets || [];
-      if (kind === "media_image") return Boolean(doc.media?.thumbnail_url) || assets.some((asset) => asset.media_type === "image" || asset.kind === "thumbnail");
+      if (kind === "media_image") return assets.some((asset) => asset.media_type === "image" && asset.kind !== "thumbnail");
       if (kind === "media_video") return Boolean(videoUrl(doc.media?.video_url)) || assets.some((asset) => asset.media_type === "video" || asset.kind === "video");
       return false;
     }
@@ -543,8 +560,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         const poster = media.thumbnail_url ? ` poster="${esc(media.thumbnail_url)}"` : "";
         return `<video controls preload="metadata"${poster} src="${esc(playableVideo)}"></video>`;
       }
-      if (media.thumbnail_url) {
-        return `<a href="${esc(media.document_url || doc.source_url || media.thumbnail_url)}" target="_blank" rel="noopener"><img loading="lazy" src="${esc(media.thumbnail_url)}" alt="${esc(doc.title)} thumbnail"></a>`;
+      const imagePreview = isImageUrl(media.document_url) ? media.document_url : media.thumbnail_url;
+      if (imagePreview) {
+        return `<a href="${esc(media.document_url || doc.source_url || imagePreview)}" target="_blank" rel="noopener"><img loading="lazy" src="${esc(imagePreview)}" alt="${esc(doc.title)} preview"></a>`;
       }
       return `<div class="muted">No public preview</div>`;
     }
@@ -593,8 +611,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     }
 
     function renderDoc(doc) {
+      const mediaClass = isRichMedia(doc) ? " media-rich" : "";
       return `
-        <article class="result" id="doc-${esc(doc.doc_id)}">
+        <article class="result${mediaClass}" id="doc-${esc(doc.doc_id)}">
           <div class="shell">
             <div class="body">
               <h2>${esc(doc.title)}</h2>
@@ -1314,7 +1333,7 @@ def tags_for(doc, summary: Dict, assets: List[Dict], locations: List[Dict]) -> L
     if not location_tag(doc["incident_location"]):
         for location in locations[:2]:
             add_tag(tags, location_tag(location.get("normalized_location") or location.get("raw_location")))
-    if any(asset.get("media_type") == "image" for asset in assets):
+    if any(asset.get("media_type") == "image" and asset.get("kind") != "thumbnail" for asset in assets):
         add_tag(tags, "Photos")
     if any(asset.get("media_type") == "video" for asset in assets):
         add_tag(tags, "Videos")
