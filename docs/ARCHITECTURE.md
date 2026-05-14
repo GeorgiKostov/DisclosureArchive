@@ -187,9 +187,10 @@ payload per document. Each payload includes document/release metadata,
 government source URLs, public asset URLs, locations, tags, related-document
 links, deterministic summary sections, and structured references back to
 chunk/page/source-kind provenance. The payload also includes a small curated
-`featured_documents` list for the public collapsible "Best Of" section under
-the globe; each item is selected from indexed records and links back into the
-client-side index view.
+`featured_documents` list for the public landing "Best Of" section above search;
+each item is selected from indexed records and links back into the client-side
+index view. The location globe is hidden by default in the search workbench and
+opens on demand from the filter/action row.
 
 The public export is intentionally summary-focused. It does not copy raw PDFs,
 videos, local thumbnails, generated SQLite databases, derived OCR caches, or full

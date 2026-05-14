@@ -82,5 +82,6 @@
 - Improved responsive behavior for the public static site and local search UI: mobile controls/cards now use full-width touch targets, media previews stack cleanly, globe popups fit narrow screens, and long OCR-derived labels wrap safely.
 - Removed the visible globe navigation tip overlay and added two-finger pinch zoom on touch devices while preserving scroll-wheel zoom on desktop.
 - Added public curated best-of records with concise fact-forward summaries, preview media, and `Index entry` buttons that filter/open the matching result card.
-- Reworked the public feature layout so the globe stays in the main flow with a `Minimize globe` control, while the curated `Best Of` section sits below the globe as a closed-by-default toggle.
+- Reworked the public feature layout so the curated `Best Of` section is visible at the top of the landing page, followed by the search/filter/results workbench.
+- Hid the public globe by default behind an `Open location globe` control in the search tools row; the globe can be opened or hidden without changing the rest of the layout.
 - Replaced touch pointer zoom on the public globe with explicit mobile touch handling: one finger rotates, two fingers pinch-zoom the camera, and desktop scroll-wheel zoom remains.
