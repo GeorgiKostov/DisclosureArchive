@@ -560,7 +560,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     <div class="wrap top">
       <div>
         <h1><button type="button" class="brand-title" id="brandReset" title="Reset archive search">Disclosure Archive</button></h1>
-        <div class="muted">Precomputed summaries with government source links and page/chunk references.</div>
+        <div class="muted">Start with the signal. Trace every claim to the source.</div>
       </div>
       <div class="top-actions">
         <nav class="nav" aria-label="Primary">
