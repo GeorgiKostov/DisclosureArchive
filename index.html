@@ -52,6 +52,13 @@
       width: min(1160px, calc(100% - 32px));
       margin: 0 auto;
     }
+    .top > div,
+    .body,
+    .details,
+    .source-note,
+    .refs {
+      min-width: 0;
+    }
     .top {
       min-height: 72px;
       display: flex;
@@ -137,6 +144,9 @@
       gap: 10px;
       align-items: center;
     }
+    .tools select {
+      min-width: min(220px, 100%);
+    }
     select {
       height: 36px;
       border: 1px solid var(--line);
@@ -150,6 +160,109 @@
       color: var(--muted);
       font-size: 13px;
     }
+    .best-of {
+      margin: 16px 0;
+      padding: 14px;
+      border: 1px solid rgba(114,215,255,0.24);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(7, 24, 15, 0.94), rgba(4, 12, 8, 0.9));
+      box-shadow: 0 16px 44px rgba(0,0,0,0.28), 0 0 28px rgba(114,215,255,0.06);
+    }
+    .best-of.collapsed {
+      padding-bottom: 14px;
+    }
+    .best-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .best-head h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .best-title-row {
+      min-width: 0;
+    }
+    .best-count {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .best-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .best-of.collapsed .best-grid {
+      display: none;
+    }
+    .best-toggle {
+      min-height: 32px;
+      padding: 0 9px;
+      font-size: 12px;
+      color: var(--accent-2);
+    }
+    .best-card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(2, 10, 6, 0.74);
+      overflow: hidden;
+    }
+    .best-media {
+      height: 118px;
+      border-bottom: 1px solid var(--line);
+      background: #020503;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .best-media img,
+    .best-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #111;
+    }
+    .best-body {
+      padding: 11px;
+    }
+    .best-label {
+      color: var(--warn);
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .best-title {
+      margin: 5px 0 6px;
+      color: var(--accent);
+      font-size: 14px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+    .best-summary {
+      color: var(--ink);
+      font-size: 12px;
+    }
+    .best-facts {
+      margin: 8px 0 0;
+      padding-left: 15px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .best-facts li {
+      margin: 3px 0;
+    }
+    .best-link {
+      margin-top: 9px;
+      min-height: 30px;
+      padding: 0 8px;
+      font-size: 11px;
+      color: var(--accent-2);
+    }
     .globe-panel {
       display: grid;
       margin: 14px 0;
@@ -158,6 +271,28 @@
       background: rgba(1, 10, 7, 0.78);
       box-shadow: 0 16px 44px rgba(0,0,0,0.34), 0 0 28px rgba(66,255,140,0.06);
       overflow: hidden;
+    }
+    .globe-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(2, 10, 6, 0.72);
+    }
+    .globe-head h2 {
+      margin: 0;
+      font-size: 14px;
+    }
+    .globe-toggle {
+      min-height: 32px;
+      padding: 0 9px;
+      font-size: 12px;
+      color: var(--accent-2);
+    }
+    .globe-panel.minimized .globe-stage {
+      display: none;
     }
     .globe-stage {
       position: relative;
@@ -177,17 +312,6 @@
       overscroll-behavior: contain;
     }
     #globeCanvas:active { cursor: grabbing; }
-    .globe-help {
-      position: absolute;
-      left: 12px;
-      bottom: 10px;
-      padding: 6px 8px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: rgba(0,0,0,0.52);
-      color: var(--muted);
-      font-size: 12px;
-    }
     .globe-popup {
       position: absolute;
       right: 14px;
@@ -268,18 +392,20 @@
       font-size: 17px;
       letter-spacing: 0;
       color: var(--accent);
+      overflow-wrap: anywhere;
     }
     h3 {
       margin: 14px 0 6px;
       font-size: 14px;
       letter-spacing: 0;
     }
-    p { margin: 7px 0; }
+    p { margin: 7px 0; overflow-wrap: anywhere; }
     ul { margin: 8px 0 0; padding-left: 18px; }
-    li { margin: 5px 0; }
+    li { margin: 5px 0; overflow-wrap: anywhere; }
     .muted, .refs, .source-note {
       color: var(--muted);
       font-size: 12px;
+      overflow-wrap: anywhere;
     }
     .tags {
       display: flex;
@@ -296,6 +422,7 @@
       font-size: 12px;
       font-weight: 650;
       cursor: pointer;
+      overflow-wrap: anywhere;
     }
     .actions {
       display: flex;
@@ -315,6 +442,10 @@
       text-transform: uppercase;
       letter-spacing: 0;
     }
+    .source-button span,
+    .summary-button span {
+      overflow-wrap: anywhere;
+    }
     .details {
       display: none;
       margin-top: 12px;
@@ -333,15 +464,33 @@
     a { color: var(--accent-2); }
     a:hover { color: var(--accent); }
     @media (max-width: 760px) {
+      body { font-size: 13px; }
+      .wrap { width: min(1160px, calc(100% - 20px)); }
       .top { align-items: flex-start; flex-direction: column; padding: 16px 0; }
+      .brand-title { font-size: 20px; text-align: left; }
       .meta { text-align: left; }
       .search { grid-template-columns: 1fr; }
+      input[type="search"], button, .button, select { min-height: 44px; }
+      .tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .tools select, .tools button { width: 100%; min-width: 0; }
+      .best-of { padding: 12px; }
+      .best-head { align-items: flex-start; flex-direction: column; }
+      .best-toggle { width: 100%; }
+      .best-grid { grid-template-columns: 1fr; }
+      .best-media { height: min(210px, 48vw); }
       .shell { grid-template-columns: 1fr; }
-      .media { width: 100%; height: 170px; border-left: 0; border-top: 1px solid var(--line); position: static; }
+      .body { padding: 12px; }
+      .media { order: -1; width: 100%; height: 160px; border-left: 0; border-bottom: 1px solid var(--line); position: static; }
       .result.media-rich .shell { grid-template-columns: 1fr; }
-      .result.media-rich .media { height: min(360px, 62vw); }
-      .globe-stage, #globeCanvas { min-height: min(520px, 88vw); }
-      .globe-help { max-width: calc(100% - 24px); }
+      .result.media-rich .media { height: min(340px, 66vw); }
+      .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .actions > * { width: 100%; min-width: 0; }
+      .globe-stage, #globeCanvas { min-height: clamp(300px, 92vw, 520px); }
+      .globe-popup { inset: 10px 10px auto 10px; width: auto; max-height: calc(100% - 20px); overflow: auto; }
+    }
+    @media (max-width: 430px) {
+      .tools, .actions { grid-template-columns: 1fr; }
+      .result.media-rich .media { height: min(320px, 78vw); }
     }
   </style>
 </head>
@@ -379,12 +528,16 @@
     </div>
     <div class="status" id="status">Loading...</div>
     <section id="globePanel" class="globe-panel">
+      <div class="globe-head">
+        <h2>Location Globe</h2>
+        <button type="button" class="globe-toggle" id="globeToggle" aria-expanded="true">Minimize globe</button>
+      </div>
       <div class="globe-stage">
         <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
         <div class="globe-popup" id="globePopup" hidden></div>
-        <div class="globe-help">Drag to rotate. Scroll to zoom. Yellow checkpoints are OCR-extracted coordinates.</div>
       </div>
     </section>
+    <section id="bestOf" class="best-of collapsed" hidden></section>
     <section id="results"></section>
   </main>
   <script>
@@ -513,6 +666,50 @@
         return `<a href="${esc(media.document_url || doc.source_url || imagePreview)}" target="_blank" rel="noopener"><img loading="lazy" src="${esc(imagePreview)}" alt="${esc(doc.title)} preview"></a>`;
       }
       return `<div class="muted">No public preview</div>`;
+    }
+
+    function renderBestMedia(item) {
+      const media = item.media || {};
+      const playableVideo = videoUrl(media.video_url);
+      if (playableVideo) {
+        const poster = media.thumbnail_url ? ` poster="${esc(media.thumbnail_url)}"` : "";
+        return `<video controls preload="metadata"${poster} src="${esc(playableVideo)}"></video>`;
+      }
+      const imagePreview = isImageUrl(media.document_url) ? media.document_url : media.thumbnail_url;
+      if (imagePreview) {
+        return `<img loading="lazy" src="${esc(imagePreview)}" alt="${esc(item.title)} preview">`;
+      }
+      return `<div class="muted">No preview</div>`;
+    }
+
+    function renderBestOf(items) {
+      const panel = $("bestOf");
+      if (!panel || !items?.length) return;
+      panel.innerHTML = `
+        <div class="best-head">
+          <div class="best-title-row">
+            <h2>Best Of</h2>
+            <div class="best-count">${items.length} curated entries</div>
+          </div>
+          <button type="button" class="best-toggle" id="bestToggle" aria-expanded="false">Open best of</button>
+        </div>
+        <div class="best-grid">
+          ${items.map((item) => `
+            <article class="best-card">
+              <div class="best-media">${renderBestMedia(item)}</div>
+              <div class="best-body">
+                <div class="best-label">${esc(item.kicker)}</div>
+                <h3 class="best-title">${esc(item.title)}</h3>
+                <p class="best-summary">${esc(item.summary)}</p>
+                <ul class="best-facts">${(item.facts || []).map((fact) => `<li>${esc(fact)}</li>`).join("")}</ul>
+                <button type="button" class="button best-link" data-feature-doc="${esc(item.doc_id)}">Index entry</button>
+              </div>
+            </article>
+          `).join("")}
+        </div>
+      `;
+      panel.hidden = false;
+      panel.classList.add("collapsed");
     }
 
     function actionLinks(doc) {
@@ -734,15 +931,37 @@
       let moved = false;
       let lastX = 0;
       let lastY = 0;
+      let touchMode = "";
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let pinchStartDistance = 0;
+      let pinchStartZ = camera.position.z;
+      const clampZoom = (z) => Math.max(2.25, Math.min(6.2, z));
+      const touchDistance = (touches) => {
+        if (!touches || touches.length < 2) return 0;
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
+        return Math.hypot(dx, dy);
+      };
+      const pickMarker = (clientX, clientY) => {
+        const rect = canvas.getBoundingClientRect();
+        pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+        pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+        const hit = raycaster.intersectObjects(globeState.markers)[0];
+        if (hit) selectGlobeLocation(hit.object.userData.locationIndex);
+      };
       function resize() {
         const rect = canvas.parentElement.getBoundingClientRect();
         const width = Math.max(320, rect.width);
-        const height = Math.max(360, rect.height);
+        const minHeight = window.matchMedia("(max-width: 760px)").matches ? 300 : 360;
+        const height = Math.max(minHeight, rect.height);
         renderer.setSize(width, height, false);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
       }
       canvas.addEventListener("pointerdown", (event) => {
+        if (event.pointerType === "touch") return;
         event.preventDefault();
         dragging = true;
         moved = false;
@@ -751,11 +970,12 @@
         canvas.setPointerCapture(event.pointerId);
       });
       canvas.addEventListener("pointermove", (event) => {
+        if (event.pointerType === "touch") return;
         if (!dragging) return;
         event.preventDefault();
         const dx = event.clientX - lastX;
         const dy = event.clientY - lastY;
-        const speed = event.pointerType === "touch" ? 0.009 : 0.006;
+        const speed = 0.006;
         if (Math.abs(dx) + Math.abs(dy) > 6) moved = true;
         globeGroup.rotation.y += dx * speed;
         globeGroup.rotation.x += dy * speed * 0.7;
@@ -766,25 +986,96 @@
       canvas.addEventListener("wheel", (event) => {
         event.preventDefault();
         const delta = Math.sign(event.deltaY) * 0.26;
-        camera.position.z = Math.max(2.25, Math.min(6.2, camera.position.z + delta));
+        camera.position.z = clampZoom(camera.position.z + delta);
         camera.updateProjectionMatrix();
       }, { passive: false });
       canvas.addEventListener("pointerup", (event) => {
+        if (event.pointerType === "touch") return;
         dragging = false;
         if (canvas.hasPointerCapture(event.pointerId)) {
           canvas.releasePointerCapture(event.pointerId);
         }
         if (moved) return;
-        const rect = canvas.getBoundingClientRect();
-        pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-        pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-        raycaster.setFromCamera(pointer, camera);
-        const hit = raycaster.intersectObjects(globeState.markers)[0];
-        if (hit) selectGlobeLocation(hit.object.userData.locationIndex);
+        pickMarker(event.clientX, event.clientY);
       });
-      canvas.addEventListener("pointercancel", () => {
+      canvas.addEventListener("pointercancel", (event) => {
+        if (event.pointerType === "touch") return;
         dragging = false;
       });
+      canvas.addEventListener("touchstart", (event) => {
+        event.preventDefault();
+        moved = false;
+        if (event.touches.length >= 2) {
+          touchMode = "pinch";
+          pinchStartDistance = touchDistance(event.touches);
+          pinchStartZ = camera.position.z;
+          moved = true;
+          return;
+        }
+        const touch = event.touches[0];
+        if (!touch) return;
+        touchMode = "rotate";
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        lastX = touch.clientX;
+        lastY = touch.clientY;
+      }, { passive: false });
+      canvas.addEventListener("touchmove", (event) => {
+        event.preventDefault();
+        if (event.touches.length >= 2) {
+          if (touchMode !== "pinch") {
+            touchMode = "pinch";
+            pinchStartDistance = touchDistance(event.touches);
+            pinchStartZ = camera.position.z;
+          }
+          const distance = touchDistance(event.touches);
+          if (pinchStartDistance > 0 && distance > 0) {
+            camera.position.z = clampZoom(pinchStartZ * (pinchStartDistance / distance));
+            camera.updateProjectionMatrix();
+          }
+          moved = true;
+          return;
+        }
+        const touch = event.touches[0];
+        if (!touch || touchMode !== "rotate") return;
+        const dx = touch.clientX - lastX;
+        const dy = touch.clientY - lastY;
+        if (Math.abs(touch.clientX - touchStartX) + Math.abs(touch.clientY - touchStartY) > 6) moved = true;
+        globeGroup.rotation.y += dx * 0.009;
+        globeGroup.rotation.x += dy * 0.0063;
+        globeGroup.rotation.x = Math.max(-1.15, Math.min(1.15, globeGroup.rotation.x));
+        lastX = touch.clientX;
+        lastY = touch.clientY;
+      }, { passive: false });
+      canvas.addEventListener("touchend", (event) => {
+        event.preventDefault();
+        if (event.touches.length >= 2) {
+          touchMode = "pinch";
+          pinchStartDistance = touchDistance(event.touches);
+          pinchStartZ = camera.position.z;
+          return;
+        }
+        if (event.touches.length === 1) {
+          const touch = event.touches[0];
+          touchMode = "rotate";
+          lastX = touch.clientX;
+          lastY = touch.clientY;
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
+          return;
+        }
+        const changed = event.changedTouches[0];
+        if (touchMode === "rotate" && changed && !moved) {
+          pickMarker(changed.clientX, changed.clientY);
+        }
+        touchMode = "";
+        pinchStartDistance = 0;
+      }, { passive: false });
+      canvas.addEventListener("touchcancel", () => {
+        touchMode = "";
+        pinchStartDistance = 0;
+        moved = false;
+      }, { passive: false });
       window.addEventListener("resize", resize);
       function animate() {
         requestAnimationFrame(animate);
@@ -813,6 +1104,26 @@
       globeState.selectedIndex = null;
       updateGlobeSelection();
       renderSelectedLocation(null);
+    }
+
+    function toggleBestOf() {
+      const panel = $("bestOf");
+      const button = $("bestToggle");
+      if (!panel || !button) return;
+      const collapsed = panel.classList.toggle("collapsed");
+      button.textContent = collapsed ? "Open best of" : "Close best of";
+      button.setAttribute("aria-expanded", collapsed ? "false" : "true");
+      track("best_of_toggle", { open: collapsed ? "false" : "true" });
+    }
+
+    function toggleGlobe() {
+      const panel = $("globePanel");
+      const button = $("globeToggle");
+      if (!panel || !button) return;
+      const minimized = panel.classList.toggle("minimized");
+      button.textContent = minimized ? "Show globe" : "Minimize globe";
+      button.setAttribute("aria-expanded", minimized ? "false" : "true");
+      track("globe_toggle", { open: minimized ? "false" : "true" });
     }
 
     function performSearch() {
@@ -900,6 +1211,29 @@
       if (globeClose) {
         clearGlobeLocation();
       }
+      const featured = event.target.closest("[data-feature-doc]");
+      if (featured) {
+        const doc = docs.find((item) => item.doc_id === featured.dataset.featureDoc);
+        if (!doc) return;
+        $("q").value = doc.title;
+        $("agencyFilter").value = "";
+        $("sourceFilter").value = "";
+        $("yearFilter").value = "";
+        track("featured_index_entry", { doc_id: doc.doc_id });
+        performSearch();
+        window.setTimeout(() => {
+          const card = document.getElementById(`doc-${doc.doc_id}`);
+          if (card) {
+            card.classList.add("open");
+            card.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 80);
+      }
+    });
+    document.addEventListener("click", (event) => {
+      if (event.target.closest("#bestToggle")) {
+        toggleBestOf();
+      }
     });
     $("searchForm").addEventListener("submit", (event) => {
       event.preventDefault();
@@ -926,6 +1260,7 @@
       track("reset", { control: "button" });
       resetArchiveView();
     });
+    $("globeToggle").addEventListener("click", toggleGlobe);
 
     fetch(`data/documents.json?v=${Date.now()}`, { cache: "no-store" })
       .then((response) => response.json())
@@ -936,6 +1271,7 @@
         agencyOptions();
         yearOptions();
         globeState.locations = allLocations();
+        renderBestOf(payload.featured_documents || []);
         performSearch();
         initGlobe();
       })
