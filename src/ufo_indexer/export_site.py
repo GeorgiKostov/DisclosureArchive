@@ -128,11 +128,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       outline: none;
       text-shadow: 0 0 20px rgba(114,215,255,0.45);
     }
-    .meta {
-      color: var(--muted);
-      font-size: 12px;
-      text-align: right;
-    }
     main { padding: 22px 0 36px; }
     .search {
       display: grid;
@@ -529,7 +524,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       .top-actions { justify-items: start; width: 100%; }
       .nav { justify-content: flex-start; width: 100%; }
       .brand-title { font-size: 20px; text-align: left; }
-      .meta { text-align: left; }
       .search { grid-template-columns: 1fr; }
       input[type="search"], button, .button, select { min-height: 44px; }
       .tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
@@ -560,14 +554,12 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     <div class="wrap top">
       <div>
         <h1><button type="button" class="brand-title" id="brandReset" title="Reset archive search">Disclosure Archive</button></h1>
-        <div class="muted">Start with the signal. Trace every claim to the source.</div>
       </div>
       <div class="top-actions">
         <nav class="nav" aria-label="Primary">
           <button type="button" class="nav-link active" data-view-target="home">Highlights</button>
           <button type="button" class="nav-link" data-view-target="search">Search</button>
         </nav>
-        <div class="meta" id="meta">Loading archive...</div>
       </div>
     </div>
   </header>
@@ -1400,7 +1392,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       .then((payload) => {
         archive = payload;
         docs = payload.documents.map((doc) => ({ ...doc, _search: searchable(doc) }));
-        $("meta").textContent = `${payload.document_count} documents | ${payload.generated_at}`;
         agencyOptions();
         yearOptions();
         globeState.locations = allLocations();

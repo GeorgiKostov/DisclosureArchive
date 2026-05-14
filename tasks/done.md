@@ -89,4 +89,4 @@
 - Reworked the public static site into a `HIGHLIGHTS` landing view plus a separate client-side search/globe workbench; home searches and highlight cards open the matching index results.
 - Expanded public highlights from 6 to 18 curated records across discussed documents, NASA images/audio, FBI photos, State Department cables, and modern DOW videos.
 - Tightened the desktop globe height so the opened location globe fits within the viewport, and removed duplicate visible `Refs:` link rows from public result cards while keeping reference data in the JSON payload.
-- Replaced the public site header implementation note with the editorial tagline `Start with the signal. Trace every claim to the source.`
+- Simplified the public site header to show only the title and navigation, removing the subtitle plus document count/timestamp metadata.
