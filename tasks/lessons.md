@@ -38,3 +38,4 @@
 - Static publication is feasible at the current archive scale: 162 document summary payloads fit in a small client-side JSON dataset, so the first public version does not need hosted SQLite or a Python server.
 - Public exports should treat government URLs as the canonical media/source layer and validate against local path leakage before writing publishable JSON.
 - For release-facing views, keep verification actions pointed at public government URLs and avoid exposing local `/file` links as primary controls.
+- Extractive summaries should prefer a clean metadata fallback over a low-confidence OCR sentence; visible summary text is more useful when noisy OCR remains available only behind provenance/source links.

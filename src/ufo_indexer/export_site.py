@@ -69,6 +69,13 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       width: min(1160px, calc(100% - 32px));
       margin: 0 auto;
     }
+    .top > div,
+    .body,
+    .details,
+    .source-note,
+    .refs {
+      min-width: 0;
+    }
     .top {
       min-height: 72px;
       display: flex;
@@ -154,6 +161,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       gap: 10px;
       align-items: center;
     }
+    .tools select {
+      min-width: min(220px, 100%);
+    }
     select {
       height: 36px;
       border: 1px solid var(--line);
@@ -166,6 +176,95 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       margin: 14px 0;
       color: var(--muted);
       font-size: 13px;
+    }
+    .best-of {
+      margin: 16px 0;
+      padding: 14px;
+      border: 1px solid rgba(114,215,255,0.24);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(7, 24, 15, 0.94), rgba(4, 12, 8, 0.9));
+      box-shadow: 0 16px 44px rgba(0,0,0,0.28), 0 0 28px rgba(114,215,255,0.06);
+    }
+    .best-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .best-head h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .best-count {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .best-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .best-card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(2, 10, 6, 0.74);
+      overflow: hidden;
+    }
+    .best-media {
+      height: 118px;
+      border-bottom: 1px solid var(--line);
+      background: #020503;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .best-media img,
+    .best-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #111;
+    }
+    .best-body {
+      padding: 11px;
+    }
+    .best-label {
+      color: var(--warn);
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .best-title {
+      margin: 5px 0 6px;
+      color: var(--accent);
+      font-size: 14px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+    .best-summary {
+      color: var(--ink);
+      font-size: 12px;
+    }
+    .best-facts {
+      margin: 8px 0 0;
+      padding-left: 15px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .best-facts li {
+      margin: 3px 0;
+    }
+    .best-link {
+      margin-top: 9px;
+      min-height: 30px;
+      padding: 0 8px;
+      font-size: 11px;
+      color: var(--accent-2);
     }
     .globe-panel {
       display: grid;
@@ -190,19 +289,10 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       min-height: clamp(420px, 54vw, 640px);
       display: block;
       cursor: grab;
+      touch-action: none;
+      overscroll-behavior: contain;
     }
     #globeCanvas:active { cursor: grabbing; }
-    .globe-help {
-      position: absolute;
-      left: 12px;
-      bottom: 10px;
-      padding: 6px 8px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: rgba(0,0,0,0.52);
-      color: var(--muted);
-      font-size: 12px;
-    }
     .globe-popup {
       position: absolute;
       right: 14px;
@@ -213,9 +303,23 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       background: rgba(2, 10, 6, 0.92);
       box-shadow: 0 18px 42px rgba(0,0,0,0.42), 0 0 26px rgba(66,255,140,0.1);
       padding: 12px;
+      padding-right: 42px;
       z-index: 2;
     }
     .globe-popup[hidden] { display: none; }
+    .globe-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 28px;
+      min-width: 28px;
+      height: 28px;
+      min-height: 28px;
+      padding: 0;
+      border-radius: 50%;
+      font-size: 18px;
+      line-height: 1;
+    }
     .globe-popup h3 {
       margin-top: 0;
       color: var(--accent);
@@ -269,18 +373,20 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       font-size: 17px;
       letter-spacing: 0;
       color: var(--accent);
+      overflow-wrap: anywhere;
     }
     h3 {
       margin: 14px 0 6px;
       font-size: 14px;
       letter-spacing: 0;
     }
-    p { margin: 7px 0; }
+    p { margin: 7px 0; overflow-wrap: anywhere; }
     ul { margin: 8px 0 0; padding-left: 18px; }
-    li { margin: 5px 0; }
+    li { margin: 5px 0; overflow-wrap: anywhere; }
     .muted, .refs, .source-note {
       color: var(--muted);
       font-size: 12px;
+      overflow-wrap: anywhere;
     }
     .tags {
       display: flex;
@@ -297,6 +403,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       font-size: 12px;
       font-weight: 650;
       cursor: pointer;
+      overflow-wrap: anywhere;
     }
     .actions {
       display: flex;
@@ -316,6 +423,10 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       text-transform: uppercase;
       letter-spacing: 0;
     }
+    .source-button span,
+    .summary-button span {
+      overflow-wrap: anywhere;
+    }
     .details {
       display: none;
       margin-top: 12px;
@@ -334,13 +445,32 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     a { color: var(--accent-2); }
     a:hover { color: var(--accent); }
     @media (max-width: 760px) {
+      body { font-size: 13px; }
+      .wrap { width: min(1160px, calc(100% - 20px)); }
       .top { align-items: flex-start; flex-direction: column; padding: 16px 0; }
+      .brand-title { font-size: 20px; text-align: left; }
       .meta { text-align: left; }
       .search { grid-template-columns: 1fr; }
+      input[type="search"], button, .button, select { min-height: 44px; }
+      .tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .tools select, .tools button { width: 100%; min-width: 0; }
+      .best-of { padding: 12px; }
+      .best-head { align-items: flex-start; flex-direction: column; }
+      .best-grid { grid-template-columns: 1fr; }
+      .best-media { height: min(210px, 48vw); }
       .shell { grid-template-columns: 1fr; }
-      .media { width: 100%; height: 170px; border-left: 0; border-top: 1px solid var(--line); position: static; }
+      .body { padding: 12px; }
+      .media { order: -1; width: 100%; height: 160px; border-left: 0; border-bottom: 1px solid var(--line); position: static; }
       .result.media-rich .shell { grid-template-columns: 1fr; }
-      .result.media-rich .media { height: min(360px, 62vw); }
+      .result.media-rich .media { height: min(340px, 66vw); }
+      .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .actions > * { width: 100%; min-width: 0; }
+      .globe-stage, #globeCanvas { min-height: clamp(300px, 92vw, 520px); }
+      .globe-popup { inset: 10px 10px auto 10px; width: auto; max-height: calc(100% - 20px); overflow: auto; }
+    }
+    @media (max-width: 430px) {
+      .tools, .actions { grid-template-columns: 1fr; }
+      .result.media-rich .media { height: min(320px, 78vw); }
     }
   </style>
 </head>
@@ -377,11 +507,11 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       <button type="button" id="reset">Reset</button>
     </div>
     <div class="status" id="status">Loading...</div>
+    <section id="bestOf" class="best-of" hidden></section>
     <section id="globePanel" class="globe-panel">
       <div class="globe-stage">
         <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
         <div class="globe-popup" id="globePopup" hidden></div>
-        <div class="globe-help">Drag to rotate. Scroll to zoom. Yellow checkpoints are OCR-extracted coordinates.</div>
       </div>
     </section>
     <section id="results"></section>
@@ -514,6 +644,46 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       return `<div class="muted">No public preview</div>`;
     }
 
+    function renderBestMedia(item) {
+      const media = item.media || {};
+      const playableVideo = videoUrl(media.video_url);
+      if (playableVideo) {
+        const poster = media.thumbnail_url ? ` poster="${esc(media.thumbnail_url)}"` : "";
+        return `<video controls preload="metadata"${poster} src="${esc(playableVideo)}"></video>`;
+      }
+      const imagePreview = isImageUrl(media.document_url) ? media.document_url : media.thumbnail_url;
+      if (imagePreview) {
+        return `<img loading="lazy" src="${esc(imagePreview)}" alt="${esc(item.title)} preview">`;
+      }
+      return `<div class="muted">No preview</div>`;
+    }
+
+    function renderBestOf(items) {
+      const panel = $("bestOf");
+      if (!panel || !items?.length) return;
+      panel.innerHTML = `
+        <div class="best-head">
+          <h2>Most Interesting</h2>
+          <div class="best-count">${items.length} field notes</div>
+        </div>
+        <div class="best-grid">
+          ${items.map((item) => `
+            <article class="best-card">
+              <div class="best-media">${renderBestMedia(item)}</div>
+              <div class="best-body">
+                <div class="best-label">${esc(item.kicker)}</div>
+                <h3 class="best-title">${esc(item.title)}</h3>
+                <p class="best-summary">${esc(item.summary)}</p>
+                <ul class="best-facts">${(item.facts || []).map((fact) => `<li>${esc(fact)}</li>`).join("")}</ul>
+                <button type="button" class="button best-link" data-feature-doc="${esc(item.doc_id)}">Index entry</button>
+              </div>
+            </article>
+          `).join("")}
+        </div>
+      `;
+      panel.hidden = false;
+    }
+
     function actionLinks(doc) {
       const pdf = doc.media?.document_url || doc.source_url;
       const gov = doc.source_url || pdf;
@@ -613,6 +783,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       const fullSummary = location.quick_summary || "";
       const summary = fullSummary ? fullSummary.slice(0, 360) : "No summary is available for this checkpoint.";
       popup.innerHTML = `
+        <button type="button" class="globe-close" data-globe-close aria-label="Close location">x</button>
         <h3>${esc(locationLabel(location))}</h3>
         <p class="muted">${esc(location.precision || "location")} - ${esc(location.method || "indexed location")}</p>
         <p><strong>${esc(location.title || "Document")}</strong></p>
@@ -728,32 +899,67 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       });
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
+      const touchPointers = new Map();
       let dragging = false;
       let moved = false;
       let lastX = 0;
       let lastY = 0;
+      let pinchStartDistance = 0;
+      let pinchStartZ = camera.position.z;
+      const clampZoom = (z) => Math.max(2.25, Math.min(6.2, z));
+      const touchDistance = () => {
+        const points = [...touchPointers.values()];
+        if (points.length < 2) return 0;
+        const dx = points[0].x - points[1].x;
+        const dy = points[0].y - points[1].y;
+        return Math.hypot(dx, dy);
+      };
       function resize() {
         const rect = canvas.parentElement.getBoundingClientRect();
         const width = Math.max(320, rect.width);
-        const height = Math.max(360, rect.height);
+        const minHeight = window.matchMedia("(max-width: 760px)").matches ? 300 : 360;
+        const height = Math.max(minHeight, rect.height);
         renderer.setSize(width, height, false);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
       }
       canvas.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
+        if (event.pointerType === "touch") {
+          touchPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+        }
         dragging = true;
         moved = false;
         lastX = event.clientX;
         lastY = event.clientY;
+        if (touchPointers.size >= 2) {
+          pinchStartDistance = touchDistance();
+          pinchStartZ = camera.position.z;
+          moved = true;
+        }
         canvas.setPointerCapture(event.pointerId);
       });
       canvas.addEventListener("pointermove", (event) => {
         if (!dragging) return;
+        event.preventDefault();
+        if (event.pointerType === "touch") {
+          touchPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+          if (touchPointers.size >= 2) {
+            const distance = touchDistance();
+            if (pinchStartDistance > 0 && distance > 0) {
+              camera.position.z = clampZoom(pinchStartZ * (pinchStartDistance / distance));
+              camera.updateProjectionMatrix();
+            }
+            moved = true;
+            return;
+          }
+        }
         const dx = event.clientX - lastX;
         const dy = event.clientY - lastY;
-        if (Math.abs(dx) + Math.abs(dy) > 2) moved = true;
-        globeGroup.rotation.y += dx * 0.006;
-        globeGroup.rotation.x += dy * 0.004;
+        const speed = event.pointerType === "touch" ? 0.009 : 0.006;
+        if (Math.abs(dx) + Math.abs(dy) > 6) moved = true;
+        globeGroup.rotation.y += dx * speed;
+        globeGroup.rotation.x += dy * speed * 0.7;
         globeGroup.rotation.x = Math.max(-1.15, Math.min(1.15, globeGroup.rotation.x));
         lastX = event.clientX;
         lastY = event.clientY;
@@ -761,11 +967,31 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       canvas.addEventListener("wheel", (event) => {
         event.preventDefault();
         const delta = Math.sign(event.deltaY) * 0.26;
-        camera.position.z = Math.max(2.25, Math.min(6.2, camera.position.z + delta));
+        camera.position.z = clampZoom(camera.position.z + delta);
         camera.updateProjectionMatrix();
       }, { passive: false });
       canvas.addEventListener("pointerup", (event) => {
+        if (event.pointerType === "touch") {
+          touchPointers.delete(event.pointerId);
+          if (touchPointers.size >= 2) {
+            pinchStartDistance = touchDistance();
+            pinchStartZ = camera.position.z;
+          } else {
+            pinchStartDistance = 0;
+            const remaining = [...touchPointers.values()][0];
+            if (remaining) {
+              lastX = remaining.x;
+              lastY = remaining.y;
+            }
+          }
+        }
         dragging = false;
+        if (touchPointers.size === 1) {
+          dragging = true;
+        }
+        if (canvas.hasPointerCapture(event.pointerId)) {
+          canvas.releasePointerCapture(event.pointerId);
+        }
         if (moved) return;
         const rect = canvas.getBoundingClientRect();
         pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -773,6 +999,13 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         raycaster.setFromCamera(pointer, camera);
         const hit = raycaster.intersectObjects(globeState.markers)[0];
         if (hit) selectGlobeLocation(hit.object.userData.locationIndex);
+      });
+      canvas.addEventListener("pointercancel", (event) => {
+        if (event.pointerType === "touch") {
+          touchPointers.delete(event.pointerId);
+          pinchStartDistance = 0;
+        }
+        dragging = false;
       });
       window.addEventListener("resize", resize);
       function animate() {
@@ -795,6 +1028,13 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       if (location) {
         track("globe_checkpoint", { doc_id: location.doc_id, precision: location.precision || "", method: location.method || "" });
       }
+    }
+
+    function clearGlobeLocation() {
+      globeState.selected = null;
+      globeState.selectedIndex = null;
+      updateGlobeSelection();
+      renderSelectedLocation(null);
     }
 
     function performSearch() {
@@ -878,6 +1118,28 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
           }
         }, 80);
       }
+      const globeClose = event.target.closest("[data-globe-close]");
+      if (globeClose) {
+        clearGlobeLocation();
+      }
+      const featured = event.target.closest("[data-feature-doc]");
+      if (featured) {
+        const doc = docs.find((item) => item.doc_id === featured.dataset.featureDoc);
+        if (!doc) return;
+        $("q").value = doc.title;
+        $("agencyFilter").value = "";
+        $("sourceFilter").value = "";
+        $("yearFilter").value = "";
+        track("featured_index_entry", { doc_id: doc.doc_id });
+        performSearch();
+        window.setTimeout(() => {
+          const card = document.getElementById(`doc-${doc.doc_id}`);
+          if (card) {
+            card.classList.add("open");
+            card.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 80);
+      }
     });
     $("searchForm").addEventListener("submit", (event) => {
       event.preventDefault();
@@ -914,6 +1176,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         agencyOptions();
         yearOptions();
         globeState.locations = allLocations();
+        renderBestOf(payload.featured_documents || []);
         performSearch();
         initGlobe();
       })
@@ -1075,6 +1338,69 @@ AGENCY_TAGS = {
     "FBI": "FBI",
     "NASA": "NASA",
 }
+
+FEATURED_SELECTIONS = [
+    {
+        "match": "Western US Event",
+        "kicker": "Modern multi-witness case",
+        "summary": "A compact contemporary case file built from seven federal-worker statements. The reports describe repeated observations in the western United States, making it one of the better entry points for comparing witness language, location hints, and official summary framing.",
+        "facts": [
+            "Agency: Department of War",
+            "Incident year: 2023",
+            "Why it stands out: multiple separate witnesses in one indexed event",
+        ],
+    },
+    {
+        "match": "FBI September 2023 Sighting - Composite Sketch",
+        "kicker": "FBI visual reconstruction",
+        "summary": "A site photo with an FBI Lab graphic overlay tied to corroborating September 2023 eyewitness accounts. The public metadata describes an apparent bronze ellipsoid emerging from a bright light, with estimated size and abrupt disappearance recorded as part of the case record.",
+        "facts": [
+            "Agency: FBI",
+            "Incident date: September 1, 2023",
+            "Why it stands out: image-based record linked to several witness statements",
+        ],
+    },
+    {
+        "match": "State Department UAP Cable 1, Papua New Guinea",
+        "kicker": "Diplomatic cable",
+        "summary": "A State Department cable from Port Moresby relaying a 1985 Papua New Guinea report through diplomatic channels. It is useful because the UFO account appears inside ordinary embassy traffic rather than a dedicated UFO case file.",
+        "facts": [
+            "Agency: Department of State",
+            "Incident date: January 24, 1985",
+            "Why it stands out: a local report preserved in formal diplomatic correspondence",
+        ],
+    },
+    {
+        "match": "NASA-UAP-D2, Apollo 17 Transcript, 1972",
+        "kicker": "Lunar transcript",
+        "summary": "An Apollo 17 air-to-ground transcript excerpt centered on a lunar-surface observation near Grimaldi. The record is a clean way into the NASA cluster because it anchors the unusual report to mission context, speakers, and page-level transcript provenance.",
+        "facts": [
+            "Agency: NASA",
+            "Incident year: 1972",
+            "Why it stands out: lunar observation captured in mission transcript text",
+        ],
+    },
+    {
+        "match": "255-t-763-r1b-excerpt",
+        "kicker": "Gemini VII audio",
+        "summary": "A NASA audio excerpt from Gemini VII in which Frank Borman reports an unidentified object during air-to-ground communications. The pairing of audio metadata and transcript material makes it one of the archive's most approachable spaceflight entries.",
+        "facts": [
+            "Agency: NASA",
+            "Incident date: December 5, 1965",
+            "Why it stands out: mission audio and transcript context around the same observation",
+        ],
+    },
+    {
+        "match": "331_120752_Numeric_Files_1944",
+        "kicker": "Wartime foo-fighter file",
+        "summary": "A SHAEF-era file collecting messages and memorandums about night phenomena, flak rockets, cylindrical objects, and blinking lights. It gives the archive historical depth: UAP-like reports appear here in the vocabulary and operational worries of 1944-1945 air war records.",
+        "facts": [
+            "Agency: Department of War",
+            "Incident date: March 18, 1945",
+            "Why it stands out: early military reports before the postwar flying-disc wave",
+        ],
+    },
+]
 
 
 def media_type(kind: str, url: str) -> str:
@@ -1339,6 +1665,33 @@ def attach_related_documents(documents: List[Dict]) -> None:
         doc["related_documents"] = related
 
 
+def featured_documents(documents: List[Dict]) -> List[Dict]:
+    featured = []
+    used = set()
+    for selection in FEATURED_SELECTIONS:
+        match = selection["match"].lower()
+        doc = next((item for item in documents if match in item["title"].lower()), None)
+        if not doc or doc["doc_id"] in used:
+            continue
+        used.add(doc["doc_id"])
+        featured.append(
+            {
+                "doc_id": doc["doc_id"],
+                "title": doc["title"],
+                "kicker": selection["kicker"],
+                "summary": selection["summary"],
+                "facts": selection["facts"],
+                "agency": doc["agency"],
+                "incident_date": doc["incident_date"],
+                "incident_location": doc["incident_location"],
+                "source_url": doc["source_url"],
+                "media": doc["media"],
+                "tags": doc["tags"][:6],
+            }
+        )
+    return featured
+
+
 def export_documents(conn) -> List[Dict]:
     rows = conn.execute(
         """
@@ -1402,10 +1755,12 @@ def analytics_snippet(domain: str = "", script_url: str = "https://plausible.io/
 def write_site(db: Path, out: Path, analytics_domain: str = "", analytics_script_url: str = "https://plausible.io/js/script.js") -> Dict:
     conn = connect(db)
     documents = export_documents(conn)
+    featured = featured_documents(documents)
     payload = {
         "schema": "disclosurearchive.public_site.v1",
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "document_count": len(documents),
+        "featured_documents": featured,
         "documents": documents,
     }
     leaks = validate_public_payload(payload)

@@ -48,12 +48,77 @@ STOPWORDS = {
 }
 
 OCR_FIXES = [
+    (re.compile(r"â€œ|â€�|â€ś|â€ť|тАЬ|тАЭ"), '"'),
+    (re.compile(r"â€˜|â€™|тАЩ|тАШ"), "'"),
+    (re.compile(r"â€[\"“”]?|тА[\\w]*"), " "),
+    (re.compile(r"┬й|┬в|┬"), " "),
+    (re.compile(r"[Хх]"), "X"),
     (re.compile(r"\bU\s*F\s*O\b", re.IGNORECASE), "UFO"),
     (re.compile(r"\bU\s*A\s*P\b", re.IGNORECASE), "UAP"),
     (re.compile(r"\bA\s*F\s*B\b", re.IGNORECASE), "AFB"),
     (re.compile(r"\bF\s*B\s*I\b", re.IGNORECASE), "FBI"),
     (re.compile(r"\bD\s*O\s*D\b", re.IGNORECASE), "DOD"),
+    (re.compile(r"\bdnvolved\b", re.IGNORECASE), "involved"),
+    (re.compile(r"\berater\b", re.IGNORECASE), "crater"),
+    (re.compile(r"\bfron\b", re.IGNORECASE), "from"),
+    (re.compile(r"\bmowledge\b", re.IGNORECASE), "knowledge"),
+    (re.compile(r"\bmst\b", re.IGNORECASE), "must"),
+    (re.compile(r"\bpreviosuly\b", re.IGNORECASE), "previously"),
+    (re.compile(r"\bsmali\b", re.IGNORECASE), "small"),
+    (re.compile(r"\bsourees\b", re.IGNORECASE), "sources"),
+    (re.compile(r"\bstresks\b", re.IGNORECASE), "streaks"),
 ]
+
+COMMON_WORDS = {
+    "a",
+    "an",
+    "and",
+    "are",
+    "as",
+    "at",
+    "be",
+    "been",
+    "by",
+    "for",
+    "from",
+    "had",
+    "has",
+    "have",
+    "he",
+    "her",
+    "his",
+    "in",
+    "is",
+    "it",
+    "not",
+    "of",
+    "on",
+    "or",
+    "that",
+    "the",
+    "their",
+    "this",
+    "to",
+    "was",
+    "were",
+    "with",
+}
+
+OCR_FILLER_WORDS = {
+    "ae",
+    "aee",
+    "eee",
+    "ee",
+    "oe",
+    "oo",
+    "ooo",
+    "ii",
+    "iii",
+    "lll",
+    "se",
+    "sss",
+    "te",
+}
 
 UAP_TERMS = {
     "uap",
@@ -73,8 +138,15 @@ UAP_TERMS = {
     "saucer",
     "aerial",
     "anomaly",
+    "cylindrical",
+    "foo",
+    "foofighter",
+    "foofighters",
     "unknown",
     "formation",
+    "phenomena",
+    "rocket",
+    "rockets",
     "tumbling",
 }
 
@@ -82,11 +154,18 @@ UAP_TERMS = {
 def readable_text(text: str) -> str:
     text = clean(text)
     text = re.sub(r"-\s+", "", text)
-    text = re.sub(r"[_~`|{}\[\]<>]{2,}", " ", text)
-    text = re.sub(r"\s+", " ", text)
-    text = re.sub(r"(?<=[a-z])(?=[A-Z][a-z])", " ", text)
     for pattern, replacement in OCR_FIXES:
         text = pattern.sub(replacement, text)
+    text = re.sub(r"[\u2500-\u259f]+", " ", text)
+    text = re.sub(r"[^\x09\x0a\x0d\x20-\x7e]", " ", text)
+    text = re.sub(r"\s*[|=~]\s*", " ", text)
+    text = re.sub(r"[_~`|{}\[\]<>]{2,}", " ", text)
+    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"\s+([,.;:?!)])", r"\1", text)
+    text = re.sub(r"([(])\s+", r"\1", text)
+    text = re.sub(r"\.\s*,", ",", text)
+    text = re.sub(r"\bbut\.\s+", "but ", text, flags=re.IGNORECASE)
+    text = re.sub(r"(?<=[a-z])(?=[A-Z][a-z])", " ", text)
     return clean(text)
 
 
@@ -95,10 +174,40 @@ def sentence_quality(sentence: str) -> float:
         return 0.0
     chars = len(sentence)
     letters = sum(1 for char in sentence if char.isalpha())
-    punctuation_noise = sum(1 for char in sentence if char in "_~`|{}[]<>")
     if chars < 35 or chars > 360:
         return 0.1
-    return (letters / max(chars, 1)) - (punctuation_noise / max(chars, 1))
+    tokens = re.findall(r"[A-Za-z0-9]+", sentence)
+    words = [token.lower() for token in tokens if re.search(r"[A-Za-z]", token)]
+    if len(words) < 5:
+        return 0.2
+    punctuation_noise = sum(1 for char in sentence if char in "_~`|{}[]<>")
+    symbol_noise = sum(1 for char in sentence if not char.isalnum() and not char.isspace() and char not in ".,;:?!'\"()/-%")
+    short_ratio = sum(1 for word in words if len(word) <= 2) / max(len(words), 1)
+    common_ratio = sum(1 for word in words if word in COMMON_WORDS) / max(len(words), 1)
+    filler_ratio = sum(1 for word in words if word in OCR_FILLER_WORDS) / max(len(words), 1)
+    long_garble_ratio = sum(1 for word in words if len(word) > 24) / max(len(words), 1)
+    vowelless_ratio = sum(
+        1
+        for word in words
+        if len(word) >= 4 and not re.search(r"[aeiouy]", word) and not word.isupper()
+    ) / max(len(words), 1)
+    repeated_noise = len(re.findall(r"\b(?:[a-z]{1,2}\s+){5,}[a-z]{1,2}\b", sentence.lower()))
+    quality = letters / max(chars, 1)
+    quality -= punctuation_noise / max(chars, 1)
+    quality -= symbol_noise / max(chars, 1)
+    quality -= max(0.0, short_ratio - 0.42) * 1.1
+    quality -= max(0.0, 0.1 - common_ratio) * 2.0
+    quality -= filler_ratio * 1.6
+    quality -= long_garble_ratio * 4.0
+    quality -= vowelless_ratio * 0.8
+    quality -= repeated_noise * 0.25
+    if common_ratio < 0.12 and short_ratio > 0.34:
+        quality -= 0.22
+    if re.search(r"\b(?:e{3,}|a{3,}|o{3,}|i{3,})\b", sentence.lower()):
+        quality -= 0.2
+    if len(set(words)) < max(4, len(words) * 0.45):
+        quality -= 0.15
+    return quality
 
 
 def split_sentences(text: str) -> List[str]:
@@ -111,7 +220,7 @@ def split_sentences(text: str) -> List[str]:
         item = clean(item)
         if len(item) > 320:
             item = item[:320].rsplit(" ", 1)[0] + "."
-        if sentence_quality(item) >= 0.45:
+        if sentence_quality(item) >= 0.48:
             out.append(item)
     return out
 
@@ -259,10 +368,16 @@ def source_summary(conn, doc_id: str) -> Dict:
         text = readable_text(row["text"])
         for sentence in split_sentences(text)[:5]:
             quality = sentence_quality(sentence)
-            if row["source_kind"] in {"pdf_text", "ocr_text"}:
+            if row["source_kind"] == "ocr_text" and quality < 0.74:
+                continue
+            if row["source_kind"] == "pdf_text":
                 quality += 0.2
+            elif row["source_kind"] == "ocr_text":
+                quality += 0.05
             if row["page_number"]:
                 quality += 0.1
+            if sentence_has_uap_terms(sentence):
+                quality += 0.45
             sentences.append((quality, row, sentence))
             chronological_sentences.append((quality, row, sentence))
 
@@ -287,8 +402,14 @@ def source_summary(conn, doc_id: str) -> Dict:
     )
     detail_items = unique_sentence_items(chronological_sentences, 10, chronological=True)
 
-    if top_items:
-        quick_summary = f"{overview} Main readable passages include: " + " ".join(sentence for _, sentence in top_items[:2])
+    quick_items = top_items
+    if quick_items and all(row["source_kind"] == "ocr_text" for row, _ in quick_items):
+        quick_items = [(row, sentence) for row, sentence in quick_items if sentence_has_uap_terms(sentence)]
+
+    if quick_items:
+        quick_summary = f"{overview} Main readable passages include: " + " ".join(
+            snippet(sentence, max_chars=160) for _, sentence in quick_items[:2]
+        )
     else:
         quick_summary = overview
 
@@ -310,13 +431,13 @@ def source_summary(conn, doc_id: str) -> Dict:
     if not detailed_contents:
         detailed_contents = [
             {
-                "text": "No readable PDF/OCR/caption sentences were available for this source. Try opening the PDF or running OCR review for this document.",
+                "text": "The indexed PDF/OCR/caption text did not contain enough clean sentences for a reliable extractive summary. Use the government source link for manual review.",
                 "chunk_id": "",
                 "source_kind": "",
                 "source_label": "",
                 "page_number": None,
                 "chunk_index": None,
-                "label": "No readable PDF/OCR/caption sentences were available for this source. Try opening the PDF or running OCR review for this document.",
+                "label": "The indexed PDF/OCR/caption text did not contain enough clean sentences for a reliable extractive summary. Use the government source link for manual review.",
             }
         ]
 

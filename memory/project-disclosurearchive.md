@@ -111,9 +111,15 @@ Broad OCR update:
 - Public header update: the site is now named `Disclosure Archive`, and clicking the title resets search, filters, open summaries, and globe checkpoint selection.
 - Public analytics support: `python -m ufo_indexer.export_site --analytics-domain <domain>` or `DISCLOSURE_ANALYTICS_DOMAIN=<domain>` injects a Plausible-compatible analytics script and coarse UI event hooks; exports without a domain remain analytics-free.
 - Custom-domain publish support: `scripts/publish_github_pages.ps1` now writes a `CNAME` file for `disclosurearchive.org` by default, or the value from `DISCLOSURE_CUSTOM_DOMAIN` / `-CustomDomain`; the `gh-pages` branch was republished at `f272268bb5efe8cd4a7ba106d382d0eb8b260d92`.
+- Public custom-domain verification: `https://disclosurearchive.org/` serves the generated static site over GitHub Pages, and `https://www.disclosurearchive.org/` redirects to the apex domain.
 - Public tag update: static export tags now avoid process/source labels such as OCR, excerpt, metadata, and location; tags are generated from curated phrases/entities, agency/year/location hints, media type, object descriptors, and recurring UAP themes.
 - Public media layout update: real image/video records render with a larger media preview area, while ordinary document/PDF thumbnails remain compact; the Photos filter/tag now targets actual image assets, not generated PDF thumbnails.
 - Public globe layout update: the globe is visible by default, the checkpoint side list/toggle is removed, marker clicks only update the popup/selected marker, and result-opening actions no longer force `scrollIntoView`.
+- Public mobile globe fix: the canvas now uses explicit touch handling for one-finger drag rotation, and selected location popups include a top-right `x` close control that clears the selected marker.
+- Summary readability update: `src/ufo_indexer/summary.py` now normalizes common mojibake/OCR glyphs, strips divider noise, scores sentences for OCR artifacts, rejects weak OCR sentences, and falls back to document metadata when passages are too noisy.
+- Responsive UI update: `src/ufo_indexer/export_site.py` and `src/ufo_indexer/web.py` now use narrower mobile wraps, full-width mobile filter/action controls, stacked media previews, safer long-text wrapping, and mobile-sized globe popups.
+- Globe zoom update: the public static globe no longer shows navigation tips; desktop wheel zoom remains, and mobile/touch zoom now uses two active pointers to pinch the camera in and out.
+- Public best-of update: `src/ufo_indexer/export_site.py` now exports `featured_documents` and renders a top `Most Interesting` section with curated summaries for Western US Event, FBI September 2023 Composite Sketch, Papua New Guinea cable, Apollo 17 transcript, Gemini VII audio, and the wartime foo-fighter file. Each card links back into the searchable index result.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.
@@ -122,4 +128,3 @@ Broad OCR update:
 5. Review `locations` rows for false positives and decide whether to add a larger offline gazetteer/manual override file.
 6. Evaluate whether optional real LLM summaries are worth adding behind an explicit API-key/config setting.
 7. Review the static public site as a publishing candidate and decide whether per-document routable pages or richer client-side search are needed.
-8. Add DNS records for `disclosurearchive.org` and `www.disclosurearchive.org`, then enable/verify GitHub Pages HTTPS after DNS propagation.

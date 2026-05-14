@@ -166,9 +166,11 @@ and evidence-pack modules. It exposes `/api/health`, `/api/search`, and
 files. The single-page browser UI includes extractive summaries, ranked result
 cards, provenance references, OCR labels, follow-up suggestions, media previews,
 government source links, labeled summary controls, local readable summaries,
-cleaned source excerpts, and a simple result-location map. The readable summaries are deterministic extractive
-helpers over the indexed chunk text; they are meant to reduce OCR noise in the
-UI while preserving source provenance.
+cleaned source excerpts, and a simple result-location map. The readable
+summaries are deterministic extractive helpers over the indexed chunk text; they
+normalize common OCR/mojibake artifacts, reject low-quality OCR sentences, and
+fall back to document metadata when indexed text is too noisy, while preserving
+source provenance.
 
 `/api/source-summary` accepts a `doc_id` and returns a fuller local source
 summary for that document. It reads indexed native PDF text, OCR text, captions,
@@ -184,16 +186,18 @@ breakdown, page/chunk references, and a source-mix note.
 payload per document. Each payload includes document/release metadata,
 government source URLs, public asset URLs, locations, tags, related-document
 links, deterministic summary sections, and structured references back to
-chunk/page/source-kind provenance.
+chunk/page/source-kind provenance. The payload also includes a small curated
+`featured_documents` list for the public "Most Interesting" section; each item
+is selected from indexed records and links back into the client-side index view.
 
 The public export is intentionally summary-focused. It does not copy raw PDFs,
 videos, local thumbnails, generated SQLite databases, derived OCR caches, or full
 OCR text. It also validates that common local path markers such as Windows drive
 paths, `DisclosureArchivePackage`, `derived/`, and the local DB path do not leak
-into the JSON payload. The static HTML uses a dark terminal-style template,
-performs client-side search over the precomputed dataset, exposes a clear
-`Summary` button for detailed summary sections, and links verification actions
-back to the original WAR/DVIDS government URLs.
+into the JSON payload. The static HTML uses a responsive dark terminal-style
+template, performs client-side search over the precomputed dataset, exposes a
+clear `Summary` button for detailed summary sections, and links verification
+actions back to the original WAR/DVIDS government URLs.
 
 Analytics are optional and build-time only. Passing `--analytics-domain` or
 setting `DISCLOSURE_ANALYTICS_DOMAIN` injects a Plausible-compatible script and

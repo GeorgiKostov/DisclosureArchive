@@ -75,4 +75,10 @@
 - Reworked public document tags to remove process/source labels like OCR, excerpt, metadata, and location, replacing them with contextual archive tags such as sightings, object types, agencies, years, media type, aircraft/radar themes, and location hints.
 - Enlarged public result media previews for real image/video records while keeping ordinary document/PDF thumbnails in the compact right rail; tightened the Photos filter/tag to exclude PDF thumbnails.
 - Updated the GitHub Pages publish script to preserve `disclosurearchive.org` as the custom domain via a generated `CNAME` file, then republished `gh-pages` at `f272268bb5efe8cd4a7ba106d382d0eb8b260d92`; the default Pages URL now redirects to the custom domain, with DNS still pending.
+- Verified the public GitHub Pages custom domain: `https://disclosurearchive.org/` returns the static site with `Disclosure Archive`, and `https://www.disclosurearchive.org/` redirects to the apex domain.
 - Simplified the public globe into a default visible full-width map, removed the checkpoint side list, and stopped marker/result actions from forcing page scroll jumps.
+- Fixed mobile public globe interaction by making the canvas own touch drags, tuning touch rotation speed/drag threshold, and adding a top-right `x` button to close an open location popup.
+- Tightened the deterministic summary cleaner so OCR/mojibake artifacts are normalized, low-quality OCR sentences are rejected, and noisy documents fall back to curated metadata instead of showing OCR debris.
+- Improved responsive behavior for the public static site and local search UI: mobile controls/cards now use full-width touch targets, media previews stack cleanly, globe popups fit narrow screens, and long OCR-derived labels wrap safely.
+- Removed the visible globe navigation tip overlay and added two-finger pinch zoom on touch devices while preserving scroll-wheel zoom on desktop.
+- Added a public `Most Interesting` section above the globe/results with six curated best-of records, concise fact-forward summaries, preview media, and `Index entry` buttons that filter/open the matching result card.

@@ -53,6 +53,12 @@ HTML = r"""<!doctype html>
       width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
     }
+    .topbar > *,
+    .result-main,
+    .source-summary-body,
+    .refs {
+      min-width: 0;
+    }
     .topbar {
       min-height: 68px;
       display: flex;
@@ -146,6 +152,7 @@ HTML = r"""<!doctype html>
       background: var(--panel);
       padding: 0 10px;
       color: var(--ink);
+      max-width: 100%;
     }
     .grid {
       margin-top: 18px;
@@ -228,6 +235,7 @@ HTML = r"""<!doctype html>
       font-size: 16px;
       line-height: 1.25;
       letter-spacing: 0;
+      overflow-wrap: anywhere;
     }
     .score {
       display: none;
@@ -272,6 +280,7 @@ HTML = r"""<!doctype html>
       color: var(--accent);
       font-size: 12px;
       font-weight: 650;
+      overflow-wrap: anywhere;
     }
     .doc-summary {
       margin-top: 12px;
@@ -285,6 +294,7 @@ HTML = r"""<!doctype html>
       margin-top: 8px;
       color: var(--muted);
       font-size: 12px;
+      overflow-wrap: anywhere;
     }
     .chip.ocr {
       background: var(--warn);
@@ -348,6 +358,7 @@ HTML = r"""<!doctype html>
     }
     .source-summary-body p {
       margin: 7px 0;
+      overflow-wrap: anywhere;
     }
     .source-summary-body ul {
       margin: 8px 0 0;
@@ -355,6 +366,7 @@ HTML = r"""<!doctype html>
     }
     .source-summary-body li {
       margin: 5px 0;
+      overflow-wrap: anywhere;
     }
     .source-summary-body .note {
       color: var(--muted);
@@ -531,14 +543,25 @@ HTML = r"""<!doctype html>
       min-height: 20px;
     }
     @media (max-width: 860px) {
+      .wrap { width: min(1180px, calc(100% - 20px)); }
+      main { padding: 16px 0 28px; }
       .grid { display: block; }
       .result-shell { grid-template-columns: 1fr; }
-      .result-media { width: 100%; height: 170px; border-left: 0; border-top: 1px solid var(--line); position: static; }
+      .result-main { padding: 12px; }
+      .result-media { order: -1; width: 100%; height: 160px; border-left: 0; border-bottom: 1px solid var(--line); position: static; }
       .side { position: static; }
       .searchbar { grid-template-columns: 1fr; }
       .seg { grid-template-columns: repeat(3, 1fr); width: 100%; }
+      .controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .controls > *, .controls select { width: 100%; min-width: 0; }
+      input[type="search"], button, select { min-height: 44px; }
+      .links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .links > * { width: 100%; min-width: 0; }
       .topbar { align-items: flex-start; flex-direction: column; padding: 14px 0; }
       .health { text-align: left; }
+    }
+    @media (max-width: 430px) {
+      .controls, .links { grid-template-columns: 1fr; }
     }
   </style>
 </head>
