@@ -307,9 +307,10 @@ deterministic summary per document, public government source/thumbnail/video
 URLs, tags, locations, related-document references, and page/chunk references.
 It intentionally excludes raw downloads, generated SQLite databases, local file
 paths, derived OCR caches, and full OCR text. The static page uses a dark
-terminal-style template, performs client-side search over titles, metadata,
-tags, summaries, and cited snippets, and links readers back to the government
-source files for verification.
+terminal-style template with a `HIGHLIGHTS` landing view and a separate
+client-side search/globe view. It performs search over titles, metadata, tags,
+summaries, and cited snippets, and links readers back to the government source
+files for verification.
 
 To publish the generated site to GitHub Pages:
 

@@ -83,6 +83,29 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       justify-content: space-between;
       gap: 18px;
     }
+    .top-actions {
+      display: grid;
+      gap: 8px;
+      justify-items: end;
+    }
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    .nav-link {
+      min-height: 32px;
+      padding: 0 10px;
+      color: var(--accent-2);
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    .nav-link.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(66,255,140,0.14);
+    }
     h1 {
       margin: 0;
     }
@@ -177,6 +200,20 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       color: var(--muted);
       font-size: 13px;
     }
+    .view[hidden] {
+      display: none;
+    }
+    .home-search-panel {
+      margin: 0 0 16px;
+      padding: 14px;
+      border: 1px solid rgba(66,255,140,0.22);
+      border-radius: 8px;
+      background: rgba(4, 14, 10, 0.82);
+      box-shadow: 0 16px 44px rgba(0,0,0,0.22), 0 0 24px rgba(66,255,140,0.05);
+    }
+    .home-search-panel .section-head {
+      margin-bottom: 10px;
+    }
     .best-of {
       margin: 16px 0 24px;
       padding: 14px;
@@ -206,7 +243,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     .best-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
+      gap: 12px;
     }
     .best-card {
       min-width: 0;
@@ -214,9 +251,11 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       border-radius: 8px;
       background: rgba(2, 10, 6, 0.74);
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .best-media {
-      height: 118px;
+      height: 150px;
       border-bottom: 1px solid var(--line);
       background: #020503;
       display: flex;
@@ -234,6 +273,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     }
     .best-body {
       padding: 11px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
     .best-label {
       color: var(--warn);
@@ -251,6 +293,10 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     .best-summary {
       color: var(--ink);
       font-size: 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .best-facts {
       margin: 8px 0 0;
@@ -262,6 +308,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       margin: 3px 0;
     }
     .best-link {
+      align-self: flex-start;
       margin-top: 9px;
       min-height: 30px;
       padding: 0 8px;
@@ -304,7 +351,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     }
     .globe-stage {
       position: relative;
-      min-height: clamp(420px, 54vw, 640px);
+      height: clamp(320px, 46vh, 520px);
+      min-height: 320px;
       background:
         radial-gradient(circle at 50% 45%, rgba(66,255,140,0.09), transparent 36%),
         radial-gradient(circle at 50% 50%, rgba(114,215,255,0.07), transparent 52%),
@@ -313,7 +361,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     #globeCanvas {
       width: 100%;
       height: 100%;
-      min-height: clamp(420px, 54vw, 640px);
+      min-height: 320px;
       display: block;
       cursor: grab;
       touch-action: none;
@@ -471,10 +519,15 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     mark { background: var(--mark); padding: 0 2px; }
     a { color: var(--accent-2); }
     a:hover { color: var(--accent); }
+    @media (max-width: 980px) and (min-width: 761px) {
+      .best-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
     @media (max-width: 760px) {
       body { font-size: 13px; }
       .wrap { width: min(1160px, calc(100% - 20px)); }
       .top { align-items: flex-start; flex-direction: column; padding: 16px 0; }
+      .top-actions { justify-items: start; width: 100%; }
+      .nav { justify-content: flex-start; width: 100%; }
       .brand-title { font-size: 20px; text-align: left; }
       .meta { text-align: left; }
       .search { grid-template-columns: 1fr; }
@@ -484,7 +537,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       .best-of { padding: 12px; }
       .best-head { align-items: flex-start; flex-direction: column; }
       .best-grid { grid-template-columns: 1fr; }
-      .best-media { height: min(210px, 48vw); }
+      .best-media { height: min(230px, 54vw); }
       .shell { grid-template-columns: 1fr; }
       .body { padding: 12px; }
       .media { order: -1; width: 100%; height: 160px; border-left: 0; border-bottom: 1px solid var(--line); position: static; }
@@ -492,7 +545,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       .result.media-rich .media { height: min(340px, 66vw); }
       .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .actions > * { width: 100%; min-width: 0; }
-      .globe-stage, #globeCanvas { min-height: clamp(300px, 92vw, 520px); }
+      .globe-stage { height: clamp(300px, 82vw, 460px); min-height: 300px; }
+      #globeCanvas { min-height: 300px; }
       .globe-popup { inset: 10px 10px auto 10px; width: auto; max-height: calc(100% - 20px); overflow: auto; }
     }
     @media (max-width: 430px) {
@@ -508,12 +562,30 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         <h1><button type="button" class="brand-title" id="brandReset" title="Reset archive search">Disclosure Archive</button></h1>
         <div class="muted">Precomputed summaries with government source links and page/chunk references.</div>
       </div>
-      <div class="meta" id="meta">Loading archive...</div>
+      <div class="top-actions">
+        <nav class="nav" aria-label="Primary">
+          <button type="button" class="nav-link active" data-view-target="home">Highlights</button>
+          <button type="button" class="nav-link" data-view-target="search">Search</button>
+        </nav>
+        <div class="meta" id="meta">Loading archive...</div>
+      </div>
     </div>
   </header>
   <main class="wrap">
-    <section id="bestOf" class="best-of" hidden></section>
-    <section class="search-section" id="searchSection">
+    <section id="homeView" class="view">
+      <section class="home-search-panel">
+        <div class="section-head">
+          <h2>Explore The Release</h2>
+          <p>Start with the most discussed records, or search the full public index.</p>
+        </div>
+        <form class="search" id="homeSearchForm">
+          <input id="homeQ" type="search" autocomplete="off" placeholder="Search titles, summaries, videos, photos, agencies">
+          <button class="primary" type="submit">Search</button>
+        </form>
+      </section>
+      <section id="bestOf" class="best-of" hidden></section>
+    </section>
+    <section class="view search-section" id="searchView" hidden>
       <div class="section-head">
         <h2>Search The Index</h2>
         <p>Search indexed release records, summaries, source references, media, and mapped locations.</p>
@@ -566,6 +638,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     };
     let archive = null;
     let docs = [];
+    let currentView = "home";
     const globeState = { ready: false, initializing: false, locations: [], markers: [], selected: null, selectedIndex: null };
 
     function searchable(doc) {
@@ -698,8 +771,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       panel.innerHTML = `
         <div class="best-head">
           <div class="best-title-row">
-            <h2>Best Of</h2>
-            <div class="best-count">${items.length} curated entries</div>
+            <h2>HIGHLIGHTS</h2>
+            <div class="best-count">${items.length} discussed records, videos, and photos</div>
           </div>
         </div>
         <div class="best-grid">
@@ -711,7 +784,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
                 <h3 class="best-title">${esc(item.title)}</h3>
                 <p class="best-summary">${esc(item.summary)}</p>
                 <ul class="best-facts">${(item.facts || []).map((fact) => `<li>${esc(fact)}</li>`).join("")}</ul>
-                <button type="button" class="button best-link" data-feature-doc="${esc(item.doc_id)}">Index entry</button>
+                <button type="button" class="button best-link" data-feature-doc="${esc(item.doc_id)}">Open in index</button>
               </div>
             </article>
           `).join("")}
@@ -736,16 +809,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       return `<div class="tags">${tags.slice(0, 10).map((tag) => `<button class="tag" type="button" data-tag="${esc(tag)}">${esc(tag)}</button>`).join("")}</div>`;
     }
 
-    function renderRefs(doc) {
-      const refs = doc.summary?.references || [];
-      if (!refs.length) return "";
-      return `<div class="refs">Refs: ${refs.slice(0, 4).map((ref) => {
-        const href = pageUrl(doc.media?.document_url || doc.source_url, ref.page_number);
-        const label = ref.label || ref.chunk_id;
-        return href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>` : esc(label);
-      }).join(" | ")}</div>`;
-    }
-
     function renderDetails(doc) {
       const mystery = doc.summary?.mysterious_uap_element || [];
       const details = doc.summary?.detailed_contents || [];
@@ -757,7 +820,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
           <h3>More Detailed Contents</h3>
           <ul>${details.map((item) => `<li>${esc(item.label || item.text || item)}</li>`).join("")}</ul>
           ${related.length ? `<h3>Related Documents</h3><ul>${related.map((item) => `<li><button class="tag" type="button" data-related="${esc(item.doc_id)}">${esc(item.title)}</button> <span class="muted">${esc(item.reason)}</span></li>`).join("")}</ul>` : ""}
-          ${renderRefs(doc)}
           <p class="source-note">${esc(doc.summary?.source_note || "")}</p>
         </div>
       `;
@@ -773,7 +835,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
               <div class="muted">${esc([doc.agency, doc.incident_date, doc.incident_location].filter(Boolean).join(" | "))}</div>
               ${renderTags(doc.tags)}
               <p>${esc(doc.summary?.quick_summary || doc.summary?.overview || "No summary available.")}</p>
-              ${renderRefs(doc)}
               ${actionLinks(doc)}
               ${renderDetails(doc)}
             </div>
@@ -1114,6 +1175,67 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       renderSelectedLocation(null);
     }
 
+    function setView(view, options = {}) {
+      currentView = view === "search" ? "search" : "home";
+      const home = $("homeView");
+      const search = $("searchView");
+      if (home) home.hidden = currentView !== "home";
+      if (search) search.hidden = currentView !== "search";
+      document.querySelectorAll("[data-view-target]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.viewTarget === currentView);
+      });
+      if (currentView === "search") {
+        initGlobe();
+      }
+      if (options.scroll) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    function searchHash(query) {
+      const q = String(query || "").trim();
+      return q ? `#search?q=${encodeURIComponent(q)}` : "#search";
+    }
+
+    function setRouteHash(hash) {
+      if (window.location.hash === hash) return;
+      history.pushState(null, "", hash || `${window.location.pathname}${window.location.search}`);
+    }
+
+    function openSearch(query = "", options = {}) {
+      const q = String(query || "").trim();
+      $("q").value = q;
+      $("homeQ").value = q;
+      if (options.resetFilters) {
+        $("agencyFilter").value = "";
+        $("sourceFilter").value = "";
+        $("yearFilter").value = "";
+      }
+      setView("search", { scroll: options.scroll });
+      performSearch();
+      if (options.updateHash) {
+        setRouteHash(searchHash(q));
+      }
+    }
+
+    function showHome(options = {}) {
+      setView("home", { scroll: options.scroll });
+      if (options.updateHash) {
+        setRouteHash("");
+      }
+    }
+
+    function applyRoute() {
+      const hash = window.location.hash || "";
+      if (hash.startsWith("#search")) {
+        const queryText = hash.includes("?") ? hash.slice(hash.indexOf("?") + 1) : "";
+        const params = new URLSearchParams(queryText);
+        openSearch(params.get("q") || "", { updateHash: false });
+      } else {
+        showHome({ updateHash: false });
+      }
+    }
+
     function toggleGlobe() {
       const panel = $("globePanel");
       const button = $("globeToggle");
@@ -1146,6 +1268,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
 
     function resetArchiveView() {
       $("q").value = "";
+      $("homeQ").value = "";
       $("agencyFilter").value = "";
       $("sourceFilter").value = "";
       $("yearFilter").value = "";
@@ -1162,16 +1285,24 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         globeButton.setAttribute("aria-expanded", "false");
       }
       document.querySelectorAll(".result.open").forEach((card) => card.classList.remove("open"));
-      performSearch();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      openSearch("", { updateHash: true, scroll: true });
     }
 
     document.addEventListener("click", (event) => {
+      const viewTarget = event.target.closest("[data-view-target]");
+      if (viewTarget) {
+        if (viewTarget.dataset.viewTarget === "search") {
+          track("nav_search");
+          openSearch($("q").value, { updateHash: true, scroll: true });
+        } else {
+          track("nav_highlights");
+          showHome({ updateHash: true, scroll: true });
+        }
+      }
       const tag = event.target.closest("[data-tag]");
       if (tag) {
-        $("q").value = tag.dataset.tag;
         track("tag_filter", { tag: tag.dataset.tag });
-        performSearch();
+        openSearch(tag.dataset.tag, { updateHash: true, scroll: true });
       }
       const button = event.target.closest(".details-button");
       if (button) {
@@ -1186,12 +1317,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       const related = event.target.closest("[data-related]");
       if (related) {
         const relatedDoc = docs.find((doc) => doc.doc_id === related.dataset.related);
-        $("q").value = relatedDoc ? relatedDoc.title : "";
-        $("agencyFilter").value = "";
-        $("sourceFilter").value = "";
-        $("yearFilter").value = "";
         track("related_doc", { doc_id: related.dataset.related });
-        performSearch();
+        openSearch(relatedDoc ? relatedDoc.title : "", { resetFilters: true, updateHash: true });
         const card = document.getElementById(`doc-${related.dataset.related}`);
         if (card) {
           card.classList.add("open");
@@ -1201,12 +1328,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       if (globeDoc) {
         const doc = docs.find((item) => item.doc_id === globeDoc.dataset.globeDoc);
         if (!doc) return;
-        $("q").value = doc.title;
-        $("agencyFilter").value = "";
-        $("sourceFilter").value = "";
-        $("yearFilter").value = "";
         track("globe_view_result", { doc_id: doc.doc_id });
-        performSearch();
+        openSearch(doc.title, { resetFilters: true, updateHash: true });
         window.setTimeout(() => {
           const card = document.getElementById(`doc-${doc.doc_id}`);
           if (card) {
@@ -1222,12 +1345,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       if (featured) {
         const doc = docs.find((item) => item.doc_id === featured.dataset.featureDoc);
         if (!doc) return;
-        $("q").value = doc.title;
-        $("agencyFilter").value = "";
-        $("sourceFilter").value = "";
-        $("yearFilter").value = "";
         track("featured_index_entry", { doc_id: doc.doc_id });
-        performSearch();
+        openSearch(doc.title, { resetFilters: true, updateHash: true, scroll: true });
         window.setTimeout(() => {
           const card = document.getElementById(`doc-${doc.doc_id}`);
           if (card) {
@@ -1237,10 +1356,15 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         }, 80);
       }
     });
+    $("homeSearchForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      track("home_search", { query_length: String($("homeQ").value.trim().length) });
+      openSearch($("homeQ").value, { resetFilters: true, updateHash: true, scroll: true });
+    });
     $("searchForm").addEventListener("submit", (event) => {
       event.preventDefault();
       track("search", { query_length: String($("q").value.trim().length) });
-      performSearch();
+      openSearch($("q").value, { updateHash: true });
     });
     $("agencyFilter").addEventListener("change", () => {
       track("filter_agency", { value: $("agencyFilter").value || "all" });
@@ -1256,13 +1380,20 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     });
     $("brandReset").addEventListener("click", () => {
       track("reset", { control: "title" });
-      resetArchiveView();
+      $("q").value = "";
+      $("homeQ").value = "";
+      $("agencyFilter").value = "";
+      $("sourceFilter").value = "";
+      $("yearFilter").value = "";
+      showHome({ updateHash: true, scroll: true });
     });
     $("reset").addEventListener("click", () => {
       track("reset", { control: "button" });
       resetArchiveView();
     });
     $("globeToggle").addEventListener("click", toggleGlobe);
+    window.addEventListener("popstate", applyRoute);
+    window.addEventListener("hashchange", applyRoute);
 
     fetch(`data/documents.json?v=${Date.now()}`, { cache: "no-store" })
       .then((response) => response.json())
@@ -1274,8 +1405,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         yearOptions();
         globeState.locations = allLocations();
         renderBestOf(payload.featured_documents || []);
-        performSearch();
-        initGlobe();
+        applyRoute();
       })
       .catch((error) => {
         $("status").textContent = `Failed to load public index: ${error.message}`;
@@ -1439,42 +1569,62 @@ AGENCY_TAGS = {
 FEATURED_SELECTIONS = [
     {
         "match": "Western US Event",
-        "kicker": "Modern multi-witness case",
-        "summary": "A compact contemporary case file built from seven federal-worker statements. The reports describe repeated observations in the western United States, making it one of the better entry points for comparing witness language, location hints, and official summary framing.",
+        "kicker": "Headline modern case",
+        "summary": "The most accessible modern entry point in the release: seven federal employees describe multiple categories of phenomena over two days in the western United States. It is useful because the accounts can be compared side by side, from distant orb activity to a close stationary light and a translucent kite-like object.",
         "facts": [
             "Agency: Department of War",
             "Incident year: 2023",
-            "Why it stands out: multiple separate witnesses in one indexed event",
+            "Why it stands out: multiple witnesses in one indexed case",
+        ],
+    },
+    {
+        "match": "USPER Statement about UAP Sighting",
+        "kicker": "Senior official narrative",
+        "summary": "A heavily redacted witness statement attributed in the archive metadata to a US person, describing a multi-hour western US encounter and response activity. It became one of the most discussed documents because it reads like a narrative report while still preserving the uncertainty and redactions of the source record.",
+        "facts": [
+            "Agency: Department of State",
+            "Incident year: 2025",
+            "Why it stands out: detailed first-person style account with redactions",
         ],
     },
     {
         "match": "FBI September 2023 Sighting - Composite Sketch",
         "kicker": "FBI visual reconstruction",
-        "summary": "A site photo with an FBI Lab graphic overlay tied to corroborating September 2023 eyewitness accounts. The public metadata describes an apparent bronze ellipsoid emerging from a bright light, with estimated size and abrupt disappearance recorded as part of the case record.",
+        "summary": "A site photo with an FBI Lab graphic overlay tied to September 2023 eyewitness material. The public metadata describes an apparent bronze ellipsoid emerging from a bright light, with estimated size and abrupt disappearance recorded as part of the case file.",
         "facts": [
             "Agency: FBI",
             "Incident date: September 1, 2023",
-            "Why it stands out: image-based record linked to several witness statements",
+            "Why it stands out: image-based record tied to witness interviews",
         ],
     },
     {
-        "match": "State Department UAP Cable 1, Papua New Guinea",
-        "kicker": "Diplomatic cable",
-        "summary": "A State Department cable from Port Moresby relaying a 1985 Papua New Guinea report through diplomatic channels. It is useful because the UFO account appears inside ordinary embassy traffic rather than a dedicated UFO case file.",
+        "match": "FBI Photo A1",
+        "kicker": "Late-2025 image set",
+        "summary": "One of the release's western US evidence images, presented as an infrared still with accompanying source media. It belongs near the top because many readers look first for photos and videos, and this image cluster is part of the same modern visual trail that drew outside attention.",
         "facts": [
-            "Agency: Department of State",
-            "Incident date: January 24, 1985",
-            "Why it stands out: a local report preserved in formal diplomatic correspondence",
+            "Agency: FBI",
+            "Incident date: Late 2025",
+            "Why it stands out: public photo record with linked media",
+        ],
+    },
+    {
+        "match": "NASA-UAP-VM6, Apollo 17, 1972",
+        "kicker": "Apollo lunar image",
+        "summary": "A released Apollo 17 lunar image record showing a highlighted area above the Moon's surface. It is one of the strongest landing-page visuals in the archive because it connects the public image set to the Apollo transcript and debriefing cluster.",
+        "facts": [
+            "Agency: NASA",
+            "Incident year: 1972",
+            "Why it stands out: visual lunar record with highlighted anomaly area",
         ],
     },
     {
         "match": "NASA-UAP-D2, Apollo 17 Transcript, 1972",
         "kicker": "Lunar transcript",
-        "summary": "An Apollo 17 air-to-ground transcript excerpt centered on a lunar-surface observation near Grimaldi. The record is a clean way into the NASA cluster because it anchors the unusual report to mission context, speakers, and page-level transcript provenance.",
+        "summary": "An Apollo 17 air-to-ground transcript excerpt centered on a lunar-surface observation near Grimaldi. The record anchors the lunar imagery cluster to mission context, speakers, and page-level transcript provenance rather than leaving the image as a free-floating curiosity.",
         "facts": [
             "Agency: NASA",
             "Incident year: 1972",
-            "Why it stands out: lunar observation captured in mission transcript text",
+            "Why it stands out: mission transcript context for a lunar observation",
         ],
     },
     {
@@ -1484,7 +1634,27 @@ FEATURED_SELECTIONS = [
         "facts": [
             "Agency: NASA",
             "Incident date: December 5, 1965",
-            "Why it stands out: mission audio and transcript context around the same observation",
+            "Why it stands out: mission audio and transcript context",
+        ],
+    },
+    {
+        "match": "State Department UAP Cable 1, Papua New Guinea",
+        "kicker": "Diplomatic cable",
+        "summary": "A State Department cable from Port Moresby relaying a 1985 Papua New Guinea report through diplomatic channels. It is useful because the UFO account appears inside ordinary embassy traffic rather than a dedicated UFO case file.",
+        "facts": [
+            "Agency: Department of State",
+            "Incident date: January 24, 1985",
+            "Why it stands out: local report preserved in embassy correspondence",
+        ],
+    },
+    {
+        "match": "State Department UAP Cable 2, Kazakhstan",
+        "kicker": "Post-Soviet cable",
+        "summary": "A Kazakhstan cable that broadens the archive beyond US military sensor cases and legacy FBI files. It gives researchers a diplomatic-document comparison point for how unusual reports were forwarded, summarized, and preserved outside the headline American cases.",
+        "facts": [
+            "Agency: Department of State",
+            "Incident year: 1994",
+            "Why it stands out: international cable traffic in the release",
         ],
     },
     {
@@ -1495,6 +1665,86 @@ FEATURED_SELECTIONS = [
             "Agency: Department of War",
             "Incident date: March 18, 1945",
             "Why it stands out: early military reports before the postwar flying-disc wave",
+        ],
+    },
+    {
+        "match": "65_HS1-834228961_62-HQ-83894_Section_5",
+        "kicker": "FBI master file",
+        "summary": "Part of the large FBI 62-HQ-83894 flying-disc file. This section represents the dense historical core of the release: memos, reports, and correspondence where the value is not one dramatic clip but the accumulated paper trail across the early UFO era.",
+        "facts": [
+            "Agency: FBI",
+            "Records span: 1947-1968 cluster",
+            "Why it stands out: deep archival FBI flying-disc material",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR46",
+        "kicker": "INDOPACOM video",
+        "summary": "A 2024 Indo-Pacific Command video record that drew attention because the object is described in outside coverage as football-shaped with radial projections. It gives the highlights section a clear modern sensor-video entry from the Pacific theater.",
+        "facts": [
+            "Agency: Department of War",
+            "Incident region: East China Sea",
+            "Why it stands out: widely discussed football-shaped video",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR47",
+        "kicker": "Japan sensor case",
+        "summary": "A 2023 INDOPACOM unresolved report connected to Japan-area sensor footage. It pairs well with PR46 because the two entries let visitors compare nearby command-region videos without starting in the full document table.",
+        "facts": [
+            "Agency: Department of War",
+            "Incident region: Japan",
+            "Why it stands out: modern Indo-Pacific video record",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR48",
+        "kicker": "Wind-farm video",
+        "summary": "A longer 2024 INDOPACOM video entry that outside coverage highlighted for its small bright target moving through a field of wind turbines. It is a good landing-page clip because the setting is visually distinctive and easy to recognize.",
+        "facts": [
+            "Agency: Department of War",
+            "Incident year: 2024",
+            "Why it stands out: distinctive wind-turbine sensor scene",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR34",
+        "kicker": "Aegean maneuver video",
+        "summary": "A Greece/Aegean video report discussed for sharp-looking directional changes over water. It belongs in highlights because it is one of the more memorable non-US locations in the modern sensor-video set.",
+        "facts": [
+            "Agency: Department of War",
+            "Incident region: Greece",
+            "Why it stands out: Aegean video with notable reported movement",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR28",
+        "kicker": "Glowing IR signature",
+        "summary": "A Greece-related unresolved report with an infrared frame described in release readers as a diffuse glowing halo around a central point. It adds a different visual flavor from the aircraft and maritime clips: less object-outline, more sensor signature.",
+        "facts": [
+            "Agency: Department of War",
+            "Incident region: Greece",
+            "Why it stands out: distinctive halo-like IR appearance",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR43",
+        "kicker": "Africa airspace video",
+        "summary": "A 2025 Africa unresolved report, useful because it widens the video set beyond the Middle East, Europe, and INDOPACOM clusters. The official release preview describes a military operator's reported UAP within African airspace.",
+        "facts": [
+            "Agency: Department of War",
+            "Incident region: Africa",
+            "Why it stands out: geographic breadth in the video release",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR49",
+        "kicker": "2026 Army report",
+        "summary": "A North America / Department of the Army video entry from 2026, making it one of the newest records in Release 01. It closes the highlights list by showing that the archive is not just historical material: it also includes very recent unresolved reporting.",
+        "facts": [
+            "Agency: Department of War",
+            "Incident year: 2026",
+            "Why it stands out: one of the newest records in the release",
         ],
     },
 ]

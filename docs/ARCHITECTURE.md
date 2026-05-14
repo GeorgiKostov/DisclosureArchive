@@ -187,10 +187,11 @@ payload per document. Each payload includes document/release metadata,
 government source URLs, public asset URLs, locations, tags, related-document
 links, deterministic summary sections, and structured references back to
 chunk/page/source-kind provenance. The payload also includes a small curated
-`featured_documents` list for the public landing "Best Of" section above search;
-each item is selected from indexed records and links back into the client-side
-index view. The location globe is hidden by default in the search workbench and
-opens on demand from the filter/action row.
+`featured_documents` list for the public landing `HIGHLIGHTS` section; each item
+is selected from indexed records and links back into the client-side index view.
+The static HTML presents two top-level client-side views: a landing/highlights
+view with a compact search box, and a search workbench with filters, result
+cards, and an on-demand location globe.
 
 The public export is intentionally summary-focused. It does not copy raw PDFs,
 videos, local thumbnails, generated SQLite databases, derived OCR caches, or full
@@ -199,7 +200,9 @@ paths, `DisclosureArchivePackage`, `derived/`, and the local DB path do not leak
 into the JSON payload. The static HTML uses a responsive dark terminal-style
 template, performs client-side search over the precomputed dataset, exposes a
 clear `Summary` button for detailed summary sections, and links verification
-actions back to the original WAR/DVIDS government URLs.
+actions back to the original WAR/DVIDS government URLs. Summary references stay
+in the payload for provenance and search, but duplicate page/chunk reference
+link rows are not rendered on public result cards.
 
 Analytics are optional and build-time only. Passing `--analytics-domain` or
 setting `DISCLOSURE_ANALYTICS_DOMAIN` injects a Plausible-compatible script and
