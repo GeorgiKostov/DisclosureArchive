@@ -74,3 +74,4 @@
 - Added optional Plausible-compatible analytics injection to the static export, with privacy-preserving UI event hooks for search, filters, summaries, outbound links, and globe interactions.
 - Reworked public document tags to remove process/source labels like OCR, excerpt, metadata, and location, replacing them with contextual archive tags such as sightings, object types, agencies, years, media type, aircraft/radar themes, and location hints.
 - Enlarged public result media previews for real image/video records while keeping ordinary document/PDF thumbnails in the compact right rail; tightened the Photos filter/tag to exclude PDF thumbnails.
+- Updated the GitHub Pages publish script to preserve `disclosurearchive.org` as the custom domain via a generated `CNAME` file, then republished `gh-pages` at `f272268bb5efe8cd4a7ba106d382d0eb8b260d92`; the default Pages URL now redirects to the custom domain, with DNS still pending.
