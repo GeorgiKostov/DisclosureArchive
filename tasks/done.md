@@ -94,3 +94,4 @@
 - Added static SEO/security hygiene to the public export: canonical/social/JSON-LD metadata, robots and sitemap files, root and well-known `security.txt`, a CSP/referrer meta policy, and a static-host `_headers` template.
 - Removed the public search-view helper sentence under `Search The Index`.
 - Removed the public landing search helper sentence under `Explore The Release`.
+- Renamed the public search-view heading from `Search The Index` to `Documents`.

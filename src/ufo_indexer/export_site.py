@@ -600,7 +600,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     </section>
     <section class="view search-section" id="searchView" hidden>
       <div class="section-head">
-        <h2>Search The Index</h2>
+        <h2>Documents</h2>
       </div>
       <form class="search" id="searchForm">
         <input id="q" type="search" autocomplete="off" placeholder="Search summaries, titles, agencies, tags, references">
