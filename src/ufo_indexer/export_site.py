@@ -185,26 +185,40 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       background: linear-gradient(180deg, rgba(7, 24, 15, 0.94), rgba(4, 12, 8, 0.9));
       box-shadow: 0 16px 44px rgba(0,0,0,0.28), 0 0 28px rgba(114,215,255,0.06);
     }
+    .best-of.collapsed {
+      padding-bottom: 14px;
+    }
     .best-head {
       display: flex;
-      align-items: end;
+      align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 12px;
     }
     .best-head h2 {
       margin: 0;
       font-size: 18px;
     }
+    .best-title-row {
+      min-width: 0;
+    }
     .best-count {
       color: var(--muted);
       font-size: 12px;
-      white-space: nowrap;
     }
     .best-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
+      margin-top: 12px;
+    }
+    .best-of.collapsed .best-grid {
+      display: none;
+    }
+    .best-toggle {
+      min-height: 32px;
+      padding: 0 9px;
+      font-size: 12px;
+      color: var(--accent-2);
     }
     .best-card {
       min-width: 0;
@@ -274,6 +288,28 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       background: rgba(1, 10, 7, 0.78);
       box-shadow: 0 16px 44px rgba(0,0,0,0.34), 0 0 28px rgba(66,255,140,0.06);
       overflow: hidden;
+    }
+    .globe-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(2, 10, 6, 0.72);
+    }
+    .globe-head h2 {
+      margin: 0;
+      font-size: 14px;
+    }
+    .globe-toggle {
+      min-height: 32px;
+      padding: 0 9px;
+      font-size: 12px;
+      color: var(--accent-2);
+    }
+    .globe-panel.minimized .globe-stage {
+      display: none;
     }
     .globe-stage {
       position: relative;
@@ -456,6 +492,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       .tools select, .tools button { width: 100%; min-width: 0; }
       .best-of { padding: 12px; }
       .best-head { align-items: flex-start; flex-direction: column; }
+      .best-toggle { width: 100%; }
       .best-grid { grid-template-columns: 1fr; }
       .best-media { height: min(210px, 48vw); }
       .shell { grid-template-columns: 1fr; }
@@ -507,13 +544,17 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       <button type="button" id="reset">Reset</button>
     </div>
     <div class="status" id="status">Loading...</div>
-    <section id="bestOf" class="best-of" hidden></section>
     <section id="globePanel" class="globe-panel">
+      <div class="globe-head">
+        <h2>Location Globe</h2>
+        <button type="button" class="globe-toggle" id="globeToggle" aria-expanded="true">Minimize globe</button>
+      </div>
       <div class="globe-stage">
         <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
         <div class="globe-popup" id="globePopup" hidden></div>
       </div>
     </section>
+    <section id="bestOf" class="best-of collapsed" hidden></section>
     <section id="results"></section>
   </main>
   <script>
@@ -663,8 +704,11 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       if (!panel || !items?.length) return;
       panel.innerHTML = `
         <div class="best-head">
-          <h2>Most Interesting</h2>
-          <div class="best-count">${items.length} field notes</div>
+          <div class="best-title-row">
+            <h2>Best Of</h2>
+            <div class="best-count">${items.length} curated entries</div>
+          </div>
+          <button type="button" class="best-toggle" id="bestToggle" aria-expanded="false">Open best of</button>
         </div>
         <div class="best-grid">
           ${items.map((item) => `
@@ -682,6 +726,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         </div>
       `;
       panel.hidden = false;
+      panel.classList.add("collapsed");
     }
 
     function actionLinks(doc) {
@@ -899,20 +944,29 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       });
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
-      const touchPointers = new Map();
       let dragging = false;
       let moved = false;
       let lastX = 0;
       let lastY = 0;
+      let touchMode = "";
+      let touchStartX = 0;
+      let touchStartY = 0;
       let pinchStartDistance = 0;
       let pinchStartZ = camera.position.z;
       const clampZoom = (z) => Math.max(2.25, Math.min(6.2, z));
-      const touchDistance = () => {
-        const points = [...touchPointers.values()];
-        if (points.length < 2) return 0;
-        const dx = points[0].x - points[1].x;
-        const dy = points[0].y - points[1].y;
+      const touchDistance = (touches) => {
+        if (!touches || touches.length < 2) return 0;
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
         return Math.hypot(dx, dy);
+      };
+      const pickMarker = (clientX, clientY) => {
+        const rect = canvas.getBoundingClientRect();
+        pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+        pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+        const hit = raycaster.intersectObjects(globeState.markers)[0];
+        if (hit) selectGlobeLocation(hit.object.userData.locationIndex);
       };
       function resize() {
         const rect = canvas.parentElement.getBoundingClientRect();
@@ -924,39 +978,21 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         camera.updateProjectionMatrix();
       }
       canvas.addEventListener("pointerdown", (event) => {
+        if (event.pointerType === "touch") return;
         event.preventDefault();
-        if (event.pointerType === "touch") {
-          touchPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
-        }
         dragging = true;
         moved = false;
         lastX = event.clientX;
         lastY = event.clientY;
-        if (touchPointers.size >= 2) {
-          pinchStartDistance = touchDistance();
-          pinchStartZ = camera.position.z;
-          moved = true;
-        }
         canvas.setPointerCapture(event.pointerId);
       });
       canvas.addEventListener("pointermove", (event) => {
+        if (event.pointerType === "touch") return;
         if (!dragging) return;
         event.preventDefault();
-        if (event.pointerType === "touch") {
-          touchPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
-          if (touchPointers.size >= 2) {
-            const distance = touchDistance();
-            if (pinchStartDistance > 0 && distance > 0) {
-              camera.position.z = clampZoom(pinchStartZ * (pinchStartDistance / distance));
-              camera.updateProjectionMatrix();
-            }
-            moved = true;
-            return;
-          }
-        }
         const dx = event.clientX - lastX;
         const dy = event.clientY - lastY;
-        const speed = event.pointerType === "touch" ? 0.009 : 0.006;
+        const speed = 0.006;
         if (Math.abs(dx) + Math.abs(dy) > 6) moved = true;
         globeGroup.rotation.y += dx * speed;
         globeGroup.rotation.x += dy * speed * 0.7;
@@ -971,42 +1007,92 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         camera.updateProjectionMatrix();
       }, { passive: false });
       canvas.addEventListener("pointerup", (event) => {
-        if (event.pointerType === "touch") {
-          touchPointers.delete(event.pointerId);
-          if (touchPointers.size >= 2) {
-            pinchStartDistance = touchDistance();
-            pinchStartZ = camera.position.z;
-          } else {
-            pinchStartDistance = 0;
-            const remaining = [...touchPointers.values()][0];
-            if (remaining) {
-              lastX = remaining.x;
-              lastY = remaining.y;
-            }
-          }
-        }
+        if (event.pointerType === "touch") return;
         dragging = false;
-        if (touchPointers.size === 1) {
-          dragging = true;
-        }
         if (canvas.hasPointerCapture(event.pointerId)) {
           canvas.releasePointerCapture(event.pointerId);
         }
         if (moved) return;
-        const rect = canvas.getBoundingClientRect();
-        pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-        pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-        raycaster.setFromCamera(pointer, camera);
-        const hit = raycaster.intersectObjects(globeState.markers)[0];
-        if (hit) selectGlobeLocation(hit.object.userData.locationIndex);
+        pickMarker(event.clientX, event.clientY);
       });
       canvas.addEventListener("pointercancel", (event) => {
-        if (event.pointerType === "touch") {
-          touchPointers.delete(event.pointerId);
-          pinchStartDistance = 0;
-        }
+        if (event.pointerType === "touch") return;
         dragging = false;
       });
+      canvas.addEventListener("touchstart", (event) => {
+        event.preventDefault();
+        moved = false;
+        if (event.touches.length >= 2) {
+          touchMode = "pinch";
+          pinchStartDistance = touchDistance(event.touches);
+          pinchStartZ = camera.position.z;
+          moved = true;
+          return;
+        }
+        const touch = event.touches[0];
+        if (!touch) return;
+        touchMode = "rotate";
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        lastX = touch.clientX;
+        lastY = touch.clientY;
+      }, { passive: false });
+      canvas.addEventListener("touchmove", (event) => {
+        event.preventDefault();
+        if (event.touches.length >= 2) {
+          if (touchMode !== "pinch") {
+            touchMode = "pinch";
+            pinchStartDistance = touchDistance(event.touches);
+            pinchStartZ = camera.position.z;
+          }
+          const distance = touchDistance(event.touches);
+          if (pinchStartDistance > 0 && distance > 0) {
+            camera.position.z = clampZoom(pinchStartZ * (pinchStartDistance / distance));
+            camera.updateProjectionMatrix();
+          }
+          moved = true;
+          return;
+        }
+        const touch = event.touches[0];
+        if (!touch || touchMode !== "rotate") return;
+        const dx = touch.clientX - lastX;
+        const dy = touch.clientY - lastY;
+        if (Math.abs(touch.clientX - touchStartX) + Math.abs(touch.clientY - touchStartY) > 6) moved = true;
+        globeGroup.rotation.y += dx * 0.009;
+        globeGroup.rotation.x += dy * 0.0063;
+        globeGroup.rotation.x = Math.max(-1.15, Math.min(1.15, globeGroup.rotation.x));
+        lastX = touch.clientX;
+        lastY = touch.clientY;
+      }, { passive: false });
+      canvas.addEventListener("touchend", (event) => {
+        event.preventDefault();
+        if (event.touches.length >= 2) {
+          touchMode = "pinch";
+          pinchStartDistance = touchDistance(event.touches);
+          pinchStartZ = camera.position.z;
+          return;
+        }
+        if (event.touches.length === 1) {
+          const touch = event.touches[0];
+          touchMode = "rotate";
+          lastX = touch.clientX;
+          lastY = touch.clientY;
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
+          return;
+        }
+        const changed = event.changedTouches[0];
+        if (touchMode === "rotate" && changed && !moved) {
+          pickMarker(changed.clientX, changed.clientY);
+        }
+        touchMode = "";
+        pinchStartDistance = 0;
+      }, { passive: false });
+      canvas.addEventListener("touchcancel", () => {
+        touchMode = "";
+        pinchStartDistance = 0;
+        moved = false;
+      }, { passive: false });
       window.addEventListener("resize", resize);
       function animate() {
         requestAnimationFrame(animate);
@@ -1035,6 +1121,26 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       globeState.selectedIndex = null;
       updateGlobeSelection();
       renderSelectedLocation(null);
+    }
+
+    function toggleBestOf() {
+      const panel = $("bestOf");
+      const button = $("bestToggle");
+      if (!panel || !button) return;
+      const collapsed = panel.classList.toggle("collapsed");
+      button.textContent = collapsed ? "Open best of" : "Close best of";
+      button.setAttribute("aria-expanded", collapsed ? "false" : "true");
+      track("best_of_toggle", { open: collapsed ? "false" : "true" });
+    }
+
+    function toggleGlobe() {
+      const panel = $("globePanel");
+      const button = $("globeToggle");
+      if (!panel || !button) return;
+      const minimized = panel.classList.toggle("minimized");
+      button.textContent = minimized ? "Show globe" : "Minimize globe";
+      button.setAttribute("aria-expanded", minimized ? "false" : "true");
+      track("globe_toggle", { open: minimized ? "false" : "true" });
     }
 
     function performSearch() {
@@ -1141,6 +1247,11 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         }, 80);
       }
     });
+    document.addEventListener("click", (event) => {
+      if (event.target.closest("#bestToggle")) {
+        toggleBestOf();
+      }
+    });
     $("searchForm").addEventListener("submit", (event) => {
       event.preventDefault();
       track("search", { query_length: String($("q").value.trim().length) });
@@ -1166,6 +1277,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       track("reset", { control: "button" });
       resetArchiveView();
     });
+    $("globeToggle").addEventListener("click", toggleGlobe);
 
     fetch(`data/documents.json?v=${Date.now()}`, { cache: "no-store" })
       .then((response) => response.json())

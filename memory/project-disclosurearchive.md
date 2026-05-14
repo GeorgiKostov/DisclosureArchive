@@ -119,7 +119,8 @@ Broad OCR update:
 - Summary readability update: `src/ufo_indexer/summary.py` now normalizes common mojibake/OCR glyphs, strips divider noise, scores sentences for OCR artifacts, rejects weak OCR sentences, and falls back to document metadata when passages are too noisy.
 - Responsive UI update: `src/ufo_indexer/export_site.py` and `src/ufo_indexer/web.py` now use narrower mobile wraps, full-width mobile filter/action controls, stacked media previews, safer long-text wrapping, and mobile-sized globe popups.
 - Globe zoom update: the public static globe no longer shows navigation tips; desktop wheel zoom remains, and mobile/touch zoom now uses two active pointers to pinch the camera in and out.
-- Public best-of update: `src/ufo_indexer/export_site.py` now exports `featured_documents` and renders a top `Most Interesting` section with curated summaries for Western US Event, FBI September 2023 Composite Sketch, Papua New Guinea cable, Apollo 17 transcript, Gemini VII audio, and the wartime foo-fighter file. Each card links back into the searchable index result.
+- Public best-of update: `src/ufo_indexer/export_site.py` now exports `featured_documents` with curated summaries for Western US Event, FBI September 2023 Composite Sketch, Papua New Guinea cable, Apollo 17 transcript, Gemini VII audio, and the wartime foo-fighter file. Each card links back into the searchable index result.
+- Public layout follow-up: the feature section now renders as a closed-by-default `Best Of` toggle below the globe, and the globe has a `Minimize globe`/`Show globe` button. Mobile globe interaction now uses native touch events for one-finger rotation and two-finger pinch zoom instead of relying on touch pointer events.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.

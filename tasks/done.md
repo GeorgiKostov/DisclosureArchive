@@ -81,4 +81,6 @@
 - Tightened the deterministic summary cleaner so OCR/mojibake artifacts are normalized, low-quality OCR sentences are rejected, and noisy documents fall back to curated metadata instead of showing OCR debris.
 - Improved responsive behavior for the public static site and local search UI: mobile controls/cards now use full-width touch targets, media previews stack cleanly, globe popups fit narrow screens, and long OCR-derived labels wrap safely.
 - Removed the visible globe navigation tip overlay and added two-finger pinch zoom on touch devices while preserving scroll-wheel zoom on desktop.
-- Added a public `Most Interesting` section above the globe/results with six curated best-of records, concise fact-forward summaries, preview media, and `Index entry` buttons that filter/open the matching result card.
+- Added public curated best-of records with concise fact-forward summaries, preview media, and `Index entry` buttons that filter/open the matching result card.
+- Reworked the public feature layout so the globe stays in the main flow with a `Minimize globe` control, while the curated `Best Of` section sits below the globe as a closed-by-default toggle.
+- Replaced touch pointer zoom on the public globe with explicit mobile touch handling: one finger rotates, two fingers pinch-zoom the camera, and desktop scroll-wheel zoom remains.
