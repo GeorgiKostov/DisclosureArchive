@@ -590,7 +590,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       <section class="home-search-panel">
         <div class="section-head">
           <h2>Explore The Release</h2>
-          <p>Start with the most discussed records, or search the full public index.</p>
         </div>
         <form class="search" id="homeSearchForm">
           <input id="homeQ" type="search" autocomplete="off" placeholder="Search titles, summaries, videos, photos, agencies">
