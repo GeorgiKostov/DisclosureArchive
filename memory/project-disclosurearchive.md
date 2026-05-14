@@ -121,6 +121,7 @@ Broad OCR update:
 - Globe zoom update: the public static globe no longer shows navigation tips; desktop wheel zoom remains, and mobile/touch zoom now uses two active pointers to pinch the camera in and out.
 - Public best-of update: `src/ufo_indexer/export_site.py` now exports `featured_documents` with curated summaries for Western US Event, FBI September 2023 Composite Sketch, Papua New Guinea cable, Apollo 17 transcript, Gemini VII audio, and the wartime foo-fighter file. Each card links back into the searchable index result.
 - Public layout follow-up: the generated site now opens with the curated `Best Of` section, then the search/filter/results workbench. The globe is hidden by default behind an `Open location globe` control and still uses native touch events for one-finger rotation and two-finger pinch zoom.
+- Auto Pages publish: `scripts/install_auto_pages_publish.ps1` configures `core.hooksPath=.githooks`; `.githooks/post-push` watches pushes to `origin/main` and runs `scripts/publish_github_pages.ps1` from the local machine so ignored DB/static artifacts still stay out of Git. Set `DISCLOSURE_SKIP_PAGES_PUBLISH=1` to skip once.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.

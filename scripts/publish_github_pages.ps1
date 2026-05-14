@@ -78,6 +78,14 @@ try {
   }
 
   git -C $publishRoot add -A
+  git -C $publishRoot diff --cached --quiet
+  if ($LASTEXITCODE -eq 0) {
+    Step "No Pages changes to publish"
+    return
+  }
+  if ($LASTEXITCODE -ne 1) {
+    throw "Failed to check staged Pages changes."
+  }
   git -C $publishRoot commit -m "deploy: update public archive site"
 
   Step "Pushing $Branch to $Remote"

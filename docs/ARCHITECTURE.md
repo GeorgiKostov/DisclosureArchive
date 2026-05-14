@@ -214,3 +214,11 @@ markers, copies only the generated static files into a temporary checkout, adds
 `.nojekyll`, and pushes the result to the `gh-pages` branch. That keeps the
 generated publish artifact separate from `main`, where raw data, generated DBs,
 and generated static output remain ignored.
+
+Because the SQLite index and generated site are intentionally local-only, Pages
+publishing is automated locally rather than in GitHub Actions. Running
+`scripts/install_auto_pages_publish.ps1` configures Git to use the tracked
+`.githooks/post-push` hook. The hook watches successful pushes to `origin/main`
+and then runs `scripts/publish_github_pages.ps1` from the same machine, skipping
+cleanly if the local index is absent or if `DISCLOSURE_SKIP_PAGES_PUBLISH=1` is
+set.

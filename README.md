@@ -323,6 +323,17 @@ checkout, adds `.nojekyll`, and pushes a `gh-pages` branch. In GitHub repository
 settings, configure Pages to deploy from the `gh-pages` branch root if it is not
 already enabled.
 
+To publish Pages automatically after pushing `main` from a machine that has the
+local SQLite index, install the tracked Git hook once:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install_auto_pages_publish.ps1
+```
+
+After that, `git push origin main` will run the Pages publish script. Use
+`DISCLOSURE_SKIP_PAGES_PUBLISH=1` before pushing when you want to skip the
+automatic Pages update.
+
 ## Transfer To Another Machine
 
 Use the tracked handoff workflow instead of copying generated DB files by hand:

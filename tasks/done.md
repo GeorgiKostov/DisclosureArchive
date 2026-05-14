@@ -85,3 +85,4 @@
 - Reworked the public feature layout so the curated `Best Of` section is visible at the top of the landing page, followed by the search/filter/results workbench.
 - Hid the public globe by default behind an `Open location globe` control in the search tools row; the globe can be opened or hidden without changing the rest of the layout.
 - Replaced touch pointer zoom on the public globe with explicit mobile touch handling: one finger rotates, two fingers pinch-zoom the camera, and desktop scroll-wheel zoom remains.
+- Added a tracked `.githooks/post-push` workflow and installer script so pushes to `origin/main` from a machine with the local SQLite index automatically regenerate and push the GitHub Pages `gh-pages` branch; the publisher now exits cleanly when the generated Pages artifact is unchanged.
