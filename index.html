@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DisclosureArchive Public Index</title>
+  <title>Disclosure Archive</title>
   <style>
     :root {
       color-scheme: dark;
@@ -60,10 +60,25 @@
     }
     h1 {
       margin: 0;
+    }
+    .brand-title {
+      min-height: 0;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
       font-size: 23px;
       letter-spacing: 0;
       color: var(--accent);
       text-shadow: 0 0 18px rgba(66,255,140,0.42);
+      cursor: pointer;
+    }
+    .brand-title:hover,
+    .brand-title:focus-visible {
+      color: var(--accent-2);
+      outline: none;
+      text-shadow: 0 0 20px rgba(114,215,255,0.45);
     }
     .meta {
       color: var(--muted);
@@ -353,7 +368,7 @@
   <header>
     <div class="wrap top">
       <div>
-        <h1>DisclosureArchive Public Index</h1>
+        <h1><button type="button" class="brand-title" id="brandReset" title="Reset archive search">Disclosure Archive</button></h1>
         <div class="muted">Precomputed summaries with government source links and page/chunk references.</div>
       </div>
       <div class="meta" id="meta">Loading archive...</div>
@@ -842,6 +857,20 @@
       $("results").innerHTML = scored.length ? scored.map(renderDoc).join("") : `<div class="empty">No matching documents.</div>`;
     }
 
+    function resetArchiveView() {
+      $("q").value = "";
+      $("agencyFilter").value = "";
+      $("sourceFilter").value = "";
+      $("yearFilter").value = "";
+      globeState.selected = null;
+      globeState.selectedIndex = null;
+      updateGlobeSelection();
+      renderSelectedLocation(null);
+      document.querySelectorAll(".result.open").forEach((card) => card.classList.remove("open"));
+      performSearch();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
     document.addEventListener("click", (event) => {
       const tag = event.target.closest("[data-tag]");
       if (tag) {
@@ -892,18 +921,13 @@
     $("agencyFilter").addEventListener("change", performSearch);
     $("sourceFilter").addEventListener("change", performSearch);
     $("yearFilter").addEventListener("change", performSearch);
+    $("brandReset").addEventListener("click", resetArchiveView);
     $("globeToggle").addEventListener("click", async () => {
       const panel = $("globePanel");
       panel.hidden = !panel.hidden;
       if (!panel.hidden) await initGlobe();
     });
-    $("reset").addEventListener("click", () => {
-      $("q").value = "";
-      $("agencyFilter").value = "";
-      $("sourceFilter").value = "";
-      $("yearFilter").value = "";
-      performSearch();
-    });
+    $("reset").addEventListener("click", resetArchiveView);
 
     fetch(`data/documents.json?v=${Date.now()}`, { cache: "no-store" })
       .then((response) => response.json())
