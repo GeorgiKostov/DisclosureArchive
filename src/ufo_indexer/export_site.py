@@ -288,10 +288,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         <option value="video_metadata">Video metadata</option>
         <option value="metadata">Metadata</option>
       </select>
-      <select id="sortFilter" aria-label="Sort results">
-        <option value="relevance">Sort: relevance</option>
-        <option value="year_desc">Sort: newest year</option>
-        <option value="year_asc">Sort: oldest year</option>
+      <select id="yearFilter" aria-label="Year filter">
+        <option value="">All years</option>
       </select>
       <button type="button" id="reset">Reset</button>
     </div>
@@ -452,22 +450,24 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       $("agencyFilter").innerHTML = `<option value="">All agencies</option>` + agencies.map((agency) => `<option value="${esc(agency)}">${esc(agency)}</option>`).join("");
     }
 
+    function yearOptions() {
+      const years = [...new Set(docs.map(docYear).filter(Boolean))].sort((a, b) => b - a);
+      $("yearFilter").innerHTML = `<option value="">All years</option>` + years.map((year) => `<option value="${year}">${year}</option>`).join("");
+    }
+
     function performSearch() {
       const q = $("q").value.trim().toLowerCase();
       const agency = $("agencyFilter").value;
       const source = $("sourceFilter").value;
-      const sort = $("sortFilter").value;
+      const year = $("yearFilter").value;
       const terms = q.split(/\s+/).filter(Boolean);
       const scored = docs
         .filter((doc) => !agency || doc.agency === agency)
         .filter((doc) => matchesSourceFilter(doc, source))
+        .filter((doc) => !year || String(docYear(doc)) === year)
         .map((doc) => [scoreDoc(doc, terms), doc])
         .filter(([score]) => score > 0)
-        .sort((a, b) => {
-          if (sort === "year_desc") return docYear(b[1]) - docYear(a[1]) || b[0] - a[0] || a[1].title.localeCompare(b[1].title);
-          if (sort === "year_asc") return (docYear(a[1]) || 9999) - (docYear(b[1]) || 9999) || b[0] - a[0] || a[1].title.localeCompare(b[1].title);
-          return b[0] - a[0] || a[1].title.localeCompare(b[1].title);
-        })
+        .sort((a, b) => b[0] - a[0] || a[1].title.localeCompare(b[1].title))
         .slice(0, 50)
         .map(([, doc]) => doc);
       $("status").textContent = `${scored.length} result${scored.length === 1 ? "" : "s"} shown from ${docs.length} documents.`;
@@ -491,7 +491,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         $("q").value = relatedDoc ? relatedDoc.title : "";
         $("agencyFilter").value = "";
         $("sourceFilter").value = "";
-        $("sortFilter").value = "relevance";
+        $("yearFilter").value = "";
         performSearch();
         const card = document.getElementById(`doc-${related.dataset.related}`);
         if (card) {
@@ -506,12 +506,12 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     });
     $("agencyFilter").addEventListener("change", performSearch);
     $("sourceFilter").addEventListener("change", performSearch);
-    $("sortFilter").addEventListener("change", performSearch);
+    $("yearFilter").addEventListener("change", performSearch);
     $("reset").addEventListener("click", () => {
       $("q").value = "";
       $("agencyFilter").value = "";
       $("sourceFilter").value = "";
-      $("sortFilter").value = "relevance";
+      $("yearFilter").value = "";
       performSearch();
     });
 
@@ -522,6 +522,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         docs = payload.documents.map((doc) => ({ ...doc, _search: searchable(doc) }));
         $("meta").textContent = `${payload.document_count} documents | ${payload.generated_at}`;
         agencyOptions();
+        yearOptions();
         performSearch();
       })
       .catch((error) => {

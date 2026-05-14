@@ -570,10 +570,8 @@ HTML = r"""<!doctype html>
         <option value="caption">Captions</option>
         <option value="video_metadata">Video metadata</option>
       </select>
-      <select id="sortOrder" aria-label="Sort results">
-        <option value="relevance">Sort: relevance</option>
-        <option value="year_desc">Sort: newest year</option>
-        <option value="year_asc">Sort: oldest year</option>
+      <select id="yearFilter" aria-label="Year filter">
+        <option value="">All years</option>
       </select>
       <select id="limit" aria-label="Result limit">
         <option value="5" selected>5 results</option>
@@ -849,12 +847,16 @@ HTML = r"""<!doctype html>
     }
 
     function renderResults(results) {
-      const sortedResults = sortResults(results);
+      const visibleResults = filterResultsByYear(results);
       if (!results.length) {
         $("results").innerHTML = `<div class="empty">No results for this search.</div>`;
         return;
       }
-      $("results").innerHTML = sortedResults.map((item) => {
+      if (!visibleResults.length) {
+        $("results").innerHTML = `<div class="empty">No results for this year.</div>`;
+        return;
+      }
+      $("results").innerHTML = visibleResults.map((item) => {
         const page = item.page_number ? `page ${item.page_number}` : "no page";
         return `
           <article class="result">
@@ -889,16 +891,17 @@ HTML = r"""<!doctype html>
       return match ? Number(match[0]) : 0;
     }
 
-    function sortResults(results) {
-      const sort = $("sortOrder") ? $("sortOrder").value : "relevance";
-      const copy = [...results];
-      if (sort === "year_desc") {
-        return copy.sort((a, b) => resultYear(b) - resultYear(a) || a.rank - b.rank);
-      }
-      if (sort === "year_asc") {
-        return copy.sort((a, b) => (resultYear(a) || 9999) - (resultYear(b) || 9999) || a.rank - b.rank);
-      }
-      return copy;
+    function updateYearOptions(results) {
+      const current = $("yearFilter").value;
+      const years = [...new Set(results.map(resultYear).filter(Boolean))].sort((a, b) => b - a);
+      $("yearFilter").innerHTML = `<option value="">All years</option>` + years.map((year) => `<option value="${year}">${year}</option>`).join("");
+      if (current && years.includes(Number(current))) $("yearFilter").value = current;
+    }
+
+    function filterResultsByYear(results) {
+      const year = $("yearFilter") ? $("yearFilter").value : "";
+      if (!year) return results;
+      return results.filter((item) => String(resultYear(item)) === year);
     }
 
     function renderSuggestions(suggestions) {
@@ -944,6 +947,7 @@ HTML = r"""<!doctype html>
           source_kind: $("sourceKind").value
         });
         state.lastResults = payload.results;
+        updateYearOptions(payload.results);
         renderSummary(payload.summary);
         renderResults(payload.results);
         renderMap(payload.locations);
@@ -993,7 +997,7 @@ HTML = r"""<!doctype html>
       runSearch();
     });
     $("sourceKind").addEventListener("change", runSearch);
-    $("sortOrder").addEventListener("change", () => renderResults(state.lastResults || []));
+    $("yearFilter").addEventListener("change", () => renderResults(state.lastResults || []));
     $("limit").addEventListener("change", runSearch);
     if ($("packButton")) $("packButton").addEventListener("click", buildPack);
 
