@@ -134,6 +134,45 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       text-shadow: 0 0 20px rgba(114,215,255,0.45);
     }
     main { padding: 22px 0 36px; }
+    .site-footer {
+      border-top: 1px solid var(--line);
+      background: rgba(2, 10, 6, 0.88);
+      box-shadow: 0 -16px 38px rgba(0,0,0,0.2);
+    }
+    .footer-inner {
+      padding: 24px 0 28px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .footer-panel {
+      min-width: 0;
+    }
+    .footer-panel h2,
+    .footer-panel h3 {
+      margin: 0 0 7px;
+      color: var(--accent);
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+    .footer-panel p {
+      margin: 6px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .footer-links a {
+      color: var(--accent-2);
+    }
     .search {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 118px;
@@ -538,6 +577,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     a:hover { color: var(--accent); }
     @media (max-width: 980px) and (min-width: 761px) {
       .best-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 760px) {
       body { font-size: 13px; }
@@ -561,6 +601,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       .result.media-rich .media { height: min(340px, 66vw); }
       .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .actions > * { width: 100%; min-width: 0; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-inner { padding: 20px 0 24px; }
       .globe-stage { height: clamp(300px, 82vw, 460px); min-height: 300px; }
       #globeCanvas { min-height: 300px; }
       .globe-popup { inset: 10px 10px auto 10px; width: auto; max-height: calc(100% - 20px); overflow: auto; }
@@ -638,6 +680,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       </div>
     </section>
   </main>
+  <!-- SITE_FOOTER -->
   <script>
     const $ = (id) => document.getElementById(id);
     const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
@@ -2163,6 +2206,15 @@ def normalize_site_url(site_url: str) -> str:
     return site_url.rstrip("/")
 
 
+def normalize_contact_email(contact_email: str) -> str:
+    contact_email = clean(contact_email) or "contact@rebuilt.cards"
+    if contact_email.lower().startswith("mailto:"):
+        contact_email = contact_email[7:]
+    if not re.match(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$", contact_email):
+        raise ValueError("contact email must be a valid email address")
+    return contact_email
+
+
 def origin_from_url(url: str) -> str:
     parsed = urlparse(url)
     if parsed.scheme and parsed.netloc:
@@ -2234,7 +2286,47 @@ def security_meta(analytics_script_url: str = "https://plausible.io/js/script.js
     )
 
 
-def structured_data(site_url: str, document_count: int) -> str:
+def site_footer(contact_email: str) -> str:
+    safe_email = html_escape(contact_email, quote=True)
+    return f"""
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-grid">
+        <section class="footer-panel">
+          <h2>Disclosure Archive</h2>
+          <p>Independent public-interest index for public UFO/UAP release materials. Summaries are finding aids; verify claims against the linked source records.</p>
+          <p>Government records, images, and videos remain attributed to their original public sources.</p>
+        </section>
+        <section class="footer-panel" id="contact">
+          <h3>Contact</h3>
+          <p>Corrections, source issues, takedown requests, and general notes: <a href="mailto:{safe_email}">{safe_email}</a>.</p>
+          <p>For security reports, use the same email or the public security file.</p>
+        </section>
+        <section class="footer-panel" id="impressum">
+          <h3>Legal / Impressum</h3>
+          <p>Disclosure Archive is an independent archive and research index. It is not affiliated with the U.S. Department of War, NASA, FBI, or any other source agency.</p>
+          <p>Publisher and responsible operator details can be requested via the contact email while a dedicated legal notice is finalized.</p>
+        </section>
+        <section class="footer-panel" id="privacy">
+          <h3>Privacy</h3>
+          <p>No accounts, forms, comments, ads, or marketing cookies. Searches run locally in your browser against the static public JSON.</p>
+          <p>The hosting provider may process standard request logs. Optional privacy-friendly analytics may be enabled without storing search text.</p>
+        </section>
+      </div>
+      <div class="footer-links">
+        <span>&copy; 2026 Disclosure Archive.</span>
+        <a href="#contact">Contact</a>
+        <a href="#impressum">Impressum</a>
+        <a href="#privacy">Privacy</a>
+        <a href="/.well-known/security.txt">Security</a>
+        <a href="/sitemap.xml">Sitemap</a>
+        <a href="https://github.com/GeorgiKostov/DisclosureArchive">Source code</a>
+      </div>
+    </div>
+  </footer>"""
+
+
+def structured_data(site_url: str, document_count: int, contact_email: str) -> str:
     canonical = f"{site_url}/"
     graph = {
         "@context": "https://schema.org",
@@ -2248,6 +2340,11 @@ def structured_data(site_url: str, document_count: int) -> str:
                     "@type": "SearchAction",
                     "target": f"{canonical}#search?q={{search_term_string}}",
                     "query-input": "required name=search_term_string",
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Disclosure Archive",
+                    "email": contact_email,
                 },
             },
             {
@@ -2273,7 +2370,7 @@ def structured_data(site_url: str, document_count: int) -> str:
     return f'<script type="application/ld+json">{text}</script>'
 
 
-def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str, analytics_script_url: str) -> None:
+def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str, analytics_script_url: str, contact_email: str) -> None:
     canonical = f"{site_url}/"
     (out / "robots.txt").write_text(
         "\n".join(
@@ -2307,6 +2404,7 @@ def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str
     expires = (datetime.now(timezone.utc) + timedelta(days=365)).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     security_txt = "\n".join(
         [
+            f"Contact: mailto:{contact_email}",
             f"Contact: {site_url}/",
             "Contact: https://github.com/GeorgiKostov/DisclosureArchive/issues",
             f"Expires: {expires}",
@@ -2343,8 +2441,10 @@ def write_site(
     analytics_domain: str = "",
     analytics_script_url: str = "https://plausible.io/js/script.js",
     site_url: str = "https://disclosurearchive.org",
+    contact_email: str = "contact@rebuilt.cards",
 ) -> Dict:
     site_url = normalize_site_url(site_url)
+    contact_email = normalize_contact_email(contact_email)
     conn = connect(db)
     documents = export_documents(conn)
     featured = featured_documents(documents)
@@ -2366,15 +2466,17 @@ def write_site(
     html = (
         PUBLIC_SITE_HTML.replace("<!-- SEO_META -->", seo_meta(site_url))
         .replace("<!-- SECURITY_META -->", security_meta(analytics_script_url))
-        .replace("<!-- STRUCTURED_DATA -->", structured_data(site_url, len(documents)))
+        .replace("<!-- STRUCTURED_DATA -->", structured_data(site_url, len(documents), contact_email))
         .replace("<!-- ANALYTICS_SNIPPET -->", analytics_snippet(analytics_domain, analytics_script_url))
+        .replace("<!-- SITE_FOOTER -->", site_footer(contact_email))
     )
     (out / "index.html").write_text(html, encoding="utf-8")
-    write_crawler_and_security_files(out, site_url, generated_at, analytics_script_url)
+    write_crawler_and_security_files(out, site_url, generated_at, analytics_script_url, contact_email)
     return {
         "out": str(out),
         "documents": len(documents),
         "analytics": "enabled" if analytics_domain else "disabled",
+        "contact_email": contact_email,
         "site_url": site_url,
         "json": str(data_dir / "documents.json"),
         "html": str(out / "index.html"),
@@ -2391,9 +2493,17 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("--analytics-domain", default=os.environ.get("DISCLOSURE_ANALYTICS_DOMAIN", ""), help="Optional Plausible-compatible analytics domain, e.g. example.com")
     parser.add_argument("--analytics-script-url", default=os.environ.get("DISCLOSURE_ANALYTICS_SCRIPT_URL", "https://plausible.io/js/script.js"), help="Optional HTTPS Plausible-compatible script URL")
     parser.add_argument("--site-url", default=os.environ.get("DISCLOSURE_SITE_URL", "https://disclosurearchive.org"), help="Canonical public HTTPS URL for SEO files")
+    parser.add_argument("--contact-email", default=os.environ.get("DISCLOSURE_CONTACT_EMAIL", "contact@rebuilt.cards"), help="Public contact email for the footer, structured data, and security.txt")
     args = parser.parse_args(argv)
 
-    result = write_site(args.db, args.out, analytics_domain=args.analytics_domain, analytics_script_url=args.analytics_script_url, site_url=args.site_url)
+    result = write_site(
+        args.db,
+        args.out,
+        analytics_domain=args.analytics_domain,
+        analytics_script_url=args.analytics_script_url,
+        site_url=args.site_url,
+        contact_email=args.contact_email,
+    )
     print(json.dumps(result, indent=2))
     return 0
 

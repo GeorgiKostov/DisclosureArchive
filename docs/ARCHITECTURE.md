@@ -196,9 +196,12 @@ document set in memory but renders cards in 20-result batches, loading more on
 scroll with a manual fallback button.
 The exporter also emits `robots.txt`, `sitemap.xml`, root and well-known
 `security.txt`, canonical/social/structured-data metadata, a referrer policy,
-and a static-host `_headers` template. On GitHub Pages, browser-enforced meta
-policies apply, but `_headers` is only useful if the site later moves to a host
-that supports custom static headers.
+and a static-host `_headers` template. The HTML footer exposes copyright,
+contact, Legal / Impressum, privacy, security, sitemap, and source-code links;
+the contact email is configurable at export time and is also written into
+`security.txt`. On GitHub Pages, browser-enforced meta policies apply, but
+`_headers` is only useful if the site later moves to a host that supports custom
+static headers.
 
 The public export is intentionally summary-focused. It does not copy raw PDFs,
 videos, local thumbnails, generated SQLite databases, derived OCR caches, or full

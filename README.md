@@ -318,6 +318,10 @@ The export also writes standard public-web hygiene files and metadata:
 `robots.txt`, `sitemap.xml`, `security.txt`, `/.well-known/security.txt`,
 Open Graph/Twitter card tags, canonical URL tags, JSON-LD structured data, a
 document referrer policy, and a conservative Content Security Policy meta tag.
+The generated page includes a footer with copyright, contact, Legal /
+Impressum, privacy, security, sitemap, and source-code links. The public contact
+email defaults to `contact@rebuilt.cards`; override it with
+`DISCLOSURE_CONTACT_EMAIL` or `--contact-email` when exporting.
 GitHub Pages does not apply custom response headers, so `_headers` is generated
 for future static hosts that support it.
 

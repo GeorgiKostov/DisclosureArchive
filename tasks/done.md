@@ -95,3 +95,4 @@
 - Removed the public search-view helper sentence under `Search The Index`.
 - Removed the public landing search helper sentence under `Explore The Release`.
 - Renamed the public search-view heading from `Search The Index` to `Documents`.
+- Added a public footer to the static export with copyright, contact, Legal / Impressum, privacy, security, sitemap, and source-code links; the configured contact email is also emitted in JSON-LD and `security.txt`.
