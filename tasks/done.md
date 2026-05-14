@@ -70,3 +70,4 @@
 - Pushed the first generated static site to `origin/gh-pages` at commit `43e0adaa608e6e91ea1de5b9830acd61590964c3`; the GitHub Pages URL still returned 404 immediately afterward, so Pages likely needs to be enabled for the branch in repository settings.
 - Added country outlines to the public interactive globe and made mappable checkpoints open a compact document popup with summary text, source link, and a jump-to-result action.
 - Updated the public globe interaction model: removed automatic spinning, added scroll-wheel zoom, and made selected checkpoints/list items switch to an active blue highlight.
+- Renamed the public site header/browser title to `Disclosure Archive` and made the header title clickable as a full search/filter reset control.
