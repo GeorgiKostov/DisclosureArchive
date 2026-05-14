@@ -161,21 +161,19 @@
       font-size: 13px;
     }
     .best-of {
-      margin: 16px 0;
+      margin: 16px 0 24px;
       padding: 14px;
       border: 1px solid rgba(114,215,255,0.24);
       border-radius: 8px;
       background: linear-gradient(180deg, rgba(7, 24, 15, 0.94), rgba(4, 12, 8, 0.9));
       box-shadow: 0 16px 44px rgba(0,0,0,0.28), 0 0 28px rgba(114,215,255,0.06);
     }
-    .best-of.collapsed {
-      padding-bottom: 14px;
-    }
     .best-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      margin-bottom: 12px;
     }
     .best-head h2 {
       margin: 0;
@@ -192,16 +190,6 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
-      margin-top: 12px;
-    }
-    .best-of.collapsed .best-grid {
-      display: none;
-    }
-    .best-toggle {
-      min-height: 32px;
-      padding: 0 9px;
-      font-size: 12px;
-      color: var(--accent-2);
     }
     .best-card {
       min-width: 0;
@@ -263,8 +251,24 @@
       font-size: 11px;
       color: var(--accent-2);
     }
+    .search-section {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+    .section-head {
+      margin-bottom: 12px;
+    }
+    .section-head h2 {
+      margin-bottom: 4px;
+    }
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
     .globe-panel {
-      display: grid;
+      display: none;
       margin: 14px 0;
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -272,27 +276,14 @@
       box-shadow: 0 16px 44px rgba(0,0,0,0.34), 0 0 28px rgba(66,255,140,0.06);
       overflow: hidden;
     }
-    .globe-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(2, 10, 6, 0.72);
-    }
-    .globe-head h2 {
-      margin: 0;
-      font-size: 14px;
+    .globe-panel.open {
+      display: grid;
     }
     .globe-toggle {
-      min-height: 32px;
-      padding: 0 9px;
+      min-height: 36px;
+      padding: 0 10px;
       font-size: 12px;
       color: var(--accent-2);
-    }
-    .globe-panel.minimized .globe-stage {
-      display: none;
     }
     .globe-stage {
       position: relative;
@@ -475,7 +466,6 @@
       .tools select, .tools button { width: 100%; min-width: 0; }
       .best-of { padding: 12px; }
       .best-head { align-items: flex-start; flex-direction: column; }
-      .best-toggle { width: 100%; }
       .best-grid { grid-template-columns: 1fr; }
       .best-media { height: min(210px, 48vw); }
       .shell { grid-template-columns: 1fr; }
@@ -505,40 +495,43 @@
     </div>
   </header>
   <main class="wrap">
-    <form class="search" id="searchForm">
-      <input id="q" type="search" autocomplete="off" placeholder="Search summaries, titles, agencies, tags, references">
-      <button class="primary" type="submit">Search</button>
-    </form>
-    <div class="tools">
-      <select id="agencyFilter" aria-label="Agency filter"></select>
-      <select id="sourceFilter" aria-label="Source filter">
-        <option value="">All source types</option>
-        <option value="media_image">Photos</option>
-        <option value="media_video">Videos</option>
-        <option value="pdf_text">PDF text</option>
-        <option value="ocr_text">OCR text</option>
-        <option value="caption">Captions</option>
-        <option value="video_metadata">Video metadata</option>
-        <option value="metadata">Metadata</option>
-      </select>
-      <select id="yearFilter" aria-label="Year filter">
-        <option value="">All years</option>
-      </select>
-      <button type="button" id="reset">Reset</button>
-    </div>
-    <div class="status" id="status">Loading...</div>
-    <section id="globePanel" class="globe-panel">
-      <div class="globe-head">
-        <h2>Location Globe</h2>
-        <button type="button" class="globe-toggle" id="globeToggle" aria-expanded="true">Minimize globe</button>
+    <section id="bestOf" class="best-of" hidden></section>
+    <section class="search-section" id="searchSection">
+      <div class="section-head">
+        <h2>Search The Index</h2>
+        <p>Search indexed release records, summaries, source references, media, and mapped locations.</p>
       </div>
-      <div class="globe-stage">
-        <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
-        <div class="globe-popup" id="globePopup" hidden></div>
+      <form class="search" id="searchForm">
+        <input id="q" type="search" autocomplete="off" placeholder="Search summaries, titles, agencies, tags, references">
+        <button class="primary" type="submit">Search</button>
+      </form>
+      <div class="tools">
+        <select id="agencyFilter" aria-label="Agency filter"></select>
+        <select id="sourceFilter" aria-label="Source filter">
+          <option value="">All source types</option>
+          <option value="media_image">Photos</option>
+          <option value="media_video">Videos</option>
+          <option value="pdf_text">PDF text</option>
+          <option value="ocr_text">OCR text</option>
+          <option value="caption">Captions</option>
+          <option value="video_metadata">Video metadata</option>
+          <option value="metadata">Metadata</option>
+        </select>
+        <select id="yearFilter" aria-label="Year filter">
+          <option value="">All years</option>
+        </select>
+        <button type="button" class="globe-toggle" id="globeToggle" aria-expanded="false">Open location globe</button>
+        <button type="button" id="reset">Reset</button>
       </div>
+      <div class="status" id="status">Loading...</div>
+      <section id="globePanel" class="globe-panel" aria-hidden="true">
+        <div class="globe-stage">
+          <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
+          <div class="globe-popup" id="globePopup" hidden></div>
+        </div>
+      </section>
+      <section id="results"></section>
     </section>
-    <section id="bestOf" class="best-of collapsed" hidden></section>
-    <section id="results"></section>
   </main>
   <script>
     const $ = (id) => document.getElementById(id);
@@ -691,7 +684,6 @@
             <h2>Best Of</h2>
             <div class="best-count">${items.length} curated entries</div>
           </div>
-          <button type="button" class="best-toggle" id="bestToggle" aria-expanded="false">Open best of</button>
         </div>
         <div class="best-grid">
           ${items.map((item) => `
@@ -709,7 +701,6 @@
         </div>
       `;
       panel.hidden = false;
-      panel.classList.add("collapsed");
     }
 
     function actionLinks(doc) {
@@ -1106,24 +1097,15 @@
       renderSelectedLocation(null);
     }
 
-    function toggleBestOf() {
-      const panel = $("bestOf");
-      const button = $("bestToggle");
-      if (!panel || !button) return;
-      const collapsed = panel.classList.toggle("collapsed");
-      button.textContent = collapsed ? "Open best of" : "Close best of";
-      button.setAttribute("aria-expanded", collapsed ? "false" : "true");
-      track("best_of_toggle", { open: collapsed ? "false" : "true" });
-    }
-
     function toggleGlobe() {
       const panel = $("globePanel");
       const button = $("globeToggle");
       if (!panel || !button) return;
-      const minimized = panel.classList.toggle("minimized");
-      button.textContent = minimized ? "Show globe" : "Minimize globe";
-      button.setAttribute("aria-expanded", minimized ? "false" : "true");
-      track("globe_toggle", { open: minimized ? "false" : "true" });
+      const open = panel.classList.toggle("open");
+      button.textContent = open ? "Hide location globe" : "Open location globe";
+      button.setAttribute("aria-expanded", open ? "true" : "false");
+      panel.setAttribute("aria-hidden", open ? "false" : "true");
+      track("globe_toggle", { open: open ? "true" : "false" });
     }
 
     function performSearch() {
@@ -1154,6 +1136,14 @@
       globeState.selectedIndex = null;
       updateGlobeSelection();
       renderSelectedLocation(null);
+      const globePanel = $("globePanel");
+      const globeButton = $("globeToggle");
+      if (globePanel && globeButton) {
+        globePanel.classList.remove("open");
+        globePanel.setAttribute("aria-hidden", "true");
+        globeButton.textContent = "Open location globe";
+        globeButton.setAttribute("aria-expanded", "false");
+      }
       document.querySelectorAll(".result.open").forEach((card) => card.classList.remove("open"));
       performSearch();
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1228,11 +1218,6 @@
             card.scrollIntoView({ behavior: "smooth", block: "start" });
           }
         }, 80);
-      }
-    });
-    document.addEventListener("click", (event) => {
-      if (event.target.closest("#bestToggle")) {
-        toggleBestOf();
       }
     });
     $("searchForm").addEventListener("submit", (event) => {
