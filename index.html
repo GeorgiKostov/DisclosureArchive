@@ -134,6 +134,81 @@
       color: var(--muted);
       font-size: 13px;
     }
+    .globe-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 14px;
+      margin: 14px 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(1, 10, 7, 0.78);
+      box-shadow: 0 16px 44px rgba(0,0,0,0.34), 0 0 28px rgba(66,255,140,0.06);
+      overflow: hidden;
+    }
+    .globe-panel[hidden] { display: none; }
+    .globe-stage {
+      position: relative;
+      min-height: 420px;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(66,255,140,0.09), transparent 36%),
+        radial-gradient(circle at 50% 50%, rgba(114,215,255,0.07), transparent 52%),
+        #020503;
+    }
+    #globeCanvas {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      display: block;
+      cursor: grab;
+    }
+    #globeCanvas:active { cursor: grabbing; }
+    .globe-help {
+      position: absolute;
+      left: 12px;
+      bottom: 10px;
+      padding: 6px 8px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: rgba(0,0,0,0.52);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .globe-side {
+      border-left: 1px solid var(--line);
+      padding: 13px;
+      background: rgba(4, 18, 11, 0.74);
+      min-width: 0;
+    }
+    .globe-side h2 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+    .globe-selected {
+      min-height: 96px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: rgba(66,255,140,0.08);
+      color: var(--ink);
+    }
+    .globe-list {
+      margin-top: 12px;
+      display: grid;
+      gap: 7px;
+      max-height: 292px;
+      overflow: auto;
+    }
+    .globe-location {
+      justify-content: flex-start;
+      min-height: 34px;
+      padding: 7px 9px;
+      color: var(--ink);
+      text-align: left;
+    }
+    .globe-location.coordinate {
+      border-color: rgba(255,209,102,0.55);
+      color: var(--warn);
+    }
     .result {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -242,6 +317,8 @@
       .search { grid-template-columns: 1fr; }
       .shell { grid-template-columns: 1fr; }
       .media { width: 100%; height: 170px; border-left: 0; border-top: 1px solid var(--line); position: static; }
+      .globe-panel { grid-template-columns: 1fr; }
+      .globe-side { border-left: 0; border-top: 1px solid var(--line); }
     }
   </style>
 </head>
@@ -275,9 +352,21 @@
       <select id="yearFilter" aria-label="Year filter">
         <option value="">All years</option>
       </select>
+      <button type="button" id="globeToggle">Globe</button>
       <button type="button" id="reset">Reset</button>
     </div>
     <div class="status" id="status">Loading...</div>
+    <section id="globePanel" class="globe-panel" hidden>
+      <div class="globe-stage">
+        <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
+        <div class="globe-help">Drag to rotate. Yellow checkpoints are OCR-extracted coordinates.</div>
+      </div>
+      <aside class="globe-side">
+        <h2>Location Checkpoints</h2>
+        <div class="globe-selected" id="globeSelected">Open the globe to view indexed locations.</div>
+        <div class="globe-list" id="globeList"></div>
+      </aside>
+    </section>
     <section id="results"></section>
   </main>
   <script>
@@ -291,6 +380,7 @@
     };
     let archive = null;
     let docs = [];
+    const globeState = { ready: false, initializing: false, locations: [], markers: [], selected: null };
 
     function searchable(doc) {
       return [
@@ -321,6 +411,30 @@
       const text = [doc.incident_date, doc.release_date, doc.title].filter(Boolean).join(" ");
       const matches = [...text.matchAll(/\b(18|19|20)\d{2}\b/g)].map((match) => Number(match[0]));
       return matches.length ? matches[0] : 0;
+    }
+
+    function allLocations() {
+      const out = [];
+      const seen = new Set();
+      docs.forEach((doc) => {
+        (doc.locations || []).forEach((location) => {
+          const lat = Number(location.latitude);
+          const lon = Number(location.longitude);
+          if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+          const key = `${doc.doc_id}:${lat.toFixed(4)}:${lon.toFixed(4)}:${location.raw_location}`;
+          if (seen.has(key)) return;
+          seen.add(key);
+          out.push({
+            ...location,
+            doc_id: doc.doc_id,
+            title: doc.title,
+            agency: doc.agency,
+            latitude: lat,
+            longitude: lon,
+          });
+        });
+      });
+      return out;
     }
 
     function pageUrl(url, page) {
@@ -439,6 +553,171 @@
       $("yearFilter").innerHTML = `<option value="">All years</option>` + years.map((year) => `<option value="${year}">${year}</option>`).join("");
     }
 
+    function locationLabel(location) {
+      return location.normalized_location || location.raw_location || `${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)}`;
+    }
+
+    function renderGlobeList() {
+      if (!$("globeList")) return;
+      const locations = globeState.locations;
+      $("globeList").innerHTML = locations.slice(0, 120).map((location, index) => `
+        <button type="button" class="globe-location ${location.precision === "coordinate" ? "coordinate" : ""}" data-location-index="${index}">
+          ${esc(locationLabel(location))} · ${esc(location.precision || "location")}
+        </button>
+      `).join("");
+      document.querySelectorAll("[data-location-index]").forEach((button) => {
+        button.addEventListener("click", () => selectGlobeLocation(Number(button.dataset.locationIndex)));
+      });
+    }
+
+    function renderSelectedLocation(location) {
+      if (!$("globeSelected")) return;
+      if (!location) {
+        $("globeSelected").innerHTML = `${globeState.locations.length} mappable checkpoints. Yellow markers are OCR-extracted coordinates; green markers are metadata/gazetteer locations.`;
+        return;
+      }
+      $("globeSelected").innerHTML = `
+        <strong>${esc(locationLabel(location))}</strong>
+        <p>${esc(location.title || "")}</p>
+        <p class="muted">${esc(location.precision || "")} · ${esc(location.method || "")} · confidence ${Number(location.confidence || 0).toFixed(2)}</p>
+      `;
+    }
+
+    function latLonVector(lat, lon, radius) {
+      const phi = (90 - lat) * Math.PI / 180;
+      const theta = (lon + 180) * Math.PI / 180;
+      return {
+        x: -radius * Math.sin(phi) * Math.cos(theta),
+        y: radius * Math.cos(phi),
+        z: radius * Math.sin(phi) * Math.sin(theta),
+      };
+    }
+
+    async function initGlobe() {
+      if (globeState.ready || globeState.initializing) return;
+      globeState.initializing = true;
+      globeState.locations = allLocations();
+      renderGlobeList();
+      renderSelectedLocation(null);
+      const THREE = await import("https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js");
+      const canvas = $("globeCanvas");
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+      camera.position.set(0, 0, 3.8);
+      const globeGroup = new THREE.Group();
+      scene.add(globeGroup);
+      scene.add(new THREE.AmbientLight(0x8fffb8, 1.25));
+      const light = new THREE.DirectionalLight(0x72d7ff, 1.8);
+      light.position.set(3, 2, 4);
+      scene.add(light);
+      const globe = new THREE.Mesh(
+        new THREE.SphereGeometry(1, 96, 48),
+        new THREE.MeshStandardMaterial({
+          color: 0x07170f,
+          roughness: 0.8,
+          metalness: 0.1,
+          emissive: 0x092414,
+          emissiveIntensity: 0.62,
+          transparent: true,
+          opacity: 0.96,
+        })
+      );
+      globeGroup.add(globe);
+      const gridMaterial = new THREE.LineBasicMaterial({ color: 0x42ff8c, transparent: true, opacity: 0.24 });
+      for (let lat = -60; lat <= 60; lat += 30) {
+        const points = [];
+        for (let lon = -180; lon <= 180; lon += 4) {
+          const p = latLonVector(lat, lon, 1.006);
+          points.push(new THREE.Vector3(p.x, p.y, p.z));
+        }
+        globeGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), gridMaterial));
+      }
+      for (let lon = -150; lon <= 180; lon += 30) {
+        const points = [];
+        for (let lat = -90; lat <= 90; lat += 4) {
+          const p = latLonVector(lat, lon, 1.008);
+          points.push(new THREE.Vector3(p.x, p.y, p.z));
+        }
+        globeGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), gridMaterial));
+      }
+      const markerGeometry = new THREE.SphereGeometry(0.025, 16, 16);
+      const placeMaterial = new THREE.MeshBasicMaterial({ color: 0x42ff8c });
+      const coordinateMaterial = new THREE.MeshBasicMaterial({ color: 0xffd166 });
+      globeState.locations.forEach((location, index) => {
+        const p = latLonVector(location.latitude, location.longitude, 1.045);
+        const marker = new THREE.Mesh(markerGeometry, location.precision === "coordinate" ? coordinateMaterial : placeMaterial);
+        marker.position.set(p.x, p.y, p.z);
+        marker.userData.locationIndex = index;
+        globeGroup.add(marker);
+        globeState.markers.push(marker);
+      });
+      const raycaster = new THREE.Raycaster();
+      const pointer = new THREE.Vector2();
+      let dragging = false;
+      let moved = false;
+      let lastX = 0;
+      let lastY = 0;
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        const width = Math.max(320, rect.width);
+        const height = Math.max(360, rect.height);
+        renderer.setSize(width, height, false);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      }
+      canvas.addEventListener("pointerdown", (event) => {
+        dragging = true;
+        moved = false;
+        lastX = event.clientX;
+        lastY = event.clientY;
+        canvas.setPointerCapture(event.pointerId);
+      });
+      canvas.addEventListener("pointermove", (event) => {
+        if (!dragging) return;
+        const dx = event.clientX - lastX;
+        const dy = event.clientY - lastY;
+        if (Math.abs(dx) + Math.abs(dy) > 2) moved = true;
+        globeGroup.rotation.y += dx * 0.006;
+        globeGroup.rotation.x += dy * 0.004;
+        globeGroup.rotation.x = Math.max(-1.15, Math.min(1.15, globeGroup.rotation.x));
+        lastX = event.clientX;
+        lastY = event.clientY;
+      });
+      canvas.addEventListener("pointerup", (event) => {
+        dragging = false;
+        if (moved) return;
+        const rect = canvas.getBoundingClientRect();
+        pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+        const hit = raycaster.intersectObjects(globeState.markers)[0];
+        if (hit) selectGlobeLocation(hit.object.userData.locationIndex);
+      });
+      window.addEventListener("resize", resize);
+      function animate() {
+        requestAnimationFrame(animate);
+        if (!dragging) globeGroup.rotation.y += 0.0016;
+        resize();
+        renderer.render(scene, camera);
+      }
+      resize();
+      animate();
+      globeState.ready = true;
+      globeState.initializing = false;
+    }
+
+    function selectGlobeLocation(index) {
+      const location = globeState.locations[index];
+      globeState.selected = location || null;
+      renderSelectedLocation(globeState.selected);
+      if (location) {
+        $("q").value = location.title || locationLabel(location);
+        performSearch();
+      }
+    }
+
     function performSearch() {
       const q = $("q").value.trim().toLowerCase();
       const agency = $("agencyFilter").value;
@@ -491,6 +770,11 @@
     $("agencyFilter").addEventListener("change", performSearch);
     $("sourceFilter").addEventListener("change", performSearch);
     $("yearFilter").addEventListener("change", performSearch);
+    $("globeToggle").addEventListener("click", async () => {
+      const panel = $("globePanel");
+      panel.hidden = !panel.hidden;
+      if (!panel.hidden) await initGlobe();
+    });
     $("reset").addEventListener("click", () => {
       $("q").value = "";
       $("agencyFilter").value = "";
@@ -507,6 +791,7 @@
         $("meta").textContent = `${payload.document_count} documents | ${payload.generated_at}`;
         agencyOptions();
         yearOptions();
+        globeState.locations = allLocations();
         performSearch();
       })
       .catch((error) => {
