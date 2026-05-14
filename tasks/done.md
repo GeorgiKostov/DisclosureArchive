@@ -71,3 +71,4 @@
 - Added country outlines to the public interactive globe and made mappable checkpoints open a compact document popup with summary text, source link, and a jump-to-result action.
 - Updated the public globe interaction model: removed automatic spinning, added scroll-wheel zoom, and made selected checkpoints/list items switch to an active blue highlight.
 - Renamed the public site header/browser title to `Disclosure Archive` and made the header title clickable as a full search/filter reset control.
+- Added optional Plausible-compatible analytics injection to the static export, with privacy-preserving UI event hooks for search, filters, summaries, outbound links, and globe interactions.

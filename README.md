@@ -280,6 +280,27 @@ or:
 make export-site DB=indexes/uap_release.sqlite
 ```
 
+Optional privacy-friendly analytics can be injected at export time with a
+Plausible-compatible script:
+
+```bash
+python -m ufo_indexer.export_site \
+  --db indexes/uap_release.sqlite \
+  --out public_site \
+  --analytics-domain kostovsolutions.com
+```
+
+or:
+
+```bash
+make export-site ANALYTICS_DOMAIN=kostovsolutions.com
+```
+
+The generated site tracks page views plus coarse UI events such as search,
+filter changes, summary toggles, source/video clicks, globe opens, and
+checkpoint selections. Search event payloads include only query length, not the
+query text. If no analytics domain is provided, no analytics script is emitted.
+
 The export writes `public_site/index.html` and
 `public_site/data/documents.json`. The JSON contains one precomputed,
 deterministic summary per document, public government source/thumbnail/video

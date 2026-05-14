@@ -2,7 +2,9 @@ param(
   [string]$Db = "indexes/uap_release.sqlite",
   [string]$Out = "public_site",
   [string]$Remote = "origin",
-  [string]$Branch = "gh-pages"
+  [string]$Branch = "gh-pages",
+  [string]$AnalyticsDomain = $env:DISCLOSURE_ANALYTICS_DOMAIN,
+  [string]$AnalyticsScriptUrl = $(if ($env:DISCLOSURE_ANALYTICS_SCRIPT_URL) { $env:DISCLOSURE_ANALYTICS_SCRIPT_URL } else { "https://plausible.io/js/script.js" })
 )
 
 $ErrorActionPreference = "Stop"
@@ -21,7 +23,11 @@ Step "Regenerating static public site"
 Push-Location $repo
 try {
   $env:PYTHONPATH = "src"
-  & $python -m ufo_indexer.export_site --db $Db --out $Out
+  $exportArgs = @("-m", "ufo_indexer.export_site", "--db", $Db, "--out", $Out)
+  if ($AnalyticsDomain) {
+    $exportArgs += @("--analytics-domain", $AnalyticsDomain, "--analytics-script-url", $AnalyticsScriptUrl)
+  }
+  & $python @exportArgs
   if ($LASTEXITCODE -ne 0) {
     throw "Static export failed."
   }

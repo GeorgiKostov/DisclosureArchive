@@ -195,6 +195,13 @@ performs client-side search over the precomputed dataset, exposes a clear
 `Summary` button for detailed summary sections, and links verification actions
 back to the original WAR/DVIDS government URLs.
 
+Analytics are optional and build-time only. Passing `--analytics-domain` or
+setting `DISCLOSURE_ANALYTICS_DOMAIN` injects a Plausible-compatible script and
+client-side event hooks for page views, search submissions, filter changes,
+summary toggles, outbound source/video clicks, globe opens, and checkpoint
+selection. Search events report query length rather than query text. Exports
+without an analytics domain emit no analytics script.
+
 `scripts/publish_github_pages.ps1` is the publish wrapper for GitHub Pages. It
 regenerates the static export, validates the JSON for local/private path
 markers, copies only the generated static files into a temporary checkout, adds

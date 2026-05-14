@@ -4,6 +4,7 @@ import argparse
 import ast
 import json
 import mimetypes
+import os
 import re
 from datetime import datetime, timezone
 from pathlib import Path
@@ -20,6 +21,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Disclosure Archive</title>
+  <!-- ANALYTICS_SNIPPET -->
   <style>
     :root {
       color-scheme: dark;
@@ -437,6 +439,11 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       if (name === "source") return '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8"/><path d="M3.6 15h16.8"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/><path d="M15 9h5v5"/><path d="m20 9-6 6"/></svg>';
       return '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h5"/><path d="M8 11h8"/><path d="M8 15h8"/><path d="M8 19h5"/></svg>';
     };
+    const track = (name, props = {}) => {
+      if (typeof window.plausible === "function") {
+        window.plausible(name, { props });
+      }
+    };
     let archive = null;
     let docs = [];
     const globeState = { ready: false, initializing: false, locations: [], markers: [], selected: null, selectedIndex: null };
@@ -547,8 +554,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       const gov = doc.source_url || pdf;
       const video = videoUrl(doc.media?.video_url);
       const links = [];
-      if (gov) links.push(`<a class="button icon-button source-button" href="${esc(gov)}" target="_blank" rel="noopener" aria-label="Government source" title="Government source">${icon("source")}<span>Source</span></a>`);
-      if (video) links.push(`<a class="button icon-button source-button" href="${esc(video)}" target="_blank" rel="noopener" aria-label="Open video" title="Open video">${icon("source")}<span>Video</span></a>`);
+      if (gov) links.push(`<a class="button icon-button source-button" href="${esc(gov)}" target="_blank" rel="noopener" data-track="source" data-doc-id="${esc(doc.doc_id)}" aria-label="Government source" title="Government source">${icon("source")}<span>Source</span></a>`);
+      if (video) links.push(`<a class="button icon-button source-button" href="${esc(video)}" target="_blank" rel="noopener" data-track="video" data-doc-id="${esc(doc.doc_id)}" aria-label="Open video" title="Open video">${icon("source")}<span>Video</span></a>`);
       links.push(`<button type="button" class="icon-button summary-button details-button" data-doc-id="${esc(doc.doc_id)}" aria-label="Read summary details" title="Read summary details">${icon("summary")}<span>Summary</span></button>`);
       return `<div class="actions">${links.join("")}</div>`;
     }
@@ -669,7 +676,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         <p><strong>${esc(location.title || "Document")}</strong></p>
         <p>${esc(summary)}${fullSummary.length > 360 ? "..." : ""}</p>
         <div class="actions">
-          ${location.source_url ? `<a class="button source-button" href="${esc(location.source_url)}" target="_blank" rel="noopener">Source</a>` : ""}
+          ${location.source_url ? `<a class="button source-button" href="${esc(location.source_url)}" target="_blank" rel="noopener" data-track="globe_source" data-doc-id="${esc(location.doc_id)}">Source</a>` : ""}
           <button type="button" class="summary-button" data-globe-doc="${esc(location.doc_id)}">View result</button>
         </div>
       `;
@@ -845,6 +852,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       updateGlobeSelection();
       renderSelectedLocation(globeState.selected);
       if (location) {
+        track("globe_checkpoint", { doc_id: location.doc_id, precision: location.precision || "", method: location.method || "" });
         $("q").value = location.title || locationLabel(location);
         performSearch();
         window.setTimeout(() => {
@@ -891,12 +899,18 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       const tag = event.target.closest("[data-tag]");
       if (tag) {
         $("q").value = tag.dataset.tag;
+        track("tag_filter", { tag: tag.dataset.tag });
         performSearch();
       }
       const button = event.target.closest(".details-button");
       if (button) {
         const card = document.getElementById(`doc-${button.dataset.docId}`);
         if (card) card.classList.toggle("open");
+        track("summary_toggle", { doc_id: button.dataset.docId, open: card?.classList.contains("open") ? "true" : "false" });
+      }
+      const tracked = event.target.closest("[data-track]");
+      if (tracked) {
+        track(tracked.dataset.track, { doc_id: tracked.dataset.docId || "" });
       }
       const related = event.target.closest("[data-related]");
       if (related) {
@@ -905,6 +919,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         $("agencyFilter").value = "";
         $("sourceFilter").value = "";
         $("yearFilter").value = "";
+        track("related_doc", { doc_id: related.dataset.related });
         performSearch();
         const card = document.getElementById(`doc-${related.dataset.related}`);
         if (card) {
@@ -920,6 +935,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         $("agencyFilter").value = "";
         $("sourceFilter").value = "";
         $("yearFilter").value = "";
+        track("globe_view_result", { doc_id: doc.doc_id });
         performSearch();
         window.setTimeout(() => {
           const card = document.getElementById(`doc-${doc.doc_id}`);
@@ -932,18 +948,35 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     });
     $("searchForm").addEventListener("submit", (event) => {
       event.preventDefault();
+      track("search", { query_length: String($("q").value.trim().length) });
       performSearch();
     });
-    $("agencyFilter").addEventListener("change", performSearch);
-    $("sourceFilter").addEventListener("change", performSearch);
-    $("yearFilter").addEventListener("change", performSearch);
-    $("brandReset").addEventListener("click", resetArchiveView);
+    $("agencyFilter").addEventListener("change", () => {
+      track("filter_agency", { value: $("agencyFilter").value || "all" });
+      performSearch();
+    });
+    $("sourceFilter").addEventListener("change", () => {
+      track("filter_source", { value: $("sourceFilter").value || "all" });
+      performSearch();
+    });
+    $("yearFilter").addEventListener("change", () => {
+      track("filter_year", { value: $("yearFilter").value || "all" });
+      performSearch();
+    });
+    $("brandReset").addEventListener("click", () => {
+      track("reset", { control: "title" });
+      resetArchiveView();
+    });
     $("globeToggle").addEventListener("click", async () => {
       const panel = $("globePanel");
       panel.hidden = !panel.hidden;
+      track("globe_toggle", { open: panel.hidden ? "false" : "true" });
       if (!panel.hidden) await initGlobe();
     });
-    $("reset").addEventListener("click", resetArchiveView);
+    $("reset").addEventListener("click", () => {
+      track("reset", { control: "button" });
+      resetArchiveView();
+    });
 
     fetch(`data/documents.json?v=${Date.now()}`, { cache: "no-store" })
       .then((response) => response.json())
@@ -1253,7 +1286,23 @@ def validate_public_payload(payload: Dict) -> List[str]:
     return [item for item in forbidden if item in text]
 
 
-def write_site(db: Path, out: Path) -> Dict:
+def analytics_snippet(domain: str = "", script_url: str = "https://plausible.io/js/script.js") -> str:
+    domain = clean(domain)
+    script_url = clean(script_url)
+    if not domain:
+        return ""
+    if not re.fullmatch(r"[A-Za-z0-9.-]+", domain):
+        raise ValueError("analytics domain must contain only letters, numbers, dots, and hyphens")
+    if not script_url.startswith("https://"):
+        raise ValueError("analytics script URL must be HTTPS")
+    return (
+        f'<script defer data-domain="{domain}" src="{script_url}"></script>\n'
+        "  <script>window.plausible = window.plausible || function(){"
+        '(window.plausible.q = window.plausible.q || []).push(arguments)};</script>'
+    )
+
+
+def write_site(db: Path, out: Path, analytics_domain: str = "", analytics_script_url: str = "https://plausible.io/js/script.js") -> Dict:
     conn = connect(db)
     documents = export_documents(conn)
     payload = {
@@ -1269,10 +1318,12 @@ def write_site(db: Path, out: Path) -> Dict:
     data_dir = out / "data"
     data_dir.mkdir(parents=True, exist_ok=True)
     (data_dir / "documents.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    (out / "index.html").write_text(PUBLIC_SITE_HTML, encoding="utf-8")
+    html = PUBLIC_SITE_HTML.replace("<!-- ANALYTICS_SNIPPET -->", analytics_snippet(analytics_domain, analytics_script_url))
+    (out / "index.html").write_text(html, encoding="utf-8")
     return {
         "out": str(out),
         "documents": len(documents),
+        "analytics": "enabled" if analytics_domain else "disabled",
         "json": str(data_dir / "documents.json"),
         "html": str(out / "index.html"),
     }
@@ -1282,9 +1333,11 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(description="Export a static public summary/search site.")
     parser.add_argument("--db", type=Path, default=Path("indexes/uap_release.sqlite"))
     parser.add_argument("--out", type=Path, default=Path("public_site"))
+    parser.add_argument("--analytics-domain", default=os.environ.get("DISCLOSURE_ANALYTICS_DOMAIN", ""), help="Optional Plausible-compatible analytics domain, e.g. example.com")
+    parser.add_argument("--analytics-script-url", default=os.environ.get("DISCLOSURE_ANALYTICS_SCRIPT_URL", "https://plausible.io/js/script.js"), help="Optional HTTPS Plausible-compatible script URL")
     args = parser.parse_args(argv)
 
-    result = write_site(args.db, args.out)
+    result = write_site(args.db, args.out, analytics_domain=args.analytics_domain, analytics_script_url=args.analytics_script_url)
     print(json.dumps(result, indent=2))
     return 0
 
