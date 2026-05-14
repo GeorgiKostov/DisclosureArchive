@@ -4,8 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Disclosure Archive</title>
-  <script defer data-domain="kostovsolutions.com" src="https://plausible.io/js/script.js"></script>
-  <script>window.plausible = window.plausible || function(){(window.plausible.q = window.plausible.q || []).push(arguments)};</script>
+  
   <style>
     :root {
       color-scheme: dark;
@@ -174,6 +173,8 @@
       min-height: clamp(420px, 54vw, 640px);
       display: block;
       cursor: grab;
+      touch-action: none;
+      overscroll-behavior: contain;
     }
     #globeCanvas:active { cursor: grabbing; }
     .globe-help {
@@ -197,9 +198,23 @@
       background: rgba(2, 10, 6, 0.92);
       box-shadow: 0 18px 42px rgba(0,0,0,0.42), 0 0 26px rgba(66,255,140,0.1);
       padding: 12px;
+      padding-right: 42px;
       z-index: 2;
     }
     .globe-popup[hidden] { display: none; }
+    .globe-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 28px;
+      min-width: 28px;
+      height: 28px;
+      min-height: 28px;
+      padding: 0;
+      border-radius: 50%;
+      font-size: 18px;
+      line-height: 1;
+    }
     .globe-popup h3 {
       margin-top: 0;
       color: var(--accent);
@@ -325,6 +340,8 @@
       .media { width: 100%; height: 170px; border-left: 0; border-top: 1px solid var(--line); position: static; }
       .result.media-rich .shell { grid-template-columns: 1fr; }
       .result.media-rich .media { height: min(360px, 62vw); }
+      .globe-stage, #globeCanvas { min-height: min(520px, 88vw); }
+      .globe-help { max-width: calc(100% - 24px); }
     }
   </style>
 </head>
@@ -597,6 +614,7 @@
       const fullSummary = location.quick_summary || "";
       const summary = fullSummary ? fullSummary.slice(0, 360) : "No summary is available for this checkpoint.";
       popup.innerHTML = `
+        <button type="button" class="globe-close" data-globe-close aria-label="Close location">x</button>
         <h3>${esc(locationLabel(location))}</h3>
         <p class="muted">${esc(location.precision || "location")} - ${esc(location.method || "indexed location")}</p>
         <p><strong>${esc(location.title || "Document")}</strong></p>
@@ -725,6 +743,7 @@
         camera.updateProjectionMatrix();
       }
       canvas.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
         dragging = true;
         moved = false;
         lastX = event.clientX;
@@ -733,11 +752,13 @@
       });
       canvas.addEventListener("pointermove", (event) => {
         if (!dragging) return;
+        event.preventDefault();
         const dx = event.clientX - lastX;
         const dy = event.clientY - lastY;
-        if (Math.abs(dx) + Math.abs(dy) > 2) moved = true;
-        globeGroup.rotation.y += dx * 0.006;
-        globeGroup.rotation.x += dy * 0.004;
+        const speed = event.pointerType === "touch" ? 0.009 : 0.006;
+        if (Math.abs(dx) + Math.abs(dy) > 6) moved = true;
+        globeGroup.rotation.y += dx * speed;
+        globeGroup.rotation.x += dy * speed * 0.7;
         globeGroup.rotation.x = Math.max(-1.15, Math.min(1.15, globeGroup.rotation.x));
         lastX = event.clientX;
         lastY = event.clientY;
@@ -750,6 +771,9 @@
       }, { passive: false });
       canvas.addEventListener("pointerup", (event) => {
         dragging = false;
+        if (canvas.hasPointerCapture(event.pointerId)) {
+          canvas.releasePointerCapture(event.pointerId);
+        }
         if (moved) return;
         const rect = canvas.getBoundingClientRect();
         pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -757,6 +781,9 @@
         raycaster.setFromCamera(pointer, camera);
         const hit = raycaster.intersectObjects(globeState.markers)[0];
         if (hit) selectGlobeLocation(hit.object.userData.locationIndex);
+      });
+      canvas.addEventListener("pointercancel", () => {
+        dragging = false;
       });
       window.addEventListener("resize", resize);
       function animate() {
@@ -779,6 +806,13 @@
       if (location) {
         track("globe_checkpoint", { doc_id: location.doc_id, precision: location.precision || "", method: location.method || "" });
       }
+    }
+
+    function clearGlobeLocation() {
+      globeState.selected = null;
+      globeState.selectedIndex = null;
+      updateGlobeSelection();
+      renderSelectedLocation(null);
     }
 
     function performSearch() {
@@ -861,6 +895,10 @@
             card.classList.add("open");
           }
         }, 80);
+      }
+      const globeClose = event.target.closest("[data-globe-close]");
+      if (globeClose) {
+        clearGlobeLocation();
       }
     });
     $("searchForm").addEventListener("submit", (event) => {
