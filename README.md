@@ -310,7 +310,9 @@ paths, derived OCR caches, and full OCR text. The static page uses a dark
 terminal-style template with a `HIGHLIGHTS` landing view and a separate
 client-side search/globe view. It performs search over titles, metadata, tags,
 summaries, and cited snippets, and links readers back to the government source
-files for verification.
+files for verification. The search view computes the full matching set but
+renders result cards in batches of 20, loading additional cards as the reader
+scrolls.
 
 To publish the generated site to GitHub Pages:
 

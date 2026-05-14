@@ -90,3 +90,4 @@
 - Expanded public highlights from 6 to 18 curated records across discussed documents, NASA images/audio, FBI photos, State Department cables, and modern DOW videos.
 - Tightened the desktop globe height so the opened location globe fits within the viewport, and removed duplicate visible `Refs:` link rows from public result cards while keeping reference data in the JSON payload.
 - Simplified the public site header to show only the title and navigation, removing the subtitle plus document count/timestamp metadata.
+- Changed public search results to keep the full match set but render 20 cards at a time, with scroll-triggered loading and a `Load more` fallback until all matching documents are shown.

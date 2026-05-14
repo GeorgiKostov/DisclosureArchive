@@ -191,7 +191,9 @@ chunk/page/source-kind provenance. The payload also includes a small curated
 is selected from indexed records and links back into the client-side index view.
 The static HTML presents two top-level client-side views: a landing/highlights
 view with a compact search box, and a search workbench with filters, result
-cards, and an on-demand location globe.
+cards, and an on-demand location globe. Search keeps the complete matching
+document set in memory but renders cards in 20-result batches, loading more on
+scroll with a manual fallback button.
 
 The public export is intentionally summary-focused. It does not copy raw PDFs,
 videos, local thumbnails, generated SQLite databases, derived OCR caches, or full

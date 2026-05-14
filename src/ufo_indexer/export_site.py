@@ -511,6 +511,23 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       padding: 18px;
       color: var(--muted);
     }
+    .load-more {
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+      margin: 16px 0 0;
+    }
+    .load-more[hidden] {
+      display: none;
+    }
+    .load-more button {
+      min-width: 160px;
+      color: var(--accent-2);
+    }
+    .result-sentinel {
+      width: 100%;
+      height: 1px;
+    }
     mark { background: var(--mark); padding: 0 2px; }
     a { color: var(--accent-2); }
     a:hover { color: var(--accent); }
@@ -612,6 +629,10 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         </div>
       </section>
       <section id="results"></section>
+      <div class="load-more" id="loadMoreWrap" hidden>
+        <button type="button" id="loadMore">Load more</button>
+        <div class="result-sentinel" id="resultSentinel" aria-hidden="true"></div>
+      </div>
     </section>
   </main>
   <script>
@@ -631,6 +652,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     let archive = null;
     let docs = [];
     let currentView = "home";
+    const SEARCH_BATCH_SIZE = 20;
+    const resultState = { matches: [], visible: 0 };
+    let resultObserver = null;
     const globeState = { ready: false, initializing: false, locations: [], markers: [], selected: null, selectedIndex: null };
 
     function searchable(doc) {
@@ -1239,6 +1263,40 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       track("globe_toggle", { open: open ? "true" : "false" });
     }
 
+    function renderSearchResults() {
+      const total = resultState.matches.length;
+      const visible = Math.min(resultState.visible, total);
+      const shownDocs = resultState.matches.slice(0, visible);
+      $("status").textContent = total
+        ? `${visible} of ${total} result${total === 1 ? "" : "s"} shown from ${docs.length} documents.`
+        : `No matching documents from ${docs.length} documents.`;
+      $("results").innerHTML = shownDocs.length ? shownDocs.map(renderDoc).join("") : `<div class="empty">No matching documents.</div>`;
+      const hasMore = visible < total;
+      const wrap = $("loadMoreWrap");
+      const button = $("loadMore");
+      if (wrap) wrap.hidden = !hasMore;
+      if (button) button.textContent = hasMore ? `Load more (${total - visible} remaining)` : "Load more";
+    }
+
+    function loadMoreResults() {
+      if (currentView !== "search") return;
+      if (resultState.visible >= resultState.matches.length) return;
+      resultState.visible = Math.min(resultState.visible + SEARCH_BATCH_SIZE, resultState.matches.length);
+      renderSearchResults();
+      track("load_more_results", { visible: String(resultState.visible), total: String(resultState.matches.length) });
+    }
+
+    function setupResultObserver() {
+      const sentinel = $("resultSentinel");
+      if (!sentinel || resultObserver || !("IntersectionObserver" in window)) return;
+      resultObserver = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          loadMoreResults();
+        }
+      }, { rootMargin: "360px 0px" });
+      resultObserver.observe(sentinel);
+    }
+
     function performSearch() {
       const q = $("q").value.trim().toLowerCase();
       const agency = $("agencyFilter").value;
@@ -1251,11 +1309,14 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         .filter((doc) => !year || String(docYear(doc)) === year)
         .map((doc) => [scoreDoc(doc, terms), doc])
         .filter(([score]) => score > 0)
-        .sort((a, b) => b[0] - a[0] || a[1].title.localeCompare(b[1].title))
-        .slice(0, 50)
+        .sort((a, b) => {
+          if (terms.length) return b[0] - a[0] || a[1].title.localeCompare(b[1].title);
+          return (a[1].row_number || 0) - (b[1].row_number || 0) || a[1].title.localeCompare(b[1].title);
+        })
         .map(([, doc]) => doc);
-      $("status").textContent = `${scored.length} result${scored.length === 1 ? "" : "s"} shown from ${docs.length} documents.`;
-      $("results").innerHTML = scored.length ? scored.map(renderDoc).join("") : `<div class="empty">No matching documents.</div>`;
+      resultState.matches = scored;
+      resultState.visible = Math.min(SEARCH_BATCH_SIZE, scored.length);
+      renderSearchResults();
     }
 
     function resetArchiveView() {
@@ -1384,6 +1445,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       resetArchiveView();
     });
     $("globeToggle").addEventListener("click", toggleGlobe);
+    $("loadMore").addEventListener("click", loadMoreResults);
     window.addEventListener("popstate", applyRoute);
     window.addEventListener("hashchange", applyRoute);
 
@@ -1396,6 +1458,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         yearOptions();
         globeState.locations = allLocations();
         renderBestOf(payload.featured_documents || []);
+        setupResultObserver();
         applyRoute();
       })
       .catch((error) => {
