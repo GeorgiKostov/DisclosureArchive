@@ -119,3 +119,4 @@
 - Restored public Map distance labels with `km`, changed overlay connectors from curved arcs to straight line segments, and made distance-label scale respond to globe zoom.
 - Removed public Map distance labels/lines again, replaced military/nuclear overlay circles with distinct icon sprites, and changed the year filter into decade buckets.
 - Renamed the top navigation `Search` tab to `Records`, renamed the Map overlay legend trigger to `Points of interest`, and fixed mobile zoom buttons so `+` / `-` stay circular.
+- Made public preview images clickable to the government/source document page, including highlight cards and result-card image previews.

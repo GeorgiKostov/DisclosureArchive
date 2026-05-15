@@ -145,6 +145,7 @@ Broad OCR update:
 - Public Map distance-label update: distance labels are back as compact `km` sprites, overlay connectors are straight line segments instead of globe arcs, and label size scales with camera zoom to reduce clutter near dots.
 - Public Map/filter simplification: distance labels and connector lines were removed again; military/nuclear overlays now use distinct icon sprites instead of circles, and the public search date filter groups by decade buckets instead of single years.
 - Public navigation polish: the top `Search` tab is now labeled `Records`, the Map overlay panel trigger is `Points of interest`, and zoom control buttons have fixed circular sizing on mobile.
+- Public preview-link update: image previews in highlighted records and result cards now open the government/source document URL when available, instead of leaving highlight images unclickable or preferring the preview asset first.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.
