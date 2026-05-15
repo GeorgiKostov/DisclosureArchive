@@ -466,7 +466,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       flex: 0 0 auto;
     }
     .legend-key.military { background: #ff6b6b; }
-    .legend-key.nuclear { background: #ffd166; }
+    .legend-key.nuclear { background: #b388ff; }
     .map-selection {
       margin-top: 12px;
     }
@@ -1227,7 +1227,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       const coordinateMaterial = new THREE.MeshBasicMaterial({ color: 0xffd166 });
       const selectedMaterial = new THREE.MeshBasicMaterial({ color: 0x72d7ff });
       const militaryMaterial = new THREE.MeshBasicMaterial({ color: 0xff6b6b });
-      const nuclearMaterial = new THREE.MeshBasicMaterial({ color: 0xffd166 });
+      const nuclearMaterial = new THREE.MeshBasicMaterial({ color: 0xb388ff });
       globeState.locations.forEach((location, index) => {
         const p = latLonVector(location.latitude, location.longitude, 1.045);
         const marker = new THREE.Mesh(markerGeometry, location.precision === "coordinate" ? coordinateMaterial : placeMaterial);

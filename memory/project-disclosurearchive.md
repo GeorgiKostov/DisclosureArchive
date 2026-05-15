@@ -134,6 +134,7 @@ Broad OCR update:
 - Live analytics configuration: Disclosure Archive uses Google Analytics Measurement ID `G-NNXB9F00V6`. `Makefile` and `scripts/publish_github_pages.ps1` default to that ID so future generated Pages publishes keep GA enabled unless explicitly overridden.
 - Public launch polish update: the Map overlay legend is collapsible, the military/nuclear overlay catalog now includes selected public sites across the Middle East, Japan, Korea, Guam, Europe, Pakistan/India, and other plotted regions, and overlay markers are filtered to facilities within 500 km of archive map points. The static export also writes `favicon.svg`, `site.webmanifest`, `humans.txt`, and `llms.txt`.
 - Public SEO update: the footer no longer links to source code; `src/ufo_indexer/export_site.py` now emits a richer SEO title/description/social metadata and JSON-LD `ItemList` entries for highlighted records.
+- Public Map palette update: nuclear-site overlay markers now use a distinct purple instead of the archive-coordinate yellow, preserving separate visual categories for report locations, military sites, and nuclear reference sites.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.
