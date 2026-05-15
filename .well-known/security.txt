@@ -1,6 +1,6 @@
 Contact: https://disclosurearchive.org/contact.html
 Contact: https://github.com/GeorgiKostov/DisclosureArchive/issues
-Expires: 2027-05-15T07:58:34Z
+Expires: 2027-05-15T08:00:05Z
 Preferred-Languages: en
 Canonical: https://disclosurearchive.org/.well-known/security.txt
 Policy: https://github.com/GeorgiKostov/DisclosureArchive/security/policy
