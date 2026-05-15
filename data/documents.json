@@ -1,17 +1,19 @@
 {
   "schema": "disclosurearchive.public_site.v1",
-  "generated_at": "2026-05-15T20:25:14+00:00",
+  "generated_at": "2026-05-15T20:31:02+00:00",
   "document_count": 162,
   "featured_documents": [
     {
       "doc_id": "828f5e58bf988202",
-      "title": "Western US Event",
-      "kicker": "Headline modern case",
-      "summary": "The most accessible modern entry point in the release: seven federal employees describe multiple categories of phenomena over two days in the western United States. It is useful because the accounts can be compared side by side, from distant orb activity to a close stationary light and a translucent kite-like object. The public index catalogs it with agency provenance: Department of War, incident date: 2023, location: Western United States, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include War Department, 2023, Western United States. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
+      "title": "Orbs Launching Orbs",
+      "record_title": "Western US Event",
+      "kicker": "Multi-team orb report",
+      "summary": "The first page of the Western US Event slides summarizes a dusk report from two separate days in the western United States. Three two-person teams of federal law-enforcement special agents, labeled USPER1 through USPER6 in the source, independently described orange orbs appearing briefly and emitting smaller red orbs in groups of roughly two to four. The source says this happened at least five times and notes that the follow-on red orbs sometimes moved horizontally, angled upward, or swooped downward. This is the clearest highlight entry for the multi-witness orb-launching account while still keeping the full Western US Event context one click away. The public index catalogs it with agency provenance: Department of War, incident date: 2023, location: Western United States, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include War Department, 2023, Western United States. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
         "Agency: Department of War",
         "Incident year: 2023",
-        "Why it stands out: multiple witnesses in one indexed case"
+        "Source: Western US Event slides, page 1",
+        "Why it stands out: multiple teams reported the same pattern from different vantage points"
       ],
       "agency": "Department of War",
       "release_date": "5/8/26",
@@ -49,6 +51,7 @@
     {
       "doc_id": "c64504c14ca3e82a",
       "title": "USPER Statement about UAP Sighting",
+      "record_title": "USPER Statement about UAP Sighting",
       "kicker": "Senior official narrative",
       "summary": "A heavily redacted witness statement attributed in the archive metadata to a US person, describing a multi-hour western US encounter and response activity. It became one of the most discussed documents because it reads like a narrative report while still preserving the uncertainty and redactions of the source record. The public index catalogs it with agency provenance: Department of State, incident date: Late 2025, location: United States, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include State Department, 2025, United States. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -92,6 +95,7 @@
     {
       "doc_id": "f997a6d52c925f99",
       "title": "FBI September 2023 Sighting - Composite Sketch",
+      "record_title": "FBI September 2023 Sighting - Composite Sketch",
       "kicker": "FBI visual reconstruction",
       "summary": "A site photo with an FBI Lab graphic overlay tied to September 2023 eyewitness material. The public metadata describes an apparent bronze ellipsoid emerging from a bright light, with estimated size and abrupt disappearance recorded as part of the case file. The public index catalogs it with agency provenance: FBI, incident date: 9/1/23, location: United States, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include FBI, United States, Lights. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -132,6 +136,7 @@
     {
       "doc_id": "09aa7e82894d1bb2",
       "title": "FBI Photo A1",
+      "record_title": "FBI Photo A1",
       "kicker": "Late-2025 image set",
       "summary": "One of the release's western US evidence images, presented as an infrared still with accompanying source media. It belongs near the top because many readers look first for photos and videos, and this image cluster is part of the same modern visual trail that drew outside attention. The public index catalogs it with agency provenance: FBI, incident date: Late 2025, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include FBI, 2025, Photos. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -162,6 +167,7 @@
     {
       "doc_id": "fe0885d640c71038",
       "title": "NASA-UAP-VM6, Apollo 17, 1972",
+      "record_title": "NASA-UAP-VM6, Apollo 17, 1972",
       "kicker": "Apollo lunar image",
       "summary": "A released Apollo 17 lunar image record showing a highlighted area above the Moon's surface. It is one of the strongest landing-page visuals in the archive because it connects the public image set to the Apollo transcript and debriefing cluster. The public index catalogs it with agency provenance: NASA, incident date: 1972, location: Moon, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include NASA, 1972, Moon. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -192,6 +198,7 @@
     {
       "doc_id": "113a3def791a4a24",
       "title": "NASA-UAP-D2, Apollo 17 Transcript, 1972",
+      "record_title": "NASA-UAP-D2, Apollo 17 Transcript, 1972",
       "kicker": "Lunar transcript",
       "summary": "An Apollo 17 air-to-ground transcript excerpt centered on a lunar-surface observation near Grimaldi. The record anchors the lunar imagery cluster to mission context, speakers, and page-level transcript provenance rather than leaving the image as a free-floating curiosity. The public index catalogs it with agency provenance: NASA, incident date: 1972, location: Moon, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include NASA, 1972, Moon. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -222,6 +229,7 @@
     {
       "doc_id": "9d2c172f93f32cf0",
       "title": "255-t-763-r1b-excerpt",
+      "record_title": "255-t-763-r1b-excerpt",
       "kicker": "Gemini VII audio",
       "summary": "A NASA audio excerpt from Gemini VII in which Frank Borman reports an unidentified object during air-to-ground communications. The pairing of audio metadata and transcript material makes it one of the archive's most approachable spaceflight entries. The public index catalogs it with agency provenance: NASA, incident date: 12/5/65, location: Low Earth Orbit, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include NASA, Low Earth Orbit, Videos. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -252,6 +260,7 @@
     {
       "doc_id": "8454b0f14b26dff0",
       "title": "State Department UAP Cable 1, Papua New Guinea, January 28, 1985",
+      "record_title": "State Department UAP Cable 1, Papua New Guinea, January 28, 1985",
       "kicker": "Diplomatic cable",
       "summary": "A State Department cable from Port Moresby relaying a 1985 Papua New Guinea report through diplomatic channels. It is useful because the UFO account appears inside ordinary embassy traffic rather than a dedicated UFO case file. The public index catalogs it with agency provenance: Department of State, incident date: 1/24/85, location: Papua New Guinea, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include State Department, Papua New Guinea, Aircraft. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -295,6 +304,7 @@
     {
       "doc_id": "d51ce915b929b3e3",
       "title": "State Department UAP Cable 2, Kazakhstan, January 31, 1994",
+      "record_title": "State Department UAP Cable 2, Kazakhstan, January 31, 1994",
       "kicker": "Post-Soviet cable",
       "summary": "A Kazakhstan cable that broadens the archive beyond US military sensor cases and legacy FBI files. It gives researchers a diplomatic-document comparison point for how unusual reports were forwarded, summarized, and preserved outside the headline American cases. The public index catalogs it with agency provenance: Department of State, incident date: 1/27/94, location: Kazakhstan, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include State Department, Kazakhstan, Lights. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -336,6 +346,7 @@
     {
       "doc_id": "22e263c290593be7",
       "title": "331_120752_Numeric_Files_1944–1945_37153_German_Armament_Equipment_Documents",
+      "record_title": "331_120752_Numeric_Files_1944–1945_37153_German_Armament_Equipment_Documents",
       "kicker": "Wartime foo-fighter file",
       "summary": "A SHAEF-era file collecting messages and memorandums about night phenomena, flak rockets, cylindrical objects, and blinking lights. It gives the archive historical depth: UAP-like reports appear here in the vocabulary and operational worries of 1944-1945 air war records. The public index catalogs it with agency provenance: Department of War, incident date: 3/18/45, location: Germany, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include War Department, Germany, Air Force. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -379,6 +390,7 @@
     {
       "doc_id": "951a7dd58c27a8eb",
       "title": "65_HS1-834228961_62-HQ-83894_Section_5",
+      "record_title": "65_HS1-834228961_62-HQ-83894_Section_5",
       "kicker": "FBI master file",
       "summary": "Part of the large FBI 62-HQ-83894 flying-disc file. This section represents the dense historical core of the release: memos, reports, and correspondence where the value is not one dramatic clip but the accumulated paper trail across the early UFO era. The public index catalogs it with agency provenance: FBI, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include FBI, Air Force, Flying discs. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -409,6 +421,7 @@
     {
       "doc_id": "c09b175af65a1b09",
       "title": "DOW-UAP-PR46, Unresolved UAP Report, INDOPACOM, 2024",
+      "record_title": "DOW-UAP-PR46, Unresolved UAP Report, INDOPACOM, 2024",
       "kicker": "INDOPACOM video",
       "summary": "A 2024 Indo-Pacific Command video record that drew attention because the object is described in outside coverage as football-shaped with radial projections. It gives the highlights section a clear modern sensor-video entry from the Pacific theater. The public index catalogs it with agency provenance: Department of War, location: East China Sea, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include War Department, East China Sea, Videos. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -452,6 +465,7 @@
     {
       "doc_id": "7b5c5677ed996927",
       "title": "DOW-UAP-PR47, Unresolved UAP Report, INDOPACOM, 2023",
+      "record_title": "DOW-UAP-PR47, Unresolved UAP Report, INDOPACOM, 2023",
       "kicker": "Japan sensor case",
       "summary": "A 2023 INDOPACOM unresolved report connected to Japan-area sensor footage. It pairs well with PR46 because the two entries let visitors compare nearby command-region videos without starting in the full document table. The public index catalogs it with agency provenance: Department of War, location: Japan, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include War Department, Japan, Videos. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -495,6 +509,7 @@
     {
       "doc_id": "67fe065def734dac",
       "title": "DOW-UAP-PR48, Unresolved UAP Report, INDOPACOM, 2024",
+      "record_title": "DOW-UAP-PR48, Unresolved UAP Report, INDOPACOM, 2024",
       "kicker": "Wind-farm video",
       "summary": "A longer 2024 INDOPACOM video entry that outside coverage highlighted for its small bright target moving through a field of wind turbines. It is a good landing-page clip because the setting is visually distinctive and easy to recognize. The public index catalogs it with agency provenance: Department of War, location: Indo-PACOM, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include War Department, Indo-PACOM, Videos. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -525,6 +540,7 @@
     {
       "doc_id": "dca830cbc1741bfe",
       "title": "DOW-UAP-PR34, Unresolved UAP Report, Greece, October 2023",
+      "record_title": "DOW-UAP-PR34, Unresolved UAP Report, Greece, October 2023",
       "kicker": "Aegean maneuver video",
       "summary": "A Greece/Aegean video report discussed for sharp-looking directional changes over water. It belongs in highlights because it is one of the more memorable non-US locations in the modern sensor-video set. The public index catalogs it with agency provenance: Department of War, location: Greece, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include War Department, Greece, Videos. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -568,6 +584,7 @@
     {
       "doc_id": "c8f447474d2a30ed",
       "title": "DOW-UAP-PR28, Unresolved UAP Report, Greece, January 2024",
+      "record_title": "DOW-UAP-PR28, Unresolved UAP Report, Greece, January 2024",
       "kicker": "Glowing IR signature",
       "summary": "A Greece-related unresolved report with an infrared frame described in release readers as a diffuse glowing halo around a central point. It adds a different visual flavor from the aircraft and maritime clips: less object-outline, more sensor signature. The public index catalogs it with agency provenance: Department of War, location: Greece, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include War Department, Greece, Videos. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -611,6 +628,7 @@
     {
       "doc_id": "98b41773e2f3999c",
       "title": "DOW-UAP-PR43, Unresolved UAP Report, Africa, 2025",
+      "record_title": "DOW-UAP-PR43, Unresolved UAP Report, Africa, 2025",
       "kicker": "Africa airspace video",
       "summary": "A 2025 Africa unresolved report, useful because it widens the video set beyond the Middle East, Europe, and INDOPACOM clusters. The official release preview describes a military operator's reported UAP within African airspace. The public index catalogs it with agency provenance: Department of War, location: Djibouti, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include War Department, Djibouti, Videos. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
@@ -654,6 +672,7 @@
     {
       "doc_id": "c8d41b4ba9c28862",
       "title": "DOW-UAP-PR49, Unresolved UAP Report, Department of the Army, 2026",
+      "record_title": "DOW-UAP-PR49, Unresolved UAP Report, Department of the Army, 2026",
       "kicker": "2026 Army report",
       "summary": "A North America / Department of the Army video entry from 2026, making it one of the newest records in Release 01. It closes the highlights list by showing that the archive is not just historical material: it also includes very recent unresolved reporting. The public index catalogs it with agency provenance: Department of War, location: North America, giving the highlight enough context to compare it against the linked source record. Useful comparison tags include War Department, North America, Videos. This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.",
       "facts": [
