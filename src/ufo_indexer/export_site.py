@@ -1349,6 +1349,10 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
           camera.position.z = targetZoom;
         }
       };
+      const zoomRotationScale = () => {
+        const t = (camera.position.z - 1.22) / (7.8 - 1.22);
+        return Math.max(0.32, Math.min(1.18, 0.32 + t * 0.86));
+      };
       const applyMarkerZoomScale = () => {
         const zoomRatio = Math.pow(camera.position.z / 3.8, 1.45);
         const archiveScale = Math.max(0.26, Math.min(1.45, zoomRatio));
@@ -1405,7 +1409,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         event.preventDefault();
         const dx = event.clientX - lastX;
         const dy = event.clientY - lastY;
-        const speed = 0.006;
+        const speed = 0.006 * zoomRotationScale();
         if (Math.abs(dx) + Math.abs(dy) > 6) moved = true;
         globeGroup.rotation.y += dx * speed;
         globeGroup.rotation.x += dy * speed * 0.7;
@@ -1476,9 +1480,10 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         if (!touch || touchMode !== "rotate") return;
         const dx = touch.clientX - lastX;
         const dy = touch.clientY - lastY;
+        const speed = zoomRotationScale();
         if (Math.abs(touch.clientX - touchStartX) + Math.abs(touch.clientY - touchStartY) > 6) moved = true;
-        globeGroup.rotation.y += dx * 0.009;
-        globeGroup.rotation.x += dy * 0.0063;
+        globeGroup.rotation.y += dx * 0.009 * speed;
+        globeGroup.rotation.x += dy * 0.0063 * speed;
         globeGroup.rotation.x = Math.max(-1.15, Math.min(1.15, globeGroup.rotation.x));
         lastX = touch.clientX;
         lastY = touch.clientY;
