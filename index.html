@@ -745,6 +745,9 @@
       if (typeof window.plausible === "function") {
         window.plausible(name, { props });
       }
+      if (typeof window.gtag === "function") {
+        window.gtag("event", name, props);
+      }
     };
     let archive = null;
     let docs = [];
