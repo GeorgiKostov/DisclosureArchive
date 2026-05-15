@@ -98,9 +98,11 @@
       gap: 18px;
     }
     .top-actions {
-      display: grid;
-      gap: 8px;
-      justify-items: end;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
     }
     .nav {
       display: flex;
@@ -699,9 +701,9 @@
       body { font-size: 13px; }
       .wrap { width: min(1160px, calc(100% - 20px)); }
       .top { align-items: flex-start; flex-direction: column; padding: 16px 0; }
-      .top-actions { justify-items: start; width: 100%; }
+      .top-actions { justify-content: flex-start; width: 100%; }
       .nav { justify-content: flex-start; width: 100%; }
-      .support-link { justify-self: start; }
+      .support-link { order: -1; }
       .brand-title { font-size: 20px; text-align: left; }
       .search { grid-template-columns: 1fr; }
       input[type="search"], button, .button, select { min-height: 44px; }
@@ -739,14 +741,14 @@
         <h1><button type="button" class="brand-title" id="brandReset" title="Reset archive search">Disclosure Archive</button></h1>
       </div>
       <div class="top-actions">
+        <a class="support-link" href="https://ko-fi.com/P5P51ZLPBN" target="_blank" rel="noopener">
+          <img height="36" src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Buy Me a Coffee at ko-fi.com">
+        </a>
         <nav class="nav" aria-label="Primary">
           <button type="button" class="nav-link active" data-view-target="home">Highlights</button>
           <button type="button" class="nav-link" data-view-target="search">Records</button>
           <button type="button" class="nav-link" data-view-target="map">Map</button>
         </nav>
-        <a class="support-link" href="https://ko-fi.com/P5P51ZLPBN" target="_blank" rel="noopener">
-          <img height="36" src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Buy Me a Coffee at ko-fi.com">
-        </a>
       </div>
     </div>
   </header>
