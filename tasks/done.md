@@ -115,3 +115,4 @@
 - Added a stable public HTML map-palette meta marker to make the active archive/nuclear/military color scheme easier to verify after Pages/CDN updates.
 - Removed the public Map globe distance-number labels while keeping the connector lines between military/nuclear overlays and nearest archive locations.
 - Made public Map globe drag speed zoom-aware so close-zoom navigation is slower and fully zoomed-out navigation remains faster.
+- Renamed highlight `Open in index` actions to `View record`, added `Open map` highlight actions for records with locations, included highlight locations in the static payload, and added `Map` actions to indexed result cards with plotted locations.
