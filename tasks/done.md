@@ -109,3 +109,4 @@
 - Added launch polish files to the static export: `favicon.svg`, `site.webmanifest`, `humans.txt`, and `llms.txt`.
 - Removed the public footer source-code link and improved SEO metadata with a clearer title/description, additional social metadata, and structured data for highlighted archive records.
 - Changed the public Map nuclear-site overlay color from archive-coordinate yellow to distinct purple so reported archive locations and nuclear reference sites are visually separate.
+- Improved the public Map globe zoom with smoother wheel/pinch behavior and explicit zoom buttons; reduced marker sizes to limit visual merging; added nearest-archive distance arcs and km labels for visible military/nuclear overlays.

@@ -397,6 +397,30 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       overscroll-behavior: contain;
     }
     #globeCanvas:active { cursor: grabbing; }
+    .map-zoom-controls {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      display: grid;
+      gap: 6px;
+      z-index: 2;
+    }
+    .map-zoom-controls button {
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(66,255,140,0.38);
+      background: rgba(2, 10, 6, 0.88);
+      color: var(--accent-2);
+      font-size: 20px;
+      line-height: 1;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.32);
+    }
+    .map-zoom-controls button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
     .map-section .globe-panel {
       display: grid;
       margin-top: 0;
@@ -728,10 +752,14 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       <section id="globePanel" class="globe-panel open" aria-hidden="false">
         <div class="globe-stage">
           <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
+          <div class="map-zoom-controls" aria-label="Map zoom controls">
+            <button type="button" id="mapZoomIn" aria-label="Zoom in" title="Zoom in">+</button>
+            <button type="button" id="mapZoomOut" aria-label="Zoom out" title="Zoom out">-</button>
+          </div>
           <div class="map-legend collapsed" id="mapLegend" aria-label="Map overlays">
             <button type="button" class="legend-button" id="legendToggle" aria-expanded="false">Layers</button>
             <div class="legend-body" id="legendBody">
-              <p>Public reference points within 500 km of plotted archive locations.</p>
+              <p>Public reference points within 500 km of plotted archive locations. Lines show nearest archive distance.</p>
               <label class="legend-toggle">
                 <input type="checkbox" data-overlay-toggle="military">
                 <span class="legend-key military" aria-hidden="true"></span>
@@ -779,6 +807,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     const overlayState = {
       visible: { military: false, nuclear: false },
       markers: [],
+      connectors: [],
       facilities: [
         { kind: "military", name: "Edwards Air Force Base", type: "flight test base", latitude: 34.9054, longitude: -117.8837 },
         { kind: "military", name: "Nellis Air Force Base", type: "training and test range", latitude: 36.2362, longitude: -115.0342 },
@@ -1132,6 +1161,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       overlayState.markers.forEach((marker) => {
         marker.visible = Boolean(overlayState.visible[marker.userData.facility.kind]);
       });
+      overlayState.connectors.forEach((connector) => {
+        connector.visible = Boolean(overlayState.visible[connector.userData.facility.kind]);
+      });
     }
 
     function latLonVector(lat, lon, radius) {
@@ -1142,6 +1174,81 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         y: radius * Math.cos(phi),
         z: radius * Math.sin(phi) * Math.sin(theta),
       };
+    }
+
+    function latLonThreeVector(THREE, lat, lon, radius) {
+      const p = latLonVector(lat, lon, radius);
+      return new THREE.Vector3(p.x, p.y, p.z);
+    }
+
+    function greatCirclePoints(THREE, startLocation, endLocation, radius = 1.082) {
+      const start = latLonThreeVector(THREE, startLocation.latitude, startLocation.longitude, 1).normalize();
+      const end = latLonThreeVector(THREE, endLocation.latitude, endLocation.longitude, 1).normalize();
+      const points = [];
+      const segments = 28;
+      const dot = Math.max(-1, Math.min(1, start.dot(end)));
+      const theta = Math.acos(dot);
+      const sinTheta = Math.sin(theta);
+      for (let index = 0; index <= segments; index += 1) {
+        const t = index / segments;
+        const lift = Math.sin(Math.PI * t) * 0.032;
+        let point;
+        if (sinTheta < 0.0001) {
+          point = new THREE.Vector3().lerpVectors(start, end, t).normalize();
+        } else {
+          const a = Math.sin((1 - t) * theta) / sinTheta;
+          const b = Math.sin(t * theta) / sinTheta;
+          point = new THREE.Vector3(
+            start.x * a + end.x * b,
+            start.y * a + end.y * b,
+            start.z * a + end.z * b
+          ).normalize();
+        }
+        points.push(point.multiplyScalar(radius + lift));
+      }
+      return points;
+    }
+
+    function roundedRect(ctx, x, y, width, height, radius) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+    }
+
+    function distanceLabelSprite(THREE, label, color) {
+      const canvas = document.createElement("canvas");
+      canvas.width = 256;
+      canvas.height = 96;
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      roundedRect(ctx, 18, 20, 220, 56, 18);
+      ctx.fillStyle = "rgba(1, 10, 7, 0.86)";
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = color;
+      ctx.stroke();
+      ctx.fillStyle = "#f5fff8";
+      ctx.font = "700 28px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(label, 128, 49);
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.needsUpdate = true;
+      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: texture,
+        transparent: true,
+        depthWrite: false,
+      }));
+      sprite.scale.set(0.125, 0.047, 1);
+      return sprite;
     }
 
     async function addCountryBorders(THREE, globeGroup) {
@@ -1221,13 +1328,15 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         globeGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), gridMaterial));
       }
       await addCountryBorders(THREE, globeGroup);
-      const markerGeometry = new THREE.SphereGeometry(0.025, 16, 16);
-      const overlayGeometry = new THREE.SphereGeometry(0.018, 14, 14);
+      const markerGeometry = new THREE.SphereGeometry(0.019, 16, 16);
+      const overlayGeometry = new THREE.SphereGeometry(0.013, 14, 14);
       const placeMaterial = new THREE.MeshBasicMaterial({ color: 0x42ff8c });
       const coordinateMaterial = new THREE.MeshBasicMaterial({ color: 0xffd166 });
       const selectedMaterial = new THREE.MeshBasicMaterial({ color: 0x72d7ff });
       const militaryMaterial = new THREE.MeshBasicMaterial({ color: 0xff6b6b });
       const nuclearMaterial = new THREE.MeshBasicMaterial({ color: 0xb388ff });
+      const militaryConnectorMaterial = new THREE.LineBasicMaterial({ color: 0xff6b6b, transparent: true, opacity: 0.42 });
+      const nuclearConnectorMaterial = new THREE.LineBasicMaterial({ color: 0xb388ff, transparent: true, opacity: 0.48 });
       globeState.locations.forEach((location, index) => {
         const p = latLonVector(location.latitude, location.longitude, 1.045);
         const marker = new THREE.Mesh(markerGeometry, location.precision === "coordinate" ? coordinateMaterial : placeMaterial);
@@ -1239,6 +1348,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         globeState.markers.push(marker);
       });
       overlayState.markers = [];
+      overlayState.connectors = [];
       nearbyOverlayFacilities(500).forEach((facility) => {
         const p = latLonVector(facility.latitude, facility.longitude, 1.066);
         const marker = new THREE.Mesh(overlayGeometry, facility.kind === "military" ? militaryMaterial : nuclearMaterial);
@@ -1247,6 +1357,25 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         marker.visible = Boolean(overlayState.visible[facility.kind]);
         globeGroup.add(marker);
         overlayState.markers.push(marker);
+        if (facility.nearestArchiveLocation) {
+          const points = greatCirclePoints(THREE, facility, facility.nearestArchiveLocation);
+          const connector = new THREE.Group();
+          connector.userData.facility = facility;
+          connector.visible = Boolean(overlayState.visible[facility.kind]);
+          connector.add(new THREE.Line(
+            new THREE.BufferGeometry().setFromPoints(points),
+            facility.kind === "military" ? militaryConnectorMaterial : nuclearConnectorMaterial
+          ));
+          const label = distanceLabelSprite(
+            THREE,
+            `${facility.nearestDistanceKm}`,
+            facility.kind === "military" ? "#ff6b6b" : "#b388ff"
+          );
+          label.position.copy(points[Math.floor(points.length / 2)]).multiplyScalar(1.012);
+          connector.add(label);
+          globeGroup.add(connector);
+          overlayState.connectors.push(connector);
+        }
       });
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
@@ -1259,7 +1388,14 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       let touchStartY = 0;
       let pinchStartDistance = 0;
       let pinchStartZ = camera.position.z;
-      const clampZoom = (z) => Math.max(2.25, Math.min(6.2, z));
+      let targetZoom = camera.position.z;
+      const clampZoom = (z) => Math.max(1.7, Math.min(7.4, z));
+      const setZoom = (z, immediate = false) => {
+        targetZoom = clampZoom(z);
+        if (immediate) {
+          camera.position.z = targetZoom;
+        }
+      };
       const touchDistance = (touches) => {
         if (!touches || touches.length < 2) return 0;
         const dx = touches[0].clientX - touches[1].clientX;
@@ -1315,10 +1451,17 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       });
       canvas.addEventListener("wheel", (event) => {
         event.preventDefault();
-        const delta = Math.sign(event.deltaY) * 0.26;
-        camera.position.z = clampZoom(camera.position.z + delta);
-        camera.updateProjectionMatrix();
+        const delta = Math.max(-0.42, Math.min(0.42, event.deltaY * 0.0024));
+        setZoom(targetZoom + delta);
       }, { passive: false });
+      $("mapZoomIn").addEventListener("click", () => {
+        setZoom(targetZoom - 0.48);
+        track("map_zoom", { control: "in" });
+      });
+      $("mapZoomOut").addEventListener("click", () => {
+        setZoom(targetZoom + 0.48);
+        track("map_zoom", { control: "out" });
+      });
       canvas.addEventListener("pointerup", (event) => {
         if (event.pointerType === "touch") return;
         dragging = false;
@@ -1360,8 +1503,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
           }
           const distance = touchDistance(event.touches);
           if (pinchStartDistance > 0 && distance > 0) {
-            camera.position.z = clampZoom(pinchStartZ * (pinchStartDistance / distance));
-            camera.updateProjectionMatrix();
+            setZoom(pinchStartZ * (pinchStartDistance / distance), true);
           }
           moved = true;
           return;
@@ -1410,6 +1552,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       function animate() {
         requestAnimationFrame(animate);
         resize();
+        camera.position.z += (targetZoom - camera.position.z) * 0.18;
         renderer.render(scene, camera);
       }
       resize();
