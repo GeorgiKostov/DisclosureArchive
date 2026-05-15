@@ -349,6 +349,9 @@
       padding-top: 18px;
       border-top: 1px solid var(--line);
     }
+    .map-section {
+      margin-top: 18px;
+    }
     .section-head {
       margin-bottom: 12px;
     }
@@ -372,12 +375,6 @@
     .globe-panel.open {
       display: grid;
     }
-    .globe-toggle {
-      min-height: 36px;
-      padding: 0 10px;
-      font-size: 12px;
-      color: var(--accent-2);
-    }
     .globe-stage {
       position: relative;
       height: clamp(320px, 46vh, 520px);
@@ -397,40 +394,72 @@
       overscroll-behavior: contain;
     }
     #globeCanvas:active { cursor: grabbing; }
-    .globe-popup {
+    .map-section .globe-panel {
+      display: grid;
+      margin-top: 0;
+    }
+    .map-section .globe-stage {
+      height: clamp(430px, 64vh, 720px);
+    }
+    .map-legend {
       position: absolute;
       right: 14px;
-      top: 14px;
-      width: min(340px, calc(100% - 28px));
+      bottom: 14px;
+      width: min(260px, calc(100% - 28px));
       border: 1px solid rgba(66,255,140,0.42);
       border-radius: 8px;
       background: rgba(2, 10, 6, 0.92);
       box-shadow: 0 18px 42px rgba(0,0,0,0.42), 0 0 26px rgba(66,255,140,0.1);
-      padding: 12px;
-      padding-right: 42px;
+      padding: 10px;
       z-index: 2;
     }
-    .globe-popup[hidden] { display: none; }
-    .globe-close {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 28px;
-      min-width: 28px;
-      height: 28px;
-      min-height: 28px;
-      padding: 0;
-      border-radius: 50%;
-      font-size: 18px;
-      line-height: 1;
+    .map-legend h3 {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
     }
-    .globe-popup h3 {
-      margin-top: 0;
-      color: var(--accent);
-    }
-    .globe-popup p {
+    .legend-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 30px;
       color: var(--ink);
       font-size: 12px;
+    }
+    .legend-toggle input {
+      accent-color: var(--accent);
+    }
+    .legend-key {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+    }
+    .legend-key.military { background: #ff6b6b; }
+    .legend-key.nuclear { background: #ffd166; }
+    .map-selection {
+      margin-top: 12px;
+    }
+    .map-empty {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(5, 14, 10, 0.78);
+      padding: 16px;
+      color: var(--muted);
+    }
+    .reference-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 15px;
+      margin-bottom: 12px;
+    }
+    .reference-card h2 {
+      margin-bottom: 6px;
+    }
+    .reference-card p {
+      color: var(--ink);
     }
     .result {
       background: var(--panel);
@@ -592,8 +621,9 @@
       .actions > * { width: 100%; min-width: 0; }
       .footer-inner { padding: 20px 0 24px; }
       .globe-stage { height: clamp(300px, 82vw, 460px); min-height: 300px; }
+      .map-section .globe-stage { height: clamp(360px, 92vw, 560px); }
       #globeCanvas { min-height: 300px; }
-      .globe-popup { inset: 10px 10px auto 10px; width: auto; max-height: calc(100% - 20px); overflow: auto; }
+      .map-legend { right: 10px; bottom: 10px; width: min(250px, calc(100% - 20px)); }
     }
     @media (max-width: 430px) {
       .tools, .actions { grid-template-columns: 1fr; }
@@ -611,6 +641,7 @@
         <nav class="nav" aria-label="Primary">
           <button type="button" class="nav-link active" data-view-target="home">Highlights</button>
           <button type="button" class="nav-link" data-view-target="search">Search</button>
+          <button type="button" class="nav-link" data-view-target="map">Map</button>
         </nav>
       </div>
     </div>
@@ -651,21 +682,40 @@
         <select id="yearFilter" aria-label="Year filter">
           <option value="">All years</option>
         </select>
-        <button type="button" class="globe-toggle" id="globeToggle" aria-expanded="false">Open location globe</button>
         <button type="button" id="reset">Reset</button>
       </div>
       <div class="status" id="status">Loading...</div>
-      <section id="globePanel" class="globe-panel" aria-hidden="true">
-        <div class="globe-stage">
-          <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
-          <div class="globe-popup" id="globePopup" hidden></div>
-        </div>
-      </section>
       <section id="results"></section>
       <div class="load-more" id="loadMoreWrap" hidden>
         <button type="button" id="loadMore">Load more</button>
         <div class="result-sentinel" id="resultSentinel" aria-hidden="true"></div>
       </div>
+    </section>
+    <section class="view map-section" id="mapView" hidden>
+      <div class="section-head">
+        <h2>Map</h2>
+      </div>
+      <section id="globePanel" class="globe-panel open" aria-hidden="false">
+        <div class="globe-stage">
+          <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
+          <div class="map-legend" aria-label="Map overlays">
+            <h3>Overlays</h3>
+            <label class="legend-toggle">
+              <input type="checkbox" data-overlay-toggle="military">
+              <span class="legend-key military" aria-hidden="true"></span>
+              <span>Military bases</span>
+            </label>
+            <label class="legend-toggle">
+              <input type="checkbox" data-overlay-toggle="nuclear">
+              <span class="legend-key nuclear" aria-hidden="true"></span>
+              <span>Nuclear sites</span>
+            </label>
+          </div>
+        </div>
+      </section>
+      <section id="mapSelection" class="map-selection">
+        <div class="map-empty">Select an archive location on the globe to open its document below.</div>
+      </section>
     </section>
   </main>
   
@@ -703,6 +753,36 @@
     const resultState = { matches: [], visible: 0 };
     let resultObserver = null;
     const globeState = { ready: false, initializing: false, locations: [], markers: [], selected: null, selectedIndex: null };
+    const overlayState = {
+      visible: { military: false, nuclear: false },
+      markers: [],
+      facilities: [
+        { kind: "military", name: "Edwards Air Force Base", type: "flight test base", latitude: 34.9054, longitude: -117.8837 },
+        { kind: "military", name: "Nellis Air Force Base", type: "training and test range", latitude: 36.2362, longitude: -115.0342 },
+        { kind: "military", name: "Creech Air Force Base", type: "remotely piloted aircraft base", latitude: 36.5872, longitude: -115.6736 },
+        { kind: "military", name: "Vandenberg Space Force Base", type: "space launch and missile test base", latitude: 34.7420, longitude: -120.5724 },
+        { kind: "military", name: "Wright-Patterson Air Force Base", type: "Air Force research and logistics base", latitude: 39.8261, longitude: -84.0483 },
+        { kind: "military", name: "Eglin Air Force Base", type: "test and training base", latitude: 30.4832, longitude: -86.5254 },
+        { kind: "military", name: "White Sands Missile Range", type: "missile test range", latitude: 32.3801, longitude: -106.4797 },
+        { kind: "military", name: "Fort Irwin / National Training Center", type: "training base", latitude: 35.2627, longitude: -116.6848 },
+        { kind: "military", name: "Joint Base Pearl Harbor-Hickam", type: "joint base", latitude: 21.3399, longitude: -157.9602 },
+        { kind: "military", name: "Ramstein Air Base", type: "U.S. air base", latitude: 49.4369, longitude: 7.6003 },
+        { kind: "military", name: "RAF Lakenheath", type: "U.S. air base", latitude: 52.4093, longitude: 0.5609 },
+        { kind: "military", name: "Diego Garcia", type: "joint support facility", latitude: -7.3133, longitude: 72.4111 },
+        { kind: "nuclear", name: "Malmstrom Air Force Base", type: "ICBM missile wing base", latitude: 47.5047, longitude: -111.1830 },
+        { kind: "nuclear", name: "Minot Air Force Base", type: "ICBM missile wing base", latitude: 48.4156, longitude: -101.3583 },
+        { kind: "nuclear", name: "F. E. Warren Air Force Base", type: "ICBM missile wing base", latitude: 41.1333, longitude: -104.8667 },
+        { kind: "nuclear", name: "Palo Verde Generating Station", type: "nuclear power plant", latitude: 33.3881, longitude: -112.8617 },
+        { kind: "nuclear", name: "Vogtle Electric Generating Plant", type: "nuclear power plant", latitude: 33.1431, longitude: -81.7658 },
+        { kind: "nuclear", name: "Limerick Generating Station", type: "nuclear power plant", latitude: 40.2267, longitude: -75.5871 },
+        { kind: "nuclear", name: "Diablo Canyon Power Plant", type: "nuclear power plant", latitude: 35.2108, longitude: -120.8560 },
+        { kind: "nuclear", name: "Hanford Site", type: "nuclear reservation", latitude: 46.5507, longitude: -119.4880 },
+        { kind: "nuclear", name: "Savannah River Site", type: "nuclear reservation", latitude: 33.2566, longitude: -81.7354 },
+        { kind: "nuclear", name: "Los Alamos National Laboratory", type: "nuclear research site", latitude: 35.8756, longitude: -106.3247 },
+        { kind: "nuclear", name: "Oak Ridge Reservation", type: "nuclear research site", latitude: 35.9300, longitude: -84.3100 },
+        { kind: "nuclear", name: "Sellafield", type: "nuclear site", latitude: 54.4205, longitude: -3.4975 },
+      ],
+    };
 
     function searchable(doc) {
       return [
@@ -932,29 +1012,29 @@
 
     function renderSelectedLocation(location) {
       if (!location) {
-        if ($("globePopup")) $("globePopup").hidden = true;
+        $("mapSelection").innerHTML = `<div class="map-empty">Select an archive location on the globe to open its document below.</div>`;
         return;
       }
-      renderGlobePopup(location);
+      if (location.facilityKind) {
+        $("mapSelection").innerHTML = `
+          <article class="reference-card">
+            <h2>${esc(location.name)}</h2>
+            <div class="muted">${esc(location.facilityKind === "military" ? "Military base" : "Nuclear site")} | ${esc(location.type || "public reference point")}</div>
+            <p>This is a public reference overlay point for comparison with archive locations. It is not part of the document index.</p>
+          </article>
+        `;
+        return;
+      }
+      const doc = docs.find((item) => item.doc_id === location.doc_id);
+      $("mapSelection").innerHTML = doc
+        ? renderDoc(doc).replace(`id="doc-${esc(doc.doc_id)}"`, `id="map-doc-${esc(doc.doc_id)}"`)
+        : `<div class="map-empty">No matching document could be opened for this location.</div>`;
     }
 
-    function renderGlobePopup(location) {
-      const popup = $("globePopup");
-      if (!popup || !location) return;
-      const fullSummary = location.quick_summary || "";
-      const summary = fullSummary ? fullSummary.slice(0, 360) : "No summary is available for this checkpoint.";
-      popup.innerHTML = `
-        <button type="button" class="globe-close" data-globe-close aria-label="Close location">x</button>
-        <h3>${esc(locationLabel(location))}</h3>
-        <p class="muted">${esc(location.precision || "location")} - ${esc(location.method || "indexed location")}</p>
-        <p><strong>${esc(location.title || "Document")}</strong></p>
-        <p>${esc(summary)}${fullSummary.length > 360 ? "..." : ""}</p>
-        <div class="actions">
-          ${location.source_url ? `<a class="button source-button" href="${esc(location.source_url)}" target="_blank" rel="noopener" data-track="globe_source" data-doc-id="${esc(location.doc_id)}">Source</a>` : ""}
-          <button type="button" class="summary-button" data-globe-doc="${esc(location.doc_id)}">View result</button>
-        </div>
-      `;
-      popup.hidden = false;
+    function updateOverlayMarkers() {
+      overlayState.markers.forEach((marker) => {
+        marker.visible = Boolean(overlayState.visible[marker.userData.facility.kind]);
+      });
     }
 
     function latLonVector(lat, lon, radius) {
@@ -1045,9 +1125,12 @@
       }
       await addCountryBorders(THREE, globeGroup);
       const markerGeometry = new THREE.SphereGeometry(0.025, 16, 16);
+      const overlayGeometry = new THREE.SphereGeometry(0.018, 14, 14);
       const placeMaterial = new THREE.MeshBasicMaterial({ color: 0x42ff8c });
       const coordinateMaterial = new THREE.MeshBasicMaterial({ color: 0xffd166 });
       const selectedMaterial = new THREE.MeshBasicMaterial({ color: 0x72d7ff });
+      const militaryMaterial = new THREE.MeshBasicMaterial({ color: 0xff6b6b });
+      const nuclearMaterial = new THREE.MeshBasicMaterial({ color: 0xffd166 });
       globeState.locations.forEach((location, index) => {
         const p = latLonVector(location.latitude, location.longitude, 1.045);
         const marker = new THREE.Mesh(markerGeometry, location.precision === "coordinate" ? coordinateMaterial : placeMaterial);
@@ -1057,6 +1140,15 @@
         marker.userData.selectedMaterial = selectedMaterial;
         globeGroup.add(marker);
         globeState.markers.push(marker);
+      });
+      overlayState.facilities.forEach((facility) => {
+        const p = latLonVector(facility.latitude, facility.longitude, 1.066);
+        const marker = new THREE.Mesh(overlayGeometry, facility.kind === "military" ? militaryMaterial : nuclearMaterial);
+        marker.position.set(p.x, p.y, p.z);
+        marker.userData.facility = facility;
+        marker.visible = Boolean(overlayState.visible[facility.kind]);
+        globeGroup.add(marker);
+        overlayState.markers.push(marker);
       });
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
@@ -1081,8 +1173,15 @@
         pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
         pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
         raycaster.setFromCamera(pointer, camera);
-        const hit = raycaster.intersectObjects(globeState.markers)[0];
-        if (hit) selectGlobeLocation(hit.object.userData.locationIndex);
+        const hit = raycaster.intersectObjects([...globeState.markers, ...overlayState.markers.filter((marker) => marker.visible)])[0];
+        if (!hit) return;
+        if (Number.isInteger(hit.object.userData.locationIndex)) {
+          selectGlobeLocation(hit.object.userData.locationIndex);
+          return;
+        }
+        if (hit.object.userData.facility) {
+          selectReferencePoint(hit.object.userData.facility);
+        }
       };
       function resize() {
         const rect = canvas.parentElement.getBoundingClientRect();
@@ -1232,6 +1331,14 @@
       }
     }
 
+    function selectReferencePoint(facility) {
+      globeState.selected = null;
+      globeState.selectedIndex = null;
+      updateGlobeSelection();
+      renderSelectedLocation({ ...facility, facilityKind: facility.kind });
+      track("map_reference_point", { kind: facility.kind, name: facility.name });
+    }
+
     function clearGlobeLocation() {
       globeState.selected = null;
       globeState.selectedIndex = null;
@@ -1240,15 +1347,17 @@
     }
 
     function setView(view, options = {}) {
-      currentView = view === "search" ? "search" : "home";
+      currentView = ["home", "search", "map"].includes(view) ? view : "home";
       const home = $("homeView");
       const search = $("searchView");
+      const map = $("mapView");
       if (home) home.hidden = currentView !== "home";
       if (search) search.hidden = currentView !== "search";
+      if (map) map.hidden = currentView !== "map";
       document.querySelectorAll("[data-view-target]").forEach((button) => {
         button.classList.toggle("active", button.dataset.viewTarget === currentView);
       });
-      if (currentView === "search") {
+      if (currentView === "map") {
         initGlobe();
       }
       if (options.scroll) {
@@ -1289,26 +1398,24 @@
       }
     }
 
+    function openMap(options = {}) {
+      setView("map", { scroll: options.scroll });
+      if (options.updateHash) {
+        setRouteHash("#map");
+      }
+    }
+
     function applyRoute() {
       const hash = window.location.hash || "";
       if (hash.startsWith("#search")) {
         const queryText = hash.includes("?") ? hash.slice(hash.indexOf("?") + 1) : "";
         const params = new URLSearchParams(queryText);
         openSearch(params.get("q") || "", { updateHash: false });
+      } else if (hash.startsWith("#map")) {
+        openMap({ updateHash: false });
       } else {
         showHome({ updateHash: false });
       }
-    }
-
-    function toggleGlobe() {
-      const panel = $("globePanel");
-      const button = $("globeToggle");
-      if (!panel || !button) return;
-      const open = panel.classList.toggle("open");
-      button.textContent = open ? "Hide location globe" : "Open location globe";
-      button.setAttribute("aria-expanded", open ? "true" : "false");
-      panel.setAttribute("aria-hidden", open ? "false" : "true");
-      track("globe_toggle", { open: open ? "true" : "false" });
     }
 
     function renderSearchResults() {
@@ -1377,14 +1484,6 @@
       globeState.selectedIndex = null;
       updateGlobeSelection();
       renderSelectedLocation(null);
-      const globePanel = $("globePanel");
-      const globeButton = $("globeToggle");
-      if (globePanel && globeButton) {
-        globePanel.classList.remove("open");
-        globePanel.setAttribute("aria-hidden", "true");
-        globeButton.textContent = "Open location globe";
-        globeButton.setAttribute("aria-expanded", "false");
-      }
       document.querySelectorAll(".result.open").forEach((card) => card.classList.remove("open"));
       openSearch("", { updateHash: true, scroll: true });
     }
@@ -1395,6 +1494,9 @@
         if (viewTarget.dataset.viewTarget === "search") {
           track("nav_search");
           openSearch($("q").value, { updateHash: true, scroll: true });
+        } else if (viewTarget.dataset.viewTarget === "map") {
+          track("nav_map");
+          openMap({ updateHash: true, scroll: true });
         } else {
           track("nav_highlights");
           showHome({ updateHash: true, scroll: true });
@@ -1407,7 +1509,7 @@
       }
       const button = event.target.closest(".details-button");
       if (button) {
-        const card = document.getElementById(`doc-${button.dataset.docId}`);
+        const card = document.getElementById(`doc-${button.dataset.docId}`) || document.getElementById(`map-doc-${button.dataset.docId}`);
         if (card) card.classList.toggle("open");
         track("summary_toggle", { doc_id: button.dataset.docId, open: card?.classList.contains("open") ? "true" : "false" });
       }
@@ -1433,23 +1535,6 @@
         if (card) {
           card.classList.add("open");
         }
-      }
-      const globeDoc = event.target.closest("[data-globe-doc]");
-      if (globeDoc) {
-        const doc = docs.find((item) => item.doc_id === globeDoc.dataset.globeDoc);
-        if (!doc) return;
-        track("globe_view_result", { doc_id: doc.doc_id });
-        openSearch(doc.title, { resetFilters: true, updateHash: true });
-        window.setTimeout(() => {
-          const card = document.getElementById(`doc-${doc.doc_id}`);
-          if (card) {
-            card.classList.add("open");
-          }
-        }, 80);
-      }
-      const globeClose = event.target.closest("[data-globe-close]");
-      if (globeClose) {
-        clearGlobeLocation();
       }
       const featured = event.target.closest("[data-feature-doc]");
       if (featured) {
@@ -1495,13 +1580,21 @@
       $("agencyFilter").value = "";
       $("sourceFilter").value = "";
       $("yearFilter").value = "";
+      clearGlobeLocation();
       showHome({ updateHash: true, scroll: true });
     });
     $("reset").addEventListener("click", () => {
       track("reset", { control: "button" });
       resetArchiveView();
     });
-    $("globeToggle").addEventListener("click", toggleGlobe);
+    document.querySelectorAll("[data-overlay-toggle]").forEach((input) => {
+      input.addEventListener("change", () => {
+        const kind = input.dataset.overlayToggle;
+        overlayState.visible[kind] = input.checked;
+        updateOverlayMarkers();
+        track("map_overlay_toggle", { kind, open: input.checked ? "true" : "false" });
+      });
+    });
     $("loadMore").addEventListener("click", loadMoreResults);
     window.addEventListener("popstate", applyRoute);
     window.addEventListener("hashchange", applyRoute);
