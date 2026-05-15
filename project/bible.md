@@ -24,28 +24,28 @@ for later entity, location, timeline, and incident extraction.
 ## Current canonical repo
 
 ```text
-https://github.com/GeorgiKostov/DisclosureArchive
+<repository-url>
 ```
 
 ## Current local archive state
 
-Mac source data:
+Source data:
 
 ```text
-/Users/georgikostov/Desktop/ufo_war_release
+/path/to/ufo_war_release
 ```
 
 Index repo:
 
 ```text
-/Users/georgikostov/Desktop/ufo_release_index
+/path/to/DisclosureArchive
 ```
 
 Transfer package:
 
 ```text
-/Users/georgikostov/Desktop/DisclosureArchivePackage
-Z:\Projects\Repositories\Disclosure\DisclosureArchive\DisclosureArchivePackage
+/path/to/DisclosureArchivePackage
+C:\path\to\DisclosureArchivePackage
 ```
 
 Canonical handoff instructions:

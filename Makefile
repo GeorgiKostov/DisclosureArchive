@@ -1,5 +1,5 @@
 PYTHON ?= python3
-SOURCE_ROOT ?= /Users/georgikostov/Desktop/ufo_war_release
+SOURCE_ROOT ?= /path/to/ufo_war_release
 DB ?= indexes/uap_release.sqlite
 EXPORT ?= /Volumes/DisclosureTransfer/DisclosureArchivePackage
 OCR_WORKERS ?= 1
@@ -11,7 +11,7 @@ ANALYTICS_DOMAIN ?=
 ANALYTICS_SCRIPT_URL ?= https://plausible.io/js/script.js
 GA_MEASUREMENT_ID ?= G-NNXB9F00V6
 
-.PHONY: setup index rebuild classify ocr ocr-classified ocr-status ocr-retry ocr-one eval-search evidence-pack web search-vector search-hybrid stats export-site export-package verify-package
+.PHONY: setup index rebuild classify ocr ocr-classified ocr-status ocr-retry ocr-one eval-search evidence-pack web search-vector search-hybrid stats export-site publish-cloudflare-pages check-security-headers export-package verify-package
 
 setup:
 	$(PYTHON) -m venv .venv
@@ -62,6 +62,12 @@ stats:
 
 export-site:
 	. .venv/bin/activate && python -m ufo_indexer.export_site --db "$(DB)" --out public_site --analytics-domain "$(ANALYTICS_DOMAIN)" --analytics-script-url "$(ANALYTICS_SCRIPT_URL)" --ga-measurement-id "$(GA_MEASUREMENT_ID)"
+
+publish-cloudflare-pages:
+	powershell -ExecutionPolicy Bypass -File scripts/publish_cloudflare_pages.ps1
+
+check-security-headers:
+	powershell -ExecutionPolicy Bypass -File scripts/check_public_security_headers.ps1
 
 export-package:
 	EXPORT="$(EXPORT)" SOURCE_ROOT="$(SOURCE_ROOT)" DB="$(DB)" ./scripts/export_transfer_package.sh

@@ -4,9 +4,9 @@ DisclosureArchive is a static public archive/search site backed by generated JSO
 
 ## Reporting a vulnerability
 
-Please report security issues through GitHub Issues:
+Please report security issues through the project contact page:
 
-https://github.com/GeorgiKostov/DisclosureArchive/issues
+https://disclosurearchive.org/contact.html
 
 Do not include sensitive exploit details in public screenshots or social posts before
 the issue has been reviewed.

@@ -6,7 +6,7 @@ usage() {
 Export a DisclosureArchive data package for another machine.
 
 Default paths:
-  SOURCE_ROOT=/Users/georgikostov/Desktop/ufo_war_release
+  SOURCE_ROOT=<repo>/../ufo_war_release
   EXPORT=/Volumes/DisclosureTransfer/DisclosureArchivePackage
   DB=<repo>/indexes/uap_release.sqlite
   SUMMARY=<repo>/indexes/uap_release.summary.json
@@ -19,7 +19,7 @@ Examples:
   EXPORT=/Volumes/DisclosureTransfer/DisclosureArchivePackage \
     ./scripts/export_transfer_package.sh
 
-  EXPORT=/Users/georgikostov/Desktop/DisclosureArchivePackage \
+  EXPORT=/path/to/DisclosureArchivePackage \
     CREATE_CHECKSUMS=0 ./scripts/export_transfer_package.sh
 
 Environment:
@@ -53,7 +53,7 @@ while [ "$#" -gt 0 ]; do
 done
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SOURCE_ROOT="${SOURCE_ROOT:-/Users/georgikostov/Desktop/ufo_war_release}"
+SOURCE_ROOT="${SOURCE_ROOT:-$REPO_ROOT/../ufo_war_release}"
 EXPORT="${EXPORT:-/Volumes/DisclosureTransfer/DisclosureArchivePackage}"
 DB="${DB:-$REPO_ROOT/indexes/uap_release.sqlite}"
 SUMMARY="${SUMMARY:-$REPO_ROOT/indexes/uap_release.summary.json}"
@@ -113,7 +113,7 @@ if [ -n "${VOLUME:-}" ]; then
 External volume does not appear to be mounted: $VOLUME
 
 Mount the drive first, or set EXPORT to a local path explicitly:
-  EXPORT=/Users/georgikostov/Desktop/DisclosureArchivePackage ./scripts/export_transfer_package.sh
+  EXPORT=/path/to/DisclosureArchivePackage ./scripts/export_transfer_package.sh
 EOF
     exit 1
   fi

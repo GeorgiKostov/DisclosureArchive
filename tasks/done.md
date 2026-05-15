@@ -4,16 +4,16 @@
 
 - Downloaded WAR UFO release data locally.
 - Downloaded 131 documents, 131 thumbnails, 17 evidence-carousel images, 28 videos, and 2 caption files.
-- Created standalone index repo at `/Users/georgikostov/Desktop/ufo_release_index`.
+- Created standalone index repo.
 - Built SQLite index with FTS and vector embeddings.
 - Added OCR pipeline using Tesseract and verified it on `65_hs1-834228961_62-hq-83894_serial_403.pdf`.
 - Wrote `reports/juicy_bits.md`.
-- Pushed repo to `https://github.com/GeorgiKostov/DisclosureArchive`.
-- Created local Windows transfer package at `/Users/georgikostov/Desktop/DisclosureArchivePackage`.
+- Pushed repo to the canonical project repository.
+- Created local Windows transfer package.
 - Verified transfer package DB integrity and search for `lunar surface flash Grimaldi`.
 - Added agent/task/project memory scaffold.
 - Added reproducible other-machine handoff docs, Mac export/verify scripts, and a Windows import smoke-test script.
-- Imported `DisclosureArchivePackage/` on Windows under `Z:\Projects\Repositories\Disclosure\DisclosureArchive`.
+- Imported the transfer package on Windows under the local repo workspace.
 - Rebuilt the Windows SQLite index against `DisclosureArchivePackage\ufo_war_release`, replacing Mac asset paths with Windows paths.
 - Restored the transferred OCR cache for `65_hs1-834228961_62-hq-83894_serial_403.pdf` under the Windows cache key.
 - Verified Windows DB integrity and smoke searches for `lunar surface flash Grimaldi` and the USPER orb-formation query.
@@ -120,3 +120,18 @@
 - Removed public Map distance labels/lines again, replaced military/nuclear overlay circles with distinct icon sprites, and changed the year filter into decade buckets.
 - Renamed the top navigation `Search` tab to `Records`, renamed the Map overlay legend trigger to `Points of interest`, and fixed mobile zoom buttons so `+` / `-` stay circular.
 - Made public preview images clickable to the government/source document page, including highlight cards and result-card image previews.
+
+## 2026-05-15
+
+- Added a blue site-styled Ko-fi `Support` button with a coffee icon to the public static site header, positioned to the left of the nav on desktop and above the nav on mobile; browser/headless screenshots confirmed the button is visible and links to `https://ko-fi.com/P5P51ZLPBN`.
+- Tightened local/public source-summary OCR cleanup so obvious OCR garbage is not promoted into `Mysterious UAP Element` or `More Detailed Contents`; display text now repairs a small set of obvious OCR slips while leaving raw OCR caches and indexed chunks unchanged.
+- Added a launch security-header path: `scripts/check_public_security_headers.ps1` verifies live HTTP headers, and `scripts/publish_cloudflare_pages.ps1` deploys the generated static site to Cloudflare Pages so `_headers` can be applied outside GitHub Pages.
+- Updated the public Highlights landing section so each card shows its full curated summary without `Read more`, and wrapped the current set in a `RELEASE 1` group labeled with the government publication date, May 8, 2026, with collapsible release markup ready for future releases.
+- Updated public Records cards to show the full government/source description instead of the locally generated quick summary, removing misleading `...` cutoffs while keeping the `Summary` button for deeper extracted details.
+- Made public Highlight card titles clickable, using the same `View record` behavior so selecting a title opens the matching Records entry.
+- Replaced the public link-preview image with a generated site-branded `social-card.png` and pointed Open Graph/Twitter metadata at `https://disclosurearchive.org/social-card.png` instead of an archive photo.
+- Updated the first public Highlight from generic `Western US Event` labeling to `Orbs Launching Orbs`, preserving the underlying Western US Event record link and adding page-1 source context for the multi-team orb report.
+- Added a small public footer `Last updated` timestamp generated from the static export time, so visitors can see when the page was last rebuilt.
+- Added `docs/RELEASE_WORKFLOW.md`, an end-to-end runbook for processing future document releases through raw data staging, manifests, indexing, OCR, summaries, tags, highlights, media previews, static export, publishing, transfer, and final verification; linked it from `README.md` and `docs/ARCHITECTURE.md`.
+- Cleaned up the repo README into a shorter project entry point with purpose, constraints, setup, common commands, local/public UI, publish, transfer, next-release checklist, and links to deeper workflow/architecture/search docs.
+- Removed machine-specific personal/local path examples from tracked project docs, replacing them with generic placeholders.

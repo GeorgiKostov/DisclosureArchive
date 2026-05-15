@@ -1,216 +1,227 @@
-# UFO Release Index
+# Disclosure Archive
 
-Standalone local search/index project for the WAR UFO release downloaded to:
+Local-first archive, OCR, indexing, search, and static-publication tooling for
+public UFO/UAP release materials.
 
-`/Users/georgikostov/Desktop/ufo_war_release`
+Disclosure Archive keeps raw government/source downloads out of Git, then builds
+reproducible derived artifacts: extracted text, OCR text, SQLite FTS search,
+local vector embeddings, local research UI data, and a static public website.
 
-This project does not modify the Rebuilt repository. Raw downloads stay in the
-release directory; this project creates derived text, metadata, SQLite FTS, and
-embedding artifacts under `indexes/` and `derived/`.
+Current public site:
 
-## Setup
-
-```bash
-cd /Users/georgikostov/Desktop/ufo_release_index
-python3 -m venv .venv
-. .venv/bin/activate
-pip install -r requirements.txt
+```text
+https://disclosurearchive.org/
 ```
 
-Or:
+## What This Repo Contains
+
+- Python package: `src/ufo_indexer/`
+- Local SQLite index/search tooling
+- PDF classification and Tesseract OCR pipeline
+- Local browser search UI
+- Static public site exporter
+- Transfer and publish scripts
+- Project docs, eval queries, task memory, and release workflow notes
+
+## What This Repo Does Not Contain
+
+Do not commit:
+
+- Raw PDFs, images, videos, captions, thumbnails, or transfer packages
+- Generated SQLite DBs under `indexes/`
+- Extracted/OCR text caches under `derived/`
+- Generated reports under `reports/`
+- Generated static site output under `public_site/`
+- `.venv`
+
+Raw release data should live outside Git, for example:
+
+```text
+DisclosureArchivePackage/ufo_war_release/
+```
+
+## Key Docs
+
+- [Release workflow](docs/RELEASE_WORKFLOW.md): end-to-end checklist for adding
+  the next document release.
+- [Architecture](docs/ARCHITECTURE.md): data flow, generated artifacts, SQLite
+  tables, OCR, public export, publishing.
+- [Search explained](docs/SEARCH_EXPLAINED.md): plain-English explanation of
+  metadata, chunks, OCR, FTS, embeddings, hybrid search, and provenance.
+- [Windows import](README_WINDOWS_IMPORT.txt): other-machine handoff and smoke
+  tests.
+
+## Setup
 
 ```bash
 make setup
 ```
 
+Equivalent:
+
+```bash
+python -m venv .venv
+. .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -e .
+```
+
+On Windows PowerShell:
+
+```powershell
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -e .
+```
+
+## Common Paths
+
+Set `SOURCE_ROOT` to the raw archive folder before indexing or OCR.
+
+```powershell
+$env:SOURCE_ROOT="C:\path\to\ufo_war_release"
+```
+
+The default DB path is:
+
+```text
+indexes/uap_release.sqlite
+```
+
 ## Build Or Update The Index
 
-```bash
-python -m ufo_indexer.index \
-  --source-root /Users/georgikostov/Desktop/ufo_war_release \
-  --db indexes/uap_release.sqlite
-```
-
-Use `--rebuild` to delete and recreate the index from scratch.
-
-```bash
-python -m ufo_indexer.index \
-  --source-root /Users/georgikostov/Desktop/ufo_war_release \
-  --db indexes/uap_release.sqlite \
-  --rebuild
-```
-
-Equivalent Make targets:
+Incremental index:
 
 ```bash
 make index SOURCE_ROOT=/absolute/path/to/ufo_war_release
+```
+
+Full rebuild:
+
+```bash
 make rebuild SOURCE_ROOT=/absolute/path/to/ufo_war_release
 ```
 
-## OCR Scanned PDFs
-
-OCR means optical character recognition: the computer looks at a scanned page image
-and turns the visible letters into text. It is needed for the older FBI/NARA-style
-PDFs where `pdfplumber` sees pages but extracts little or no text.
-
-Classify PDFs first so OCR work is targeted:
+Direct equivalent:
 
 ```bash
-python -m ufo_indexer.classify \
+python -m ufo_indexer.index \
   --source-root /absolute/path/to/ufo_war_release \
-  --derived-root derived \
-  --out reports/pdf_classification.json
+  --db indexes/uap_release.sqlite
 ```
 
-This also writes `reports/pdf_classification.md`, grouped by `scan_only`,
-`low_text`, `mixed`, and `text_native`.
+The indexer reads release metadata and manifests, attaches assets, extracts
+native PDF text, imports OCR/caption/video metadata when available, creates text
+chunks, extracts/geocodes locations, and stores FTS plus local vector embeddings.
 
-Install the OCR engine on macOS:
+## OCR
+
+Install Tesseract first.
+
+macOS:
 
 ```bash
 brew install tesseract
 ```
 
-On Windows:
+Windows:
 
 ```powershell
 winget install UB-Mannheim.TesseractOCR
 ```
 
-Then run OCR over classified scan/low-text/mixed PDFs:
+Classify PDFs:
 
 ```bash
-python -m ufo_indexer.ocr \
-  --source-root /absolute/path/to/ufo_war_release \
-  --from-classification reports/pdf_classification.json \
-  --classes scan_only low_text mixed \
-  --workers 4
+make classify SOURCE_ROOT=/absolute/path/to/ufo_war_release
+```
+
+Run OCR over classified scan/low-text/mixed PDFs:
+
+```bash
+make ocr-classified \
+  SOURCE_ROOT=/absolute/path/to/ufo_war_release \
+  OCR_WORKERS=4
 make index SOURCE_ROOT=/absolute/path/to/ufo_war_release
 ```
 
-Audit OCR coverage and review candidates without rerunning OCR:
-
-```bash
-python -m ufo_indexer.ocr_status \
-  --source-root /absolute/path/to/ufo_war_release \
-  --classification reports/pdf_classification.json \
-  --out reports/ocr_status.json
-```
-
-This also writes `reports/ocr_status.md`, including cached/expected page counts,
-zero-text OCR pages, OCR errors, low-average-character outputs, and retry/review
-candidates.
-
-Retry only candidates from the OCR status report:
-
-```bash
-python -m ufo_indexer.ocr \
-  --source-root /absolute/path/to/ufo_war_release \
-  --from-status reports/ocr_status.json \
-  --review-reasons zero_text_pages low_avg_chars \
-  --dpi 300 \
-  --psm 11
-```
-
-Status-driven retries rerun only the flagged pages when page numbers are known
-and merge the new text back into the existing per-PDF OCR cache. Rebuild the
-index afterward if the retry improves OCR text:
-
-```bash
-make index SOURCE_ROOT=/absolute/path/to/ufo_war_release
-```
-
-Use `--workers` for PDF-level parallelism. A value near half the machine's
-logical CPUs is a good starting point for broad OCR; the Windows workstation
-completed the classified weak-PDF pass with `--workers 12`. Tesseract can be
-passed explicitly if it is installed but not on `PATH`:
+On Windows, pass Tesseract explicitly if needed:
 
 ```powershell
-.\.venv\Scripts\python -m ufo_indexer.ocr `
-  --source-root DisclosureArchivePackage\ufo_war_release `
-  --from-classification reports\pdf_classification.json `
-  --classes scan_only low_text mixed `
-  --workers 12 `
-  --tesseract-bin "C:\Program Files\Tesseract-OCR\tesseract.exe"
+make ocr-classified `
+  SOURCE_ROOT="$env:SOURCE_ROOT" `
+  OCR_WORKERS=12 `
+  TESSERACT_BIN="C:\Program Files\Tesseract-OCR\tesseract.exe"
 ```
 
-Or run OCR over all candidate text-poor pages:
+Audit OCR coverage:
 
 ```bash
-make ocr SOURCE_ROOT=/absolute/path/to/ufo_war_release OCR_WORKERS=4
-make index SOURCE_ROOT=/absolute/path/to/ufo_war_release
+make ocr-status SOURCE_ROOT=/absolute/path/to/ufo_war_release
 ```
 
-OCR one specific PDF first:
+Retry weak OCR pages from the status report:
 
 ```bash
-make ocr-one \
+make ocr-retry \
   SOURCE_ROOT=/absolute/path/to/ufo_war_release \
-  PDF=/absolute/path/to/ufo_war_release/documents/65_hs1-834228961_62-hq-83894_section_1.pdf
+  OCR_WORKERS=4 \
+  OCR_DPI=300 \
+  OCR_PSM=11
 make index SOURCE_ROOT=/absolute/path/to/ufo_war_release
 ```
 
-OCR output is stored as generated JSON under `derived/text/ocr/` and is ignored by
-git. Cache names are keyed from each file path relative to `SOURCE_ROOT`, so they
-survive Mac/Windows transfers. Older absolute-path cache names are still detected
-by file hash and migrated on the next index/OCR run. When OCR text changes, the
-indexer detects it and adds `ocr_text` chunks.
+OCR caches are generated under `derived/text/ocr/` and ignored by Git. They are
+keyed from paths relative to `SOURCE_ROOT` so they survive Mac/Windows transfer.
 
 ## Search
 
-For a plain-English explanation of the whole search stack, read
-`docs/SEARCH_EXPLAINED.md`.
-
-Keyword search:
-
-```bash
-python -m ufo_indexer.search --db indexes/uap_release.sqlite --q "Apollo 17 flash lunar surface"
-```
-
-Semantic search:
-
-```bash
-python -m ufo_indexer.search --db indexes/uap_release.sqlite --mode vector --q "military observers saw orange orbs split into multiple lights"
-```
-
-Hybrid search:
-
-```bash
-python -m ufo_indexer.search --db indexes/uap_release.sqlite --mode hybrid --q "diamond shaped object SWIR Greece 434 knots"
-```
-
-Keyword search uses strict full-text matching first, then falls back to a broader
-OR-style full-text query only when strict matching returns nothing. This keeps
-exact searches stable while helping longer natural-language queries over noisy
-OCR text.
-
-Or:
+Hybrid search is the default user-facing mode:
 
 ```bash
 make search-hybrid Q="lunar surface flash Grimaldi"
+```
+
+Vector search:
+
+```bash
 make search-vector Q="helicopter crew saw hot orbs split and flare in formation"
 ```
 
-## Evaluate Retrieval
-
-Run the curated retrieval evaluation after OCR, chunking, embedding, or ranking
-changes:
+Direct CLI:
 
 ```bash
-python -m ufo_indexer.eval_search \
+python -m ufo_indexer.search \
   --db indexes/uap_release.sqlite \
-  --queries eval/retrieval_queries.json \
-  --out reports/retrieval_eval.json
+  --mode hybrid \
+  --q "diamond shaped object SWIR Greece 434 knots"
 ```
 
-This writes `reports/retrieval_eval.json` and `reports/retrieval_eval.md`.
-The eval compares keyword, vector, and hybrid search, then marks whether
-expected evidence appears in the top five results. `hybrid` is the user-facing
-default; keyword and vector are included to explain failures.
+Keyword search uses strict SQLite FTS first, then a broader OR-style fallback
+only when strict matching returns nothing. Hybrid search combines keyword and
+local vector retrieval.
 
-## Export Evidence Packs
+## Retrieval Evaluation
 
-Export LLM-ready evidence bundles from search results:
+Run this after OCR, chunking, embedding, or ranking changes:
+
+```bash
+make eval-search DB=indexes/uap_release.sqlite
+```
+
+The eval reads `eval/retrieval_queries.json` and writes ignored reports under
+`reports/`. Add new release-specific queries before tuning ranking.
+
+## Evidence Packs
+
+Export citation/provenance-preserving search bundles:
+
+```bash
+make evidence-pack Q="flying discs flight service regulation 1949"
+```
+
+Direct CLI:
 
 ```bash
 python -m ufo_indexer.evidence_pack \
@@ -220,199 +231,137 @@ python -m ufo_indexer.evidence_pack \
   --out reports/evidence_pack.json
 ```
 
-This also writes `reports/evidence_pack.md`. Each result includes rank, score,
-title, agency, incident date/location, source kind, page number, chunk id, local
-path, snippet, and provenance guidance. Use `--include-text` when the downstream
-LLM needs full chunk text instead of snippets.
+Each result includes title, agency, incident date/location, source kind, page,
+chunk id, score, snippet, local path, and provenance guidance.
 
 ## Local Search UI
 
-On Windows, double-click this repo-root launcher:
+Windows launcher:
 
 ```text
 Start-DisclosureArchive-Search.cmd
 ```
 
-It starts the local server and opens the browser. Keep the launcher window open
-while searching; close it to stop the server. If the server is already running,
-the launcher simply opens the existing page.
-
-Run the browser interface on localhost:
+Manual server:
 
 ```bash
-python -m ufo_indexer.web \
-  --db indexes/uap_release.sqlite \
-  --host 127.0.0.1 \
-  --port 8765
+make web DB=indexes/uap_release.sqlite
 ```
 
-Then open `http://127.0.0.1:8765`. The UI uses the same keyword, vector, hybrid,
-and evidence-pack code as the CLI. It shows ranked result cards, provenance
-references, extractive summaries, OCR labels, and clickable follow-up
-suggestions without requiring an LLM API key. Results include a small map of
-indexed locations when coordinates or geocoded incident locations are available.
-Local thumbnails/images and videos are previewed directly from the indexed asset
-paths. The primary action link is the `Government source` button, which opens
-the original WAR/DVIDS source URL recorded during download instead of exposing a
-local PDF path as the main UI action.
-Each result also includes a local readable summary and a cleaned source excerpt.
-These are extractive helpers over indexed text/OCR, not proof of the underlying
-claim and not a substitute for checking the source PDF/video.
-Use the `Summary` button on a result card to open a fuller local summary for the
-whole indexed source document/PDF. The server reads the document's indexed native
-PDF text, OCR text, captions, and video metadata when available, then returns a
-quick summary, the likely mysterious/UAP element, a more detailed contents
-breakdown, page/chunk references, and a source-mix note.
+Then open:
 
-## Static Public Site Export
-
-Generate an online-ready static search page from the current SQLite index:
-
-```bash
-python -m ufo_indexer.export_site \
-  --db indexes/uap_release.sqlite \
-  --out public_site
+```text
+http://127.0.0.1:8765
 ```
 
-or:
+The local UI supports hybrid/vector/keyword search, result cards, media
+previews, map hints, source links, provenance labels, and local generated
+summaries. Summaries are finding aids over metadata/native PDF text/OCR/captions
+and are not proof of claims.
+
+## Static Public Site
+
+Generate `public_site/`:
 
 ```bash
 make export-site DB=indexes/uap_release.sqlite
 ```
 
-Optional analytics can be injected at export time. For Plausible-compatible
-analytics:
+Direct CLI:
 
 ```bash
 python -m ufo_indexer.export_site \
   --db indexes/uap_release.sqlite \
   --out public_site \
-  --analytics-domain kostovsolutions.com
+  --ga-measurement-id G-NNXB9F00V6
 ```
 
-or:
+The export writes:
+
+- `public_site/index.html`
+- `public_site/data/documents.json`
+- `public_site/social-card.png`
+- `robots.txt`, `sitemap.xml`, `security.txt`, `/.well-known/security.txt`
+- `_headers`, `favicon.svg`, `site.webmanifest`, `humans.txt`, `llms.txt`
+- Contact, legal, privacy, and security pages
+
+The public JSON includes metadata, summaries, public source/media URLs, tags,
+locations, related documents, and structured page/chunk references. It excludes
+raw files, generated DBs, OCR caches, local paths, and full OCR text.
+
+Serve locally for review:
 
 ```bash
-make export-site ANALYTICS_DOMAIN=kostovsolutions.com
+python -m http.server 8788 -d public_site
 ```
 
-For Google Analytics 4 / Google tag, pass a Measurement ID or set
-`DISCLOSURE_GA_MEASUREMENT_ID`. The project default is the live
-Disclosure Archive stream, `G-NNXB9F00V6`:
+Then open:
 
-```bash
-python -m ufo_indexer.export_site \
-  --db indexes/uap_release.sqlite \
-  --out public_site \
-  --ga-measurement-id G-XXXXXXXXXX
+```text
+http://127.0.0.1:8788/
 ```
 
-or:
+## Publish
 
-```bash
-make export-site GA_MEASUREMENT_ID=G-XXXXXXXXXX
-```
-
-GitHub Pages publishing uses `G-NNXB9F00V6` by default; set
-`DISCLOSURE_GA_MEASUREMENT_ID` to override it or an empty value only when you
-intend to publish without Google Analytics.
-
-The generated site tracks page views plus coarse UI events such as search,
-filter changes, summary toggles, source/video clicks, map navigation, globe
-checkpoint selections, and overlay toggles. Search event payloads include only
-query length, not the query text. If no Plausible domain or Google Analytics
-Measurement ID is provided, no analytics script is emitted.
-
-The export writes `public_site/index.html` and
-`public_site/data/documents.json`. The JSON contains one precomputed,
-deterministic summary per document, public government source/thumbnail/video
-URLs, tags, locations, related-document references, and page/chunk references.
-It intentionally excludes raw downloads, generated SQLite databases, local file
-paths, derived OCR caches, and full OCR text. The static page uses a dark
-terminal-style template with `HIGHLIGHTS`, `Search`, and `Map` views. It
-performs search over titles, metadata, tags, summaries, and cited snippets, and
-links readers back to the government source files for verification. The search
-view computes the full matching set but renders result cards in batches of 20,
-loading additional cards as the reader scrolls. The map view keeps the globe
-active, opens selected archive documents below the globe, and includes optional
-public reference overlays for selected military bases and nuclear sites.
-
-The export also writes standard public-web hygiene files and metadata:
-`robots.txt`, `sitemap.xml`, `security.txt`, `/.well-known/security.txt`,
-`humans.txt`, `llms.txt`, `favicon.svg`, `site.webmanifest`, Open Graph/Twitter
-card tags, canonical URL tags, JSON-LD structured data, a document referrer
-policy, and a conservative Content Security Policy meta tag.
-The generated page includes a compact footer with links to separate minimal
-contact, Legal / Impressum, privacy, security, and sitemap pages.
-The public contact email defaults to `contact@rebuilt.cards`; override it with
-`DISCLOSURE_CONTACT_EMAIL` or `--contact-email` when exporting. The generated
-site keeps the visible footer free of the raw email address and opens the email
-link only after a reader clicks through to the contact page.
-GitHub Pages does not apply custom response headers, so `_headers` is generated
-for future static hosts that support it.
-
-To publish the generated site to GitHub Pages:
+GitHub Pages:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/publish_github_pages.ps1
 ```
 
-The script regenerates `public_site/`, validates that the public JSON does not
-contain local/private path markers, copies only the static files to a temporary
-checkout, adds `.nojekyll`, and pushes a `gh-pages` branch. In GitHub repository
-settings, configure Pages to deploy from the `gh-pages` branch root if it is not
-already enabled.
+The publisher regenerates `public_site/`, validates the public JSON for
+private/local path leaks, copies only static files to a temporary checkout, and
+pushes `gh-pages`.
 
-To publish Pages automatically when pushing `main` from a machine that has the
-local SQLite index, install the tracked Git hook once:
+Cloudflare Pages, if real HTTP `_headers` are required:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts/install_auto_pages_publish.ps1
+powershell -ExecutionPolicy Bypass -File scripts/publish_cloudflare_pages.ps1
 ```
 
-After that, `git push origin main` will run the Pages publish script before the
-main branch push completes. Use
-`DISCLOSURE_SKIP_PAGES_PUBLISH=1` before pushing when you want to skip the
-automatic Pages update.
+Verify live headers:
 
-## Transfer To Another Machine
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/check_public_security_headers.ps1 -Url https://disclosurearchive.org/
+```
 
-Use the tracked handoff workflow instead of copying generated DB files by hand:
+## Transfer Package
+
+Create and verify a portable handoff package:
 
 ```bash
 EXPORT=/Volumes/DisclosureTransfer/DisclosureArchivePackage make export-package
 EXPORT=/Volumes/DisclosureTransfer/DisclosureArchivePackage make verify-package
 ```
 
-The export script copies the raw archive and derived text/OCR cache, creates a
-clean SQLite backup with `sqlite3 .backup`, copies the summary JSON, and writes a
-manifest/checksum file for the transfer package. Full Windows import instructions
-and the Codex pickup prompt live in `README_WINDOWS_IMPORT.txt`.
+The package uses a clean SQLite `.backup`. Do not copy live `-wal` or `-shm`
+files as canonical DB state.
 
-## Design
+## Next Release Checklist
 
-- `documents`: one row per release CSV item plus useful DVIDS metadata.
-- `assets`: local paths for PDFs, images, thumbnails, videos, and captions.
-- `chunks`: stable, citable text chunks with document metadata.
-- `chunks_fts`: SQLite FTS5 index for exact term search.
-- `embeddings`: local embedding vectors stored as normalized float32 blobs.
-- `locations`: provenance-preserving latitude/longitude records from explicit
-  coordinate text or conservative incident-location geocoding.
+Use [docs/RELEASE_WORKFLOW.md](docs/RELEASE_WORKFLOW.md) when a new document
+batch arrives. The short version:
 
-The indexer is safe to rerun. Stable IDs and content hashes let it update new
-or changed files without changing the raw archive.
+1. Stage raw data and manifests outside Git.
+2. Run index, classification, OCR, OCR status, and reindex.
+3. Run retrieval evals and manual smoke searches.
+4. Review the local UI.
+5. Update tags, highlights, and release groups in `export_site.py`.
+6. Regenerate and inspect `public_site/`.
+7. Publish and verify live pages/assets.
+8. Update task memory.
 
-After changing extraction, OCR, cache naming, chunking, or embeddings, verify
-with:
+## Useful Commands
 
 ```bash
+make setup
+make index SOURCE_ROOT=/absolute/path/to/ufo_war_release
 make rebuild SOURCE_ROOT=/absolute/path/to/ufo_war_release
-make search-hybrid Q="lunar surface flash Grimaldi"
+make classify SOURCE_ROOT=/absolute/path/to/ufo_war_release
+make ocr-classified SOURCE_ROOT=/absolute/path/to/ufo_war_release OCR_WORKERS=4
+make ocr-status SOURCE_ROOT=/absolute/path/to/ufo_war_release
+make eval-search
+make stats
+make web
+make export-site
 ```
-
-## OCR Note
-
-Many historical PDFs are scans. The recommended workflow is to classify first,
-OCR `scan_only`, `low_text`, and `mixed` PDFs, then reindex so OCR pages become
-`ocr_text` chunks. For this archive, the broad classified OCR pass added 6,386
-OCR chunks while preserving the raw source PDFs.

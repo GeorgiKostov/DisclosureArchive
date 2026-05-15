@@ -176,7 +176,9 @@ source provenance.
 summary for that document. It reads indexed native PDF text, OCR text, captions,
 and video metadata from `chunks`, selects readable source sentences, and returns
 a quick summary, the likely mysterious/UAP element, a detailed contents
-breakdown, page/chunk references, and a source-mix note.
+breakdown, page/chunk references, and a source-mix note. OCR-derived sentences
+go through display-only cleanup and a conservative noise gate before they can
+appear in these sections; the raw OCR cache and indexed chunks are not rewritten.
 
 ## Static Public Site Export
 
@@ -205,7 +207,10 @@ pages. The contact email is configurable at export time, but the
 generated public pages avoid rendering the raw address in the footer or
 `security.txt`; the contact page opens it only after a click. On GitHub Pages,
 browser-enforced meta policies apply, but `_headers` is only useful if the site
-later moves to a host that supports custom static headers.
+later moves to a host that supports custom static headers. For launch-grade HTTP
+headers, deploy `public_site/` through Cloudflare Pages, Netlify, Vercel, or an
+equivalent proxy/host and verify with
+`scripts/check_public_security_headers.ps1`.
 
 The public export is intentionally summary-focused. It does not copy raw PDFs,
 videos, local thumbnails, generated SQLite databases, derived OCR caches, or full
@@ -217,6 +222,11 @@ clear `Summary` button for detailed summary sections, and links verification
 actions back to the original WAR/DVIDS government URLs. Summary references stay
 in the payload for provenance and search, but duplicate page/chunk reference
 link rows are not rendered on public result cards.
+
+For the operational checklist used when the next public release arrives, see
+`docs/RELEASE_WORKFLOW.md`. It covers raw data staging, manifest expectations,
+OCR, indexing, summary generation, public tags, highlight release groups, media
+previews, export validation, publish steps, and final release checks.
 
 Analytics are optional and build-time only. Passing `--analytics-domain` or
 setting `DISCLOSURE_ANALYTICS_DOMAIN` injects a Plausible-compatible script.
@@ -236,6 +246,12 @@ markers, copies only the generated static files into a temporary checkout, adds
 `.nojekyll`, and pushes the result to the `gh-pages` branch. That keeps the
 generated publish artifact separate from `main`, where raw data, generated DBs,
 and generated static output remain ignored.
+
+`scripts/publish_cloudflare_pages.ps1` is the publish wrapper for Cloudflare
+Pages. It regenerates the same static export, validates the JSON, verifies that
+`_headers` exists, and deploys `public_site/` with `npx wrangler pages deploy`.
+Cloudflare Pages applies `_headers`, which closes the response-header gap that
+plain GitHub Pages cannot close.
 
 Because the SQLite index and generated site are intentionally local-only, Pages
 publishing is automated locally rather than in GitHub Actions. Running

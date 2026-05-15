@@ -10,17 +10,17 @@ Owns raw-data organization, transfer packages, file counts, checksums, and porta
 - Preserve file layouts expected by the indexer.
 - Record transfer/package notes in `tasks/done.md` or memory.
 
-## Known local paths
+## Example local paths
 
-Current Mac paths:
+Unix-like paths:
 
 ```text
-/Users/georgikostov/Desktop/ufo_war_release
-/Users/georgikostov/Desktop/ufo_release_index
-/Users/georgikostov/Desktop/DisclosureArchivePackage
+/path/to/ufo_war_release
+/path/to/DisclosureArchive
+/path/to/DisclosureArchivePackage
 ```
 
-Expected Windows layout:
+Windows layout:
 
 ```text
 C:\DisclosureArchive\repo

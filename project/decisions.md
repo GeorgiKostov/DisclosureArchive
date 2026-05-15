@@ -3,7 +3,7 @@
 ## 2026-05-08
 
 - Keep DisclosureArchive as a standalone repo, separate from Rebuilt.
-- Push code/docs to GitHub at `GeorgiKostov/DisclosureArchive`.
+- Push code/docs to the canonical project repository.
 - Keep raw downloads and generated DB/cache artifacts out of Git.
 - Use SQLite for durable local search state.
 - Use SQLite FTS5 for keyword search.

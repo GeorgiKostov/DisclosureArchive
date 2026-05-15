@@ -5,22 +5,22 @@
 Repo:
 
 ```text
-/Users/georgikostov/Desktop/ufo_release_index
-https://github.com/GeorgiKostov/DisclosureArchive
-Z:\Projects\Repositories\Disclosure\DisclosureArchive
+/path/to/DisclosureArchive
+<repository-url>
+C:\path\to\DisclosureArchive
 ```
 
 Raw archive:
 
 ```text
-/Users/georgikostov/Desktop/ufo_war_release
+/path/to/ufo_war_release
 ```
 
 Transfer package:
 
 ```text
-/Users/georgikostov/Desktop/DisclosureArchivePackage
-Z:\Projects\Repositories\Disclosure\DisclosureArchive\DisclosureArchivePackage
+/path/to/DisclosureArchivePackage
+C:\path\to\DisclosureArchivePackage
 ```
 
 ## What has been built
@@ -60,13 +60,13 @@ Packaged DB:
 Windows rebuilt DB:
 
 - DB path: `indexes/uap_release.sqlite`
-- Source root: `Z:\Projects\Repositories\Disclosure\DisclosureArchive\DisclosureArchivePackage\ufo_war_release`
+- Source root: `C:\path\to\ufo_war_release`
 - `PRAGMA integrity_check`: ok
 - Documents: 162
 - Assets: 305
 - Chunks: 1229
 - Embeddings: 1229
-- Asset paths now use Windows `Z:\...` paths; no `/Users/...` asset paths remain.
+- Asset paths now use Windows-style paths; no user-specific Mac asset paths remain.
 - Smoke searches verified for `lunar surface flash Grimaldi` and `helicopter crew saw hot orange orbs split and flare in formation`.
 - PDF/OCR cache summary is back to the known baseline after portability migration: 4156 cached PDF pages and 3 cached OCR pages.
 - Classification report generated on Windows: 117 PDFs, 65 scan-only, 10 mixed, 2 low-text, 40 text-native.
@@ -105,7 +105,7 @@ Broad OCR update:
 - The public export deliberately excludes local file paths, raw downloads, full OCR text, generated SQLite databases, and derived OCR caches; the exporter validates common private/local path markers before writing publishable JSON.
 - Release UI cleanup: result actions now emphasize public government/web links only, detailed summaries use a labeled `Summary` button, and the static public page has a dark terminal-style visual treatment.
 - GitHub Pages publishing can use `powershell -ExecutionPolicy Bypass -File scripts/publish_github_pages.ps1`; it pushes only generated static files to `gh-pages` and leaves generated artifacts ignored on `main`.
-- First `gh-pages` publish succeeded to origin at commit `43e0adaa608e6e91ea1de5b9830acd61590964c3`; `https://georgikostov.github.io/DisclosureArchive/` returned 404 right after publish, so enable Pages from `gh-pages` branch root or wait for provisioning before public smoke testing.
+- First `gh-pages` publish succeeded to origin at commit `43e0adaa608e6e91ea1de5b9830acd61590964c3`; the GitHub Pages URL returned 404 right after publish, so enable Pages from `gh-pages` branch root or wait for provisioning before public smoke testing.
 - Public globe update: the generated static viewer now overlays country outlines on the interactive globe, and checkpoint clicks open a compact document overview with summary text, source link, and a `View result` action.
 - Public globe controls update: the globe no longer auto-spins, drag is user-controlled rotation, scroll-wheel zoom moves the camera in/out, and selected checkpoints/list items are highlighted blue.
 - Public header update: the site is now named `Disclosure Archive`, and clicking the title resets search, filters, open summaries, and globe checkpoint selection.
@@ -146,6 +146,18 @@ Broad OCR update:
 - Public Map/filter simplification: distance labels and connector lines were removed again; military/nuclear overlays now use distinct icon sprites instead of circles, and the public search date filter groups by decade buckets instead of single years.
 - Public navigation polish: the top `Search` tab is now labeled `Records`, the Map overlay panel trigger is `Points of interest`, and zoom control buttons have fixed circular sizing on mobile.
 - Public preview-link update: image previews in highlighted records and result cards now open the government/source document URL when available, instead of leaving highlight images unclickable or preferring the preview asset first.
+- Public support-link update: `src/ufo_indexer/export_site.py` now renders a blue site-styled Ko-fi `Support` button with a coffee icon in the top header, linking to `https://ko-fi.com/P5P51ZLPBN`; it sits left of the nav on desktop and above the nav on mobile. The generated `public_site/index.html` was regenerated and verified with browser/headless screenshots.
+- Source-summary cleanup update: `src/ufo_indexer/summary.py` now applies stricter OCR sentence gating and display-only typo cleanup before OCR-derived sentences can appear in public/local detailed summary sections. The raw OCR cache and indexed text are not rewritten.
+- Security-header deployment update: GitHub Pages serves the site but does not emit custom HTTP security headers from `_headers`. `scripts/check_public_security_headers.ps1` now verifies live headers, and `scripts/publish_cloudflare_pages.ps1` can deploy `public_site/` to Cloudflare Pages where `_headers` is applied.
+- Public highlights release-group update: highlight cards now show full curated summaries by default, with no `Read more` / `Show less` controls. The current highlight set is wrapped under `RELEASE 1` and shows `Published May 8, 2026`; the generated markup already has an accessible release toggle so future releases can become independently collapsible.
+- Public Records description update: Records cards now render `doc.description` first, so the visible card body uses the full government/source metadata description instead of the locally generated quick summary that had been truncated with `...`. The `Summary` button remains the path to generated quick summary, anomaly-focused excerpts, detailed contents, and references.
+- Public Highlight title-link update: Highlight card titles are now clickable buttons with the same `data-feature-doc` behavior as `View record`, so title clicks open the corresponding Records search result and expanded record card.
+- Public social-preview update: the static exporter now generates a branded 1200x630 `social-card.png` and uses `https://disclosurearchive.org/social-card.png` for Open Graph and Twitter preview images, avoiding a random archive photo as the default shared-link image.
+- Public Orbs highlight update: the first Highlight now displays as `Orbs Launching Orbs` instead of the generic `Western US Event` title, while retaining the underlying `Western US Event` document and click-through behavior. The card summary identifies the source as Western US Event slides page 1 and describes the USPER1-USPER6 multi-team orange/red orb account as source text, not a conclusion.
+- Public footer update-stamp update: the generated static footer now includes a small `Last updated` timestamp derived from the export `generated_at` value and rendered in UTC, so visitors can see when the page was last rebuilt.
+- Release workflow documentation update: `docs/RELEASE_WORKFLOW.md` is now the canonical next-release runbook. It covers staging raw releases and manifests, indexing, OCR/classification/status/retries, search evals, local UI review, public summaries/tags/highlights, release grouping, media previews, static export validation, GitHub Pages/Cloudflare publishing, transfer handoff, and final release checks. `README.md` and `docs/ARCHITECTURE.md` link to it.
+- README cleanup update: `README.md` is now a concise repo entry point instead of a long procedural manual. It links to `docs/RELEASE_WORKFLOW.md`, `docs/ARCHITECTURE.md`, `docs/SEARCH_EXPLAINED.md`, and `README_WINDOWS_IMPORT.txt`, and keeps only the most-used setup, index, OCR, search, UI, static export, publish, transfer, and next-release commands.
+- Repo path-scrub update: tracked docs, reports, helper scripts, and generated static-site metadata now use generic path/repository placeholders instead of personal local paths or account-specific repository URLs.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.

@@ -8,7 +8,7 @@ PC or another workstation.
 1. Clone code from GitHub:
 
 ```text
-https://github.com/GeorgiKostov/DisclosureArchive.git
+<repository-url>
 ```
 
 2. Move data/index artifacts through an external-drive package:
@@ -32,7 +32,7 @@ transfer packages into Git.
 Mount the external drive, then run from the repo:
 
 ```bash
-cd /Users/georgikostov/Desktop/ufo_release_index
+cd /path/to/DisclosureArchive
 
 EXPORT=/Volumes/DisclosureTransfer/DisclosureArchivePackage \
   ./scripts/export_transfer_package.sh
@@ -41,7 +41,7 @@ EXPORT=/Volumes/DisclosureTransfer/DisclosureArchivePackage \
 If you want a faster local package refresh without checksums:
 
 ```bash
-EXPORT=/Users/georgikostov/Desktop/DisclosureArchivePackage \
+EXPORT=/path/to/DisclosureArchivePackage \
   CREATE_CHECKSUMS=0 \
   ./scripts/export_transfer_package.sh
 ```
@@ -62,7 +62,7 @@ Assuming the package is on drive `E:`:
 ```powershell
 mkdir C:\DisclosureArchive
 
-git clone https://github.com/GeorgiKostov/DisclosureArchive.git C:\DisclosureArchive\repo
+git clone <repository-url> C:\DisclosureArchive\repo
 
 robocopy E:\DisclosureArchivePackage\ufo_war_release C:\DisclosureArchive\ufo_war_release /E
 robocopy E:\DisclosureArchivePackage\indexes C:\DisclosureArchive\repo\indexes /E
@@ -130,7 +130,7 @@ Goal:
 Build a local-first evidence-first UFO/UAP public-records archive MVP. Do not build the full graph platform yet. First priority is processing all PDFs as well as possible, making them searchable, and preparing citation-backed evidence packs an LLM can use later for names, locations, timelines, events, and source-chain maps.
 
 Repo:
-https://github.com/GeorgiKostov/DisclosureArchive.git
+<repository-url>
 
 Local expected layout:
 - Repo: C:\DisclosureArchive\repo or ~/DisclosureArchive/repo

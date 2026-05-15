@@ -90,9 +90,11 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       gap: 18px;
     }
     .top-actions {
-      display: grid;
-      gap: 8px;
-      justify-items: end;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
     }
     .nav {
       display: flex;
@@ -111,6 +113,31 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       border-color: var(--accent);
       color: var(--accent);
       background: rgba(66,255,140,0.14);
+    }
+    .support-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 11px;
+      border-color: rgba(114,215,255,0.58);
+      background: linear-gradient(180deg, rgba(114,215,255,0.20), rgba(36,94,128,0.18));
+      color: var(--accent-2);
+      text-transform: uppercase;
+      font-size: 12px;
+      box-shadow: 0 0 0 1px rgba(114,215,255,0.06), 0 0 18px rgba(114,215,255,0.12);
+    }
+    .support-link:hover {
+      border-color: rgba(114,215,255,0.85);
+      color: #d8f5ff;
+      box-shadow: 0 0 0 1px rgba(114,215,255,0.14), 0 0 22px rgba(114,215,255,0.22);
+    }
+    .support-link svg {
+      display: block;
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      flex: 0 0 auto;
     }
     h1 {
       margin: 0;
@@ -153,6 +180,10 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     }
     .footer-links a {
       color: var(--accent-2);
+    }
+    .footer-updated {
+      color: var(--muted);
+      opacity: 0.82;
     }
     .search {
       display: grid;
@@ -260,6 +291,51 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       color: var(--muted);
       font-size: 12px;
     }
+    .release-group {
+      border: 1px solid rgba(66,255,140,0.18);
+      border-radius: 8px;
+      background: rgba(2, 10, 6, 0.34);
+      overflow: hidden;
+    }
+    .release-toggle {
+      position: relative;
+      width: 100%;
+      min-height: 46px;
+      padding: 0 12px;
+      justify-content: space-between;
+      border: 0;
+      border-bottom: 1px solid rgba(66,255,140,0.16);
+      border-radius: 0;
+      background: rgba(7, 24, 15, 0.78);
+      box-shadow: none;
+      text-align: left;
+    }
+    .release-name {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .release-date {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .release-toggle::after {
+      content: "-";
+      color: var(--accent-2);
+      font-size: 16px;
+      line-height: 1;
+    }
+    .release-group.collapsed .release-toggle::after {
+      content: "+";
+    }
+    .release-group.collapsed .release-body {
+      display: none;
+    }
+    .release-body {
+      padding: 12px;
+    }
     .best-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -306,23 +382,38 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     }
     .best-title {
       margin: 5px 0 6px;
-      color: var(--accent);
       font-size: 14px;
       line-height: 1.25;
+    }
+    .best-title-link {
+      min-height: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--accent);
+      font: inherit;
+      line-height: inherit;
+      text-align: left;
+      box-shadow: none;
+      justify-content: flex-start;
       overflow-wrap: anywhere;
+    }
+    .best-title-link:hover {
+      color: var(--accent-2);
+      text-decoration: underline;
+      border-color: transparent;
+      box-shadow: none;
+    }
+    .best-title-link:focus-visible {
+      outline: 1px solid var(--accent-2);
+      outline-offset: 3px;
     }
     .best-summary {
       color: var(--ink);
       font-size: 12px;
       line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 7;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .best-card.expanded .best-summary {
-      display: block;
-      overflow: visible;
+      margin-bottom: 0;
     }
     .best-facts {
       margin: 8px 0 0;
@@ -345,14 +436,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       flex-wrap: wrap;
       gap: 7px;
       margin-top: 9px;
-    }
-    .best-expand {
-      align-self: flex-start;
-      margin-top: 8px;
-      min-height: 28px;
-      padding: 0 8px;
-      font-size: 11px;
-      color: var(--accent);
     }
     .search-section {
       margin-top: 18px;
@@ -680,8 +763,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       body { font-size: 13px; }
       .wrap { width: min(1160px, calc(100% - 20px)); }
       .top { align-items: flex-start; flex-direction: column; padding: 16px 0; }
-      .top-actions { justify-items: start; width: 100%; }
+      .top-actions { justify-content: flex-start; width: 100%; }
       .nav { justify-content: flex-start; width: 100%; }
+      .support-link { order: -1; }
       .brand-title { font-size: 20px; text-align: left; }
       .search { grid-template-columns: 1fr; }
       input[type="search"], button, .button, select { min-height: 44px; }
@@ -689,6 +773,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       .tools select, .tools button { width: 100%; min-width: 0; }
       .best-of { padding: 12px; }
       .best-head { align-items: flex-start; flex-direction: column; }
+      .release-toggle { align-items: flex-start; flex-direction: column; gap: 3px; padding: 9px 12px; }
+      .release-toggle::after { position: absolute; right: 12px; top: 14px; }
+      .release-body { padding: 10px; }
       .best-grid { grid-template-columns: 1fr; }
       .best-media { height: min(230px, 54vw); }
       .shell { grid-template-columns: 1fr; }
@@ -719,6 +806,17 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         <h1><button type="button" class="brand-title" id="brandReset" title="Reset archive search">Disclosure Archive</button></h1>
       </div>
       <div class="top-actions">
+        <a class="button support-link" href="https://ko-fi.com/P5P51ZLPBN" target="_blank" rel="noopener" aria-label="Support Disclosure Archive on Ko-fi">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M10 2v2"></path>
+            <path d="M14 2v2"></path>
+            <path d="M7 2v2"></path>
+            <path d="M6 8h11a3 3 0 0 1 0 6h-1"></path>
+            <path d="M6 8h10v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V10a2 2 0 0 1 2-2Z"></path>
+            <path d="M5 22h13"></path>
+          </svg>
+          <span>Support</span>
+        </a>
         <nav class="nav" aria-label="Primary">
           <button type="button" class="nav-link active" data-view-target="home">Highlights</button>
           <button type="button" class="nav-link" data-view-target="search">Records</button>
@@ -912,6 +1010,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     function searchable(doc) {
       return [
         doc.title, doc.agency, doc.incident_date, doc.incident_location,
+        doc.description,
         doc.summary?.quick_summary, doc.summary?.overview,
         ...(doc.summary?.mysterious_uap_element || []).map((item) => item.text || item.label),
         ...(doc.summary?.detailed_contents || []).map((item) => item.text || item.label),
@@ -1067,9 +1166,31 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       return `<div class="muted">No preview</div>`;
     }
 
+    function formatReleaseDate(value) {
+      const text = String(value || "").trim();
+      const match = text.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4})$/);
+      if (!match) return text;
+      const year = Number(match[3].length === 2 ? `20${match[3]}` : match[3]);
+      const date = new Date(Date.UTC(year, Number(match[1]) - 1, Number(match[2])));
+      if (Number.isNaN(date.getTime())) return text;
+      return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+    }
+
+    function highlightReleaseGroups(items) {
+      return [
+        {
+          key: "release-1",
+          label: "RELEASE 1",
+          date: formatReleaseDate(items.find((item) => item.release_date)?.release_date || "5/8/26"),
+          items,
+        },
+      ];
+    }
+
     function renderBestOf(items) {
       const panel = $("bestOf");
       if (!panel || !items?.length) return;
+      const groups = highlightReleaseGroups(items);
       panel.innerHTML = `
         <div class="best-head">
           <div class="best-title-row">
@@ -1077,24 +1198,33 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
             <div class="best-count">${items.length} discussed records, videos, and photos</div>
           </div>
         </div>
-        <div class="best-grid">
-          ${items.map((item) => `
-            <article class="best-card">
-              <div class="best-media">${renderBestMedia(item)}</div>
-              <div class="best-body">
-                <div class="best-label">${esc(item.kicker)}</div>
-                <h3 class="best-title">${esc(item.title)}</h3>
-                <p class="best-summary">${esc(item.summary)}</p>
-                ${item.summary && item.summary.length > 260 ? `<button type="button" class="best-expand" data-feature-more="${esc(item.doc_id)}" aria-expanded="false">Read more</button>` : ""}
-                <ul class="best-facts">${(item.facts || []).map((fact) => `<li>${esc(fact)}</li>`).join("")}</ul>
-                <div class="best-actions">
-                  <button type="button" class="button best-link" data-feature-doc="${esc(item.doc_id)}">View record</button>
-                  ${hasMapLocation(item) ? `<button type="button" class="button best-link" data-feature-map="${esc(item.doc_id)}">Open map</button>` : ""}
+        ${groups.map((group) => `
+          <section class="release-group" data-release-group="${esc(group.key)}">
+            <button type="button" class="release-toggle" data-release-toggle="${esc(group.key)}" aria-expanded="true">
+              <span class="release-name">${esc(group.label)}</span>
+              <span class="release-date">Published ${esc(group.date)}</span>
+            </button>
+            <div class="release-body">
+              <div class="best-grid">
+                ${group.items.map((item) => `
+                  <article class="best-card">
+                    <div class="best-media">${renderBestMedia(item)}</div>
+                    <div class="best-body">
+                      <div class="best-label">${esc(item.kicker)}</div>
+                      <h3 class="best-title"><button type="button" class="best-title-link" data-feature-doc="${esc(item.doc_id)}">${esc(item.title)}</button></h3>
+                      <p class="best-summary">${esc(item.summary)}</p>
+                      <ul class="best-facts">${(item.facts || []).map((fact) => `<li>${esc(fact)}</li>`).join("")}</ul>
+                      <div class="best-actions">
+                        <button type="button" class="button best-link" data-feature-doc="${esc(item.doc_id)}">View record</button>
+                        ${hasMapLocation(item) ? `<button type="button" class="button best-link" data-feature-map="${esc(item.doc_id)}">Open map</button>` : ""}
+                      </div>
+                    </div>
+                  </article>
+                `).join("")}
                 </div>
               </div>
-            </article>
-          `).join("")}
-        </div>
+          </section>
+        `).join("")}
       `;
       panel.hidden = false;
     }
@@ -1132,6 +1262,10 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       `;
     }
 
+    function recordDescription(doc) {
+      return doc.description || doc.summary?.quick_summary || doc.summary?.overview || "No description available.";
+    }
+
     function renderDoc(doc) {
       const mediaClass = isRichMedia(doc) ? " media-rich" : "";
       return `
@@ -1141,7 +1275,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
               <h2>${esc(doc.title)}</h2>
               <div class="muted">${esc([doc.agency, doc.incident_date, doc.incident_location].filter(Boolean).join(" | "))}</div>
               ${renderTags(doc.tags)}
-              <p>${esc(doc.summary?.quick_summary || doc.summary?.overview || "No summary available.")}</p>
+              <p class="record-description">${esc(recordDescription(doc))}</p>
               ${actionLinks(doc)}
               ${renderDetails(doc)}
             </div>
@@ -1803,14 +1937,13 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         if (card) card.classList.toggle("open");
         track("summary_toggle", { doc_id: button.dataset.docId, open: card?.classList.contains("open") ? "true" : "false" });
       }
-      const featureMore = event.target.closest("[data-feature-more]");
-      if (featureMore) {
-        const card = featureMore.closest(".best-card");
-        const expanded = !card?.classList.contains("expanded");
-        if (card) card.classList.toggle("expanded", expanded);
-        featureMore.setAttribute("aria-expanded", expanded ? "true" : "false");
-        featureMore.textContent = expanded ? "Show less" : "Read more";
-        track("featured_summary_more", { doc_id: featureMore.dataset.featureMore, open: expanded ? "true" : "false" });
+      const releaseToggle = event.target.closest("[data-release-toggle]");
+      if (releaseToggle) {
+        const group = releaseToggle.closest(".release-group");
+        const collapsed = !group?.classList.contains("collapsed");
+        if (group) group.classList.toggle("collapsed", collapsed);
+        releaseToggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
+        track("highlight_release_toggle", { release: releaseToggle.dataset.releaseToggle, open: collapsed ? "false" : "true" });
       }
       const tracked = event.target.closest("[data-track]");
       if (tracked) {
@@ -2078,12 +2211,14 @@ AGENCY_TAGS = {
 FEATURED_SELECTIONS = [
     {
         "match": "Western US Event",
-        "kicker": "Headline modern case",
-        "summary": "The most accessible modern entry point in the release: seven federal employees describe multiple categories of phenomena over two days in the western United States. It is useful because the accounts can be compared side by side, from distant orb activity to a close stationary light and a translucent kite-like object.",
+        "title": "Orbs Launching Orbs",
+        "kicker": "Multi-team orb report",
+        "summary": "The first page of the Western US Event slides summarizes a dusk report from two separate days in the western United States. Three two-person teams of federal law-enforcement special agents, labeled USPER1 through USPER6 in the source, independently described orange orbs appearing briefly and emitting smaller red orbs in groups of roughly two to four. The source says this happened at least five times and notes that the follow-on red orbs sometimes moved horizontally, angled upward, or swooped downward. This is the clearest highlight entry for the multi-witness orb-launching account while still keeping the full Western US Event context one click away.",
         "facts": [
             "Agency: Department of War",
             "Incident year: 2023",
-            "Why it stands out: multiple witnesses in one indexed case",
+            "Source: Western US Event slides, page 1",
+            "Why it stands out: multiple teams reported the same pattern from different vantage points",
         ],
     },
     {
@@ -2533,11 +2668,13 @@ def featured_documents(documents: List[Dict]) -> List[Dict]:
         featured.append(
             {
                 "doc_id": doc["doc_id"],
-                "title": doc["title"],
+                "title": selection.get("title") or doc["title"],
+                "record_title": doc["title"],
                 "kicker": selection["kicker"],
                 "summary": featured_summary(selection, doc),
                 "facts": selection["facts"],
                 "agency": doc["agency"],
+                "release_date": doc["release_date"],
                 "incident_date": doc["incident_date"],
                 "incident_location": doc["incident_location"],
                 "source_url": doc["source_url"],
@@ -2697,7 +2834,7 @@ def seo_meta(site_url: str) -> str:
         "government source links, document summaries, videos, photos, map locations, "
         "and provenance-preserving references."
     )
-    image = "https://www.war.gov/medialink/ufo/release_1/nasa-uap-vm6-apollo-17-1972.jpg"
+    image = f"{site_url}/social-card.png"
     title = "Disclosure Archive | Public UFO/UAP Release Index"
     return "\n  ".join(
         [
@@ -2716,12 +2853,17 @@ def seo_meta(site_url: str) -> str:
             f'<meta property="og:title" content="{html_escape(title, quote=True)}">',
             f'<meta property="og:description" content="{html_escape(description, quote=True)}">',
             f'<meta property="og:image" content="{html_escape(image, quote=True)}">',
+            '<meta property="og:image:width" content="1200">',
+            '<meta property="og:image:height" content="630">',
+            '<meta property="og:image:type" content="image/png">',
+            '<meta property="og:image:alt" content="Disclosure Archive public UFO/UAP release index">',
             '<meta property="og:site_name" content="Disclosure Archive">',
             '<meta property="og:locale" content="en_US">',
             '<meta name="twitter:card" content="summary_large_image">',
             f'<meta name="twitter:title" content="{html_escape(title, quote=True)}">',
             f'<meta name="twitter:description" content="{html_escape(description, quote=True)}">',
             f'<meta name="twitter:image" content="{html_escape(image, quote=True)}">',
+            '<meta name="twitter:image:alt" content="Disclosure Archive public UFO/UAP release index">',
         ]
     )
 
@@ -2769,12 +2911,25 @@ def security_meta(analytics_script_url: str = "https://plausible.io/js/script.js
     )
 
 
-def site_footer() -> str:
-    return """
+def format_last_updated(generated_at: str) -> str:
+    try:
+        value = datetime.fromisoformat(generated_at)
+    except ValueError:
+        return generated_at[:10]
+    if value.tzinfo is None:
+        value = value.replace(tzinfo=timezone.utc)
+    value = value.astimezone(timezone.utc)
+    return f"{value.strftime('%B')} {value.day}, {value.year}, {value.strftime('%H:%M')} UTC"
+
+
+def site_footer(generated_at: str) -> str:
+    updated = html_escape(format_last_updated(generated_at), quote=True)
+    return f"""
   <footer class="site-footer">
     <div class="wrap footer-inner">
       <div class="footer-links">
         <span>&copy; 2026 Disclosure Archive.</span>
+        <span class="footer-updated">Last updated {updated}</span>
         <a href="/contact.html">Contact</a>
         <a href="/legal.html">Legal / Impressum</a>
         <a href="/privacy.html">Privacy</a>
@@ -2920,7 +3075,6 @@ def write_info_pages(out: Path, site_url: str, analytics_script_url: str, contac
       <p>The email address is opened only after you click the button.</p>
       <div class="actions">
         <button type="button" id="emailButton" data-email="{html_escape(email_codes, quote=True)}">Open email link</button>
-        <a class="button" href="https://github.com/GeorgiKostov/DisclosureArchive/issues">GitHub issues</a>
       </div>
     """
     contact_script = """
@@ -2965,6 +3119,60 @@ def write_info_pages(out: Path, site_url: str, analytics_script_url: str, contac
       </div>
     """
     (out / "security.html").write_text(static_info_page("Security", security_body, analytics_script_url, google_analytics_id), encoding="utf-8")
+
+
+def write_social_card(out: Path) -> None:
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+    except ImportError:
+        return
+
+    width, height = 1200, 630
+    image = Image.new("RGB", (width, height), "#050806")
+    draw = ImageDraw.Draw(image)
+
+    for y in range(height):
+        green = int(8 + (y / height) * 18)
+        blue = int(10 + (1 - y / height) * 16)
+        draw.line([(0, y), (width, y)], fill=(5, green, blue))
+
+    for x in range(0, width, 40):
+        draw.line([(x, 0), (x, height)], fill=(16, 66, 40))
+    for y in range(0, height, 40):
+        draw.line([(0, y), (width, y)], fill=(14, 58, 36))
+
+    draw.rectangle([(44, 44), (width - 44, height - 44)], outline=(66, 255, 140), width=3)
+    draw.rectangle([(60, 60), (width - 60, height - 60)], outline=(114, 215, 255), width=1)
+    draw.ellipse([(720, 95), (1110, 485)], outline=(66, 255, 140), width=5)
+    draw.arc([(735, 110), (1095, 470)], 200, 340, fill=(114, 215, 255), width=3)
+    draw.arc([(735, 110), (1095, 470)], 20, 160, fill=(114, 215, 255), width=3)
+    draw.line([(915, 95), (915, 485)], fill=(114, 215, 255), width=3)
+    draw.line([(720, 290), (1110, 290)], fill=(66, 255, 140), width=3)
+    draw.ellipse([(1010, 142), (1058, 190)], fill=(255, 209, 102))
+
+    font_candidates = [
+        Path("C:/Windows/Fonts/consolab.ttf"),
+        Path("C:/Windows/Fonts/consola.ttf"),
+        Path("C:/Windows/Fonts/arialbd.ttf"),
+    ]
+
+    def load_font(size: int):
+        for path in font_candidates:
+            if path.exists():
+                return ImageFont.truetype(str(path), size=size)
+        return ImageFont.load_default()
+
+    title_font = load_font(76)
+    sub_font = load_font(30)
+    small_font = load_font(24)
+
+    draw.text((96, 132), "Disclosure", fill=(231, 255, 242), font=title_font)
+    draw.text((96, 218), "Archive", fill=(66, 255, 140), font=title_font)
+    draw.text((100, 330), "PUBLIC UFO/UAP RELEASE INDEX", fill=(114, 215, 255), font=sub_font)
+    draw.text((100, 382), "Highlights  /  Records  /  Map", fill=(143, 179, 158), font=small_font)
+    draw.text((100, 504), "disclosurearchive.org", fill=(255, 209, 102), font=small_font)
+
+    image.save(out / "social-card.png", "PNG", optimize=True)
 
 
 def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str, analytics_script_url: str, google_analytics_id: str = "") -> None:
@@ -3014,11 +3222,9 @@ def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str
     security_txt = "\n".join(
         [
             f"Contact: {site_url}/contact.html",
-            "Contact: https://github.com/GeorgiKostov/DisclosureArchive/issues",
             f"Expires: {expires}",
             "Preferred-Languages: en",
             f"Canonical: {site_url}/.well-known/security.txt",
-            "Policy: https://github.com/GeorgiKostov/DisclosureArchive/security/policy",
             "",
         ]
     )
@@ -3051,6 +3257,7 @@ def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str
 """,
         encoding="utf-8",
     )
+    write_social_card(out)
     (out / "site.webmanifest").write_text(
         json.dumps(
             {
@@ -3073,7 +3280,6 @@ def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str
             [
                 "Disclosure Archive",
                 "Site: https://disclosurearchive.org/",
-                "Source: https://github.com/GeorgiKostov/DisclosureArchive",
                 "Purpose: public-interest index for public UFO/UAP release materials",
                 "Contact: https://disclosurearchive.org/contact.html",
                 "",
@@ -3092,7 +3298,6 @@ def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str
                 "Important URLs:",
                 "- Site: https://disclosurearchive.org/",
                 "- Data payload: https://disclosurearchive.org/data/documents.json",
-                "- Source code: https://github.com/GeorgiKostov/DisclosureArchive",
                 "- Contact: https://disclosurearchive.org/contact.html",
                 "",
             ]
@@ -3136,7 +3341,7 @@ def write_site(
         .replace("<!-- SECURITY_META -->", security_meta(analytics_script_url, google_analytics_id))
         .replace("<!-- STRUCTURED_DATA -->", structured_data(site_url, len(documents), featured))
         .replace("<!-- ANALYTICS_SNIPPET -->", analytics_markup(analytics_domain, analytics_script_url, google_analytics_id))
-        .replace("<!-- SITE_FOOTER -->", site_footer())
+        .replace("<!-- SITE_FOOTER -->", site_footer(generated_at))
     )
     (out / "index.html").write_text(html, encoding="utf-8")
     write_info_pages(out, site_url, analytics_script_url, contact_email, google_analytics_id)

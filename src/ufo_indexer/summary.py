@@ -61,12 +61,31 @@ OCR_FIXES = [
     (re.compile(r"\bdnvolved\b", re.IGNORECASE), "involved"),
     (re.compile(r"\berater\b", re.IGNORECASE), "crater"),
     (re.compile(r"\bfron\b", re.IGNORECASE), "from"),
+    (re.compile(r"\bprom\b", re.IGNORECASE), "from"),
     (re.compile(r"\bmowledge\b", re.IGNORECASE), "knowledge"),
     (re.compile(r"\bmst\b", re.IGNORECASE), "must"),
     (re.compile(r"\bpreviosuly\b", re.IGNORECASE), "previously"),
     (re.compile(r"\bsmali\b", re.IGNORECASE), "small"),
+    (re.compile(r"\bsm\.?\s*il\b", re.IGNORECASE), "small"),
     (re.compile(r"\bsourees\b", re.IGNORECASE), "sources"),
     (re.compile(r"\bstresks\b", re.IGNORECASE), "streaks"),
+    (re.compile(r"\bcontimed\b", re.IGNORECASE), "continued"),
+    (re.compile(r"\berews\b", re.IGNORECASE), "crews"),
+    (re.compile(r"\bfly:\s*formation\b", re.IGNORECASE), "fly in formation"),
+    (re.compile(r"\bsterboard\b", re.IGNORECASE), "starboard"),
+    (re.compile(r"\bsquacron\b", re.IGNORECASE), "squadron"),
+    (re.compile(r"\beylinder\b", re.IGNORECASE), "cylinder"),
+    (re.compile(r"\bsheped\b", re.IGNORECASE), "shaped"),
+    (re.compile(r"\bobjsct\b", re.IGNORECASE), "object"),
+    (re.compile(r"\bobservea\b", re.IGNORECASE), "observed"),
+    (re.compile(r"\birv\b", re.IGNORECASE), "air"),
+    (re.compile(r"\bnusber\b", re.IGNORECASE), "number"),
+    (re.compile(r"\bpignter\b", re.IGNORECASE), "fighter"),
+    (re.compile(r"\bsousdron\b", re.IGNORECASE), "squadron"),
+    (re.compile(r"\bsomthing\b", re.IGNORECASE), "something"),
+    (re.compile(r"\bbehing\b", re.IGNORECASE), "behind"),
+    (re.compile(r"\bplightly\b", re.IGNORECASE), "slightly"),
+    (re.compile(r"\bvirst\b", re.IGNORECASE), "first"),
 ]
 
 COMMON_WORDS = {
@@ -126,7 +145,23 @@ LOW_VALUE_PATTERNS = [
     re.compile(r"\b(?:page intentionally left blank|this page left blank)\b", re.IGNORECASE),
     re.compile(r"https?://|www\.|@"),
     re.compile(r"\b(?:file|document|record)\s+(?:number|id|identifier)\b", re.IGNORECASE),
+    re.compile(r"\bstrike\s+out\s+methods?\b", re.IGNORECASE),
+    re.compile(r"\battached\s+are\s+copies\b", re.IGNORECASE),
 ]
+
+OCR_DAMAGED_WORDS = {
+    "baprdutomary",
+    "beg",
+    "e390",
+    "gaat",
+    "hradquare",
+    "inre",
+    "ite",
+    "plightly",
+    "prov",
+    "sbtauked",
+    "urs",
+}
 
 UAP_TERMS = {
     "uap",
@@ -173,7 +208,19 @@ def readable_text(text: str) -> str:
     text = re.sub(r"([(])\s+", r"\1", text)
     text = re.sub(r"\.\s*,", ",", text)
     text = re.sub(r"\bbut\.\s+", "but ", text, flags=re.IGNORECASE)
+    text = re.sub(r"\s+[a-z]\.$", ".", text)
+    text = re.sub(r'["\']?,\s*\d+\.$', ".", text)
     text = re.sub(r"(?<=[a-z])(?=[A-Z][a-z])", " ", text)
+    return clean(text)
+
+
+def clean_sentence_text(text: str) -> str:
+    text = clean(text)
+    for pattern, replacement in OCR_FIXES:
+        text = pattern.sub(replacement, text)
+    text = re.sub(r"\s+[a-z]\.?$", ".", text)
+    text = re.sub(r'["\']?,\s*\d+\.?$', ".", text)
+    text = re.sub(r"\s+([,.;:?!)])", r"\1", text)
     return clean(text)
 
 
@@ -188,6 +235,7 @@ def sentence_quality(sentence: str) -> float:
     words = [token.lower() for token in tokens if re.search(r"[A-Za-z]", token)]
     if len(words) < 5:
         return 0.2
+    damaged_ratio = ocr_damage_score(sentence)
     punctuation_noise = sum(1 for char in sentence if char in "_~`|{}[]<>")
     symbol_noise = sum(1 for char in sentence if not char.isalnum() and not char.isspace() and char not in ".,;:?!'\"()/-%")
     short_ratio = sum(1 for word in words if len(word) <= 2) / max(len(words), 1)
@@ -209,6 +257,7 @@ def sentence_quality(sentence: str) -> float:
     quality -= long_garble_ratio * 4.0
     quality -= vowelless_ratio * 0.8
     quality -= repeated_noise * 0.25
+    quality -= damaged_ratio * 2.7
     if common_ratio < 0.12 and short_ratio > 0.34:
         quality -= 0.22
     if re.search(r"\b(?:e{3,}|a{3,}|o{3,}|i{3,})\b", sentence.lower()):
@@ -222,6 +271,44 @@ def sentence_quality(sentence: str) -> float:
     return quality
 
 
+def ocr_damage_score(sentence: str) -> float:
+    tokens = re.findall(r"[A-Za-z0-9]+", sentence)
+    words = [token.lower() for token in tokens if re.search(r"[A-Za-z]", token)]
+    if not words:
+        return 1.0
+    short_ratio = sum(1 for word in words if len(word) <= 2) / len(words)
+    damaged_hits = sum(1 for word in words if word in OCR_DAMAGED_WORDS)
+    noisy_token_hits = 0
+    for word in words:
+        if len(word) >= 4 and re.search(r"(?:[bcdfghjklmnpqrstvwxz]{5,}|[aeiou]{4,})", word):
+            noisy_token_hits += 1
+        elif len(word) >= 7 and not re.search(r"[aeiouy]", word):
+            noisy_token_hits += 1
+    upper_tokens = [token for token in tokens if token.isupper() and len(token) <= 3]
+    uppercase_fragment_ratio = len(upper_tokens) / max(len(tokens), 1)
+    score = damaged_hits / len(words)
+    score += max(0.0, short_ratio - 0.34) * 0.9
+    score += max(0.0, uppercase_fragment_ratio - 0.22) * 0.7
+    score += noisy_token_hits / len(words)
+    if re.search(r"\b[A-Z]\s+[A-Z]{2,}\s+[a-z]{3,}\s+[A-Z][a-z]{2,}\s+[a-z]{2,}\s+[A-Z]{2,}\b", sentence):
+        score += 0.3
+    if re.search(r"\b[a-z]{1,3}\d{2,}\b|\b\d{2,}[a-z]{1,3}\b", sentence.lower()):
+        score += 0.18
+    return score
+
+
+def ocr_sentence_is_usable(sentence: str) -> bool:
+    if any(pattern.search(sentence) for pattern in LOW_VALUE_PATTERNS):
+        return False
+    quality = sentence_quality(sentence)
+    damage = ocr_damage_score(sentence)
+    if damage >= 0.24:
+        return False
+    if quality < 0.8:
+        return False
+    return True
+
+
 def split_sentences(text: str) -> List[str]:
     text = re.sub(r"[-=+.]{3,}", ". ", text)
     candidates = re.split(r"(?<=[.!?])\s+(?=[A-Z0-9])", text)
@@ -229,7 +316,7 @@ def split_sentences(text: str) -> List[str]:
         candidates = re.split(r"\s{2,}|;\s+", text)
     out = []
     for item in candidates:
-        item = clean(item)
+        item = clean_sentence_text(item)
         if len(item) > 320:
             item = item[:320].rsplit(" ", 1)[0] + "."
         if sentence_quality(item) >= 0.56:
@@ -328,6 +415,8 @@ def unique_sentence_items(items: List[Tuple[float, object, str]], limit: int, ch
         key = re.sub(r"[^a-z0-9]+", " ", sentence.lower()).strip()[:100]
         if any(pattern.search(sentence) for pattern in LOW_VALUE_PATTERNS):
             continue
+        if row["source_kind"] == "ocr_text" and not ocr_sentence_is_usable(sentence):
+            continue
         if not key or key in seen:
             continue
         seen.add(key)
@@ -382,7 +471,7 @@ def source_summary(conn, doc_id: str) -> Dict:
         text = readable_text(row["text"])
         for sentence in split_sentences(text)[:5]:
             quality = sentence_quality(sentence)
-            if row["source_kind"] == "ocr_text" and quality < 0.74:
+            if row["source_kind"] == "ocr_text" and not ocr_sentence_is_usable(sentence):
                 continue
             if row["source_kind"] == "pdf_text":
                 quality += 0.2
@@ -407,7 +496,7 @@ def source_summary(conn, doc_id: str) -> Dict:
     overview = " ".join(overview_bits) + "."
     description = readable_text(doc["description"])
     if description:
-        overview = f"{overview} {snippet(humanize_sentence(description), max_chars=620)}"
+        overview = f"{overview} {humanize_sentence(description)}"
 
     top_items = unique_sentence_items(sentences, 5)
     uap_items = unique_sentence_items(

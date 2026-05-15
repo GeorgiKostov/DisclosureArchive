@@ -1,7 +1,8 @@
 param(
   [string]$Repo = "C:\DisclosureArchive\repo",
   [string]$Package = "E:\DisclosureArchivePackage",
-  [string]$RawTarget = "C:\DisclosureArchive\ufo_war_release"
+  [string]$RawTarget = "C:\DisclosureArchive\ufo_war_release",
+  [string]$RepoUrl = $env:DISCLOSURE_REPOSITORY_URL
 )
 
 $ErrorActionPreference = "Stop"
@@ -29,8 +30,11 @@ if (!(Test-Path $Package)) {
 }
 
 if (!(Test-Path $Repo)) {
+  if (!$RepoUrl) {
+    throw "Missing repository URL. Pass -RepoUrl or set DISCLOSURE_REPOSITORY_URL."
+  }
   New-Item -ItemType Directory -Force -Path (Split-Path $Repo) | Out-Null
-  git clone https://github.com/GeorgiKostov/DisclosureArchive.git $Repo
+  git clone $RepoUrl $Repo
 }
 
 Invoke-RobocopyChecked "$Package\ufo_war_release" $RawTarget
@@ -64,5 +68,5 @@ python -m ufo_indexer.search `
 
 Write-Host ""
 Write-Host "Import smoke tests finished."
-Write-Host "If result paths still point to /Users/georgikostov, rebuild with:"
+Write-Host "If result paths still point to another machine's local paths, rebuild with:"
 Write-Host "python -m ufo_indexer.index --source-root $RawTarget --db indexes\uap_release.sqlite --rebuild"

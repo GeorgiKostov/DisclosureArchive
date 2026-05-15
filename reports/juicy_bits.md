@@ -1,8 +1,8 @@
-# UFO Release 01 - Juicy But Grounded Notes
+﻿# UFO Release 01 - Juicy But Grounded Notes
 
-Source data: `/Users/georgikostov/Desktop/ufo_war_release`
+Source data: `/path/to/ufo_war_release`
 
-Index project: `/Users/georgikostov/Desktop/ufo_release_index`
+Index project: `/path/to/DisclosureArchive`
 
 ## Evidence Tiers
 
@@ -19,7 +19,7 @@ Index project: `/Users/georgikostov/Desktop/ufo_release_index`
 ### Apollo 12, 1969
 
 Local PDF:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/nasa-uap-d1-apollo-12-transcript-1969.pdf`
+`/path/to/ufo_war_release/documents/nasa-uap-d1-apollo-12-transcript-1969.pdf`
 
 What matters:
 
@@ -39,7 +39,7 @@ clear debris/tracking-light context.
 ### Apollo 17, 1972
 
 Local PDF:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/nasa-uap-d2-apollo-17-transcript-1972.pdf`
+`/path/to/ufo_war_release/documents/nasa-uap-d2-apollo-17-transcript-1972.pdf`
 
 What matters:
 
@@ -59,10 +59,10 @@ The lunar-surface flash near Grimaldi is the cleanest "moon weirdness" item.
 ### Gemini 7, 1965
 
 Local PDF:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/nasa-uap-d3-gemini-7-transcript-1965.pdf`
+`/path/to/ufo_war_release/documents/nasa-uap-d3-gemini-7-transcript-1965.pdf`
 
 Local video/audio:
-`/Users/georgikostov/Desktop/ufo_war_release/videos/1006119_NASA_Audio_12_5_1965_Low_Earth_Orbit_DOD_111689232.mp4`
+`/path/to/ufo_war_release/videos/1006119_NASA_Audio_12_5_1965_Low_Earth_Orbit_DOD_111689232.mp4`
 
 What matters:
 
@@ -79,7 +79,7 @@ It is real and famous, yet not cleanly separate from mission hardware context.
 ### Apollo 11, 1969
 
 Local PDF:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/nasa-uap-d4-apollo-11-technical-crew-debriefing-1969.pdf`
+`/path/to/ufo_war_release/documents/nasa-uap-d4-apollo-11-technical-crew-debriefing-1969.pdf`
 
 What matters:
 
@@ -96,7 +96,7 @@ explanations. Interesting, not a clean mystery.
 ### Skylab, 1973-1974
 
 Local PDF:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/nasa-uap-d7-skylab-techincal-crew-debriefing-1973.pdf`
+`/path/to/ufo_war_release/documents/nasa-uap-d7-skylab-techincal-crew-debriefing-1973.pdf`
 
 What matters:
 
@@ -113,7 +113,7 @@ Good orbital-observation material, but much of it lives in the satellite/debris 
 ### Western US Event, 2023
 
 Local PDF:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/western_us_event_slides_5.08.2026.pdf`
+`/path/to/ufo_war_release/documents/western_us_event_slides_5.08.2026.pdf`
 
 What matters:
 
@@ -136,7 +136,7 @@ events, and AARO's own language about significance.
 ### USPER Statement, Late 2025
 
 Local PDF:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/usper-statement-redacted.pdf`
+`/path/to/ufo_war_release/documents/usper-statement-redacted.pdf`
 
 What matters:
 
@@ -157,10 +157,10 @@ final analytical determination.
 ### Greece, January 2024
 
 Local PDF:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/dow-uap-d25-mission-report-greece-january-2024.pdf`
+`/path/to/ufo_war_release/documents/dow-uap-d25-mission-report-greece-january-2024.pdf`
 
 Local video:
-`/Users/georgikostov/Desktop/ufo_war_release/videos/1006073_DOW-UAP-PR28,_Unresolved_UAP_Report,_Greece,_January_2024_DOD_111688954.mp4`
+`/path/to/ufo_war_release/videos/1006073_DOW-UAP-PR28,_Unresolved_UAP_Report,_Greece,_January_2024_DOD_111688954.mp4`
 
 What matters:
 
@@ -176,12 +176,12 @@ visibility. Needs careful video review and metadata context.
 ### Greece, October 2023
 
 Local PDFs:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/dow-uap-d33-mission-report-greece-october-2023.pdf`
-`/Users/georgikostov/Desktop/ufo_war_release/documents/dow-uap-d35-mission-report-greece-october-2023.pdf`
+`/path/to/ufo_war_release/documents/dow-uap-d33-mission-report-greece-october-2023.pdf`
+`/path/to/ufo_war_release/documents/dow-uap-d35-mission-report-greece-october-2023.pdf`
 
 Local videos:
-`/Users/georgikostov/Desktop/ufo_war_release/videos/1006080_DOW-UAP-PR34,_Unresolved_UAP_Report,_Greece,_October_2023_DOD_111689011.mp4`
-`/Users/georgikostov/Desktop/ufo_war_release/videos/1006082_DOW-UAP-PR35,_Unresolved_UAP_Report,_Greece,_October_2023_DOD_111689022-1920x1080-9000k.mp4`
+`/path/to/ufo_war_release/videos/1006080_DOW-UAP-PR34,_Unresolved_UAP_Report,_Greece,_October_2023_DOD_111689011.mp4`
+`/path/to/ufo_war_release/videos/1006082_DOW-UAP-PR35,_Unresolved_UAP_Report,_Greece,_October_2023_DOD_111689022-1920x1080-9000k.mp4`
 
 What matters:
 
@@ -197,7 +197,7 @@ and paired with DVIDS videos.
 ### Syria, November 2023
 
 Local PDF:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/dow-uap-d74-mission-report-syria-november-2023.pdf`
+`/path/to/ufo_war_release/documents/dow-uap-d74-mission-report-syria-november-2023.pdf`
 
 What matters:
 
@@ -213,9 +213,9 @@ grounded.
 ### INDOPACOM 2023-2024 Video Reports
 
 Local videos:
-`/Users/georgikostov/Desktop/ufo_war_release/videos/1006106_DOW-UAP-PR46,_Unresolved_UAP_Report,_INDOPACOM,_2024_DOD_111689133.mp4`
-`/Users/georgikostov/Desktop/ufo_war_release/videos/1006107_DOW-UAP-PR47,_Unresolved_UAP_Report,_INDOPACOM,_2023_DOD_111689142.mp4`
-`/Users/georgikostov/Desktop/ufo_war_release/videos/1006110_DOW-UAP-PR48,_Unresolved_UAP_Report,_INDOPACOM,_2024_DOD_111689167.mp4`
+`/path/to/ufo_war_release/videos/1006106_DOW-UAP-PR46,_Unresolved_UAP_Report,_INDOPACOM,_2024_DOD_111689133.mp4`
+`/path/to/ufo_war_release/videos/1006107_DOW-UAP-PR47,_Unresolved_UAP_Report,_INDOPACOM,_2023_DOD_111689142.mp4`
+`/path/to/ufo_war_release/videos/1006110_DOW-UAP-PR48,_Unresolved_UAP_Report,_INDOPACOM,_2024_DOD_111689167.mp4`
 
 What matters:
 
@@ -233,7 +233,7 @@ language, but short video context.
 ### Kazakhstan, 1994
 
 Local PDF:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/dos-uap-d2-cable-2-kazakhstan-january-1994.pdf`
+`/path/to/ufo_war_release/documents/dos-uap-d2-cable-2-kazakhstan-january-1994.pdf`
 
 What matters:
 
@@ -252,7 +252,7 @@ case, but the witness profile and cable form make it stronger than folklore.
 ### Papua New Guinea, 1985
 
 Local PDF:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/dos-uap-d1-cable-1-papua-new-guinea-january-1985.pdf`
+`/path/to/ufo_war_release/documents/dos-uap-d1-cable-1-papua-new-guinea-january-1985.pdf`
 
 What matters:
 
@@ -272,7 +272,7 @@ information sketchy, so treat it as a real inquiry rather than a resolved UAP ca
 ### FBI 62-HQ-83894 Case File
 
 Local PDFs:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/65_hs1-834228961_62-hq-83894_section_1.pdf`
+`/path/to/ufo_war_release/documents/65_hs1-834228961_62-hq-83894_section_1.pdf`
 through related section/serial files in the same directory.
 
 What matters:
@@ -290,10 +290,10 @@ unlock.
 ### FBI September 2023 Sighting
 
 Local files:
-`/Users/georgikostov/Desktop/ufo_war_release/documents/2024-04-30-composite-sketch.pdf`
-`/Users/georgikostov/Desktop/ufo_war_release/documents/serial_5_redacted_redacted.pdf`
-`/Users/georgikostov/Desktop/ufo_war_release/documents/serial-3_redacted.pdf`
-`/Users/georgikostov/Desktop/ufo_war_release/documents/serial-4-redacted_redacted.pdf`
+`/path/to/ufo_war_release/documents/2024-04-30-composite-sketch.pdf`
+`/path/to/ufo_war_release/documents/serial_5_redacted_redacted.pdf`
+`/path/to/ufo_war_release/documents/serial-3_redacted.pdf`
+`/path/to/ufo_war_release/documents/serial-4-redacted_redacted.pdf`
 
 What matters:
 
