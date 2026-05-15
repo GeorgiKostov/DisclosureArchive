@@ -23,6 +23,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Disclosure Archive | Public UFO/UAP Release Index</title>
+  <meta name="disclosure-map-palette" content="archive-green nuclear-orange military-red">
   <!-- SEO_META -->
   <!-- SECURITY_META -->
   <!-- STRUCTURED_DATA -->
