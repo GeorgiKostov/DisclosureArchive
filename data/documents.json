@@ -1,6 +1,6 @@
 {
   "schema": "disclosurearchive.public_site.v1",
-  "generated_at": "2026-05-15T09:00:33+00:00",
+  "generated_at": "2026-05-15T09:01:53+00:00",
   "document_count": 162,
   "featured_documents": [
     {
@@ -22,6 +22,20 @@
         "document_url": "https://www.war.gov/medialink/ufo/release_1/western_us_event_slides_5.08.2026.pdf",
         "video_url": ""
       },
+      "locations": [
+        {
+          "location_id": "52f3793711a9e944613269d9",
+          "chunk_id": null,
+          "raw_location": "Western United States",
+          "normalized_location": "Western United States",
+          "latitude": 39.0,
+          "longitude": -114.0,
+          "precision": "region",
+          "confidence": 0.35,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2023",
@@ -50,6 +64,20 @@
         "document_url": "https://www.war.gov/medialink/ufo/release_1/usper-statement-redacted.pdf",
         "video_url": ""
       },
+      "locations": [
+        {
+          "location_id": "79b9b499ef5ae713f2d2cc1e",
+          "chunk_id": null,
+          "raw_location": "United States",
+          "normalized_location": "United States",
+          "latitude": 39.8283,
+          "longitude": -98.5795,
+          "precision": "country",
+          "confidence": 0.45,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "State Department",
         "2025",
@@ -78,6 +106,20 @@
         "document_url": "https://www.war.gov/medialink/ufo/release_1/2024-04-30-composite-sketch.pdf",
         "video_url": ""
       },
+      "locations": [
+        {
+          "location_id": "330638b10b8a47d7e1ee1a76",
+          "chunk_id": null,
+          "raw_location": "United States",
+          "normalized_location": "United States",
+          "latitude": 39.8283,
+          "longitude": -98.5795,
+          "precision": "country",
+          "confidence": 0.45,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "FBI",
         "United States",
@@ -103,6 +145,7 @@
         "document_url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-a1.png",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689168/DOD_111689168.mp4"
       },
+      "locations": [],
       "tags": [
         "FBI",
         "2025",
@@ -131,6 +174,7 @@
         "document_url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-vm6-apollo-17-1972.jpg",
         "video_url": ""
       },
+      "locations": [],
       "tags": [
         "NASA",
         "1972",
@@ -159,6 +203,7 @@
         "document_url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-d2-apollo-17-transcript-1972.pdf",
         "video_url": ""
       },
+      "locations": [],
       "tags": [
         "NASA",
         "1972",
@@ -187,6 +232,7 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689232/DOD_111689232.mp4"
       },
+      "locations": [],
       "tags": [
         "NASA",
         "Low Earth Orbit",
@@ -215,6 +261,20 @@
         "document_url": "https://www.war.gov/medialink/ufo/release_1/dos-uap-d1-cable-1-papua-new-guinea-january-1985.pdf",
         "video_url": ""
       },
+      "locations": [
+        {
+          "location_id": "24232fd528ab5a8fd10eb740",
+          "chunk_id": null,
+          "raw_location": "Papua New Guinea",
+          "normalized_location": "Papua New Guinea",
+          "latitude": -6.315,
+          "longitude": 143.9555,
+          "precision": "country",
+          "confidence": 0.55,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "State Department",
         "Papua New Guinea",
@@ -243,6 +303,20 @@
         "document_url": "https://www.war.gov/medialink/ufo/release_1/dos-uap-d2-cable-2-kazakhstan-january-1994.pdf",
         "video_url": ""
       },
+      "locations": [
+        {
+          "location_id": "e95d2be8390612168c9c6012",
+          "chunk_id": null,
+          "raw_location": "Kazakhstan",
+          "normalized_location": "Kazakhstan",
+          "latitude": 48.0196,
+          "longitude": 66.9237,
+          "precision": "country",
+          "confidence": 0.55,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "State Department",
         "Kazakhstan",
@@ -269,6 +343,20 @@
         "document_url": "https://www.war.gov/medialink/ufo/release_1/331_120752_numeric_files_1944–1945_37153_german_armament_equipment_documents.pdf",
         "video_url": ""
       },
+      "locations": [
+        {
+          "location_id": "29c0774163c700c384776dbd",
+          "chunk_id": null,
+          "raw_location": "Germany",
+          "normalized_location": "Germany",
+          "latitude": 51.1657,
+          "longitude": 10.4515,
+          "precision": "country",
+          "confidence": 0.55,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "Germany",
@@ -296,6 +384,7 @@
         "document_url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_5.pdf",
         "video_url": ""
       },
+      "locations": [],
       "tags": [
         "FBI",
         "Air Force",
@@ -324,6 +413,20 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689133/DOD_111689133.mp4"
       },
+      "locations": [
+        {
+          "location_id": "971e54663cb3c4241f5fc5b3",
+          "chunk_id": null,
+          "raw_location": "East China Sea",
+          "normalized_location": "East China Sea",
+          "latitude": 29.0,
+          "longitude": 125.0,
+          "precision": "region",
+          "confidence": 0.35,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "East China Sea",
@@ -352,6 +455,20 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689142/DOD_111689142.mp4"
       },
+      "locations": [
+        {
+          "location_id": "db5ddedff513ee6e77b29d82",
+          "chunk_id": null,
+          "raw_location": "Japan",
+          "normalized_location": "Japan",
+          "latitude": 36.2048,
+          "longitude": 138.2529,
+          "precision": "country",
+          "confidence": 0.55,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "Japan",
@@ -380,6 +497,7 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689167/DOD_111689167.mp4"
       },
+      "locations": [],
       "tags": [
         "War Department",
         "Indo-PACOM",
@@ -408,6 +526,20 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689011/DOD_111689011.mp4"
       },
+      "locations": [
+        {
+          "location_id": "d13c3585a639815677ba668b",
+          "chunk_id": null,
+          "raw_location": "Greece",
+          "normalized_location": "Greece",
+          "latitude": 39.0742,
+          "longitude": 21.8243,
+          "precision": "country",
+          "confidence": 0.55,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "Greece",
@@ -436,6 +568,20 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111688954/DOD_111688954.mp4"
       },
+      "locations": [
+        {
+          "location_id": "a4c2ceac636268af453bde86",
+          "chunk_id": null,
+          "raw_location": "Greece",
+          "normalized_location": "Greece",
+          "latitude": 39.0742,
+          "longitude": 21.8243,
+          "precision": "country",
+          "confidence": 0.55,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "Greece",
@@ -464,6 +610,20 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689759/DOD_111689759.mp4"
       },
+      "locations": [
+        {
+          "location_id": "b1a1f8aec3e81013268c0654",
+          "chunk_id": null,
+          "raw_location": "Djibouti",
+          "normalized_location": "Djibouti",
+          "latitude": 11.8251,
+          "longitude": 42.5903,
+          "precision": "country",
+          "confidence": 0.55,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "Djibouti",
@@ -492,6 +652,20 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111689168/DOD_111689168.mp4"
       },
+      "locations": [
+        {
+          "location_id": "bcf8657afc8fa6424861cd27",
+          "chunk_id": null,
+          "raw_location": "North America",
+          "normalized_location": "North America",
+          "latitude": 48.0,
+          "longitude": -100.0,
+          "precision": "region",
+          "confidence": 0.25,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "North America",
