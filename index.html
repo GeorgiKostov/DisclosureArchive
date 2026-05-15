@@ -291,6 +291,7 @@
       justify-content: center;
       overflow: hidden;
     }
+    .best-media a,
     .best-media img,
     .best-media video {
       width: 100%;
@@ -577,6 +578,7 @@
       width: 100%;
       height: clamp(260px, 32vw, 420px);
     }
+    .media a,
     .media img, .media video {
       width: 100%;
       height: 100%;
@@ -1064,7 +1066,8 @@
       }
       const imagePreview = isImageUrl(media.document_url) ? media.document_url : media.thumbnail_url;
       if (imagePreview) {
-        return `<a href="${esc(media.document_url || doc.source_url || imagePreview)}" target="_blank" rel="noopener"><img loading="lazy" src="${esc(imagePreview)}" alt="${esc(doc.title)} preview"></a>`;
+        const target = doc.source_url || media.document_url || imagePreview;
+        return `<a href="${esc(target)}" target="_blank" rel="noopener" data-track="source" data-doc-id="${esc(doc.doc_id)}" title="Open government source"><img loading="lazy" src="${esc(imagePreview)}" alt="${esc(doc.title)} preview"></a>`;
       }
       return `<div class="muted">No public preview</div>`;
     }
@@ -1078,7 +1081,8 @@
       }
       const imagePreview = isImageUrl(media.document_url) ? media.document_url : media.thumbnail_url;
       if (imagePreview) {
-        return `<img loading="lazy" src="${esc(imagePreview)}" alt="${esc(item.title)} preview">`;
+        const target = item.source_url || media.document_url || imagePreview;
+        return `<a href="${esc(target)}" target="_blank" rel="noopener" data-track="source" data-doc-id="${esc(item.doc_id)}" title="Open government source"><img loading="lazy" src="${esc(imagePreview)}" alt="${esc(item.title)} preview"></a>`;
       }
       return `<div class="muted">No preview</div>`;
     }
