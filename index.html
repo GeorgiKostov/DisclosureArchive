@@ -386,10 +386,32 @@
     }
     .best-title {
       margin: 5px 0 6px;
-      color: var(--accent);
       font-size: 14px;
       line-height: 1.25;
+    }
+    .best-title-link {
+      min-height: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--accent);
+      font: inherit;
+      line-height: inherit;
+      text-align: left;
+      box-shadow: none;
+      justify-content: flex-start;
       overflow-wrap: anywhere;
+    }
+    .best-title-link:hover {
+      color: var(--accent-2);
+      text-decoration: underline;
+      border-color: transparent;
+      box-shadow: none;
+    }
+    .best-title-link:focus-visible {
+      outline: 1px solid var(--accent-2);
+      outline-offset: 3px;
     }
     .best-summary {
       color: var(--ink);
@@ -1205,7 +1227,7 @@
                     <div class="best-media">${renderBestMedia(item)}</div>
                     <div class="best-body">
                       <div class="best-label">${esc(item.kicker)}</div>
-                      <h3 class="best-title">${esc(item.title)}</h3>
+                      <h3 class="best-title"><button type="button" class="best-title-link" data-feature-doc="${esc(item.doc_id)}">${esc(item.title)}</button></h3>
                       <p class="best-summary">${esc(item.summary)}</p>
                       <ul class="best-facts">${(item.facts || []).map((fact) => `<li>${esc(fact)}</li>`).join("")}</ul>
                       <div class="best-actions">
