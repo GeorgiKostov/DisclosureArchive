@@ -1131,7 +1131,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       globeState.markers.forEach((marker, index) => {
         const selected = index === globeState.selectedIndex;
         marker.material = selected ? marker.userData.selectedMaterial : marker.userData.defaultMaterial;
-        marker.scale.setScalar(selected ? 1.8 : 1);
+        marker.userData.selectionScale = selected ? 1.85 : 1;
       });
     }
 
@@ -1328,8 +1328,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         globeGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), gridMaterial));
       }
       await addCountryBorders(THREE, globeGroup);
-      const markerGeometry = new THREE.SphereGeometry(0.019, 16, 16);
-      const overlayGeometry = new THREE.SphereGeometry(0.013, 14, 14);
+      const markerGeometry = new THREE.SphereGeometry(0.021, 16, 16);
+      const overlayGeometry = new THREE.SphereGeometry(0.015, 14, 14);
       const placeMaterial = new THREE.MeshBasicMaterial({ color: 0x42ff8c });
       const coordinateMaterial = new THREE.MeshBasicMaterial({ color: 0xffd166 });
       const selectedMaterial = new THREE.MeshBasicMaterial({ color: 0x72d7ff });
@@ -1344,6 +1344,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         marker.userData.locationIndex = index;
         marker.userData.defaultMaterial = marker.material;
         marker.userData.selectedMaterial = selectedMaterial;
+        marker.userData.selectionScale = 1;
         globeGroup.add(marker);
         globeState.markers.push(marker);
       });
@@ -1389,12 +1390,23 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       let pinchStartDistance = 0;
       let pinchStartZ = camera.position.z;
       let targetZoom = camera.position.z;
-      const clampZoom = (z) => Math.max(1.7, Math.min(7.4, z));
+      const clampZoom = (z) => Math.max(1.22, Math.min(7.8, z));
       const setZoom = (z, immediate = false) => {
         targetZoom = clampZoom(z);
         if (immediate) {
           camera.position.z = targetZoom;
         }
+      };
+      const applyMarkerZoomScale = () => {
+        const zoomRatio = Math.pow(camera.position.z / 3.8, 1.45);
+        const archiveScale = Math.max(0.26, Math.min(1.45, zoomRatio));
+        const overlayScale = Math.max(0.32, Math.min(1.55, zoomRatio));
+        globeState.markers.forEach((marker) => {
+          marker.scale.setScalar((marker.userData.selectionScale || 1) * archiveScale);
+        });
+        overlayState.markers.forEach((marker) => {
+          marker.scale.setScalar(overlayScale);
+        });
       };
       const touchDistance = (touches) => {
         if (!touches || touches.length < 2) return 0;
@@ -1451,15 +1463,15 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       });
       canvas.addEventListener("wheel", (event) => {
         event.preventDefault();
-        const delta = Math.max(-0.42, Math.min(0.42, event.deltaY * 0.0024));
+        const delta = Math.max(-0.48, Math.min(0.48, event.deltaY * 0.0028));
         setZoom(targetZoom + delta);
       }, { passive: false });
       $("mapZoomIn").addEventListener("click", () => {
-        setZoom(targetZoom - 0.48);
+        setZoom(targetZoom - 0.58);
         track("map_zoom", { control: "in" });
       });
       $("mapZoomOut").addEventListener("click", () => {
-        setZoom(targetZoom + 0.48);
+        setZoom(targetZoom + 0.58);
         track("map_zoom", { control: "out" });
       });
       canvas.addEventListener("pointerup", (event) => {
@@ -1553,6 +1565,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         requestAnimationFrame(animate);
         resize();
         camera.position.z += (targetZoom - camera.position.z) * 0.18;
+        applyMarkerZoomScale();
         renderer.render(scene, camera);
       }
       resize();

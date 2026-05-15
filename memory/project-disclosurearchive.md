@@ -136,6 +136,7 @@ Broad OCR update:
 - Public SEO update: the footer no longer links to source code; `src/ufo_indexer/export_site.py` now emits a richer SEO title/description/social metadata and JSON-LD `ItemList` entries for highlighted records.
 - Public Map palette update: nuclear-site overlay markers now use a distinct purple instead of the archive-coordinate yellow, preserving separate visual categories for report locations, military sites, and nuclear reference sites.
 - Public Map distance update: the globe now has smoother wheel/pinch zoom, explicit zoom buttons, smaller report/reference dots to reduce merging, and visible military/nuclear overlays draw great-circle distance arcs with km labels to the nearest archive location.
+- Public Map close-zoom update: the minimum camera zoom is closer, wheel/button zoom steps are slightly stronger, and marker scale now adapts to camera distance so dots remain visible while close zoom keeps clusters more separated.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.
