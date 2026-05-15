@@ -1418,8 +1418,9 @@
         }
       };
       const applyMarkerZoomScale = () => {
-        const archiveScale = Math.max(0.5, Math.min(1.45, camera.position.z / 3.8));
-        const overlayScale = Math.max(0.58, Math.min(1.55, camera.position.z / 3.8));
+        const zoomRatio = Math.pow(camera.position.z / 3.8, 1.45);
+        const archiveScale = Math.max(0.26, Math.min(1.45, zoomRatio));
+        const overlayScale = Math.max(0.32, Math.min(1.55, zoomRatio));
         globeState.markers.forEach((marker) => {
           marker.scale.setScalar((marker.userData.selectionScale || 1) * archiveScale);
         });
