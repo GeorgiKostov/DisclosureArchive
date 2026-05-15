@@ -142,6 +142,7 @@ Broad OCR update:
 - Public Map distance-label update: numeric km labels were removed from the globe; connector lines remain to show which military/nuclear overlay point is nearest to an archive location.
 - Public Map navigation update: globe drag speed now scales with camera zoom, making close-zoom inspection slower and less twitchy while preserving faster rotation when zoomed out.
 - Public Map linking update: highlight cards now say `View record` instead of `Open in index`, the featured payload includes locations so cards can show `Open map` only when plotted locations exist, and indexed result cards with locations include a `Map` action that opens the Map view and selects that document.
+- Public Map distance-label update: distance labels are back as compact `km` sprites, overlay connectors are straight line segments instead of globe arcs, and label size scales with camera zoom to reduce clutter near dots.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.

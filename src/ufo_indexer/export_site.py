@@ -767,7 +767,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
           <div class="map-legend collapsed" id="mapLegend" aria-label="Map overlays">
             <button type="button" class="legend-button" id="legendToggle" aria-expanded="false">Layers</button>
             <div class="legend-body" id="legendBody">
-              <p>Public reference points within 500 km of plotted archive locations. Lines connect each point to the nearest archive location.</p>
+              <p>Public reference points within 500 km of plotted archive locations. Straight lines and labels show nearest archive distance in km.</p>
               <label class="legend-toggle">
                 <input type="checkbox" data-overlay-toggle="military">
                 <span class="legend-key military" aria-hidden="true"></span>
@@ -1198,32 +1198,54 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       return new THREE.Vector3(p.x, p.y, p.z);
     }
 
-    function greatCirclePoints(THREE, startLocation, endLocation, radius = 1.082) {
-      const start = latLonThreeVector(THREE, startLocation.latitude, startLocation.longitude, 1).normalize();
-      const end = latLonThreeVector(THREE, endLocation.latitude, endLocation.longitude, 1).normalize();
-      const points = [];
-      const segments = 28;
-      const dot = Math.max(-1, Math.min(1, start.dot(end)));
-      const theta = Math.acos(dot);
-      const sinTheta = Math.sin(theta);
-      for (let index = 0; index <= segments; index += 1) {
-        const t = index / segments;
-        const lift = Math.sin(Math.PI * t) * 0.032;
-        let point;
-        if (sinTheta < 0.0001) {
-          point = new THREE.Vector3().lerpVectors(start, end, t).normalize();
-        } else {
-          const a = Math.sin((1 - t) * theta) / sinTheta;
-          const b = Math.sin(t * theta) / sinTheta;
-          point = new THREE.Vector3(
-            start.x * a + end.x * b,
-            start.y * a + end.y * b,
-            start.z * a + end.z * b
-          ).normalize();
-        }
-        points.push(point.multiplyScalar(radius + lift));
-      }
-      return points;
+    function straightConnectorPoints(THREE, startLocation, endLocation, radius = 1.092) {
+      return [
+        latLonThreeVector(THREE, startLocation.latitude, startLocation.longitude, radius),
+        latLonThreeVector(THREE, endLocation.latitude, endLocation.longitude, radius),
+      ];
+    }
+
+    function roundedRect(ctx, x, y, width, height, radius) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+    }
+
+    function distanceLabelSprite(THREE, label, color) {
+      const canvas = document.createElement("canvas");
+      canvas.width = 256;
+      canvas.height = 96;
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      roundedRect(ctx, 22, 22, 212, 52, 16);
+      ctx.fillStyle = "rgba(1, 10, 7, 0.82)";
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = color;
+      ctx.stroke();
+      ctx.fillStyle = "#f5fff8";
+      ctx.font = "700 25px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(label, 128, 49);
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.needsUpdate = true;
+      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: texture,
+        transparent: true,
+        depthWrite: false,
+      }));
+      sprite.userData.baseScaleX = 0.14;
+      sprite.userData.baseScaleY = 0.052;
+      return sprite;
     }
 
     async function addCountryBorders(THREE, globeGroup) {
@@ -1334,7 +1356,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         globeGroup.add(marker);
         overlayState.markers.push(marker);
         if (facility.nearestArchiveLocation) {
-          const points = greatCirclePoints(THREE, facility, facility.nearestArchiveLocation);
+          const points = straightConnectorPoints(THREE, facility, facility.nearestArchiveLocation);
           const connector = new THREE.Group();
           connector.userData.facility = facility;
           connector.visible = Boolean(overlayState.visible[facility.kind]);
@@ -1342,6 +1364,13 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
             new THREE.BufferGeometry().setFromPoints(points),
             facility.kind === "military" ? militaryConnectorMaterial : nuclearConnectorMaterial
           ));
+          const label = distanceLabelSprite(
+            THREE,
+            `${facility.nearestDistanceKm} km`,
+            facility.kind === "military" ? "#ff6b6b" : "#ff9f1c"
+          );
+          label.position.copy(points[0]).add(points[1]).multiplyScalar(0.5).normalize().multiplyScalar(1.145);
+          connector.add(label);
           globeGroup.add(connector);
           overlayState.connectors.push(connector);
         }
@@ -1378,6 +1407,18 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         });
         overlayState.markers.forEach((marker) => {
           marker.scale.setScalar(overlayScale);
+        });
+        const labelScale = Math.max(0.38, Math.min(1.45, Math.pow(camera.position.z / 3.8, 1.2)));
+        overlayState.connectors.forEach((connector) => {
+          connector.children.forEach((child) => {
+            if (child.isSprite) {
+              child.scale.set(
+                (child.userData.baseScaleX || 0.14) * labelScale,
+                (child.userData.baseScaleY || 0.052) * labelScale,
+                1
+              );
+            }
+          });
         });
       };
       const touchDistance = (touches) => {
