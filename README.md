@@ -339,8 +339,9 @@ public reference overlays for selected military bases and nuclear sites.
 
 The export also writes standard public-web hygiene files and metadata:
 `robots.txt`, `sitemap.xml`, `security.txt`, `/.well-known/security.txt`,
-Open Graph/Twitter card tags, canonical URL tags, JSON-LD structured data, a
-document referrer policy, and a conservative Content Security Policy meta tag.
+`humans.txt`, `llms.txt`, `favicon.svg`, `site.webmanifest`, Open Graph/Twitter
+card tags, canonical URL tags, JSON-LD structured data, a document referrer
+policy, and a conservative Content Security Policy meta tag.
 The generated page includes a compact footer with links to separate minimal
 contact, Legal / Impressum, privacy, security, sitemap, and source-code pages.
 The public contact email defaults to `contact@rebuilt.cards`; override it with

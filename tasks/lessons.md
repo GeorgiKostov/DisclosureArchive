@@ -42,3 +42,4 @@
 - Public card summaries should stay on curated metadata/description text; source-derived OCR/native excerpts are more useful behind expandable provenance sections where the reader can see source labels and verify context.
 - Footer legal/contact/privacy/security content reads cleaner as separate minimal static pages, especially when the homepage footer should stay out of the way of the archive UI.
 - Public map overlays should be labeled as selected public reference points, not exhaustive infrastructure datasets, unless a maintained source dataset is added.
+- When adding map overlay datasets, filter them against plotted archive locations by distance so the public map stays comparative rather than becoming a generic infrastructure atlas.

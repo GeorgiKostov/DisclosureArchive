@@ -408,19 +408,45 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       position: absolute;
       right: 14px;
       bottom: 14px;
-      width: min(260px, calc(100% - 28px));
+      width: min(282px, calc(100% - 28px));
       border: 1px solid rgba(66,255,140,0.42);
       border-radius: 8px;
       background: rgba(2, 10, 6, 0.92);
       box-shadow: 0 18px 42px rgba(0,0,0,0.42), 0 0 26px rgba(66,255,140,0.1);
-      padding: 10px;
+      padding: 8px;
       z-index: 2;
     }
-    .map-legend h3 {
+    .legend-button {
+      width: 100%;
+      min-height: 34px;
+      justify-content: space-between;
+      padding: 0 9px;
+      color: var(--accent-2);
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+    .legend-button::after {
+      content: "-";
+      color: var(--accent);
+    }
+    .map-legend.collapsed {
+      width: auto;
+      min-width: 92px;
+      padding: 6px;
+    }
+    .map-legend.collapsed .legend-body {
+      display: none;
+    }
+    .map-legend.collapsed .legend-button::after {
+      content: "+";
+    }
+    .legend-body {
+      padding: 8px 4px 2px;
+    }
+    .legend-body p {
       margin: 0 0 8px;
       color: var(--muted);
       font-size: 11px;
-      text-transform: uppercase;
     }
     .legend-toggle {
       display: flex;
@@ -627,6 +653,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       .map-section .globe-stage { height: clamp(360px, 92vw, 560px); }
       #globeCanvas { min-height: 300px; }
       .map-legend { right: 10px; bottom: 10px; width: min(250px, calc(100% - 20px)); }
+      .map-legend.collapsed { width: auto; }
     }
     @media (max-width: 430px) {
       .tools, .actions { grid-template-columns: 1fr; }
@@ -701,18 +728,21 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       <section id="globePanel" class="globe-panel open" aria-hidden="false">
         <div class="globe-stage">
           <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
-          <div class="map-legend" aria-label="Map overlays">
-            <h3>Overlays</h3>
-            <label class="legend-toggle">
-              <input type="checkbox" data-overlay-toggle="military">
-              <span class="legend-key military" aria-hidden="true"></span>
-              <span>Military bases</span>
-            </label>
-            <label class="legend-toggle">
-              <input type="checkbox" data-overlay-toggle="nuclear">
-              <span class="legend-key nuclear" aria-hidden="true"></span>
-              <span>Nuclear sites</span>
-            </label>
+          <div class="map-legend collapsed" id="mapLegend" aria-label="Map overlays">
+            <button type="button" class="legend-button" id="legendToggle" aria-expanded="false">Layers</button>
+            <div class="legend-body" id="legendBody">
+              <p>Public reference points within 500 km of plotted archive locations.</p>
+              <label class="legend-toggle">
+                <input type="checkbox" data-overlay-toggle="military">
+                <span class="legend-key military" aria-hidden="true"></span>
+                <span>Military bases</span>
+              </label>
+              <label class="legend-toggle">
+                <input type="checkbox" data-overlay-toggle="nuclear">
+                <span class="legend-key nuclear" aria-hidden="true"></span>
+                <span>Nuclear sites</span>
+              </label>
+            </div>
           </div>
         </div>
       </section>
@@ -762,6 +792,30 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         { kind: "military", name: "Ramstein Air Base", type: "U.S. air base", latitude: 49.4369, longitude: 7.6003 },
         { kind: "military", name: "RAF Lakenheath", type: "U.S. air base", latitude: 52.4093, longitude: 0.5609 },
         { kind: "military", name: "Diego Garcia", type: "joint support facility", latitude: -7.3133, longitude: 72.4111 },
+        { kind: "military", name: "Al Udeid Air Base", type: "U.S./Qatar air base", latitude: 25.1173, longitude: 51.3149 },
+        { kind: "military", name: "Al Dhafra Air Base", type: "UAE air base", latitude: 24.2482, longitude: 54.5477 },
+        { kind: "military", name: "Naval Support Activity Bahrain", type: "U.S. naval support activity", latitude: 26.2070, longitude: 50.6130 },
+        { kind: "military", name: "Ali Al Salem Air Base", type: "Kuwait air base", latitude: 29.3467, longitude: 47.5208 },
+        { kind: "military", name: "Camp Arifjan", type: "U.S./Kuwait logistics base", latitude: 28.9047, longitude: 48.1842 },
+        { kind: "military", name: "Al Asad Airbase", type: "Iraq air base", latitude: 33.7856, longitude: 42.4412 },
+        { kind: "military", name: "Erbil Air Base", type: "Iraq air base", latitude: 36.2376, longitude: 43.9632 },
+        { kind: "military", name: "Muwaffaq Salti Air Base", type: "Jordan air base", latitude: 31.8250, longitude: 36.7820 },
+        { kind: "military", name: "Incirlik Air Base", type: "Turkey air base", latitude: 37.0021, longitude: 35.4259 },
+        { kind: "military", name: "RAF Akrotiri", type: "UK sovereign base area", latitude: 34.5904, longitude: 32.9879 },
+        { kind: "military", name: "Naval Support Activity Souda Bay", type: "NATO/U.S. naval support activity", latitude: 35.5317, longitude: 24.1497 },
+        { kind: "military", name: "Naval Air Station Sigonella", type: "NATO/U.S. air station", latitude: 37.4017, longitude: 14.9224 },
+        { kind: "military", name: "Aviano Air Base", type: "U.S./Italy air base", latitude: 46.0319, longitude: 12.5965 },
+        { kind: "military", name: "Yokota Air Base", type: "U.S./Japan air base", latitude: 35.7485, longitude: 139.3485 },
+        { kind: "military", name: "Kadena Air Base", type: "U.S./Japan air base", latitude: 26.3517, longitude: 127.7694 },
+        { kind: "military", name: "Misawa Air Base", type: "U.S./Japan air base", latitude: 40.7032, longitude: 141.3683 },
+        { kind: "military", name: "Commander Fleet Activities Yokosuka", type: "U.S./Japan naval base", latitude: 35.2920, longitude: 139.6720 },
+        { kind: "military", name: "Commander Fleet Activities Sasebo", type: "U.S./Japan naval base", latitude: 33.1594, longitude: 129.7160 },
+        { kind: "military", name: "Osan Air Base", type: "U.S./South Korea air base", latitude: 37.0906, longitude: 127.0300 },
+        { kind: "military", name: "Kunsan Air Base", type: "U.S./South Korea air base", latitude: 35.9038, longitude: 126.6159 },
+        { kind: "military", name: "Andersen Air Force Base", type: "U.S. air base", latitude: 13.5840, longitude: 144.9300 },
+        { kind: "military", name: "Naval Base Guam", type: "U.S. naval base", latitude: 13.4430, longitude: 144.6500 },
+        { kind: "military", name: "Rota Naval Base", type: "Spain/U.S. naval base", latitude: 36.6450, longitude: -6.3490 },
+        { kind: "military", name: "Spangdahlem Air Base", type: "U.S./Germany air base", latitude: 49.9727, longitude: 6.6925 },
         { kind: "nuclear", name: "Malmstrom Air Force Base", type: "ICBM missile wing base", latitude: 47.5047, longitude: -111.1830 },
         { kind: "nuclear", name: "Minot Air Force Base", type: "ICBM missile wing base", latitude: 48.4156, longitude: -101.3583 },
         { kind: "nuclear", name: "F. E. Warren Air Force Base", type: "ICBM missile wing base", latitude: 41.1333, longitude: -104.8667 },
@@ -774,6 +828,28 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         { kind: "nuclear", name: "Los Alamos National Laboratory", type: "nuclear research site", latitude: 35.8756, longitude: -106.3247 },
         { kind: "nuclear", name: "Oak Ridge Reservation", type: "nuclear research site", latitude: 35.9300, longitude: -84.3100 },
         { kind: "nuclear", name: "Sellafield", type: "nuclear site", latitude: 54.4205, longitude: -3.4975 },
+        { kind: "nuclear", name: "Barakah Nuclear Energy Plant", type: "nuclear power plant", latitude: 23.9680, longitude: 52.2350 },
+        { kind: "nuclear", name: "Bushehr Nuclear Power Plant", type: "nuclear power plant", latitude: 28.8290, longitude: 50.8860 },
+        { kind: "nuclear", name: "Natanz Nuclear Facility", type: "nuclear facility", latitude: 33.7240, longitude: 51.7270 },
+        { kind: "nuclear", name: "Fordow Fuel Enrichment Plant", type: "nuclear facility", latitude: 34.8840, longitude: 50.9960 },
+        { kind: "nuclear", name: "Negev Nuclear Research Center", type: "nuclear research site", latitude: 31.0000, longitude: 35.1400 },
+        { kind: "nuclear", name: "Akkuyu Nuclear Power Plant", type: "nuclear power plant", latitude: 36.1440, longitude: 33.5410 },
+        { kind: "nuclear", name: "Kashiwazaki-Kariwa Nuclear Power Plant", type: "nuclear power plant", latitude: 37.4280, longitude: 138.6010 },
+        { kind: "nuclear", name: "Fukushima Daiichi Nuclear Power Plant", type: "nuclear power plant", latitude: 37.4210, longitude: 141.0320 },
+        { kind: "nuclear", name: "Rokkasho Reprocessing Plant", type: "nuclear fuel cycle facility", latitude: 40.9610, longitude: 141.3260 },
+        { kind: "nuclear", name: "Ohi Nuclear Power Plant", type: "nuclear power plant", latitude: 35.5410, longitude: 135.6530 },
+        { kind: "nuclear", name: "Takahama Nuclear Power Plant", type: "nuclear power plant", latitude: 35.5220, longitude: 135.5040 },
+        { kind: "nuclear", name: "Genkai Nuclear Power Plant", type: "nuclear power plant", latitude: 33.5150, longitude: 129.8370 },
+        { kind: "nuclear", name: "Sendai Nuclear Power Plant", type: "nuclear power plant", latitude: 31.8330, longitude: 130.1890 },
+        { kind: "nuclear", name: "Ikata Nuclear Power Plant", type: "nuclear power plant", latitude: 33.4910, longitude: 132.3110 },
+        { kind: "nuclear", name: "Kori Nuclear Power Plant", type: "nuclear power plant", latitude: 35.3180, longitude: 129.2960 },
+        { kind: "nuclear", name: "Wolsong Nuclear Power Plant", type: "nuclear power plant", latitude: 35.7110, longitude: 129.4750 },
+        { kind: "nuclear", name: "Hanul Nuclear Power Plant", type: "nuclear power plant", latitude: 37.0920, longitude: 129.3830 },
+        { kind: "nuclear", name: "Metsamor Nuclear Power Plant", type: "nuclear power plant", latitude: 40.1800, longitude: 44.1500 },
+        { kind: "nuclear", name: "Kozloduy Nuclear Power Plant", type: "nuclear power plant", latitude: 43.7470, longitude: 23.7710 },
+        { kind: "nuclear", name: "Chashma Nuclear Power Plant", type: "nuclear power plant", latitude: 32.3900, longitude: 71.4700 },
+        { kind: "nuclear", name: "Karachi Nuclear Power Plant", type: "nuclear power plant", latitude: 24.8500, longitude: 66.7900 },
+        { kind: "nuclear", name: "Tarapur Atomic Power Station", type: "nuclear power plant", latitude: 19.8300, longitude: 72.6600 },
       ],
     };
 
@@ -832,6 +908,33 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         });
       });
       return out;
+    }
+
+    function distanceKm(a, b) {
+      const toRad = (value) => value * Math.PI / 180;
+      const lat1 = toRad(Number(a.latitude));
+      const lat2 = toRad(Number(b.latitude));
+      const dLat = lat2 - lat1;
+      const dLon = toRad(Number(b.longitude) - Number(a.longitude));
+      const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+      return 6371 * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+    }
+
+    function nearbyOverlayFacilities(maxKm = 500) {
+      if (!globeState.locations.length) return [];
+      return overlayState.facilities
+        .map((facility) => {
+          const nearest = globeState.locations.reduce((best, location) => {
+            const distance = distanceKm(facility, location);
+            return distance < best.distance ? { location, distance } : best;
+          }, { location: null, distance: Infinity });
+          return {
+            ...facility,
+            nearestArchiveLocation: nearest.location,
+            nearestDistanceKm: Math.round(nearest.distance),
+          };
+        })
+        .filter((facility) => facility.nearestDistanceKm <= maxKm);
     }
 
     function pageUrl(url, page) {
@@ -1009,11 +1112,12 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         return;
       }
       if (location.facilityKind) {
+        const nearest = location.nearestArchiveLocation;
         $("mapSelection").innerHTML = `
           <article class="reference-card">
             <h2>${esc(location.name)}</h2>
             <div class="muted">${esc(location.facilityKind === "military" ? "Military base" : "Nuclear site")} | ${esc(location.type || "public reference point")}</div>
-            <p>This is a public reference overlay point for comparison with archive locations. It is not part of the document index.</p>
+            <p>This is a public reference overlay point within ${esc(location.nearestDistanceKm || "?")} km of ${esc(nearest ? locationLabel(nearest) : "an archive map point")}. It is not part of the document index.</p>
           </article>
         `;
         return;
@@ -1134,7 +1238,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         globeGroup.add(marker);
         globeState.markers.push(marker);
       });
-      overlayState.facilities.forEach((facility) => {
+      overlayState.markers = [];
+      nearbyOverlayFacilities(500).forEach((facility) => {
         const p = latLonVector(facility.latitude, facility.longitude, 1.066);
         const marker = new THREE.Mesh(overlayGeometry, facility.kind === "military" ? militaryMaterial : nuclearMaterial);
         marker.position.set(p.x, p.y, p.z);
@@ -1579,6 +1684,13 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     $("reset").addEventListener("click", () => {
       track("reset", { control: "button" });
       resetArchiveView();
+    });
+    $("legendToggle").addEventListener("click", () => {
+      const legend = $("mapLegend");
+      const collapsed = !legend.classList.contains("collapsed");
+      legend.classList.toggle("collapsed", collapsed);
+      $("legendToggle").setAttribute("aria-expanded", collapsed ? "false" : "true");
+      track("map_legend_toggle", { open: collapsed ? "false" : "true" });
     });
     document.querySelectorAll("[data-overlay-toggle]").forEach((input) => {
       input.addEventListener("change", () => {
@@ -2392,6 +2504,8 @@ def seo_meta(site_url: str) -> str:
             '<meta name="robots" content="index,follow,max-image-preview:large">',
             '<meta name="googlebot" content="index,follow,max-image-preview:large">',
             '<meta name="theme-color" content="#050806">',
+            '<link rel="icon" href="/favicon.svg" type="image/svg+xml">',
+            '<link rel="manifest" href="/site.webmanifest">',
             f'<link rel="canonical" href="{html_escape(canonical, quote=True)}">',
             '<link rel="sitemap" type="application/xml" href="/sitemap.xml">',
             '<meta property="og:type" content="website">',
@@ -2525,6 +2639,7 @@ def static_info_page(title: str, body: str, analytics_script_url: str, google_an
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{safe_title} | Disclosure Archive</title>
   {security_meta(analytics_script_url, google_analytics_id)}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <style>
     :root {{ color-scheme: dark; --bg: #050806; --ink: #e7fff2; --muted: #8fb39e; --line: rgba(74, 255, 151, 0.22); --accent: #42ff8c; --accent-2: #72d7ff; }}
     * {{ box-sizing: border-box; }}
@@ -2583,10 +2698,16 @@ def write_info_pages(out: Path, site_url: str, analytics_script_url: str, contac
     """
     (out / "legal.html").write_text(static_info_page("Legal / Impressum", legal_body, analytics_script_url, google_analytics_id), encoding="utf-8")
 
-    privacy_body = """
+    analytics_notice = (
+        "<p>This build uses Google Analytics for aggregate traffic and coarse UI events. Search text is not sent; search events include query length only.</p>"
+        if normalize_google_analytics_id(google_analytics_id)
+        else "<p>Optional privacy-friendly analytics may be enabled without storing search text.</p>"
+    )
+    privacy_body = f"""
       <p>No accounts, forms, comments, ads, or marketing cookies are used.</p>
       <p>Search runs locally in your browser against static JSON. Search text is not sent to a Disclosure Archive server.</p>
-      <p>The hosting provider may process standard request logs. Optional privacy-friendly analytics may be enabled without storing search text.</p>
+      <p>The hosting provider may process standard request logs.</p>
+      {analytics_notice}
     """
     (out / "privacy.html").write_text(static_info_page("Privacy", privacy_body, analytics_script_url, google_analytics_id), encoding="utf-8")
 
@@ -2670,6 +2791,64 @@ def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str
                 "  X-Content-Type-Options: nosniff",
                 "  X-Frame-Options: DENY",
                 "  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (out / "favicon.svg").write_text(
+        """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#050806"/>
+  <circle cx="32" cy="32" r="22" fill="none" stroke="#42ff8c" stroke-width="3"/>
+  <path d="M12 32h40M32 10c7 8 7 36 0 44M32 10c-7 8-7 36 0 44" fill="none" stroke="#72d7ff" stroke-width="2" opacity=".86"/>
+  <circle cx="43" cy="21" r="4" fill="#ffd166"/>
+</svg>
+""",
+        encoding="utf-8",
+    )
+    (out / "site.webmanifest").write_text(
+        json.dumps(
+            {
+                "name": "Disclosure Archive",
+                "short_name": "Disclosure",
+                "start_url": "/",
+                "display": "standalone",
+                "background_color": "#050806",
+                "theme_color": "#050806",
+                "description": "Public UFO/UAP release archive highlights, search, and map.",
+                "icons": [{"src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml"}],
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (out / "humans.txt").write_text(
+        "\n".join(
+            [
+                "Disclosure Archive",
+                "Site: https://disclosurearchive.org/",
+                "Source: https://github.com/GeorgiKostov/DisclosureArchive",
+                "Purpose: public-interest index for public UFO/UAP release materials",
+                "Contact: https://disclosurearchive.org/contact.html",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (out / "llms.txt").write_text(
+        "\n".join(
+            [
+                "# Disclosure Archive",
+                "",
+                "Disclosure Archive is a static public index of public UFO/UAP release materials.",
+                "Use it as a finding aid, not as proof of claims. Verify important details against linked government source records.",
+                "",
+                "Important URLs:",
+                "- Site: https://disclosurearchive.org/",
+                "- Data payload: https://disclosurearchive.org/data/documents.json",
+                "- Source code: https://github.com/GeorgiKostov/DisclosureArchive",
+                "- Contact: https://disclosurearchive.org/contact.html",
                 "",
             ]
         ),

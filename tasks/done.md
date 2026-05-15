@@ -104,3 +104,6 @@
 - Added a bottom-right Map legend with toggles for selected public military-base and nuclear-site reference overlays, including missile-wing bases and nuclear power/research sites.
 - Added optional Google Analytics 4 / Google tag support to the static export and Pages publisher via `--ga-measurement-id` / `DISCLOSURE_GA_MEASUREMENT_ID`, reusing existing coarse UI event hooks without sending search text.
 - Published Google Analytics for the public site with Measurement ID `G-NNXB9F00V6` and made it the default for future `make export-site` / Pages publishes.
+- Made the public Map layer legend collapsible and mobile-friendly.
+- Expanded selected military-base and nuclear-site reference overlays across the Middle East, Japan, Korea, Guam, Europe, Pakistan/India, and other regions, then filtered overlay markers to facilities within 500 km of plotted archive locations.
+- Added launch polish files to the static export: `favicon.svg`, `site.webmanifest`, `humans.txt`, and `llms.txt`.

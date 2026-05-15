@@ -197,8 +197,9 @@ loading more on scroll with a manual fallback button. The map view opens a
 selected archive document below the globe and includes optional public reference
 overlays for selected military bases and nuclear sites.
 The exporter also emits `robots.txt`, `sitemap.xml`, root and well-known
-`security.txt`, canonical/social/structured-data metadata, a referrer policy,
-and a static-host `_headers` template. The HTML footer stays compact and links
+`security.txt`, `humans.txt`, `llms.txt`, `favicon.svg`, `site.webmanifest`,
+canonical/social/structured-data metadata, a referrer policy, and a static-host
+`_headers` template. The HTML footer stays compact and links
 to separate minimal contact, Legal / Impressum, privacy, security, sitemap, and
 source-code pages. The contact email is configurable at export time, but the
 generated public pages avoid rendering the raw address in the footer or
