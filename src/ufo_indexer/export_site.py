@@ -490,13 +490,24 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       accent-color: var(--accent);
     }
     .legend-key {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
       flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      color: #06110b;
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1;
     }
     .legend-key.military { background: #ff6b6b; }
-    .legend-key.nuclear { background: #ff9f1c; }
+    .legend-key.military::before { content: "★"; }
+    .legend-key.nuclear {
+      background: #ff9f1c;
+      border-radius: 50%;
+    }
+    .legend-key.nuclear::before { content: "☢"; font-size: 10px; }
     .map-selection {
       margin-top: 12px;
     }
@@ -741,8 +752,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
           <option value="video_metadata">Video metadata</option>
           <option value="metadata">Metadata</option>
         </select>
-        <select id="yearFilter" aria-label="Year filter">
-          <option value="">All years</option>
+        <select id="yearFilter" aria-label="Decade filter">
+          <option value="">All decades</option>
         </select>
         <button type="button" id="reset">Reset</button>
       </div>
@@ -767,7 +778,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
           <div class="map-legend collapsed" id="mapLegend" aria-label="Map overlays">
             <button type="button" class="legend-button" id="legendToggle" aria-expanded="false">Layers</button>
             <div class="legend-body" id="legendBody">
-              <p>Public reference points within 500 km of plotted archive locations. Straight lines and labels show nearest archive distance in km.</p>
+              <p>Public reference points within 500 km of plotted archive locations.</p>
               <label class="legend-toggle">
                 <input type="checkbox" data-overlay-toggle="military">
                 <span class="legend-key military" aria-hidden="true"></span>
@@ -816,7 +827,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     const overlayState = {
       visible: { military: false, nuclear: false },
       markers: [],
-      connectors: [],
       facilities: [
         { kind: "military", name: "Edwards Air Force Base", type: "flight test base", latitude: 34.9054, longitude: -117.8837 },
         { kind: "military", name: "Nellis Air Force Base", type: "training and test range", latitude: 36.2362, longitude: -115.0342 },
@@ -920,6 +930,11 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       const text = [doc.incident_date, doc.release_date, doc.title].filter(Boolean).join(" ");
       const matches = [...text.matchAll(/\b(18|19|20)\d{2}\b/g)].map((match) => Number(match[0]));
       return matches.length ? matches[0] : 0;
+    }
+
+    function docDecade(doc) {
+      const year = docYear(doc);
+      return year ? Math.floor(year / 10) * 10 : 0;
     }
 
     function allLocations() {
@@ -1132,8 +1147,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     }
 
     function yearOptions() {
-      const years = [...new Set(docs.map(docYear).filter(Boolean))].sort((a, b) => b - a);
-      $("yearFilter").innerHTML = `<option value="">All years</option>` + years.map((year) => `<option value="${year}">${year}</option>`).join("");
+      const decades = [...new Set(docs.map(docDecade).filter(Boolean))].sort((a, b) => b - a);
+      $("yearFilter").innerHTML = `<option value="">All decades</option>` + decades.map((decade) => `<option value="${decade}">${decade}s</option>`).join("");
     }
 
     function locationLabel(location) {
@@ -1163,7 +1178,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
           <article class="reference-card">
             <h2>${esc(location.name)}</h2>
             <div class="muted">${esc(location.facilityKind === "military" ? "Military base" : "Nuclear site")} | ${esc(location.type || "public reference point")}</div>
-            <p>This is a public reference overlay point within ${esc(location.nearestDistanceKm || "?")} km of ${esc(nearest ? locationLabel(nearest) : "an archive map point")}. It is not part of the document index.</p>
+            <p>This is a public reference overlay point near ${esc(nearest ? locationLabel(nearest) : "an archive map point")}. It is not part of the document index.</p>
           </article>
         `;
         return;
@@ -1178,9 +1193,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       overlayState.markers.forEach((marker) => {
         marker.visible = Boolean(overlayState.visible[marker.userData.facility.kind]);
       });
-      overlayState.connectors.forEach((connector) => {
-        connector.visible = Boolean(overlayState.visible[connector.userData.facility.kind]);
-      });
     }
 
     function latLonVector(lat, lon, radius) {
@@ -1193,49 +1205,48 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       };
     }
 
-    function latLonThreeVector(THREE, lat, lon, radius) {
-      const p = latLonVector(lat, lon, radius);
-      return new THREE.Vector3(p.x, p.y, p.z);
-    }
-
-    function straightConnectorPoints(THREE, startLocation, endLocation, radius = 1.092) {
-      return [
-        latLonThreeVector(THREE, startLocation.latitude, startLocation.longitude, radius),
-        latLonThreeVector(THREE, endLocation.latitude, endLocation.longitude, radius),
-      ];
-    }
-
-    function roundedRect(ctx, x, y, width, height, radius) {
-      ctx.beginPath();
-      ctx.moveTo(x + radius, y);
-      ctx.lineTo(x + width - radius, y);
-      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-      ctx.lineTo(x + width, y + height - radius);
-      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-      ctx.lineTo(x + radius, y + height);
-      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-      ctx.lineTo(x, y + radius);
-      ctx.quadraticCurveTo(x, y, x + radius, y);
-      ctx.closePath();
-    }
-
-    function distanceLabelSprite(THREE, label, color) {
+    function overlayIconSprite(THREE, kind) {
       const canvas = document.createElement("canvas");
-      canvas.width = 256;
+      canvas.width = 96;
       canvas.height = 96;
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      roundedRect(ctx, 22, 22, 212, 52, 16);
-      ctx.fillStyle = "rgba(1, 10, 7, 0.82)";
-      ctx.fill();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = color;
-      ctx.stroke();
-      ctx.fillStyle = "#f5fff8";
-      ctx.font = "700 25px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+      const color = kind === "military" ? "#ff6b6b" : "#ff9f1c";
+      ctx.fillStyle = color;
+      ctx.strokeStyle = "rgba(1, 10, 7, 0.92)";
+      ctx.lineWidth = 6;
+      if (kind === "military") {
+        ctx.beginPath();
+        for (let index = 0; index < 10; index += 1) {
+          const radius = index % 2 === 0 ? 34 : 15;
+          const angle = -Math.PI / 2 + index * Math.PI / 5;
+          const x = 48 + Math.cos(angle) * radius;
+          const y = 48 + Math.sin(angle) * radius;
+          if (index === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.stroke();
+        ctx.fill();
+      } else {
+        ctx.beginPath();
+        ctx.arc(48, 48, 35, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fill();
+        ctx.fillStyle = "rgba(1, 10, 7, 0.92)";
+        ctx.font = "700 42px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("☢", 48, 51);
+      }
+      if (kind === "military") {
+        ctx.fillStyle = "rgba(1, 10, 7, 0.92)";
+        ctx.font = "700 28px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("★", 48, 51);
+      }
       ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(label, 128, 49);
       const texture = new THREE.CanvasTexture(canvas);
       texture.needsUpdate = true;
       const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
@@ -1243,7 +1254,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         transparent: true,
         depthWrite: false,
       }));
-      sprite.userData.baseScaleX = 0.14;
+      sprite.userData.baseScaleX = 0.052;
       sprite.userData.baseScaleY = 0.052;
       return sprite;
     }
@@ -1326,14 +1337,11 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       }
       await addCountryBorders(THREE, globeGroup);
       const markerGeometry = new THREE.SphereGeometry(0.021, 16, 16);
-      const overlayGeometry = new THREE.SphereGeometry(0.015, 14, 14);
       const placeMaterial = new THREE.MeshBasicMaterial({ color: 0x42ff8c });
       const coordinateMaterial = new THREE.MeshBasicMaterial({ color: 0x42ff8c });
       const selectedMaterial = new THREE.MeshBasicMaterial({ color: 0x72d7ff });
-      const militaryMaterial = new THREE.MeshBasicMaterial({ color: 0xff6b6b });
-      const nuclearMaterial = new THREE.MeshBasicMaterial({ color: 0xff9f1c });
-      const militaryConnectorMaterial = new THREE.LineBasicMaterial({ color: 0xff6b6b, transparent: true, opacity: 0.42 });
-      const nuclearConnectorMaterial = new THREE.LineBasicMaterial({ color: 0xff9f1c, transparent: true, opacity: 0.48 });
+      const militarySprite = overlayIconSprite(THREE, "military");
+      const nuclearSprite = overlayIconSprite(THREE, "nuclear");
       globeState.locations.forEach((location, index) => {
         const p = latLonVector(location.latitude, location.longitude, 1.045);
         const marker = new THREE.Mesh(markerGeometry, location.precision === "coordinate" ? coordinateMaterial : placeMaterial);
@@ -1346,34 +1354,14 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         globeState.markers.push(marker);
       });
       overlayState.markers = [];
-      overlayState.connectors = [];
       nearbyOverlayFacilities(500).forEach((facility) => {
         const p = latLonVector(facility.latitude, facility.longitude, 1.066);
-        const marker = new THREE.Mesh(overlayGeometry, facility.kind === "military" ? militaryMaterial : nuclearMaterial);
+        const marker = (facility.kind === "military" ? militarySprite : nuclearSprite).clone();
         marker.position.set(p.x, p.y, p.z);
         marker.userData.facility = facility;
         marker.visible = Boolean(overlayState.visible[facility.kind]);
         globeGroup.add(marker);
         overlayState.markers.push(marker);
-        if (facility.nearestArchiveLocation) {
-          const points = straightConnectorPoints(THREE, facility, facility.nearestArchiveLocation);
-          const connector = new THREE.Group();
-          connector.userData.facility = facility;
-          connector.visible = Boolean(overlayState.visible[facility.kind]);
-          connector.add(new THREE.Line(
-            new THREE.BufferGeometry().setFromPoints(points),
-            facility.kind === "military" ? militaryConnectorMaterial : nuclearConnectorMaterial
-          ));
-          const label = distanceLabelSprite(
-            THREE,
-            `${facility.nearestDistanceKm} km`,
-            facility.kind === "military" ? "#ff6b6b" : "#ff9f1c"
-          );
-          label.position.copy(points[0]).add(points[1]).multiplyScalar(0.5).normalize().multiplyScalar(1.145);
-          connector.add(label);
-          globeGroup.add(connector);
-          overlayState.connectors.push(connector);
-        }
       });
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
@@ -1406,19 +1394,11 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
           marker.scale.setScalar((marker.userData.selectionScale || 1) * archiveScale);
         });
         overlayState.markers.forEach((marker) => {
-          marker.scale.setScalar(overlayScale);
-        });
-        const labelScale = Math.max(0.38, Math.min(1.45, Math.pow(camera.position.z / 3.8, 1.2)));
-        overlayState.connectors.forEach((connector) => {
-          connector.children.forEach((child) => {
-            if (child.isSprite) {
-              child.scale.set(
-                (child.userData.baseScaleX || 0.14) * labelScale,
-                (child.userData.baseScaleY || 0.052) * labelScale,
-                1
-              );
-            }
-          });
+          marker.scale.set(
+            (marker.userData.baseScaleX || 0.052) * overlayScale,
+            (marker.userData.baseScaleY || 0.052) * overlayScale,
+            1
+          );
         });
       };
       const touchDistance = (touches) => {
@@ -1761,7 +1741,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       const scored = docs
         .filter((doc) => !agency || doc.agency === agency)
         .filter((doc) => matchesSourceFilter(doc, source))
-        .filter((doc) => !year || String(docYear(doc)) === year)
+        .filter((doc) => !year || String(docDecade(doc)) === year)
         .map((doc) => [scoreDoc(doc, terms), doc])
         .filter(([score]) => score > 0)
         .sort((a, b) => {
