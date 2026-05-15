@@ -1,0 +1,16 @@
+{
+  "name": "Disclosure Archive",
+  "short_name": "Disclosure",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050806",
+  "theme_color": "#050806",
+  "description": "Public UFO/UAP release archive highlights, search, and map.",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

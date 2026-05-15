@@ -1,0 +1,10 @@
+# Disclosure Archive
+
+Disclosure Archive is a static public index of public UFO/UAP release materials.
+Use it as a finding aid, not as proof of claims. Verify important details against linked government source records.
+
+Important URLs:
+- Site: https://disclosurearchive.org/
+- Data payload: https://disclosurearchive.org/data/documents.json
+- Source code: https://github.com/GeorgiKostov/DisclosureArchive
+- Contact: https://disclosurearchive.org/contact.html

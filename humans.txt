@@ -1,0 +1,5 @@
+Disclosure Archive
+Site: https://disclosurearchive.org/
+Source: https://github.com/GeorgiKostov/DisclosureArchive
+Purpose: public-interest index for public UFO/UAP release materials
+Contact: https://disclosurearchive.org/contact.html
