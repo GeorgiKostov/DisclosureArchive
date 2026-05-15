@@ -490,7 +490,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       flex: 0 0 auto;
     }
     .legend-key.military { background: #ff6b6b; }
-    .legend-key.nuclear { background: #b388ff; }
+    .legend-key.nuclear { background: #ff9f1c; }
     .map-selection {
       margin-top: 12px;
     }
@@ -1331,12 +1331,12 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       const markerGeometry = new THREE.SphereGeometry(0.021, 16, 16);
       const overlayGeometry = new THREE.SphereGeometry(0.015, 14, 14);
       const placeMaterial = new THREE.MeshBasicMaterial({ color: 0x42ff8c });
-      const coordinateMaterial = new THREE.MeshBasicMaterial({ color: 0xffd166 });
+      const coordinateMaterial = new THREE.MeshBasicMaterial({ color: 0x42ff8c });
       const selectedMaterial = new THREE.MeshBasicMaterial({ color: 0x72d7ff });
       const militaryMaterial = new THREE.MeshBasicMaterial({ color: 0xff6b6b });
-      const nuclearMaterial = new THREE.MeshBasicMaterial({ color: 0xb388ff });
+      const nuclearMaterial = new THREE.MeshBasicMaterial({ color: 0xff9f1c });
       const militaryConnectorMaterial = new THREE.LineBasicMaterial({ color: 0xff6b6b, transparent: true, opacity: 0.42 });
-      const nuclearConnectorMaterial = new THREE.LineBasicMaterial({ color: 0xb388ff, transparent: true, opacity: 0.48 });
+      const nuclearConnectorMaterial = new THREE.LineBasicMaterial({ color: 0xff9f1c, transparent: true, opacity: 0.48 });
       globeState.locations.forEach((location, index) => {
         const p = latLonVector(location.latitude, location.longitude, 1.045);
         const marker = new THREE.Mesh(markerGeometry, location.precision === "coordinate" ? coordinateMaterial : placeMaterial);
@@ -1370,7 +1370,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
           const label = distanceLabelSprite(
             THREE,
             `${facility.nearestDistanceKm}`,
-            facility.kind === "military" ? "#ff6b6b" : "#b388ff"
+            facility.kind === "military" ? "#ff6b6b" : "#ff9f1c"
           );
           label.position.copy(points[Math.floor(points.length / 2)]).multiplyScalar(1.012);
           connector.add(label);
