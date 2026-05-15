@@ -120,6 +120,17 @@
       color: var(--accent);
       background: rgba(66,255,140,0.14);
     }
+    .support-link {
+      display: inline-flex;
+      align-items: center;
+      justify-self: end;
+      line-height: 0;
+    }
+    .support-link img {
+      display: block;
+      height: 36px;
+      border: 0;
+    }
     h1 {
       margin: 0;
     }
@@ -690,6 +701,7 @@
       .top { align-items: flex-start; flex-direction: column; padding: 16px 0; }
       .top-actions { justify-items: start; width: 100%; }
       .nav { justify-content: flex-start; width: 100%; }
+      .support-link { justify-self: start; }
       .brand-title { font-size: 20px; text-align: left; }
       .search { grid-template-columns: 1fr; }
       input[type="search"], button, .button, select { min-height: 44px; }
@@ -732,6 +744,9 @@
           <button type="button" class="nav-link" data-view-target="search">Records</button>
           <button type="button" class="nav-link" data-view-target="map">Map</button>
         </nav>
+        <a class="support-link" href="https://ko-fi.com/P5P51ZLPBN" target="_blank" rel="noopener">
+          <img height="36" src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Buy Me a Coffee at ko-fi.com">
+        </a>
       </div>
     </div>
   </header>
