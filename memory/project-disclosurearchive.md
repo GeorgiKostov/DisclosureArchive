@@ -139,6 +139,7 @@ Broad OCR update:
 - Public Map close-zoom update: the minimum camera zoom is closer, wheel/button zoom steps are slightly stronger, and marker scale now adapts to camera distance so dots remain visible while close zoom keeps clusters more separated.
 - Public Map color simplification: archive/report markers are now all green regardless of coordinate/place precision; nuclear overlays use orange; military overlays remain red.
 - Public map-palette verification update: the generated public HTML includes a stable `disclosure-map-palette` meta tag (`archive-green nuclear-orange military-red`) to make stale Pages/CDN responses easy to identify.
+- Public Map distance-label update: numeric km labels were removed from the globe; connector lines remain to show which military/nuclear overlay point is nearest to an archive location.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.

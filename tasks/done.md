@@ -113,3 +113,4 @@
 - Tightened the public Map close-zoom limit and made archive/reference marker sizes respond to zoom so dots stay readable without merging as heavily when inspecting dense regions.
 - Unified public Map archive markers to green and changed nuclear-site overlays from purple to orange, leaving military overlays red.
 - Added a stable public HTML map-palette meta marker to make the active archive/nuclear/military color scheme easier to verify after Pages/CDN updates.
+- Removed the public Map globe distance-number labels while keeping the connector lines between military/nuclear overlays and nearest archive locations.
