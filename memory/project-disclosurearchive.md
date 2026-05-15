@@ -144,6 +144,7 @@ Broad OCR update:
 - Public Map linking update: highlight cards now say `View record` instead of `Open in index`, the featured payload includes locations so cards can show `Open map` only when plotted locations exist, and indexed result cards with locations include a `Map` action that opens the Map view and selects that document.
 - Public Map distance-label update: distance labels are back as compact `km` sprites, overlay connectors are straight line segments instead of globe arcs, and label size scales with camera zoom to reduce clutter near dots.
 - Public Map/filter simplification: distance labels and connector lines were removed again; military/nuclear overlays now use distinct icon sprites instead of circles, and the public search date filter groups by decade buckets instead of single years.
+- Public navigation polish: the top `Search` tab is now labeled `Records`, the Map overlay panel trigger is `Points of interest`, and zoom control buttons have fixed circular sizing on mobile.
 
 1. Review the 35 OCR status candidates and separate true image/photo-only pages from OCR failures.
 2. Add more curated retrieval eval queries before tuning hybrid scoring or adding reranking.

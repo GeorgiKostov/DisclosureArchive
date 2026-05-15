@@ -414,7 +414,12 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     .map-zoom-controls button {
       width: 34px;
       height: 34px;
+      min-width: 34px;
+      min-height: 34px;
+      max-width: 34px;
+      max-height: 34px;
       padding: 0;
+      aspect-ratio: 1;
       border-radius: 50%;
       border: 1px solid rgba(66,255,140,0.38);
       background: rgba(2, 10, 6, 0.88);
@@ -695,6 +700,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       .globe-stage { height: clamp(300px, 82vw, 460px); min-height: 300px; }
       .map-section .globe-stage { height: clamp(360px, 92vw, 560px); }
       #globeCanvas { min-height: 300px; }
+      .map-zoom-controls button { width: 34px; height: 34px; min-width: 34px; min-height: 34px; }
       .map-legend { right: 10px; bottom: 10px; width: min(250px, calc(100% - 20px)); }
       .map-legend.collapsed { width: auto; }
     }
@@ -713,7 +719,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       <div class="top-actions">
         <nav class="nav" aria-label="Primary">
           <button type="button" class="nav-link active" data-view-target="home">Highlights</button>
-          <button type="button" class="nav-link" data-view-target="search">Search</button>
+          <button type="button" class="nav-link" data-view-target="search">Records</button>
           <button type="button" class="nav-link" data-view-target="map">Map</button>
         </nav>
       </div>
@@ -776,7 +782,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
             <button type="button" id="mapZoomOut" aria-label="Zoom out" title="Zoom out">-</button>
           </div>
           <div class="map-legend collapsed" id="mapLegend" aria-label="Map overlays">
-            <button type="button" class="legend-button" id="legendToggle" aria-expanded="false">Layers</button>
+            <button type="button" class="legend-button" id="legendToggle" aria-expanded="false">Points of interest</button>
             <div class="legend-body" id="legendBody">
               <p>Public reference points within 500 km of plotted archive locations.</p>
               <label class="legend-toggle">
