@@ -1004,6 +1004,7 @@
     function searchable(doc) {
       return [
         doc.title, doc.agency, doc.incident_date, doc.incident_location,
+        doc.description,
         doc.summary?.quick_summary, doc.summary?.overview,
         ...(doc.summary?.mysterious_uap_element || []).map((item) => item.text || item.label),
         ...(doc.summary?.detailed_contents || []).map((item) => item.text || item.label),
@@ -1255,6 +1256,10 @@
       `;
     }
 
+    function recordDescription(doc) {
+      return doc.description || doc.summary?.quick_summary || doc.summary?.overview || "No description available.";
+    }
+
     function renderDoc(doc) {
       const mediaClass = isRichMedia(doc) ? " media-rich" : "";
       return `
@@ -1264,7 +1269,7 @@
               <h2>${esc(doc.title)}</h2>
               <div class="muted">${esc([doc.agency, doc.incident_date, doc.incident_location].filter(Boolean).join(" | "))}</div>
               ${renderTags(doc.tags)}
-              <p>${esc(doc.summary?.quick_summary || doc.summary?.overview || "No summary available.")}</p>
+              <p class="record-description">${esc(recordDescription(doc))}</p>
               ${actionLinks(doc)}
               ${renderDetails(doc)}
             </div>
