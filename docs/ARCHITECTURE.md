@@ -200,8 +200,8 @@ The exporter also emits `robots.txt`, `sitemap.xml`, root and well-known
 `security.txt`, `humans.txt`, `llms.txt`, `favicon.svg`, `site.webmanifest`,
 canonical/social/structured-data metadata, a referrer policy, and a static-host
 `_headers` template. The HTML footer stays compact and links
-to separate minimal contact, Legal / Impressum, privacy, security, sitemap, and
-source-code pages. The contact email is configurable at export time, but the
+to separate minimal contact, Legal / Impressum, privacy, security, and sitemap
+pages. The contact email is configurable at export time, but the
 generated public pages avoid rendering the raw address in the footer or
 `security.txt`; the contact page opens it only after a click. On GitHub Pages,
 browser-enforced meta policies apply, but `_headers` is only useful if the site

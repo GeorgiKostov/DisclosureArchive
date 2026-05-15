@@ -107,3 +107,4 @@
 - Made the public Map layer legend collapsible and mobile-friendly.
 - Expanded selected military-base and nuclear-site reference overlays across the Middle East, Japan, Korea, Guam, Europe, Pakistan/India, and other regions, then filtered overlay markers to facilities within 500 km of plotted archive locations.
 - Added launch polish files to the static export: `favicon.svg`, `site.webmanifest`, `humans.txt`, and `llms.txt`.
+- Removed the public footer source-code link and improved SEO metadata with a clearer title/description, additional social metadata, and structured data for highlighted archive records.

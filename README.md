@@ -343,7 +343,7 @@ The export also writes standard public-web hygiene files and metadata:
 card tags, canonical URL tags, JSON-LD structured data, a document referrer
 policy, and a conservative Content Security Policy meta tag.
 The generated page includes a compact footer with links to separate minimal
-contact, Legal / Impressum, privacy, security, sitemap, and source-code pages.
+contact, Legal / Impressum, privacy, security, and sitemap pages.
 The public contact email defaults to `contact@rebuilt.cards`; override it with
 `DISCLOSURE_CONTACT_EMAIL` or `--contact-email` when exporting. The generated
 site keeps the visible footer free of the raw email address and opens the email

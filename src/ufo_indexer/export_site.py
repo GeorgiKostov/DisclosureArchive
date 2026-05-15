@@ -10,7 +10,7 @@ from datetime import datetime, timedelta, timezone
 from html import escape as html_escape
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 
 from .common import clean
 from .db import connect
@@ -22,7 +22,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Disclosure Archive</title>
+  <title>Disclosure Archive | Public UFO/UAP Release Index</title>
   <!-- SEO_META -->
   <!-- SECURITY_META -->
   <!-- STRUCTURED_DATA -->
@@ -2492,15 +2492,17 @@ def origin_from_url(url: str) -> str:
 def seo_meta(site_url: str) -> str:
     canonical = f"{site_url}/"
     description = (
-        "Explore curated highlights and a searchable public index of the PURSUE "
-        "UFO/UAP release, with government source links, summaries, videos, photos, "
+        "Search and explore public UFO/UAP release records with curated highlights, "
+        "government source links, document summaries, videos, photos, map locations, "
         "and provenance-preserving references."
     )
     image = "https://www.war.gov/medialink/ufo/release_1/nasa-uap-vm6-apollo-17-1972.jpg"
-    title = "Disclosure Archive"
+    title = "Disclosure Archive | Public UFO/UAP Release Index"
     return "\n  ".join(
         [
             f'<meta name="description" content="{html_escape(description, quote=True)}">',
+            '<meta name="keywords" content="UFO archive,UAP archive,UFO documents,UAP documents,Disclosure Archive,government UFO records,NASA UAP,FBI UFO,Department of War UAP">',
+            '<meta name="application-name" content="Disclosure Archive">',
             '<meta name="robots" content="index,follow,max-image-preview:large">',
             '<meta name="googlebot" content="index,follow,max-image-preview:large">',
             '<meta name="theme-color" content="#050806">',
@@ -2514,6 +2516,7 @@ def seo_meta(site_url: str) -> str:
             f'<meta property="og:description" content="{html_escape(description, quote=True)}">',
             f'<meta property="og:image" content="{html_escape(image, quote=True)}">',
             '<meta property="og:site_name" content="Disclosure Archive">',
+            '<meta property="og:locale" content="en_US">',
             '<meta name="twitter:card" content="summary_large_image">',
             f'<meta name="twitter:title" content="{html_escape(title, quote=True)}">',
             f'<meta name="twitter:description" content="{html_escape(description, quote=True)}">',
@@ -2576,14 +2579,14 @@ def site_footer() -> str:
         <a href="/privacy.html">Privacy</a>
         <a href="/security.html">Security</a>
         <a href="/sitemap.xml">Sitemap</a>
-        <a href="https://github.com/GeorgiKostov/DisclosureArchive">Source code</a>
       </div>
     </div>
   </footer>"""
 
 
-def structured_data(site_url: str, document_count: int) -> str:
+def structured_data(site_url: str, document_count: int, featured: Optional[List[Dict]] = None) -> str:
     canonical = f"{site_url}/"
+    featured = featured or []
     graph = {
         "@context": "https://schema.org",
         "@graph": [
@@ -2602,6 +2605,7 @@ def structured_data(site_url: str, document_count: int) -> str:
                     "name": "Disclosure Archive",
                     "url": canonical,
                 },
+                "about": ["UFO", "UAP", "public records", "government documents", "archive search"],
             },
             {
                 "@type": "Dataset",
@@ -2619,9 +2623,49 @@ def structured_data(site_url: str, document_count: int) -> str:
                 },
                 "measurementTechnique": "SQLite FTS, OCR, public source metadata, deterministic extractive summaries",
                 "variableMeasured": f"{document_count} public records",
+                "creator": {
+                    "@type": "Organization",
+                    "name": "Disclosure Archive",
+                    "url": canonical,
+                },
+                "about": [
+                    {"@type": "Thing", "name": "Unidentified anomalous phenomena"},
+                    {"@type": "Thing", "name": "UFO records"},
+                    {"@type": "Thing", "name": "Government document archive"},
+                ],
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": f"{canonical}#breadcrumbs",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Disclosure Archive",
+                        "item": canonical,
+                    }
+                ],
             },
         ],
     }
+    if featured:
+        graph["@graph"].append(
+            {
+                "@type": "ItemList",
+                "@id": f"{canonical}#highlights",
+                "name": "Disclosure Archive highlighted UFO/UAP records",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": index + 1,
+                        "url": f"{canonical}#search?q={quote(item['title'])}",
+                        "name": item["title"],
+                        "description": item["summary"][:500],
+                    }
+                    for index, item in enumerate(featured[:18])
+                ],
+            }
+        )
     text = json.dumps(graph, ensure_ascii=False, separators=(",", ":"))
     return f'<script type="application/ld+json">{text}</script>'
 
@@ -2889,7 +2933,7 @@ def write_site(
     html = (
         PUBLIC_SITE_HTML.replace("<!-- SEO_META -->", seo_meta(site_url))
         .replace("<!-- SECURITY_META -->", security_meta(analytics_script_url, google_analytics_id))
-        .replace("<!-- STRUCTURED_DATA -->", structured_data(site_url, len(documents)))
+        .replace("<!-- STRUCTURED_DATA -->", structured_data(site_url, len(documents), featured))
         .replace("<!-- ANALYTICS_SNIPPET -->", analytics_markup(analytics_domain, analytics_script_url, google_analytics_id))
         .replace("<!-- SITE_FOOTER -->", site_footer())
     )
