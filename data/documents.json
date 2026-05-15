@@ -1,6 +1,6 @@
 {
   "schema": "disclosurearchive.public_site.v1",
-  "generated_at": "2026-05-15T18:36:57+00:00",
+  "generated_at": "2026-05-15T20:03:55+00:00",
   "document_count": 162,
   "featured_documents": [
     {
@@ -14,6 +14,7 @@
         "Why it stands out: multiple witnesses in one indexed case"
       ],
       "agency": "Department of War",
+      "release_date": "5/8/26",
       "incident_date": "2023",
       "incident_location": "Western United States",
       "source_url": "https://www.war.gov/medialink/ufo/release_1/western_us_event_slides_5.08.2026.pdf",
@@ -56,6 +57,7 @@
         "Why it stands out: detailed first-person style account with redactions"
       ],
       "agency": "Department of State",
+      "release_date": "5/8/26",
       "incident_date": "Late 2025",
       "incident_location": "United States",
       "source_url": "https://www.war.gov/medialink/ufo/release_1/usper-statement-redacted.pdf",
@@ -98,6 +100,7 @@
         "Why it stands out: image-based record tied to witness interviews"
       ],
       "agency": "FBI",
+      "release_date": "5/8/26",
       "incident_date": "9/1/23",
       "incident_location": "United States",
       "source_url": "https://www.war.gov/medialink/ufo/release_1/2024-04-30-composite-sketch.pdf",
@@ -137,6 +140,7 @@
         "Why it stands out: public photo record with linked media"
       ],
       "agency": "FBI",
+      "release_date": "5/8/26",
       "incident_date": "Late 2025",
       "incident_location": "N/A",
       "source_url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-a1.png",
@@ -166,6 +170,7 @@
         "Why it stands out: visual lunar record with highlighted anomaly area"
       ],
       "agency": "NASA",
+      "release_date": "5/8/26",
       "incident_date": "1972",
       "incident_location": "Moon",
       "source_url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-vm6-apollo-17-1972.jpg",
@@ -195,6 +200,7 @@
         "Why it stands out: mission transcript context for a lunar observation"
       ],
       "agency": "NASA",
+      "release_date": "5/8/26",
       "incident_date": "1972",
       "incident_location": "Moon",
       "source_url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-d2-apollo-17-transcript-1972.pdf",
@@ -224,6 +230,7 @@
         "Why it stands out: mission audio and transcript context"
       ],
       "agency": "NASA",
+      "release_date": "5/8/26",
       "incident_date": "12/5/65",
       "incident_location": "Low Earth Orbit",
       "source_url": "",
@@ -253,6 +260,7 @@
         "Why it stands out: local report preserved in embassy correspondence"
       ],
       "agency": "Department of State",
+      "release_date": "5/8/26",
       "incident_date": "1/24/85",
       "incident_location": "Papua New Guinea",
       "source_url": "https://www.war.gov/medialink/ufo/release_1/dos-uap-d1-cable-1-papua-new-guinea-january-1985.pdf",
@@ -295,6 +303,7 @@
         "Why it stands out: international cable traffic in the release"
       ],
       "agency": "Department of State",
+      "release_date": "5/8/26",
       "incident_date": "1/27/94",
       "incident_location": "Kazakhstan",
       "source_url": "https://www.war.gov/medialink/ufo/release_1/dos-uap-d2-cable-2-kazakhstan-january-1994.pdf",
@@ -335,6 +344,7 @@
         "Why it stands out: early military reports before the postwar flying-disc wave"
       ],
       "agency": "Department of War",
+      "release_date": "5/8/26",
       "incident_date": "3/18/45",
       "incident_location": "Germany",
       "source_url": "https://www.war.gov/medialink/ufo/release_1/331_120752_numeric_files_1944–1945_37153_german_armament_equipment_documents.pdf",
@@ -377,6 +387,7 @@
         "Why it stands out: deep archival FBI flying-disc material"
       ],
       "agency": "FBI",
+      "release_date": "5/8/26",
       "incident_date": "N/A",
       "incident_location": "N/A",
       "source_url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_5.pdf",
@@ -406,6 +417,7 @@
         "Why it stands out: widely discussed football-shaped video"
       ],
       "agency": "Department of War",
+      "release_date": "5/8/26",
       "incident_date": "N/A",
       "incident_location": "East China Sea",
       "source_url": "",
@@ -448,6 +460,7 @@
         "Why it stands out: modern Indo-Pacific video record"
       ],
       "agency": "Department of War",
+      "release_date": "5/8/26",
       "incident_date": "N/A",
       "incident_location": "Japan",
       "source_url": "",
@@ -490,6 +503,7 @@
         "Why it stands out: distinctive wind-turbine sensor scene"
       ],
       "agency": "Department of War",
+      "release_date": "5/8/26",
       "incident_date": "N/A",
       "incident_location": "Indo-PACOM",
       "source_url": "",
@@ -519,6 +533,7 @@
         "Why it stands out: Aegean video with notable reported movement"
       ],
       "agency": "Department of War",
+      "release_date": "5/8/26",
       "incident_date": "N/A",
       "incident_location": "Greece",
       "source_url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d33-mission-report-greece-october-2023.pdf",
@@ -561,6 +576,7 @@
         "Why it stands out: distinctive halo-like IR appearance"
       ],
       "agency": "Department of War",
+      "release_date": "5/8/26",
       "incident_date": "N/A",
       "incident_location": "Greece",
       "source_url": "",
@@ -603,6 +619,7 @@
         "Why it stands out: geographic breadth in the video release"
       ],
       "agency": "Department of War",
+      "release_date": "5/8/26",
       "incident_date": "N/A",
       "incident_location": "Djibouti",
       "source_url": "",
@@ -645,6 +662,7 @@
         "Why it stands out: one of the newest records in the release"
       ],
       "agency": "Department of War",
+      "release_date": "5/8/26",
       "incident_date": "N/A",
       "incident_location": "North America",
       "source_url": "",
