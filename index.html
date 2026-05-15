@@ -125,13 +125,27 @@
     .support-link {
       display: inline-flex;
       align-items: center;
-      justify-self: end;
-      line-height: 0;
+      min-height: 36px;
+      padding: 0 11px;
+      border-color: rgba(114,215,255,0.58);
+      background: linear-gradient(180deg, rgba(114,215,255,0.20), rgba(36,94,128,0.18));
+      color: var(--accent-2);
+      text-transform: uppercase;
+      font-size: 12px;
+      box-shadow: 0 0 0 1px rgba(114,215,255,0.06), 0 0 18px rgba(114,215,255,0.12);
     }
-    .support-link img {
+    .support-link:hover {
+      border-color: rgba(114,215,255,0.85);
+      color: #d8f5ff;
+      box-shadow: 0 0 0 1px rgba(114,215,255,0.14), 0 0 22px rgba(114,215,255,0.22);
+    }
+    .support-link svg {
       display: block;
-      height: 36px;
-      border: 0;
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      flex: 0 0 auto;
     }
     h1 {
       margin: 0;
@@ -741,8 +755,16 @@
         <h1><button type="button" class="brand-title" id="brandReset" title="Reset archive search">Disclosure Archive</button></h1>
       </div>
       <div class="top-actions">
-        <a class="support-link" href="https://ko-fi.com/P5P51ZLPBN" target="_blank" rel="noopener">
-          <img height="36" src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Buy Me a Coffee at ko-fi.com">
+        <a class="button support-link" href="https://ko-fi.com/P5P51ZLPBN" target="_blank" rel="noopener" aria-label="Support Disclosure Archive on Ko-fi">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M10 2v2"></path>
+            <path d="M14 2v2"></path>
+            <path d="M7 2v2"></path>
+            <path d="M6 8h11a3 3 0 0 1 0 6h-1"></path>
+            <path d="M6 8h10v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V10a2 2 0 0 1 2-2Z"></path>
+            <path d="M5 22h13"></path>
+          </svg>
+          <span>Support</span>
         </a>
         <nav class="nav" aria-label="Primary">
           <button type="button" class="nav-link active" data-view-target="home">Highlights</button>
