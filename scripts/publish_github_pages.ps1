@@ -6,7 +6,8 @@ param(
   [string]$CustomDomain = $(if ($env:DISCLOSURE_CUSTOM_DOMAIN) { $env:DISCLOSURE_CUSTOM_DOMAIN } else { "disclosurearchive.org" }),
   [string]$SiteUrl = $(if ($env:DISCLOSURE_SITE_URL) { $env:DISCLOSURE_SITE_URL } elseif ($env:DISCLOSURE_CUSTOM_DOMAIN) { "https://$($env:DISCLOSURE_CUSTOM_DOMAIN)" } else { "https://disclosurearchive.org" }),
   [string]$AnalyticsDomain = $env:DISCLOSURE_ANALYTICS_DOMAIN,
-  [string]$AnalyticsScriptUrl = $(if ($env:DISCLOSURE_ANALYTICS_SCRIPT_URL) { $env:DISCLOSURE_ANALYTICS_SCRIPT_URL } else { "https://plausible.io/js/script.js" })
+  [string]$AnalyticsScriptUrl = $(if ($env:DISCLOSURE_ANALYTICS_SCRIPT_URL) { $env:DISCLOSURE_ANALYTICS_SCRIPT_URL } else { "https://plausible.io/js/script.js" }),
+  [string]$GaMeasurementId = $(if ($env:DISCLOSURE_GA_MEASUREMENT_ID) { $env:DISCLOSURE_GA_MEASUREMENT_ID } else { "G-NNXB9F00V6" })
 )
 
 $ErrorActionPreference = "Stop"
@@ -28,6 +29,9 @@ try {
   $exportArgs = @("-m", "ufo_indexer.export_site", "--db", $Db, "--out", $Out, "--site-url", $SiteUrl)
   if ($AnalyticsDomain) {
     $exportArgs += @("--analytics-domain", $AnalyticsDomain, "--analytics-script-url", $AnalyticsScriptUrl)
+  }
+  if ($GaMeasurementId) {
+    $exportArgs += @("--ga-measurement-id", $GaMeasurementId)
   }
   & $python @exportArgs
   if ($LASTEXITCODE -ne 0) {

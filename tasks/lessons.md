@@ -39,3 +39,6 @@
 - Public exports should treat government URLs as the canonical media/source layer and validate against local path leakage before writing publishable JSON.
 - For release-facing views, keep verification actions pointed at public government URLs and avoid exposing local `/file` links as primary controls.
 - Extractive summaries should prefer a clean metadata fallback over a low-confidence OCR sentence; visible summary text is more useful when noisy OCR remains available only behind provenance/source links.
+- Public card summaries should stay on curated metadata/description text; source-derived OCR/native excerpts are more useful behind expandable provenance sections where the reader can see source labels and verify context.
+- Footer legal/contact/privacy/security content reads cleaner as separate minimal static pages, especially when the homepage footer should stay out of the way of the archive UI.
+- Public map overlays should be labeled as selected public reference points, not exhaustive infrastructure datasets, unless a maintained source dataset is added.

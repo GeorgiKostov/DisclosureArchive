@@ -120,6 +120,14 @@ OCR_FILLER_WORDS = {
     "te",
 }
 
+LOW_VALUE_PATTERNS = [
+    re.compile(r"\b(?:click|download|attachment|thumbnail|preview)\b", re.IGNORECASE),
+    re.compile(r"\b(?:privacy|terms of use|copyright|all rights reserved)\b", re.IGNORECASE),
+    re.compile(r"\b(?:page intentionally left blank|this page left blank)\b", re.IGNORECASE),
+    re.compile(r"https?://|www\.|@"),
+    re.compile(r"\b(?:file|document|record)\s+(?:number|id|identifier)\b", re.IGNORECASE),
+]
+
 UAP_TERMS = {
     "uap",
     "ufo",
@@ -207,6 +215,10 @@ def sentence_quality(sentence: str) -> float:
         quality -= 0.2
     if len(set(words)) < max(4, len(words) * 0.45):
         quality -= 0.15
+    if sum(1 for char in sentence if char.isdigit()) / max(chars, 1) > 0.24:
+        quality -= 0.2
+    if any(pattern.search(sentence) for pattern in LOW_VALUE_PATTERNS):
+        quality -= 0.25
     return quality
 
 
@@ -220,7 +232,7 @@ def split_sentences(text: str) -> List[str]:
         item = clean(item)
         if len(item) > 320:
             item = item[:320].rsplit(" ", 1)[0] + "."
-        if sentence_quality(item) >= 0.48:
+        if sentence_quality(item) >= 0.56:
             out.append(item)
     return out
 
@@ -314,6 +326,8 @@ def unique_sentence_items(items: List[Tuple[float, object, str]], limit: int, ch
     for _, row, sentence in iterable:
         sentence = humanize_sentence(sentence)
         key = re.sub(r"[^a-z0-9]+", " ", sentence.lower()).strip()[:100]
+        if any(pattern.search(sentence) for pattern in LOW_VALUE_PATTERNS):
+            continue
         if not key or key in seen:
             continue
         seen.add(key)
@@ -393,7 +407,7 @@ def source_summary(conn, doc_id: str) -> Dict:
     overview = " ".join(overview_bits) + "."
     description = readable_text(doc["description"])
     if description:
-        overview = f"{overview} {snippet(humanize_sentence(description), max_chars=280)}"
+        overview = f"{overview} {snippet(humanize_sentence(description), max_chars=620)}"
 
     top_items = unique_sentence_items(sentences, 5)
     uap_items = unique_sentence_items(
@@ -402,16 +416,7 @@ def source_summary(conn, doc_id: str) -> Dict:
     )
     detail_items = unique_sentence_items(chronological_sentences, 10, chronological=True)
 
-    quick_items = top_items
-    if quick_items and all(row["source_kind"] == "ocr_text" for row, _ in quick_items):
-        quick_items = [(row, sentence) for row, sentence in quick_items if sentence_has_uap_terms(sentence)]
-
-    if quick_items:
-        quick_summary = f"{overview} Main readable passages include: " + " ".join(
-            snippet(sentence, max_chars=160) for _, sentence in quick_items[:2]
-        )
-    else:
-        quick_summary = overview
+    quick_summary = overview
 
     mysterious_uap_element = [sentence_line(row, sentence) for row, sentence in uap_items]
     if not mysterious_uap_element:

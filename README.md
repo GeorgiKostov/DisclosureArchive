@@ -280,8 +280,8 @@ or:
 make export-site DB=indexes/uap_release.sqlite
 ```
 
-Optional privacy-friendly analytics can be injected at export time with a
-Plausible-compatible script:
+Optional analytics can be injected at export time. For Plausible-compatible
+analytics:
 
 ```bash
 python -m ufo_indexer.export_site \
@@ -296,10 +296,32 @@ or:
 make export-site ANALYTICS_DOMAIN=kostovsolutions.com
 ```
 
+For Google Analytics 4 / Google tag, pass a Measurement ID or set
+`DISCLOSURE_GA_MEASUREMENT_ID`. The project default is the live
+Disclosure Archive stream, `G-NNXB9F00V6`:
+
+```bash
+python -m ufo_indexer.export_site \
+  --db indexes/uap_release.sqlite \
+  --out public_site \
+  --ga-measurement-id G-XXXXXXXXXX
+```
+
+or:
+
+```bash
+make export-site GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+GitHub Pages publishing uses `G-NNXB9F00V6` by default; set
+`DISCLOSURE_GA_MEASUREMENT_ID` to override it or an empty value only when you
+intend to publish without Google Analytics.
+
 The generated site tracks page views plus coarse UI events such as search,
-filter changes, summary toggles, source/video clicks, globe opens, and
-checkpoint selections. Search event payloads include only query length, not the
-query text. If no analytics domain is provided, no analytics script is emitted.
+filter changes, summary toggles, source/video clicks, map navigation, globe
+checkpoint selections, and overlay toggles. Search event payloads include only
+query length, not the query text. If no Plausible domain or Google Analytics
+Measurement ID is provided, no analytics script is emitted.
 
 The export writes `public_site/index.html` and
 `public_site/data/documents.json`. The JSON contains one precomputed,
@@ -307,21 +329,24 @@ deterministic summary per document, public government source/thumbnail/video
 URLs, tags, locations, related-document references, and page/chunk references.
 It intentionally excludes raw downloads, generated SQLite databases, local file
 paths, derived OCR caches, and full OCR text. The static page uses a dark
-terminal-style template with a `HIGHLIGHTS` landing view and a separate
-client-side search/globe view. It performs search over titles, metadata, tags,
-summaries, and cited snippets, and links readers back to the government source
-files for verification. The search view computes the full matching set but
-renders result cards in batches of 20, loading additional cards as the reader
-scrolls.
+terminal-style template with `HIGHLIGHTS`, `Search`, and `Map` views. It
+performs search over titles, metadata, tags, summaries, and cited snippets, and
+links readers back to the government source files for verification. The search
+view computes the full matching set but renders result cards in batches of 20,
+loading additional cards as the reader scrolls. The map view keeps the globe
+active, opens selected archive documents below the globe, and includes optional
+public reference overlays for selected military bases and nuclear sites.
 
 The export also writes standard public-web hygiene files and metadata:
 `robots.txt`, `sitemap.xml`, `security.txt`, `/.well-known/security.txt`,
 Open Graph/Twitter card tags, canonical URL tags, JSON-LD structured data, a
 document referrer policy, and a conservative Content Security Policy meta tag.
-The generated page includes a footer with copyright, contact, Legal /
-Impressum, privacy, security, sitemap, and source-code links. The public contact
-email defaults to `contact@rebuilt.cards`; override it with
-`DISCLOSURE_CONTACT_EMAIL` or `--contact-email` when exporting.
+The generated page includes a compact footer with links to separate minimal
+contact, Legal / Impressum, privacy, security, sitemap, and source-code pages.
+The public contact email defaults to `contact@rebuilt.cards`; override it with
+`DISCLOSURE_CONTACT_EMAIL` or `--contact-email` when exporting. The generated
+site keeps the visible footer free of the raw email address and opens the email
+link only after a reader clicks through to the contact page.
 GitHub Pages does not apply custom response headers, so `_headers` is generated
 for future static hosts that support it.
 

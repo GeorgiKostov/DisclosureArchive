@@ -142,33 +142,13 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     .footer-inner {
       padding: 24px 0 28px;
     }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-    .footer-panel {
-      min-width: 0;
-    }
-    .footer-panel h2,
-    .footer-panel h3 {
-      margin: 0 0 7px;
-      color: var(--accent);
-      font-size: 13px;
-      text-transform: uppercase;
-    }
-    .footer-panel p {
-      margin: 6px 0;
-      color: var(--muted);
-      font-size: 12px;
-    }
     .footer-links {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 16px;
       color: var(--muted);
       font-size: 12px;
+      align-items: center;
     }
     .footer-links a {
       color: var(--accent-2);
@@ -332,10 +312,15 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     .best-summary {
       color: var(--ink);
       font-size: 12px;
+      line-height: 1.5;
       display: -webkit-box;
-      -webkit-line-clamp: 5;
+      -webkit-line-clamp: 7;
       -webkit-box-orient: vertical;
       overflow: hidden;
+    }
+    .best-card.expanded .best-summary {
+      display: block;
+      overflow: visible;
     }
     .best-facts {
       margin: 8px 0 0;
@@ -354,10 +339,21 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       font-size: 11px;
       color: var(--accent-2);
     }
+    .best-expand {
+      align-self: flex-start;
+      margin-top: 8px;
+      min-height: 28px;
+      padding: 0 8px;
+      font-size: 11px;
+      color: var(--accent);
+    }
     .search-section {
       margin-top: 18px;
       padding-top: 18px;
       border-top: 1px solid var(--line);
+    }
+    .map-section {
+      margin-top: 18px;
     }
     .section-head {
       margin-bottom: 12px;
@@ -382,12 +378,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     .globe-panel.open {
       display: grid;
     }
-    .globe-toggle {
-      min-height: 36px;
-      padding: 0 10px;
-      font-size: 12px;
-      color: var(--accent-2);
-    }
     .globe-stage {
       position: relative;
       height: clamp(320px, 46vh, 520px);
@@ -407,40 +397,72 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       overscroll-behavior: contain;
     }
     #globeCanvas:active { cursor: grabbing; }
-    .globe-popup {
+    .map-section .globe-panel {
+      display: grid;
+      margin-top: 0;
+    }
+    .map-section .globe-stage {
+      height: clamp(430px, 64vh, 720px);
+    }
+    .map-legend {
       position: absolute;
       right: 14px;
-      top: 14px;
-      width: min(340px, calc(100% - 28px));
+      bottom: 14px;
+      width: min(260px, calc(100% - 28px));
       border: 1px solid rgba(66,255,140,0.42);
       border-radius: 8px;
       background: rgba(2, 10, 6, 0.92);
       box-shadow: 0 18px 42px rgba(0,0,0,0.42), 0 0 26px rgba(66,255,140,0.1);
-      padding: 12px;
-      padding-right: 42px;
+      padding: 10px;
       z-index: 2;
     }
-    .globe-popup[hidden] { display: none; }
-    .globe-close {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 28px;
-      min-width: 28px;
-      height: 28px;
-      min-height: 28px;
-      padding: 0;
-      border-radius: 50%;
-      font-size: 18px;
-      line-height: 1;
+    .map-legend h3 {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
     }
-    .globe-popup h3 {
-      margin-top: 0;
-      color: var(--accent);
-    }
-    .globe-popup p {
+    .legend-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 30px;
       color: var(--ink);
       font-size: 12px;
+    }
+    .legend-toggle input {
+      accent-color: var(--accent);
+    }
+    .legend-key {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+    }
+    .legend-key.military { background: #ff6b6b; }
+    .legend-key.nuclear { background: #ffd166; }
+    .map-selection {
+      margin-top: 12px;
+    }
+    .map-empty {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(5, 14, 10, 0.78);
+      padding: 16px;
+      color: var(--muted);
+    }
+    .reference-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 15px;
+      margin-bottom: 12px;
+    }
+    .reference-card h2 {
+      margin-bottom: 6px;
+    }
+    .reference-card p {
+      color: var(--ink);
     }
     .result {
       background: var(--panel);
@@ -577,7 +599,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     a:hover { color: var(--accent); }
     @media (max-width: 980px) and (min-width: 761px) {
       .best-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 760px) {
       body { font-size: 13px; }
@@ -601,11 +622,11 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       .result.media-rich .media { height: min(340px, 66vw); }
       .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .actions > * { width: 100%; min-width: 0; }
-      .footer-grid { grid-template-columns: 1fr; }
       .footer-inner { padding: 20px 0 24px; }
       .globe-stage { height: clamp(300px, 82vw, 460px); min-height: 300px; }
+      .map-section .globe-stage { height: clamp(360px, 92vw, 560px); }
       #globeCanvas { min-height: 300px; }
-      .globe-popup { inset: 10px 10px auto 10px; width: auto; max-height: calc(100% - 20px); overflow: auto; }
+      .map-legend { right: 10px; bottom: 10px; width: min(250px, calc(100% - 20px)); }
     }
     @media (max-width: 430px) {
       .tools, .actions { grid-template-columns: 1fr; }
@@ -623,6 +644,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         <nav class="nav" aria-label="Primary">
           <button type="button" class="nav-link active" data-view-target="home">Highlights</button>
           <button type="button" class="nav-link" data-view-target="search">Search</button>
+          <button type="button" class="nav-link" data-view-target="map">Map</button>
         </nav>
       </div>
     </div>
@@ -663,21 +685,40 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         <select id="yearFilter" aria-label="Year filter">
           <option value="">All years</option>
         </select>
-        <button type="button" class="globe-toggle" id="globeToggle" aria-expanded="false">Open location globe</button>
         <button type="button" id="reset">Reset</button>
       </div>
       <div class="status" id="status">Loading...</div>
-      <section id="globePanel" class="globe-panel" aria-hidden="true">
-        <div class="globe-stage">
-          <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
-          <div class="globe-popup" id="globePopup" hidden></div>
-        </div>
-      </section>
       <section id="results"></section>
       <div class="load-more" id="loadMoreWrap" hidden>
         <button type="button" id="loadMore">Load more</button>
         <div class="result-sentinel" id="resultSentinel" aria-hidden="true"></div>
       </div>
+    </section>
+    <section class="view map-section" id="mapView" hidden>
+      <div class="section-head">
+        <h2>Map</h2>
+      </div>
+      <section id="globePanel" class="globe-panel open" aria-hidden="false">
+        <div class="globe-stage">
+          <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
+          <div class="map-legend" aria-label="Map overlays">
+            <h3>Overlays</h3>
+            <label class="legend-toggle">
+              <input type="checkbox" data-overlay-toggle="military">
+              <span class="legend-key military" aria-hidden="true"></span>
+              <span>Military bases</span>
+            </label>
+            <label class="legend-toggle">
+              <input type="checkbox" data-overlay-toggle="nuclear">
+              <span class="legend-key nuclear" aria-hidden="true"></span>
+              <span>Nuclear sites</span>
+            </label>
+          </div>
+        </div>
+      </section>
+      <section id="mapSelection" class="map-selection">
+        <div class="map-empty">Select an archive location on the globe to open its document below.</div>
+      </section>
     </section>
   </main>
   <!-- SITE_FOOTER -->
@@ -694,6 +735,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       if (typeof window.plausible === "function") {
         window.plausible(name, { props });
       }
+      if (typeof window.gtag === "function") {
+        window.gtag("event", name, props);
+      }
     };
     let archive = null;
     let docs = [];
@@ -702,6 +746,36 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     const resultState = { matches: [], visible: 0 };
     let resultObserver = null;
     const globeState = { ready: false, initializing: false, locations: [], markers: [], selected: null, selectedIndex: null };
+    const overlayState = {
+      visible: { military: false, nuclear: false },
+      markers: [],
+      facilities: [
+        { kind: "military", name: "Edwards Air Force Base", type: "flight test base", latitude: 34.9054, longitude: -117.8837 },
+        { kind: "military", name: "Nellis Air Force Base", type: "training and test range", latitude: 36.2362, longitude: -115.0342 },
+        { kind: "military", name: "Creech Air Force Base", type: "remotely piloted aircraft base", latitude: 36.5872, longitude: -115.6736 },
+        { kind: "military", name: "Vandenberg Space Force Base", type: "space launch and missile test base", latitude: 34.7420, longitude: -120.5724 },
+        { kind: "military", name: "Wright-Patterson Air Force Base", type: "Air Force research and logistics base", latitude: 39.8261, longitude: -84.0483 },
+        { kind: "military", name: "Eglin Air Force Base", type: "test and training base", latitude: 30.4832, longitude: -86.5254 },
+        { kind: "military", name: "White Sands Missile Range", type: "missile test range", latitude: 32.3801, longitude: -106.4797 },
+        { kind: "military", name: "Fort Irwin / National Training Center", type: "training base", latitude: 35.2627, longitude: -116.6848 },
+        { kind: "military", name: "Joint Base Pearl Harbor-Hickam", type: "joint base", latitude: 21.3399, longitude: -157.9602 },
+        { kind: "military", name: "Ramstein Air Base", type: "U.S. air base", latitude: 49.4369, longitude: 7.6003 },
+        { kind: "military", name: "RAF Lakenheath", type: "U.S. air base", latitude: 52.4093, longitude: 0.5609 },
+        { kind: "military", name: "Diego Garcia", type: "joint support facility", latitude: -7.3133, longitude: 72.4111 },
+        { kind: "nuclear", name: "Malmstrom Air Force Base", type: "ICBM missile wing base", latitude: 47.5047, longitude: -111.1830 },
+        { kind: "nuclear", name: "Minot Air Force Base", type: "ICBM missile wing base", latitude: 48.4156, longitude: -101.3583 },
+        { kind: "nuclear", name: "F. E. Warren Air Force Base", type: "ICBM missile wing base", latitude: 41.1333, longitude: -104.8667 },
+        { kind: "nuclear", name: "Palo Verde Generating Station", type: "nuclear power plant", latitude: 33.3881, longitude: -112.8617 },
+        { kind: "nuclear", name: "Vogtle Electric Generating Plant", type: "nuclear power plant", latitude: 33.1431, longitude: -81.7658 },
+        { kind: "nuclear", name: "Limerick Generating Station", type: "nuclear power plant", latitude: 40.2267, longitude: -75.5871 },
+        { kind: "nuclear", name: "Diablo Canyon Power Plant", type: "nuclear power plant", latitude: 35.2108, longitude: -120.8560 },
+        { kind: "nuclear", name: "Hanford Site", type: "nuclear reservation", latitude: 46.5507, longitude: -119.4880 },
+        { kind: "nuclear", name: "Savannah River Site", type: "nuclear reservation", latitude: 33.2566, longitude: -81.7354 },
+        { kind: "nuclear", name: "Los Alamos National Laboratory", type: "nuclear research site", latitude: 35.8756, longitude: -106.3247 },
+        { kind: "nuclear", name: "Oak Ridge Reservation", type: "nuclear research site", latitude: 35.9300, longitude: -84.3100 },
+        { kind: "nuclear", name: "Sellafield", type: "nuclear site", latitude: 54.4205, longitude: -3.4975 },
+      ],
+    };
 
     function searchable(doc) {
       return [
@@ -845,6 +919,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
                 <div class="best-label">${esc(item.kicker)}</div>
                 <h3 class="best-title">${esc(item.title)}</h3>
                 <p class="best-summary">${esc(item.summary)}</p>
+                ${item.summary && item.summary.length > 260 ? `<button type="button" class="best-expand" data-feature-more="${esc(item.doc_id)}" aria-expanded="false">Read more</button>` : ""}
                 <ul class="best-facts">${(item.facts || []).map((fact) => `<li>${esc(fact)}</li>`).join("")}</ul>
                 <button type="button" class="button best-link" data-feature-doc="${esc(item.doc_id)}">Open in index</button>
               </div>
@@ -930,29 +1005,29 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
 
     function renderSelectedLocation(location) {
       if (!location) {
-        if ($("globePopup")) $("globePopup").hidden = true;
+        $("mapSelection").innerHTML = `<div class="map-empty">Select an archive location on the globe to open its document below.</div>`;
         return;
       }
-      renderGlobePopup(location);
+      if (location.facilityKind) {
+        $("mapSelection").innerHTML = `
+          <article class="reference-card">
+            <h2>${esc(location.name)}</h2>
+            <div class="muted">${esc(location.facilityKind === "military" ? "Military base" : "Nuclear site")} | ${esc(location.type || "public reference point")}</div>
+            <p>This is a public reference overlay point for comparison with archive locations. It is not part of the document index.</p>
+          </article>
+        `;
+        return;
+      }
+      const doc = docs.find((item) => item.doc_id === location.doc_id);
+      $("mapSelection").innerHTML = doc
+        ? renderDoc(doc).replace(`id="doc-${esc(doc.doc_id)}"`, `id="map-doc-${esc(doc.doc_id)}"`)
+        : `<div class="map-empty">No matching document could be opened for this location.</div>`;
     }
 
-    function renderGlobePopup(location) {
-      const popup = $("globePopup");
-      if (!popup || !location) return;
-      const fullSummary = location.quick_summary || "";
-      const summary = fullSummary ? fullSummary.slice(0, 360) : "No summary is available for this checkpoint.";
-      popup.innerHTML = `
-        <button type="button" class="globe-close" data-globe-close aria-label="Close location">x</button>
-        <h3>${esc(locationLabel(location))}</h3>
-        <p class="muted">${esc(location.precision || "location")} - ${esc(location.method || "indexed location")}</p>
-        <p><strong>${esc(location.title || "Document")}</strong></p>
-        <p>${esc(summary)}${fullSummary.length > 360 ? "..." : ""}</p>
-        <div class="actions">
-          ${location.source_url ? `<a class="button source-button" href="${esc(location.source_url)}" target="_blank" rel="noopener" data-track="globe_source" data-doc-id="${esc(location.doc_id)}">Source</a>` : ""}
-          <button type="button" class="summary-button" data-globe-doc="${esc(location.doc_id)}">View result</button>
-        </div>
-      `;
-      popup.hidden = false;
+    function updateOverlayMarkers() {
+      overlayState.markers.forEach((marker) => {
+        marker.visible = Boolean(overlayState.visible[marker.userData.facility.kind]);
+      });
     }
 
     function latLonVector(lat, lon, radius) {
@@ -1043,9 +1118,12 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       }
       await addCountryBorders(THREE, globeGroup);
       const markerGeometry = new THREE.SphereGeometry(0.025, 16, 16);
+      const overlayGeometry = new THREE.SphereGeometry(0.018, 14, 14);
       const placeMaterial = new THREE.MeshBasicMaterial({ color: 0x42ff8c });
       const coordinateMaterial = new THREE.MeshBasicMaterial({ color: 0xffd166 });
       const selectedMaterial = new THREE.MeshBasicMaterial({ color: 0x72d7ff });
+      const militaryMaterial = new THREE.MeshBasicMaterial({ color: 0xff6b6b });
+      const nuclearMaterial = new THREE.MeshBasicMaterial({ color: 0xffd166 });
       globeState.locations.forEach((location, index) => {
         const p = latLonVector(location.latitude, location.longitude, 1.045);
         const marker = new THREE.Mesh(markerGeometry, location.precision === "coordinate" ? coordinateMaterial : placeMaterial);
@@ -1055,6 +1133,15 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         marker.userData.selectedMaterial = selectedMaterial;
         globeGroup.add(marker);
         globeState.markers.push(marker);
+      });
+      overlayState.facilities.forEach((facility) => {
+        const p = latLonVector(facility.latitude, facility.longitude, 1.066);
+        const marker = new THREE.Mesh(overlayGeometry, facility.kind === "military" ? militaryMaterial : nuclearMaterial);
+        marker.position.set(p.x, p.y, p.z);
+        marker.userData.facility = facility;
+        marker.visible = Boolean(overlayState.visible[facility.kind]);
+        globeGroup.add(marker);
+        overlayState.markers.push(marker);
       });
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
@@ -1079,8 +1166,15 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
         pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
         raycaster.setFromCamera(pointer, camera);
-        const hit = raycaster.intersectObjects(globeState.markers)[0];
-        if (hit) selectGlobeLocation(hit.object.userData.locationIndex);
+        const hit = raycaster.intersectObjects([...globeState.markers, ...overlayState.markers.filter((marker) => marker.visible)])[0];
+        if (!hit) return;
+        if (Number.isInteger(hit.object.userData.locationIndex)) {
+          selectGlobeLocation(hit.object.userData.locationIndex);
+          return;
+        }
+        if (hit.object.userData.facility) {
+          selectReferencePoint(hit.object.userData.facility);
+        }
       };
       function resize() {
         const rect = canvas.parentElement.getBoundingClientRect();
@@ -1230,6 +1324,14 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       }
     }
 
+    function selectReferencePoint(facility) {
+      globeState.selected = null;
+      globeState.selectedIndex = null;
+      updateGlobeSelection();
+      renderSelectedLocation({ ...facility, facilityKind: facility.kind });
+      track("map_reference_point", { kind: facility.kind, name: facility.name });
+    }
+
     function clearGlobeLocation() {
       globeState.selected = null;
       globeState.selectedIndex = null;
@@ -1238,15 +1340,17 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     }
 
     function setView(view, options = {}) {
-      currentView = view === "search" ? "search" : "home";
+      currentView = ["home", "search", "map"].includes(view) ? view : "home";
       const home = $("homeView");
       const search = $("searchView");
+      const map = $("mapView");
       if (home) home.hidden = currentView !== "home";
       if (search) search.hidden = currentView !== "search";
+      if (map) map.hidden = currentView !== "map";
       document.querySelectorAll("[data-view-target]").forEach((button) => {
         button.classList.toggle("active", button.dataset.viewTarget === currentView);
       });
-      if (currentView === "search") {
+      if (currentView === "map") {
         initGlobe();
       }
       if (options.scroll) {
@@ -1287,26 +1391,24 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       }
     }
 
+    function openMap(options = {}) {
+      setView("map", { scroll: options.scroll });
+      if (options.updateHash) {
+        setRouteHash("#map");
+      }
+    }
+
     function applyRoute() {
       const hash = window.location.hash || "";
       if (hash.startsWith("#search")) {
         const queryText = hash.includes("?") ? hash.slice(hash.indexOf("?") + 1) : "";
         const params = new URLSearchParams(queryText);
         openSearch(params.get("q") || "", { updateHash: false });
+      } else if (hash.startsWith("#map")) {
+        openMap({ updateHash: false });
       } else {
         showHome({ updateHash: false });
       }
-    }
-
-    function toggleGlobe() {
-      const panel = $("globePanel");
-      const button = $("globeToggle");
-      if (!panel || !button) return;
-      const open = panel.classList.toggle("open");
-      button.textContent = open ? "Hide location globe" : "Open location globe";
-      button.setAttribute("aria-expanded", open ? "true" : "false");
-      panel.setAttribute("aria-hidden", open ? "false" : "true");
-      track("globe_toggle", { open: open ? "true" : "false" });
     }
 
     function renderSearchResults() {
@@ -1375,14 +1477,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       globeState.selectedIndex = null;
       updateGlobeSelection();
       renderSelectedLocation(null);
-      const globePanel = $("globePanel");
-      const globeButton = $("globeToggle");
-      if (globePanel && globeButton) {
-        globePanel.classList.remove("open");
-        globePanel.setAttribute("aria-hidden", "true");
-        globeButton.textContent = "Open location globe";
-        globeButton.setAttribute("aria-expanded", "false");
-      }
       document.querySelectorAll(".result.open").forEach((card) => card.classList.remove("open"));
       openSearch("", { updateHash: true, scroll: true });
     }
@@ -1393,6 +1487,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         if (viewTarget.dataset.viewTarget === "search") {
           track("nav_search");
           openSearch($("q").value, { updateHash: true, scroll: true });
+        } else if (viewTarget.dataset.viewTarget === "map") {
+          track("nav_map");
+          openMap({ updateHash: true, scroll: true });
         } else {
           track("nav_highlights");
           showHome({ updateHash: true, scroll: true });
@@ -1405,9 +1502,18 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       }
       const button = event.target.closest(".details-button");
       if (button) {
-        const card = document.getElementById(`doc-${button.dataset.docId}`);
+        const card = document.getElementById(`doc-${button.dataset.docId}`) || document.getElementById(`map-doc-${button.dataset.docId}`);
         if (card) card.classList.toggle("open");
         track("summary_toggle", { doc_id: button.dataset.docId, open: card?.classList.contains("open") ? "true" : "false" });
+      }
+      const featureMore = event.target.closest("[data-feature-more]");
+      if (featureMore) {
+        const card = featureMore.closest(".best-card");
+        const expanded = !card?.classList.contains("expanded");
+        if (card) card.classList.toggle("expanded", expanded);
+        featureMore.setAttribute("aria-expanded", expanded ? "true" : "false");
+        featureMore.textContent = expanded ? "Show less" : "Read more";
+        track("featured_summary_more", { doc_id: featureMore.dataset.featureMore, open: expanded ? "true" : "false" });
       }
       const tracked = event.target.closest("[data-track]");
       if (tracked) {
@@ -1422,23 +1528,6 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         if (card) {
           card.classList.add("open");
         }
-      }
-      const globeDoc = event.target.closest("[data-globe-doc]");
-      if (globeDoc) {
-        const doc = docs.find((item) => item.doc_id === globeDoc.dataset.globeDoc);
-        if (!doc) return;
-        track("globe_view_result", { doc_id: doc.doc_id });
-        openSearch(doc.title, { resetFilters: true, updateHash: true });
-        window.setTimeout(() => {
-          const card = document.getElementById(`doc-${doc.doc_id}`);
-          if (card) {
-            card.classList.add("open");
-          }
-        }, 80);
-      }
-      const globeClose = event.target.closest("[data-globe-close]");
-      if (globeClose) {
-        clearGlobeLocation();
       }
       const featured = event.target.closest("[data-feature-doc]");
       if (featured) {
@@ -1484,13 +1573,21 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       $("agencyFilter").value = "";
       $("sourceFilter").value = "";
       $("yearFilter").value = "";
+      clearGlobeLocation();
       showHome({ updateHash: true, scroll: true });
     });
     $("reset").addEventListener("click", () => {
       track("reset", { control: "button" });
       resetArchiveView();
     });
-    $("globeToggle").addEventListener("click", toggleGlobe);
+    document.querySelectorAll("[data-overlay-toggle]").forEach((input) => {
+      input.addEventListener("change", () => {
+        const kind = input.dataset.overlayToggle;
+        overlayState.visible[kind] = input.checked;
+        updateOverlayMarkers();
+        track("map_overlay_toggle", { kind, open: input.checked ? "true" : "false" });
+      });
+    });
     $("loadMore").addEventListener("click", loadMoreResults);
     window.addEventListener("popstate", applyRoute);
     window.addEventListener("hashchange", applyRoute);
@@ -2126,7 +2223,7 @@ def featured_documents(documents: List[Dict]) -> List[Dict]:
                 "doc_id": doc["doc_id"],
                 "title": doc["title"],
                 "kicker": selection["kicker"],
-                "summary": selection["summary"],
+                "summary": featured_summary(selection, doc),
                 "facts": selection["facts"],
                 "agency": doc["agency"],
                 "incident_date": doc["incident_date"],
@@ -2137,6 +2234,27 @@ def featured_documents(documents: List[Dict]) -> List[Dict]:
             }
         )
     return featured
+
+
+def featured_summary(selection: Dict, doc: Dict) -> str:
+    context = []
+    agency = clean(doc.get("agency"))
+    date = clean(doc.get("incident_date"))
+    location = clean(doc.get("incident_location"))
+    if agency:
+        context.append(f"agency provenance: {agency}")
+    if date and date != "N/A":
+        context.append(f"incident date: {date}")
+    if location and location != "N/A":
+        context.append(f"location: {location}")
+    sentences = [selection["summary"]]
+    if context:
+        sentences.append(f"The public index catalogs it with {', '.join(context)}, giving the highlight enough context to compare it against the linked source record.")
+    tags = [tag for tag in doc.get("tags", [])[:3] if tag]
+    if tags:
+        sentences.append(f"Useful comparison tags include {', '.join(tags)}.")
+    sentences.append("This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.")
+    return " ".join(sentences)
 
 
 def export_documents(conn) -> List[Dict]:
@@ -2199,6 +2317,43 @@ def analytics_snippet(domain: str = "", script_url: str = "https://plausible.io/
     )
 
 
+def normalize_google_analytics_id(measurement_id: str) -> str:
+    measurement_id = clean(measurement_id).upper()
+    if not measurement_id:
+        return ""
+    if not re.fullmatch(r"(?:G|GT|AW)-[A-Z0-9-]+", measurement_id):
+        raise ValueError("Google Analytics measurement/tag ID must look like G-XXXXXXXX, GT-XXXXXXXX, or AW-XXXXXXXX")
+    return measurement_id
+
+
+def google_analytics_snippet(measurement_id: str = "") -> str:
+    measurement_id = normalize_google_analytics_id(measurement_id)
+    if not measurement_id:
+        return ""
+    safe_id = html_escape(measurement_id, quote=True)
+    return (
+        f'<script async src="https://www.googletagmanager.com/gtag/js?id={safe_id}"></script>\n'
+        "  <script>\n"
+        "    window.dataLayer = window.dataLayer || [];\n"
+        "    function gtag(){dataLayer.push(arguments);}\n"
+        "    gtag('js', new Date());\n"
+        f"    gtag('config', '{safe_id}');\n"
+        "  </script>"
+    )
+
+
+def analytics_markup(
+    plausible_domain: str = "",
+    plausible_script_url: str = "https://plausible.io/js/script.js",
+    google_analytics_id: str = "",
+) -> str:
+    snippets = [
+        analytics_snippet(plausible_domain, plausible_script_url),
+        google_analytics_snippet(google_analytics_id),
+    ]
+    return "\n  ".join(snippet for snippet in snippets if snippet)
+
+
 def normalize_site_url(site_url: str) -> str:
     site_url = clean(site_url) or "https://disclosurearchive.org"
     if not re.match(r"^https://[A-Za-z0-9.-]+(?::\d+)?(?:/.*)?$", site_url):
@@ -2253,13 +2408,23 @@ def seo_meta(site_url: str) -> str:
     )
 
 
-def csp_policy(analytics_script_url: str = "https://plausible.io/js/script.js") -> str:
+def csp_policy(analytics_script_url: str = "https://plausible.io/js/script.js", google_analytics_id: str = "") -> str:
     analytics_origin = origin_from_url(analytics_script_url)
     script_sources = ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"]
     connect_sources = ["'self'", "https://cdn.jsdelivr.net"]
     if analytics_origin:
         script_sources.append(analytics_origin)
         connect_sources.append(analytics_origin)
+    if normalize_google_analytics_id(google_analytics_id):
+        script_sources.append("https://www.googletagmanager.com")
+        connect_sources.extend(
+            [
+                "https://www.google-analytics.com",
+                "https://analytics.google.com",
+                "https://region1.google-analytics.com",
+                "https://region1.analytics.google.com",
+            ]
+        )
     return "; ".join(
         [
             "default-src 'self'",
@@ -2276,8 +2441,8 @@ def csp_policy(analytics_script_url: str = "https://plausible.io/js/script.js") 
     )
 
 
-def security_meta(analytics_script_url: str = "https://plausible.io/js/script.js") -> str:
-    policy = csp_policy(analytics_script_url)
+def security_meta(analytics_script_url: str = "https://plausible.io/js/script.js", google_analytics_id: str = "") -> str:
+    policy = csp_policy(analytics_script_url, google_analytics_id)
     return "\n  ".join(
         [
             '<meta name="referrer" content="strict-origin-when-cross-origin">',
@@ -2286,39 +2451,16 @@ def security_meta(analytics_script_url: str = "https://plausible.io/js/script.js
     )
 
 
-def site_footer(contact_email: str) -> str:
-    safe_email = html_escape(contact_email, quote=True)
-    return f"""
+def site_footer() -> str:
+    return """
   <footer class="site-footer">
     <div class="wrap footer-inner">
-      <div class="footer-grid">
-        <section class="footer-panel">
-          <h2>Disclosure Archive</h2>
-          <p>Independent public-interest index for public UFO/UAP release materials. Summaries are finding aids; verify claims against the linked source records.</p>
-          <p>Government records, images, and videos remain attributed to their original public sources.</p>
-        </section>
-        <section class="footer-panel" id="contact">
-          <h3>Contact</h3>
-          <p>Corrections, source issues, takedown requests, and general notes: <a href="mailto:{safe_email}">{safe_email}</a>.</p>
-          <p>For security reports, use the same email or the public security file.</p>
-        </section>
-        <section class="footer-panel" id="impressum">
-          <h3>Legal / Impressum</h3>
-          <p>Disclosure Archive is an independent archive and research index. It is not affiliated with the U.S. Department of War, NASA, FBI, or any other source agency.</p>
-          <p>Publisher and responsible operator details can be requested via the contact email while a dedicated legal notice is finalized.</p>
-        </section>
-        <section class="footer-panel" id="privacy">
-          <h3>Privacy</h3>
-          <p>No accounts, forms, comments, ads, or marketing cookies. Searches run locally in your browser against the static public JSON.</p>
-          <p>The hosting provider may process standard request logs. Optional privacy-friendly analytics may be enabled without storing search text.</p>
-        </section>
-      </div>
       <div class="footer-links">
         <span>&copy; 2026 Disclosure Archive.</span>
-        <a href="#contact">Contact</a>
-        <a href="#impressum">Impressum</a>
-        <a href="#privacy">Privacy</a>
-        <a href="/.well-known/security.txt">Security</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/legal.html">Legal / Impressum</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/security.html">Security</a>
         <a href="/sitemap.xml">Sitemap</a>
         <a href="https://github.com/GeorgiKostov/DisclosureArchive">Source code</a>
       </div>
@@ -2326,7 +2468,7 @@ def site_footer(contact_email: str) -> str:
   </footer>"""
 
 
-def structured_data(site_url: str, document_count: int, contact_email: str) -> str:
+def structured_data(site_url: str, document_count: int) -> str:
     canonical = f"{site_url}/"
     graph = {
         "@context": "https://schema.org",
@@ -2344,7 +2486,7 @@ def structured_data(site_url: str, document_count: int, contact_email: str) -> s
                 "publisher": {
                     "@type": "Organization",
                     "name": "Disclosure Archive",
-                    "email": contact_email,
+                    "url": canonical,
                 },
             },
             {
@@ -2370,8 +2512,114 @@ def structured_data(site_url: str, document_count: int, contact_email: str) -> s
     return f'<script type="application/ld+json">{text}</script>'
 
 
-def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str, analytics_script_url: str, contact_email: str) -> None:
+def encoded_email_codes(contact_email: str) -> str:
+    return ",".join(str(ord(char)) for char in contact_email)
+
+
+def static_info_page(title: str, body: str, analytics_script_url: str, google_analytics_id: str = "", extra_script: str = "") -> str:
+    safe_title = html_escape(title, quote=True)
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{safe_title} | Disclosure Archive</title>
+  {security_meta(analytics_script_url, google_analytics_id)}
+  <style>
+    :root {{ color-scheme: dark; --bg: #050806; --ink: #e7fff2; --muted: #8fb39e; --line: rgba(74, 255, 151, 0.22); --accent: #42ff8c; --accent-2: #72d7ff; }}
+    * {{ box-sizing: border-box; }}
+    body {{ margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); font: 14px/1.55 ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; }}
+    main {{ width: min(760px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0; }}
+    a {{ color: var(--accent-2); }}
+    h1 {{ margin: 0 0 18px; color: var(--accent); font-size: 24px; }}
+    p, li {{ color: var(--muted); }}
+    .panel {{ border: 1px solid var(--line); border-radius: 8px; background: rgba(5, 14, 10, 0.92); padding: 18px; }}
+    .actions {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }}
+    button, .button {{ min-height: 36px; border: 1px solid var(--line); border-radius: 6px; background: rgba(7, 24, 15, 0.92); color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0 10px; text-decoration: none; font: inherit; font-weight: 650; }}
+    button:hover, .button:hover {{ border-color: var(--accent); color: var(--accent); }}
+  </style>
+</head>
+<body>
+  <main>
+    <p><a href="/">Disclosure Archive</a></p>
+    <section class="panel">
+      <h1>{safe_title}</h1>
+      {body}
+    </section>
+  </main>
+  {extra_script}
+</body>
+</html>
+"""
+
+
+def write_info_pages(out: Path, site_url: str, analytics_script_url: str, contact_email: str, google_analytics_id: str = "") -> None:
+    email_codes = encoded_email_codes(contact_email)
+    contact_body = f"""
+      <p>Use this page for corrections, source issues, takedown requests, security reports, and general notes.</p>
+      <p>The email address is opened only after you click the button.</p>
+      <div class="actions">
+        <button type="button" id="emailButton" data-email="{html_escape(email_codes, quote=True)}">Open email link</button>
+        <a class="button" href="https://github.com/GeorgiKostov/DisclosureArchive/issues">GitHub issues</a>
+      </div>
+    """
+    contact_script = """
+  <script>
+    (() => {
+      const button = document.getElementById("emailButton");
+      if (!button) return;
+      const address = button.dataset.email.split(",").map((code) => String.fromCharCode(Number(code))).join("");
+      button.addEventListener("click", () => {
+        window.location.href = `mailto:${address}?subject=Disclosure%20Archive`;
+      });
+    })();
+  </script>"""
+    (out / "contact.html").write_text(static_info_page("Contact", contact_body, analytics_script_url, google_analytics_id, contact_script), encoding="utf-8")
+
+    legal_body = """
+      <p>Disclosure Archive is an independent public-interest index for public UFO/UAP release materials.</p>
+      <p>It is not affiliated with the U.S. Department of War, NASA, FBI, Department of State, or any other source agency.</p>
+      <p>Summaries are finding aids, not proof of claims. Verify important details against the linked source records.</p>
+    """
+    (out / "legal.html").write_text(static_info_page("Legal / Impressum", legal_body, analytics_script_url, google_analytics_id), encoding="utf-8")
+
+    privacy_body = """
+      <p>No accounts, forms, comments, ads, or marketing cookies are used.</p>
+      <p>Search runs locally in your browser against static JSON. Search text is not sent to a Disclosure Archive server.</p>
+      <p>The hosting provider may process standard request logs. Optional privacy-friendly analytics may be enabled without storing search text.</p>
+    """
+    (out / "privacy.html").write_text(static_info_page("Privacy", privacy_body, analytics_script_url, google_analytics_id), encoding="utf-8")
+
+    security_body = f"""
+      <p>For security reports, use the contact page or the public security file.</p>
+      <div class="actions">
+        <a class="button" href="/contact.html">Contact</a>
+        <a class="button" href="/.well-known/security.txt">security.txt</a>
+        <a class="button" href="{html_escape(site_url, quote=True)}/.well-known/security.txt">Canonical security.txt</a>
+      </div>
+    """
+    (out / "security.html").write_text(static_info_page("Security", security_body, analytics_script_url, google_analytics_id), encoding="utf-8")
+
+
+def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str, analytics_script_url: str, google_analytics_id: str = "") -> None:
     canonical = f"{site_url}/"
+    sitemap_paths = ["", "contact.html", "legal.html", "privacy.html", "security.html"]
+    sitemap_urls = []
+    for index, path in enumerate(sitemap_paths):
+        loc = canonical if not path else f"{canonical}{path}"
+        priority = "1.0" if index == 0 else "0.4"
+        sitemap_urls.append(
+            "\n".join(
+                [
+                    "  <url>",
+                    f"    <loc>{html_escape(loc)}</loc>",
+                    f"    <lastmod>{html_escape(generated_at[:10])}</lastmod>",
+                    "    <changefreq>weekly</changefreq>",
+                    f"    <priority>{priority}</priority>",
+                    "  </url>",
+                ]
+            )
+        )
     (out / "robots.txt").write_text(
         "\n".join(
             [
@@ -2389,12 +2637,7 @@ def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str
             [
                 '<?xml version="1.0" encoding="UTF-8"?>',
                 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-                "  <url>",
-                f"    <loc>{html_escape(canonical)}</loc>",
-                f"    <lastmod>{html_escape(generated_at[:10])}</lastmod>",
-                "    <changefreq>weekly</changefreq>",
-                "    <priority>1.0</priority>",
-                "  </url>",
+                *sitemap_urls,
                 "</urlset>",
                 "",
             ]
@@ -2404,8 +2647,7 @@ def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str
     expires = (datetime.now(timezone.utc) + timedelta(days=365)).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     security_txt = "\n".join(
         [
-            f"Contact: mailto:{contact_email}",
-            f"Contact: {site_url}/",
+            f"Contact: {site_url}/contact.html",
             "Contact: https://github.com/GeorgiKostov/DisclosureArchive/issues",
             f"Expires: {expires}",
             "Preferred-Languages: en",
@@ -2418,7 +2660,7 @@ def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str
     well_known.mkdir(parents=True, exist_ok=True)
     (well_known / "security.txt").write_text(security_txt, encoding="utf-8")
     (out / "security.txt").write_text(security_txt, encoding="utf-8")
-    policy = csp_policy(analytics_script_url)
+    policy = csp_policy(analytics_script_url, google_analytics_id)
     (out / "_headers").write_text(
         "\n".join(
             [
@@ -2440,11 +2682,13 @@ def write_site(
     out: Path,
     analytics_domain: str = "",
     analytics_script_url: str = "https://plausible.io/js/script.js",
+    google_analytics_id: str = "",
     site_url: str = "https://disclosurearchive.org",
     contact_email: str = "contact@rebuilt.cards",
 ) -> Dict:
     site_url = normalize_site_url(site_url)
     contact_email = normalize_contact_email(contact_email)
+    google_analytics_id = normalize_google_analytics_id(google_analytics_id)
     conn = connect(db)
     documents = export_documents(conn)
     featured = featured_documents(documents)
@@ -2465,17 +2709,20 @@ def write_site(
     (data_dir / "documents.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     html = (
         PUBLIC_SITE_HTML.replace("<!-- SEO_META -->", seo_meta(site_url))
-        .replace("<!-- SECURITY_META -->", security_meta(analytics_script_url))
-        .replace("<!-- STRUCTURED_DATA -->", structured_data(site_url, len(documents), contact_email))
-        .replace("<!-- ANALYTICS_SNIPPET -->", analytics_snippet(analytics_domain, analytics_script_url))
-        .replace("<!-- SITE_FOOTER -->", site_footer(contact_email))
+        .replace("<!-- SECURITY_META -->", security_meta(analytics_script_url, google_analytics_id))
+        .replace("<!-- STRUCTURED_DATA -->", structured_data(site_url, len(documents)))
+        .replace("<!-- ANALYTICS_SNIPPET -->", analytics_markup(analytics_domain, analytics_script_url, google_analytics_id))
+        .replace("<!-- SITE_FOOTER -->", site_footer())
     )
     (out / "index.html").write_text(html, encoding="utf-8")
-    write_crawler_and_security_files(out, site_url, generated_at, analytics_script_url, contact_email)
+    write_info_pages(out, site_url, analytics_script_url, contact_email, google_analytics_id)
+    write_crawler_and_security_files(out, site_url, generated_at, analytics_script_url, google_analytics_id)
     return {
         "out": str(out),
         "documents": len(documents),
-        "analytics": "enabled" if analytics_domain else "disabled",
+        "analytics": "enabled" if analytics_domain or google_analytics_id else "disabled",
+        "plausible": "enabled" if analytics_domain else "disabled",
+        "google_analytics": "enabled" if google_analytics_id else "disabled",
         "contact_email": contact_email,
         "site_url": site_url,
         "json": str(data_dir / "documents.json"),
@@ -2492,8 +2739,9 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("--out", type=Path, default=Path("public_site"))
     parser.add_argument("--analytics-domain", default=os.environ.get("DISCLOSURE_ANALYTICS_DOMAIN", ""), help="Optional Plausible-compatible analytics domain, e.g. example.com")
     parser.add_argument("--analytics-script-url", default=os.environ.get("DISCLOSURE_ANALYTICS_SCRIPT_URL", "https://plausible.io/js/script.js"), help="Optional HTTPS Plausible-compatible script URL")
+    parser.add_argument("--ga-measurement-id", default=os.environ.get("DISCLOSURE_GA_MEASUREMENT_ID", ""), help="Optional Google Analytics 4 measurement/tag ID, e.g. G-XXXXXXXXXX")
     parser.add_argument("--site-url", default=os.environ.get("DISCLOSURE_SITE_URL", "https://disclosurearchive.org"), help="Canonical public HTTPS URL for SEO files")
-    parser.add_argument("--contact-email", default=os.environ.get("DISCLOSURE_CONTACT_EMAIL", "contact@rebuilt.cards"), help="Public contact email for the footer, structured data, and security.txt")
+    parser.add_argument("--contact-email", default=os.environ.get("DISCLOSURE_CONTACT_EMAIL", "contact@rebuilt.cards"), help="Public contact email opened from the generated contact page")
     args = parser.parse_args(argv)
 
     result = write_site(
@@ -2501,6 +2749,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         args.out,
         analytics_domain=args.analytics_domain,
         analytics_script_url=args.analytics_script_url,
+        google_analytics_id=args.ga_measurement_id,
         site_url=args.site_url,
         contact_email=args.contact_email,
     )

@@ -96,3 +96,11 @@
 - Removed the public landing search helper sentence under `Explore The Release`.
 - Renamed the public search-view heading from `Search The Index` to `Documents`.
 - Added a public footer to the static export with copyright, contact, Legal / Impressum, privacy, security, sitemap, and source-code links; the configured contact email is also emitted in JSON-LD and `security.txt`.
+- Cleaned the public static export footer so contact, Legal / Impressum, privacy, and security now live on separate minimal static pages, with only compact links in the footer.
+- Changed public contact handling so the generated pages do not render the raw contact email or a raw `mailto:` link; the contact page opens the email only after a click.
+- Expanded public highlight summaries into longer curated text and added `Read more` / `Show less` controls so landing cards can reveal the full summary without permanently stretching every card.
+- Cleaned public and local quick summaries so first-line document summaries use metadata/description text instead of stitching noisy OCR/native source fragments into the visible card summary.
+- Moved the public globe out of Search into a dedicated `Map` navigation view; archive marker clicks now render the selected document below the globe instead of opening an in-globe text popup.
+- Added a bottom-right Map legend with toggles for selected public military-base and nuclear-site reference overlays, including missile-wing bases and nuclear power/research sites.
+- Added optional Google Analytics 4 / Google tag support to the static export and Pages publisher via `--ga-measurement-id` / `DISCLOSURE_GA_MEASUREMENT_ID`, reusing existing coarse UI event hooks without sending search text.
+- Published Google Analytics for the public site with Measurement ID `G-NNXB9F00V6` and made it the default for future `make export-site` / Pages publishes.

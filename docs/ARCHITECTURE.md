@@ -189,19 +189,22 @@ links, deterministic summary sections, and structured references back to
 chunk/page/source-kind provenance. The payload also includes a small curated
 `featured_documents` list for the public landing `HIGHLIGHTS` section; each item
 is selected from indexed records and links back into the client-side index view.
-The static HTML presents two top-level client-side views: a landing/highlights
-view with a compact search box, and a search workbench with filters, result
-cards, and an on-demand location globe. Search keeps the complete matching
-document set in memory but renders cards in 20-result batches, loading more on
-scroll with a manual fallback button.
+The static HTML presents three top-level client-side views: a landing/highlights
+view with a compact search box, a search workbench with filters and result
+cards, and a dedicated map view with the interactive globe. Search keeps the
+complete matching document set in memory but renders cards in 20-result batches,
+loading more on scroll with a manual fallback button. The map view opens a
+selected archive document below the globe and includes optional public reference
+overlays for selected military bases and nuclear sites.
 The exporter also emits `robots.txt`, `sitemap.xml`, root and well-known
 `security.txt`, canonical/social/structured-data metadata, a referrer policy,
-and a static-host `_headers` template. The HTML footer exposes copyright,
-contact, Legal / Impressum, privacy, security, sitemap, and source-code links;
-the contact email is configurable at export time and is also written into
-`security.txt`. On GitHub Pages, browser-enforced meta policies apply, but
-`_headers` is only useful if the site later moves to a host that supports custom
-static headers.
+and a static-host `_headers` template. The HTML footer stays compact and links
+to separate minimal contact, Legal / Impressum, privacy, security, sitemap, and
+source-code pages. The contact email is configurable at export time, but the
+generated public pages avoid rendering the raw address in the footer or
+`security.txt`; the contact page opens it only after a click. On GitHub Pages,
+browser-enforced meta policies apply, but `_headers` is only useful if the site
+later moves to a host that supports custom static headers.
 
 The public export is intentionally summary-focused. It does not copy raw PDFs,
 videos, local thumbnails, generated SQLite databases, derived OCR caches, or full
@@ -215,11 +218,16 @@ in the payload for provenance and search, but duplicate page/chunk reference
 link rows are not rendered on public result cards.
 
 Analytics are optional and build-time only. Passing `--analytics-domain` or
-setting `DISCLOSURE_ANALYTICS_DOMAIN` injects a Plausible-compatible script and
+setting `DISCLOSURE_ANALYTICS_DOMAIN` injects a Plausible-compatible script.
+Passing `--ga-measurement-id` or setting `DISCLOSURE_GA_MEASUREMENT_ID` injects
+the Google Analytics 4 / Google tag script. The Pages publisher defaults to the
+live Disclosure Archive stream, `G-NNXB9F00V6`, so future publishes keep
+analytics enabled unless explicitly overridden. Both paths reuse the same
 client-side event hooks for page views, search submissions, filter changes,
-summary toggles, outbound source/video clicks, globe opens, and checkpoint
-selection. Search events report query length rather than query text. Exports
-without an analytics domain emit no analytics script.
+summary toggles, outbound source/video clicks, map navigation, globe checkpoint
+selection, and overlay toggles. Search events report query length rather than
+query text. Exports without a Plausible domain or Google Analytics Measurement
+ID emit no analytics script.
 
 `scripts/publish_github_pages.ps1` is the publish wrapper for GitHub Pages. It
 regenerates the static export, validates the JSON for local/private path

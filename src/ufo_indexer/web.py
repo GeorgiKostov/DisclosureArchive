@@ -1665,7 +1665,7 @@ def source_summary(conn, doc_id: str) -> Dict:
     overview = " ".join(overview_bits) + "."
     description = readable_text(doc["description"])
     if description:
-        overview = f"{overview} {snippet(humanize_sentence(description), max_chars=280)}"
+        overview = f"{overview} {snippet(humanize_sentence(description), max_chars=620)}"
 
     top_items = unique_sentence_items(sentences, 5)
     uap_items = unique_sentence_items(
@@ -1674,10 +1674,7 @@ def source_summary(conn, doc_id: str) -> Dict:
     )
     detail_items = unique_sentence_items(chronological_sentences, 10, chronological=True)
 
-    if top_items:
-        quick_summary = f"{overview} Main readable passages include: " + " ".join(sentence for _, sentence in top_items[:2])
-    else:
-        quick_summary = overview
+    quick_summary = overview
 
     mysterious_uap_element = [sentence_line(row, sentence) for row, sentence in uap_items]
     if not mysterious_uap_element:
