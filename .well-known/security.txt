@@ -1,7 +1,6 @@
-Contact: mailto:contact@rebuilt.cards
-Contact: https://disclosurearchive.org/
+Contact: https://disclosurearchive.org/contact.html
 Contact: https://github.com/GeorgiKostov/DisclosureArchive/issues
-Expires: 2027-05-14T22:14:25Z
+Expires: 2027-05-15T06:16:21Z
 Preferred-Languages: en
 Canonical: https://disclosurearchive.org/.well-known/security.txt
 Policy: https://github.com/GeorgiKostov/DisclosureArchive/security/policy
