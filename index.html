@@ -1206,10 +1206,25 @@
       const end = latLonThreeVector(THREE, endLocation.latitude, endLocation.longitude, 1).normalize();
       const points = [];
       const segments = 28;
+      const dot = Math.max(-1, Math.min(1, start.dot(end)));
+      const theta = Math.acos(dot);
+      const sinTheta = Math.sin(theta);
       for (let index = 0; index <= segments; index += 1) {
         const t = index / segments;
         const lift = Math.sin(Math.PI * t) * 0.032;
-        points.push(new THREE.Vector3().slerpVectors(start, end, t).normalize().multiplyScalar(radius + lift));
+        let point;
+        if (sinTheta < 0.0001) {
+          point = new THREE.Vector3().lerpVectors(start, end, t).normalize();
+        } else {
+          const a = Math.sin((1 - t) * theta) / sinTheta;
+          const b = Math.sin(t * theta) / sinTheta;
+          point = new THREE.Vector3(
+            start.x * a + end.x * b,
+            start.y * a + end.y * b,
+            start.z * a + end.z * b
+          ).normalize();
+        }
+        points.push(point.multiplyScalar(radius + lift));
       }
       return points;
     }
