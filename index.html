@@ -768,7 +768,7 @@
           <div class="map-legend collapsed" id="mapLegend" aria-label="Map overlays">
             <button type="button" class="legend-button" id="legendToggle" aria-expanded="false">Layers</button>
             <div class="legend-body" id="legendBody">
-              <p>Public reference points within 500 km of plotted archive locations. Lines show nearest archive distance.</p>
+              <p>Public reference points within 500 km of plotted archive locations. Lines connect each point to the nearest archive location.</p>
               <label class="legend-toggle">
                 <input type="checkbox" data-overlay-toggle="military">
                 <span class="legend-key military" aria-hidden="true"></span>
@@ -1230,48 +1230,6 @@
       return points;
     }
 
-    function roundedRect(ctx, x, y, width, height, radius) {
-      ctx.beginPath();
-      ctx.moveTo(x + radius, y);
-      ctx.lineTo(x + width - radius, y);
-      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-      ctx.lineTo(x + width, y + height - radius);
-      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-      ctx.lineTo(x + radius, y + height);
-      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-      ctx.lineTo(x, y + radius);
-      ctx.quadraticCurveTo(x, y, x + radius, y);
-      ctx.closePath();
-    }
-
-    function distanceLabelSprite(THREE, label, color) {
-      const canvas = document.createElement("canvas");
-      canvas.width = 256;
-      canvas.height = 96;
-      const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      roundedRect(ctx, 18, 20, 220, 56, 18);
-      ctx.fillStyle = "rgba(1, 10, 7, 0.86)";
-      ctx.fill();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = color;
-      ctx.stroke();
-      ctx.fillStyle = "#f5fff8";
-      ctx.font = "700 28px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(label, 128, 49);
-      const texture = new THREE.CanvasTexture(canvas);
-      texture.needsUpdate = true;
-      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
-        map: texture,
-        transparent: true,
-        depthWrite: false,
-      }));
-      sprite.scale.set(0.125, 0.047, 1);
-      return sprite;
-    }
-
     async function addCountryBorders(THREE, globeGroup) {
       try {
         const [topology, topojson] = await Promise.all([
@@ -1388,13 +1346,6 @@
             new THREE.BufferGeometry().setFromPoints(points),
             facility.kind === "military" ? militaryConnectorMaterial : nuclearConnectorMaterial
           ));
-          const label = distanceLabelSprite(
-            THREE,
-            `${facility.nearestDistanceKm}`,
-            facility.kind === "military" ? "#ff6b6b" : "#ff9f1c"
-          );
-          label.position.copy(points[Math.floor(points.length / 2)]).multiplyScalar(1.012);
-          connector.add(label);
           globeGroup.add(connector);
           overlayState.connectors.push(connector);
         }
