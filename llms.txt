@@ -6,5 +6,4 @@ Use it as a finding aid, not as proof of claims. Verify important details agains
 Important URLs:
 - Site: https://disclosurearchive.org/
 - Data payload: https://disclosurearchive.org/data/documents.json
-- Source code: https://github.com/GeorgiKostov/DisclosureArchive
 - Contact: https://disclosurearchive.org/contact.html
