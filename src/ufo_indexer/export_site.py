@@ -2675,6 +2675,42 @@ FEATURED_SELECTIONS = [
             "Why it stands out: astronaut audio of unexplained drifting lights, with the crew's own mundane hypothesis on the record",
         ],
     },
+    {
+        "match": "DOW-UAP-PR098",
+        "release": "release-2",
+        "kicker": "17 minutes over the Persian Gulf",
+        "summary": "Uploader-titled \"UFOs in formation over Persian Gulf?\", this is the longest clip in the release at about 17.5 minutes, from an infrared sensor in the U.S. Central Command area (uploaded to a classified network in October 2019). AARO's neutral log describes the sensor acquiring an area of contrast and panning to keep it centered over an extended period. AARO presents it as an informational description, not a conclusion.",
+        "facts": [
+            "Agency: Department of War (CENTCOM)",
+            "Incident region: Persian Gulf",
+            "Duration: about 17.5 minutes",
+            "Why it stands out: by far the longest sustained sensor track in the video release",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR067",
+        "release": "release-2",
+        "kicker": "Spheres near a submarine, in and out of water",
+        "summary": "Uploader-titled \"Multiple Spherical UAP USO near Sub. 2022/03/25 in and out of water,\" this roughly five-minute infrared clip is described by AARO as showing areas of contrast entering the frame with the sensor panning to track them. The uploader's title characterizes the objects as USOs (unidentified submerged objects) transiting in and out of the water near a submarine; AARO does not endorse that interpretation and presents the footage as received.",
+        "facts": [
+            "Agency: Department of War",
+            "Incident: 25 March 2022",
+            "Source: infrared sensor video uploaded to a classified network",
+            "Why it stands out: an uploader-described trans-medium (air/water) case near a submarine",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR064",
+        "release": "release-2",
+        "kicker": "AFSOC sensor over Kabul",
+        "summary": "Uploader-titled \"AFSOC Kabul UAP Jul 2017,\" this 17-second infrared clip sits in the U.S. Central Command area. AARO describes an area of contrast moving across the sensor field-of-view from the left edge to the right; a caption transcript accompanies the upload. AARO presents the description as informational only.",
+        "facts": [
+            "Agency: Department of War (AFSOC / CENTCOM)",
+            "Incident: Kabul, Afghanistan (uploader-dated July 2017)",
+            "Source: infrared sensor video uploaded to a classified network",
+            "Why it stands out: an over-city special-operations sensor capture",
+        ],
+    },
 ]
 
 
