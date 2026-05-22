@@ -1,6 +1,6 @@
 {
   "schema": "disclosurearchive.public_site.v1",
-  "generated_at": "2026-05-22T14:00:25+00:00",
+  "generated_at": "2026-05-22T14:03:26+00:00",
   "document_count": 226,
   "release_groups": [
     {
@@ -1321,6 +1321,128 @@
         "Apollo",
         "Lights",
         "Moon"
+      ]
+    },
+    {
+      "doc_id": "4085c23984f43709",
+      "release": "release-2",
+      "title": "DOW-UAP-PR098, \"UFOs in formation over Persian Gulf?\"",
+      "record_title": "DOW-UAP-PR098, \"UFOs in formation over Persian Gulf?\"",
+      "kicker": "17 minutes over the Persian Gulf",
+      "summary": "Uploader-titled \"UFOs in formation over Persian Gulf?\", this is the longest clip in the release at about 17.5 minutes, from an infrared sensor in the U.S. Central Command area (uploaded to a classified network in October 2019). AARO's neutral log describes the sensor acquiring an area of contrast and panning to keep it centered over an extended period. AARO presents it as an informational description, not a conclusion.",
+      "facts": [
+        "Agency: Department of War (CENTCOM)",
+        "Incident region: Persian Gulf",
+        "Duration: about 17.5 minutes",
+        "Why it stands out: by far the longest sustained sensor track in the video release"
+      ],
+      "agency": "Department of War",
+      "release_date": "5/22/26",
+      "incident_date": "",
+      "incident_location": "CENTCOM",
+      "source_url": "https://www.dvidshub.net/video/1007737/dow-uap-pr098-ufos-formation-over-persian-gulf",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "",
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111719833/DOD_111719833-1920x1080-9000k.mp4"
+      },
+      "locations": [
+        {
+          "location_id": "b231e54f5e89b97f616b9d00",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "Persian Gulf",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.45,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
+      "tags": [
+        "War Department",
+        "CENTCOM",
+        "Videos",
+        "AARO",
+        "UFO",
+        "Anomalous object"
+      ]
+    },
+    {
+      "doc_id": "8d273e5cef52c28c",
+      "release": "release-2",
+      "title": "DOW-UAP-PR067, \"Multiple Spherical UAP USO near Sub. [CALLSIGN] 2022/03/25 in and out of water\"",
+      "record_title": "DOW-UAP-PR067, \"Multiple Spherical UAP USO near Sub. [CALLSIGN] 2022/03/25 in and out of water\"",
+      "kicker": "Spheres near a submarine, in and out of water",
+      "summary": "Uploader-titled \"Multiple Spherical UAP USO near Sub. 2022/03/25 in and out of water,\" this roughly five-minute infrared clip is described by AARO as showing areas of contrast entering the frame with the sensor panning to track them. The uploader's title characterizes the objects as USOs (unidentified submerged objects) transiting in and out of the water near a submarine; AARO does not endorse that interpretation and presents the footage as received.",
+      "facts": [
+        "Agency: Department of War",
+        "Incident: 25 March 2022",
+        "Source: infrared sensor video uploaded to a classified network",
+        "Why it stands out: an uploader-described trans-medium (air/water) case near a submarine"
+      ],
+      "agency": "Department of War",
+      "release_date": "5/22/26",
+      "incident_date": "",
+      "incident_location": "",
+      "source_url": "https://www.dvidshub.net/video/1007779/dow-uap-pr067-multiple-spherical-uap-uso-near-sub-callsign-2022-03-25-and-out-water",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "",
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111720696/DOD_111720696-1920x1080-9000k.mp4"
+      },
+      "locations": [],
+      "tags": [
+        "War Department",
+        "Videos",
+        "AARO",
+        "Anomalous object"
+      ]
+    },
+    {
+      "doc_id": "a9351dc2a38dbb1b",
+      "release": "release-2",
+      "title": "DOW-UAP-PR064, \"AFSOC Kabul UAP Jul 2017\"",
+      "record_title": "DOW-UAP-PR064, \"AFSOC Kabul UAP Jul 2017\"",
+      "kicker": "AFSOC sensor over Kabul",
+      "summary": "Uploader-titled \"AFSOC Kabul UAP Jul 2017,\" this 17-second infrared clip sits in the U.S. Central Command area. AARO describes an area of contrast moving across the sensor field-of-view from the left edge to the right; a caption transcript accompanies the upload. AARO presents the description as informational only.",
+      "facts": [
+        "Agency: Department of War (AFSOC / CENTCOM)",
+        "Incident: Kabul, Afghanistan (uploader-dated July 2017)",
+        "Source: infrared sensor video uploaded to a classified network",
+        "Why it stands out: an over-city special-operations sensor capture"
+      ],
+      "agency": "Department of War",
+      "release_date": "5/22/26",
+      "incident_date": "",
+      "incident_location": "CENTCOM",
+      "source_url": "https://www.dvidshub.net/video/1007741/dow-uap-pr064-afsoc-kabul-uap-jul-2017",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "",
+        "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111719852/DOD_111719852-1920x1080-9000k.mp4"
+      },
+      "locations": [
+        {
+          "location_id": "9bfae2146297d519dd3db684",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "Kabul",
+          "latitude": 34.5553,
+          "longitude": 69.2075,
+          "precision": "city",
+          "confidence": 0.75,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
+      "tags": [
+        "War Department",
+        "CENTCOM",
+        "Videos",
+        "AARO",
+        "Anomalous object"
       ]
     }
   ],
