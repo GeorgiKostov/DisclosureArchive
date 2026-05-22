@@ -503,6 +503,37 @@
       overscroll-behavior: contain;
     }
     #globeCanvas:active { cursor: grabbing; }
+    .map-releases {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 5;
+      display: flex;
+      gap: 4px;
+      background: rgba(3, 12, 9, 0.78);
+      border: 1px solid rgba(120, 180, 150, 0.35);
+      border-radius: 8px;
+      padding: 4px;
+      backdrop-filter: blur(2px);
+    }
+    .map-releases:empty { display: none; }
+    .map-releases button {
+      font: inherit;
+      font-size: 12px;
+      line-height: 1;
+      color: #bfe7d2;
+      background: transparent;
+      border: 0;
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .map-releases button.active {
+      background: #1f7a52;
+      color: #ffffff;
+      font-weight: 700;
+    }
     .map-zoom-controls {
       position: absolute;
       left: 14px;
@@ -893,6 +924,7 @@
       <section id="globePanel" class="globe-panel open" aria-hidden="false">
         <div class="globe-stage">
           <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
+          <div class="map-releases" id="mapReleases" role="group" aria-label="Filter map by release"></div>
           <div class="map-zoom-controls" aria-label="Map zoom controls">
             <button type="button" id="mapZoomIn" aria-label="Zoom in" title="Zoom in">+</button>
             <button type="button" id="mapZoomOut" aria-label="Zoom out" title="Zoom out">-</button>
@@ -925,7 +957,7 @@
     <div class="wrap footer-inner">
       <div class="footer-links">
         <span>&copy; 2026 Disclosure Archive.</span>
-        <span class="footer-updated">Last updated May 22, 2026, 13:46 UTC</span>
+        <span class="footer-updated">Last updated May 22, 2026, 14:00 UTC</span>
         <a href="/contact.html">Contact</a>
         <a href="/legal.html">Legal / Impressum</a>
         <a href="/privacy.html">Privacy</a>
@@ -958,7 +990,7 @@
     const SEARCH_BATCH_SIZE = 20;
     const resultState = { matches: [], visible: 0 };
     let resultObserver = null;
-    const globeState = { ready: false, initializing: false, locations: [], markers: [], selected: null, selectedIndex: null };
+    const globeState = { ready: false, initializing: false, locations: [], markers: [], selected: null, selectedIndex: null, releaseFilter: null };
     const overlayState = {
       visible: { military: false, nuclear: false },
       markers: [],
@@ -1089,6 +1121,7 @@
             doc_id: doc.doc_id,
             title: doc.title,
             agency: doc.agency,
+            release_date: doc.release_date || "",
             source_url: doc.source_url || doc.media?.document_url || "",
             quick_summary: doc.summary?.quick_summary || doc.summary?.overview || "",
             latitude: lat,
@@ -1391,6 +1424,48 @@
       });
     }
 
+    function applyReleaseFilter() {
+      const filter = globeState.releaseFilter;
+      globeState.markers.forEach((marker) => {
+        const loc = globeState.locations[marker.userData.locationIndex];
+        marker.visible = !filter || (loc && loc.release_date === filter);
+      });
+      if (globeState.selectedIndex != null) {
+        const selectedMarker = globeState.markers[globeState.selectedIndex];
+        if (selectedMarker && !selectedMarker.visible) {
+          globeState.selectedIndex = null;
+          globeState.selected = null;
+          updateGlobeSelection();
+          renderSelectedLocation(null);
+        }
+      }
+    }
+
+    function buildReleaseControl() {
+      const host = $("mapReleases");
+      if (!host) return;
+      const present = new Set(globeState.locations.map((loc) => loc.release_date).filter(Boolean));
+      const groups = (archive && archive.release_groups) || [];
+      const options = [{ label: "All releases", date: null }];
+      groups.forEach((group) => {
+        const date = group.date || group.fallback_date || "";
+        if (present.has(date)) options.push({ label: group.label || group.key, date });
+      });
+      if (options.length <= 2) { host.innerHTML = ""; return; }
+      host.innerHTML = options.map((option) => {
+        const active = (globeState.releaseFilter == null && option.date == null) || globeState.releaseFilter === option.date;
+        return `<button type="button" data-release-date="${option.date == null ? "" : esc(option.date)}" class="${active ? "active" : ""}">${esc(option.label)}</button>`;
+      }).join("");
+      host.querySelectorAll("button").forEach((button) => {
+        button.addEventListener("click", () => {
+          const date = button.getAttribute("data-release-date");
+          globeState.releaseFilter = date ? date : null;
+          host.querySelectorAll("button").forEach((other) => other.classList.toggle("active", other === button));
+          applyReleaseFilter();
+        });
+      });
+    }
+
     function latLonVector(lat, lon, radius) {
       const phi = (90 - lat) * Math.PI / 180;
       const theta = (lon + 180) * Math.PI / 180;
@@ -1559,6 +1634,8 @@
         globeGroup.add(marker);
         overlayState.markers.push(marker);
       });
+      buildReleaseControl();
+      applyReleaseFilter();
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
       let dragging = false;

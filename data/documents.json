@@ -1,6 +1,6 @@
 {
   "schema": "disclosurearchive.public_site.v1",
-  "generated_at": "2026-05-22T13:46:23+00:00",
+  "generated_at": "2026-05-22T14:00:25+00:00",
   "document_count": 226,
   "release_groups": [
     {
@@ -1037,7 +1037,20 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111720731/DOD_111720731.mp4"
       },
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "17b12539030f83c1715fea8b",
+          "chunk_id": null,
+          "raw_location": "NORTHCOM",
+          "normalized_location": "Lake Huron",
+          "latitude": 44.8,
+          "longitude": -82.4,
+          "precision": "lake",
+          "confidence": 0.75,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2023",
@@ -1070,7 +1083,20 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111719709/DOD_111719709-1920x1080-9000k.mp4"
       },
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "a66ce35a8bf81d8798aa2bc7",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "Iran",
+          "latitude": 32.4279,
+          "longitude": 53.688,
+          "precision": "country",
+          "confidence": 0.55,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2022",
@@ -1103,7 +1129,20 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111719715/DOD_111719715-1920x1080-9000k.mp4"
       },
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "3c495d2ffa4afee240b2d838",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "Syria",
+          "latitude": 34.8021,
+          "longitude": 38.9968,
+          "precision": "country",
+          "confidence": 0.55,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2021",
@@ -1136,7 +1175,20 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111719752/DOD_111719752.mp4"
       },
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "352fba795ae17b993415e14d",
+          "chunk_id": null,
+          "raw_location": "Yellow Sea",
+          "normalized_location": "East China Sea",
+          "latitude": 29.0,
+          "longitude": 125.0,
+          "precision": "region",
+          "confidence": 0.35,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2023",
@@ -1169,7 +1221,20 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111720692/DOD_111720692-1920x1080-9000k.mp4"
       },
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "041de50fbb1326183a985792",
+          "chunk_id": null,
+          "raw_location": "Southeastern United States",
+          "normalized_location": "Tyndall AFB",
+          "latitude": 30.07,
+          "longitude": -85.58,
+          "precision": "base",
+          "confidence": 0.78,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2024",
@@ -1202,7 +1267,20 @@
         "document_url": "",
         "video_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111720827/DOD_111720827.mp4"
       },
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "ace2cbccc1dae7b45ff0ad5d",
+          "chunk_id": null,
+          "raw_location": "NORTHCOM",
+          "normalized_location": "NORTHCOM region",
+          "latitude": 44.0,
+          "longitude": -98.0,
+          "precision": "region",
+          "confidence": 0.25,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2019",
@@ -1697,7 +1775,20 @@
           "bytes": 3097929
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "a66ce35a8bf81d8798aa2bc7",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "Iran",
+          "latitude": 32.4279,
+          "longitude": 53.688,
+          "precision": "country",
+          "confidence": 0.55,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2022",
@@ -2319,7 +2410,20 @@
           "bytes": 154578710
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "3c495d2ffa4afee240b2d838",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "Syria",
+          "latitude": 34.8021,
+          "longitude": 38.9968,
+          "precision": "country",
+          "confidence": 0.55,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2021",
@@ -3058,7 +3162,20 @@
           "bytes": 157246201
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "1395ae7cf58be21d7357dfb2",
+          "chunk_id": null,
+          "raw_location": "Texas",
+          "normalized_location": "Texas",
+          "latitude": 31.0,
+          "longitude": -99.0,
+          "precision": "region",
+          "confidence": 0.4,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "NASA",
         "1969",
@@ -4393,7 +4510,20 @@
           "bytes": 2765075
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "bbe70c1b9fb60a38daef7d73",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2022",
@@ -5010,7 +5140,20 @@
           "bytes": 61733262
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "c32b1a754187fc01b6794e3a",
+          "chunk_id": null,
+          "raw_location": "EUCOM",
+          "normalized_location": "EUCOM region",
+          "latitude": 50.0,
+          "longitude": 15.0,
+          "precision": "region",
+          "confidence": 0.28,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2022",
@@ -5735,7 +5878,20 @@
           "bytes": 17633158
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "293c41e4805b36048a880dd7",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -7131,7 +7287,20 @@
           "bytes": 32239151
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "927fc171fbc8cbe93b31f54f",
+          "chunk_id": null,
+          "raw_location": "Yellow Sea",
+          "normalized_location": "Yellow Sea",
+          "latitude": 35.5,
+          "longitude": 123.5,
+          "precision": "region",
+          "confidence": 0.4,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2023",
@@ -7551,7 +7720,20 @@
           "bytes": 32239151
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "352fba795ae17b993415e14d",
+          "chunk_id": null,
+          "raw_location": "Yellow Sea",
+          "normalized_location": "East China Sea",
+          "latitude": 29.0,
+          "longitude": 125.0,
+          "precision": "region",
+          "confidence": 0.35,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2023",
@@ -8264,7 +8446,20 @@
           "bytes": 222778312
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "80ee85216d91ee0471ec5a7d",
+          "chunk_id": null,
+          "raw_location": "INDOPACOM",
+          "normalized_location": "INDOPACOM region",
+          "latitude": 15.0,
+          "longitude": 130.0,
+          "precision": "region",
+          "confidence": 0.22,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "INDOPACOM",
@@ -8973,7 +9168,20 @@
           "bytes": 71521409
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "a95e1377e0230cd63e129e20",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -9454,7 +9662,20 @@
           "bytes": 232010970
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "c70dcdb0f6abd9e31358774f",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2021",
@@ -10109,7 +10330,20 @@
           "bytes": 155089788
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "7e53371a4867b4714d2dfcf8",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2021",
@@ -10784,7 +11018,20 @@
           "bytes": 152414120
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "45426630cbfe220f14f49e81",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2021",
@@ -11408,7 +11655,20 @@
           "bytes": 217729901
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "0bb17c101b48864ea19fae3c",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2021",
@@ -12023,7 +12283,20 @@
           "bytes": 3228019
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "9bfae2146297d519dd3db684",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "Kabul",
+          "latitude": 34.5553,
+          "longitude": 69.2075,
+          "precision": "city",
+          "confidence": 0.75,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "CENTCOM",
@@ -12624,7 +12897,20 @@
           "bytes": 1351938
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "041de50fbb1326183a985792",
+          "chunk_id": null,
+          "raw_location": "Southeastern United States",
+          "normalized_location": "Tyndall AFB",
+          "latitude": 30.07,
+          "longitude": -85.58,
+          "precision": "base",
+          "confidence": 0.78,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2024",
@@ -13246,7 +13532,20 @@
           "bytes": 35502808
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "29fda8faec70eb348338f90a",
+          "chunk_id": null,
+          "raw_location": "Southeastern United States",
+          "normalized_location": "Tyndall AFB",
+          "latitude": 30.07,
+          "longitude": -85.58,
+          "precision": "base",
+          "confidence": 0.78,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2024",
@@ -14110,7 +14409,20 @@
           "bytes": 16383076
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "14294db773bfdd520f05107e",
+          "chunk_id": null,
+          "raw_location": "NORTHCOM",
+          "normalized_location": "NORTHCOM region",
+          "latitude": 44.0,
+          "longitude": -98.0,
+          "precision": "region",
+          "confidence": 0.25,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2023",
@@ -14781,7 +15093,20 @@
           "bytes": 14730830
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "8f276185abc09dda60dc74d9",
+          "chunk_id": null,
+          "raw_location": "NORTHCOM",
+          "normalized_location": "NORTHCOM region",
+          "latitude": 44.0,
+          "longitude": -98.0,
+          "precision": "region",
+          "confidence": 0.25,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "NORTHCOM",
@@ -15166,7 +15491,20 @@
           "bytes": 37545001
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "d03a3fe17a03f82c5c4d16f0",
+          "chunk_id": null,
+          "raw_location": "Southeastern United States",
+          "normalized_location": "Eglin AFB",
+          "latitude": 30.46,
+          "longitude": -86.55,
+          "precision": "base",
+          "confidence": 0.78,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2023",
@@ -15478,7 +15816,20 @@
           "bytes": 4876916
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "17b12539030f83c1715fea8b",
+          "chunk_id": null,
+          "raw_location": "NORTHCOM",
+          "normalized_location": "Lake Huron",
+          "latitude": 44.8,
+          "longitude": -82.4,
+          "precision": "lake",
+          "confidence": 0.75,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2023",
@@ -16161,7 +16512,7 @@
       ],
       "locations": [
         {
-          "location_id": "368c773408529b5878ab3105",
+          "location_id": "931419e1dddee07654741592",
           "chunk_id": null,
           "raw_location": "Kazakhstan",
           "normalized_location": "Kazakhstan",
@@ -16170,7 +16521,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -16890,7 +17241,20 @@
           "bytes": 2341227
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "c1fd4575cd6432039cad537f",
+          "chunk_id": null,
+          "raw_location": "Midwestern United States",
+          "normalized_location": "Midwestern United States",
+          "latitude": 41.5,
+          "longitude": -93.0,
+          "precision": "region",
+          "confidence": 0.35,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2022",
@@ -17600,7 +17964,20 @@
           "bytes": 77406190
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "d508aa641593bc9863c4dfd4",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2022",
@@ -18917,7 +19294,20 @@
           "bytes": 85350745
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "234ce853dd78d4f6853ee576",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2021",
@@ -19575,7 +19965,20 @@
           "bytes": 81014407
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "789caf5cbcbcebf4c0059d30",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -20066,7 +20469,20 @@
           "bytes": 73016086
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "e1244358882c5f8e0be81581",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -20556,7 +20972,20 @@
           "bytes": 68991496
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "8bddc5376baa7940bd0544f0",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -21276,7 +21705,20 @@
           "bytes": 57305777
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "ed06277eab77780dc0f3b13d",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -21999,7 +22441,20 @@
           "bytes": 45120629
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "e60c3c086d3ce75cb7397e14",
+          "chunk_id": null,
+          "raw_location": "AFRICOM",
+          "normalized_location": "AFRICOM region",
+          "latitude": 8.0,
+          "longitude": 21.0,
+          "precision": "region",
+          "confidence": 0.22,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -22561,7 +23016,20 @@
           "bytes": 42727192
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "bc0017caa694d4a4416aa560",
+          "chunk_id": null,
+          "raw_location": "AFRICOM",
+          "normalized_location": "AFRICOM region",
+          "latitude": 8.0,
+          "longitude": 21.0,
+          "precision": "region",
+          "confidence": 0.22,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -23006,7 +23474,20 @@
           "bytes": 49585917
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "eaba072cc67d58449cfb027b",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -23698,7 +24179,20 @@
           "bytes": 73606795
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "31e79a9403f929b5df7de251",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -24301,7 +24795,20 @@
           "bytes": 64242509
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "8d6d0c539a493cfebc139bf9",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -24946,7 +25453,20 @@
           "bytes": 17681116
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "ace2cbccc1dae7b45ff0ad5d",
+          "chunk_id": null,
+          "raw_location": "NORTHCOM",
+          "normalized_location": "NORTHCOM region",
+          "latitude": 44.0,
+          "longitude": -98.0,
+          "precision": "region",
+          "confidence": 0.25,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2019",
@@ -25523,7 +26043,20 @@
           "bytes": 76485716
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "bab3e47ef1ddacb86b5ecc8f",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -26063,7 +26596,20 @@
           "bytes": 65464922
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "8c5dd246cc736240c484a3c0",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -26774,7 +27320,20 @@
           "bytes": 59014273
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "59553d428d22a0cb7e9db5a2",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -27270,7 +27829,20 @@
           "bytes": 119593826
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "590d48c94c62cdd0100a2025",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -27789,7 +28361,20 @@
           "bytes": 113393509
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "82f94fa8edab03ca541fc3b7",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "Persian Gulf",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.45,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -28387,7 +28972,20 @@
           "bytes": 99366171
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "7090309252b5757a265e3041",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -28946,7 +29544,20 @@
           "bytes": 14381232
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "da91ea7387732c88a08bd0d2",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "Gulf Of Arabia",
+          "latitude": 20.0,
+          "longitude": 60.0,
+          "precision": "region",
+          "confidence": 0.4,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -29448,7 +30059,20 @@
           "bytes": 35570662
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "4f1dfcde8fcfc8adc981312f",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -30147,7 +30771,20 @@
           "bytes": 193680331
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "d5b0cf5cf9be3f6567c2ab9e",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "Gulf Of Arabia",
+          "latitude": 20.0,
+          "longitude": 60.0,
+          "precision": "region",
+          "confidence": 0.4,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2020",
@@ -30645,7 +31282,20 @@
           "bytes": 72994733
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "82ccb40daeb1b37c9df3726c",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2018",
@@ -31099,7 +31749,20 @@
           "bytes": 102195741
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "f9d3058064b300c824c373b4",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2019",
@@ -31783,7 +32446,20 @@
           "bytes": 255197962
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "b231e54f5e89b97f616b9d00",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "Persian Gulf",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.45,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "CENTCOM",
@@ -32495,7 +33171,20 @@
           "bytes": 80311198
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "0b21ee4db7196bbe13c25834",
+          "chunk_id": null,
+          "raw_location": "CENTCOM",
+          "normalized_location": "CENTCOM region",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.3,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
         "2023",
@@ -35555,7 +36244,20 @@
           "bytes": 33839454
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "081a79f98607bddc6166b1c5",
+          "chunk_id": null,
+          "raw_location": "North Atlantic Ocean",
+          "normalized_location": "North Atlantic Ocean",
+          "latitude": 40.0,
+          "longitude": -40.0,
+          "precision": "region",
+          "confidence": 0.22,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
       "tags": [
         "NASA",
         "North Atlantic Ocean",
