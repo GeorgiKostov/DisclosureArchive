@@ -1,10 +1,25 @@
 {
   "schema": "disclosurearchive.public_site.v1",
-  "generated_at": "2026-05-16T05:52:27+00:00",
-  "document_count": 162,
+  "generated_at": "2026-05-22T13:09:04+00:00",
+  "document_count": 168,
+  "release_groups": [
+    {
+      "key": "release-1",
+      "label": "RELEASE 1",
+      "date": "",
+      "fallback_date": "5/8/26"
+    },
+    {
+      "key": "release-2",
+      "label": "RELEASE 2",
+      "date": "",
+      "fallback_date": "5/22/26"
+    }
+  ],
   "featured_documents": [
     {
       "doc_id": "828f5e58bf988202",
+      "release": "release-1",
       "title": "Orbs Launching Orbs",
       "record_title": "Western US Event",
       "kicker": "Multi-team orb report",
@@ -44,12 +59,13 @@
         "2023",
         "Western United States",
         "AARO",
-        "Orbs",
-        "Anomalous object"
+        "Orange orbs",
+        "Orbs"
       ]
     },
     {
       "doc_id": "c64504c14ca3e82a",
+      "release": "release-1",
       "title": "USPER Statement about UAP Sighting",
       "record_title": "USPER Statement about UAP Sighting",
       "kicker": "Senior official narrative",
@@ -94,6 +110,7 @@
     },
     {
       "doc_id": "f997a6d52c925f99",
+      "release": "release-1",
       "title": "FBI September 2023 Sighting - Composite Sketch",
       "record_title": "FBI September 2023 Sighting - Composite Sketch",
       "kicker": "FBI visual reconstruction",
@@ -135,6 +152,7 @@
     },
     {
       "doc_id": "09aa7e82894d1bb2",
+      "release": "release-1",
       "title": "FBI Photo A1",
       "record_title": "FBI Photo A1",
       "kicker": "Late-2025 image set",
@@ -166,6 +184,7 @@
     },
     {
       "doc_id": "fe0885d640c71038",
+      "release": "release-1",
       "title": "NASA-UAP-VM6, Apollo 17, 1972",
       "record_title": "NASA-UAP-VM6, Apollo 17, 1972",
       "kicker": "Apollo lunar image",
@@ -197,6 +216,7 @@
     },
     {
       "doc_id": "113a3def791a4a24",
+      "release": "release-1",
       "title": "NASA-UAP-D2, Apollo 17 Transcript, 1972",
       "record_title": "NASA-UAP-D2, Apollo 17 Transcript, 1972",
       "kicker": "Lunar transcript",
@@ -228,6 +248,7 @@
     },
     {
       "doc_id": "9d2c172f93f32cf0",
+      "release": "release-1",
       "title": "255-t-763-r1b-excerpt",
       "record_title": "255-t-763-r1b-excerpt",
       "kicker": "Gemini VII audio",
@@ -259,6 +280,7 @@
     },
     {
       "doc_id": "8454b0f14b26dff0",
+      "release": "release-1",
       "title": "State Department UAP Cable 1, Papua New Guinea, January 28, 1985",
       "record_title": "State Department UAP Cable 1, Papua New Guinea, January 28, 1985",
       "kicker": "Diplomatic cable",
@@ -303,6 +325,7 @@
     },
     {
       "doc_id": "d51ce915b929b3e3",
+      "release": "release-1",
       "title": "State Department UAP Cable 2, Kazakhstan, January 31, 1994",
       "record_title": "State Department UAP Cable 2, Kazakhstan, January 31, 1994",
       "kicker": "Post-Soviet cable",
@@ -345,6 +368,7 @@
     },
     {
       "doc_id": "22e263c290593be7",
+      "release": "release-1",
       "title": "331_120752_Numeric_Files_1944–1945_37153_German_Armament_Equipment_Documents",
       "record_title": "331_120752_Numeric_Files_1944–1945_37153_German_Armament_Equipment_Documents",
       "kicker": "Wartime foo-fighter file",
@@ -389,6 +413,7 @@
     },
     {
       "doc_id": "951a7dd58c27a8eb",
+      "release": "release-1",
       "title": "65_HS1-834228961_62-HQ-83894_Section_5",
       "record_title": "65_HS1-834228961_62-HQ-83894_Section_5",
       "kicker": "FBI master file",
@@ -420,6 +445,7 @@
     },
     {
       "doc_id": "c09b175af65a1b09",
+      "release": "release-1",
       "title": "DOW-UAP-PR46, Unresolved UAP Report, INDOPACOM, 2024",
       "record_title": "DOW-UAP-PR46, Unresolved UAP Report, INDOPACOM, 2024",
       "kicker": "INDOPACOM video",
@@ -464,6 +490,7 @@
     },
     {
       "doc_id": "7b5c5677ed996927",
+      "release": "release-1",
       "title": "DOW-UAP-PR47, Unresolved UAP Report, INDOPACOM, 2023",
       "record_title": "DOW-UAP-PR47, Unresolved UAP Report, INDOPACOM, 2023",
       "kicker": "Japan sensor case",
@@ -508,6 +535,7 @@
     },
     {
       "doc_id": "67fe065def734dac",
+      "release": "release-1",
       "title": "DOW-UAP-PR48, Unresolved UAP Report, INDOPACOM, 2024",
       "record_title": "DOW-UAP-PR48, Unresolved UAP Report, INDOPACOM, 2024",
       "kicker": "Wind-farm video",
@@ -539,6 +567,7 @@
     },
     {
       "doc_id": "dca830cbc1741bfe",
+      "release": "release-1",
       "title": "DOW-UAP-PR34, Unresolved UAP Report, Greece, October 2023",
       "record_title": "DOW-UAP-PR34, Unresolved UAP Report, Greece, October 2023",
       "kicker": "Aegean maneuver video",
@@ -583,6 +612,7 @@
     },
     {
       "doc_id": "c8f447474d2a30ed",
+      "release": "release-1",
       "title": "DOW-UAP-PR28, Unresolved UAP Report, Greece, January 2024",
       "record_title": "DOW-UAP-PR28, Unresolved UAP Report, Greece, January 2024",
       "kicker": "Glowing IR signature",
@@ -627,6 +657,7 @@
     },
     {
       "doc_id": "98b41773e2f3999c",
+      "release": "release-1",
       "title": "DOW-UAP-PR43, Unresolved UAP Report, Africa, 2025",
       "record_title": "DOW-UAP-PR43, Unresolved UAP Report, Africa, 2025",
       "kicker": "Africa airspace video",
@@ -671,6 +702,7 @@
     },
     {
       "doc_id": "c8d41b4ba9c28862",
+      "release": "release-1",
       "title": "DOW-UAP-PR49, Unresolved UAP Report, Department of the Army, 2026",
       "record_title": "DOW-UAP-PR49, Unresolved UAP Report, Department of the Army, 2026",
       "kicker": "2026 Army report",
@@ -710,6 +742,276 @@
         "Videos",
         "AARO",
         "Anomalous object"
+      ]
+    },
+    {
+      "doc_id": "4657f3da707518cd",
+      "release": "release-2",
+      "title": "ODNI USPER Narrative - Senior Intelligence Officer Orb Encounter (2025)",
+      "record_title": "ODNI USPER Narrative - Senior Intelligence Officer Orb Encounter (2025)",
+      "kicker": "Senior officer orb encounter",
+      "summary": "In a first-person narrative, a senior U.S. intelligence officer says that in late 2025 he, a colleague, and two pilots flew a helicopter from a Joint Operations Center to investigate loud thuds in mountains on a test range during several nights of UAP sightings. Over more than an hour of close encounters, the officer recounts ground teams reporting a \"super-hot\" object on FLIR that split in two, an object rising from the ground to within ten feet of the helicopter before speeding away, and large oval orange orbs with bright centers that flared stationary just above the rotor disk and formed a \"T\" of four to five orbs that dimmed in reverse order. He says orange orbs later appeared above fighter jets at about 23,000 feet, matched their flight path as if chasing them, and formed a triangle around the helicopter before vanishing.",
+      "facts": [
+        "Agency: ODNI",
+        "Incident year: 2025",
+        "Source: ODNI USPER (US Person) narrative; the officer did not photograph the event",
+        "Why it stands out: detailed close-encounter account that parallels Release 1's orange-orb cases"
+      ],
+      "agency": "ODNI",
+      "release_date": "5/22/26",
+      "incident_date": "Late 2025",
+      "incident_location": "United States",
+      "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf",
+        "video_url": ""
+      },
+      "locations": [
+        {
+          "location_id": "5ee17265308e7113644f54ca",
+          "chunk_id": null,
+          "raw_location": "United States",
+          "normalized_location": "United States",
+          "latitude": 39.8283,
+          "longitude": -98.5795,
+          "precision": "country",
+          "confidence": 0.45,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
+      "tags": [
+        "ODNI",
+        "2025",
+        "United States",
+        "Orange orbs",
+        "Test range",
+        "Helicopter"
+      ]
+    },
+    {
+      "doc_id": "6345ce1107b76d07",
+      "release": "release-2",
+      "title": "Sandia Base Correspondence - New Mexico Aerial Phenomena and Green Fireballs (1948-1949)",
+      "record_title": "Sandia Base Correspondence - New Mexico Aerial Phenomena and Green Fireballs (1948-1949)",
+      "kicker": "Green fireballs investigation",
+      "summary": "This 116-page compilation of late-1940s correspondence centers on Sandia Base in Albuquerque, New Mexico, beside the atomic-weapons complex. Its centerpiece is the 17th District OSI \"Summary of Observations of Aerial Phenomena in the New Mexico area\" — the green fireballs investigation — cataloging unexplained sightings concentrated in New Mexico from late 1948 onward, recurring green fireballs near Los Alamos and Sandia, and a noted surge where the summary says flying-saucer incidents in the region \"attained an all-time high.\" The file describes unidentified lights over the 2nd Armored Division triangulated from multiple observers and references a \"Photo of Sighting No. 175.\"",
+      "facts": [
+        "Agency: Department of War",
+        "Incident years: 1948-1949",
+        "Source: Sandia Base security and OSI correspondence, 116 pages",
+        "Why it stands out: primary-source material from the early-Cold-War New Mexico green-fireball wave"
+      ],
+      "agency": "DOW",
+      "release_date": "5/22/26",
+      "incident_date": "1948-1949",
+      "incident_location": "Albuquerque, NM",
+      "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf",
+        "video_url": ""
+      },
+      "locations": [
+        {
+          "location_id": "a2d78f55fd2dc69e5fc94e23",
+          "chunk_id": null,
+          "raw_location": "Albuquerque, NM",
+          "normalized_location": "Albuquerque, NM",
+          "latitude": 35.0844,
+          "longitude": -106.6504,
+          "precision": "city",
+          "confidence": 0.8,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
+      "tags": [
+        "DOW",
+        "1948",
+        "Flying discs",
+        "Green fireballs",
+        "Sandia Base",
+        "Los Alamos"
+      ]
+    },
+    {
+      "doc_id": "f3332a3539a5e448",
+      "release": "release-2",
+      "title": "CIA Intelligence Information Report - Sary Shagan, USSR (1973)",
+      "record_title": "CIA Intelligence Information Report - Sary Shagan, USSR (1973)",
+      "kicker": "Soviet test-range sighting",
+      "summary": "A CIA Intelligence Information Report sourced to a former Soviet citizen, acquired via Germany and dated December 1973, mostly describes the Soviet Sary Shagan weapons testing range in Kazakhstan, its facilities, the System-75/SA-2 and System-300/Aldan anti-missile warheads, and rumored laser research. The UAP element: one evening in late summer 1973 at \"Site 7,\" the source stepped outside during a televised Canada-USSR sport competition and reports seeing a bright green circular object in the western sky at about 70 degrees elevation. Within 10 to 15 seconds, the source says, the green circle widened and several concentric green circles formed around the mass before the color faded over a few minutes, with no sound and no explanation offered.",
+      "facts": [
+        "Agency: CIA",
+        "Incident year: 1973 (declassified 2026)",
+        "Source: CIA Intelligence Information Report, source was a former Soviet citizen",
+        "Why it stands out: a Soviet weapons-range observation echoing the green-phenomena pattern"
+      ],
+      "agency": "CIA",
+      "release_date": "5/22/26",
+      "incident_date": "1973",
+      "incident_location": "Sary Shagan",
+      "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf",
+        "video_url": ""
+      },
+      "locations": [
+        {
+          "location_id": "1b6d8c5f2097c46feeec9bd5",
+          "chunk_id": null,
+          "raw_location": "Sary Shagan",
+          "normalized_location": "Sary Shagan",
+          "latitude": 46.05,
+          "longitude": 73.5,
+          "precision": "region",
+          "confidence": 0.55,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
+      "tags": [
+        "CIA",
+        "1973",
+        "Sary Shagan",
+        "Soviet Union",
+        "Missile",
+        "Weapons"
+      ]
+    },
+    {
+      "doc_id": "844d26beec70caeb",
+      "release": "release-2",
+      "title": "Pantex Plant Unidentified Object Incident - Radar Tower Image",
+      "record_title": "Pantex Plant Unidentified Object Incident - Radar Tower Image",
+      "kicker": "Radar-tower image",
+      "summary": "A Pantex Unidentified Object Incident Report from the U.S. nuclear-weapons assembly and disassembly facility near Amarillo, Texas, centers on an image of an unidentified object captured from a Ground Surveillance Radar Tower, plus Sandia National Labs enhanced images of the object. The release is essentially the imagery pages with little narrative text, and the material is marked UCNI (Unclassified Controlled Nuclear Information).",
+      "facts": [
+        "Agency: Department of Energy / Pantex Plant",
+        "Source: Ground Surveillance Radar Tower image with Sandia enhancements; marked UCNI",
+        "Why it stands out: a radar-tower image of an unidentified object over a nuclear-weapons site"
+      ],
+      "agency": "DOE",
+      "release_date": "5/22/26",
+      "incident_date": "N/A",
+      "incident_location": "Amarillo, TX",
+      "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf",
+        "video_url": ""
+      },
+      "locations": [
+        {
+          "location_id": "12decaa9316db42f633b3004",
+          "chunk_id": null,
+          "raw_location": "Amarillo, TX",
+          "normalized_location": "Amarillo, TX",
+          "latitude": 35.222,
+          "longitude": -101.8313,
+          "precision": "city",
+          "confidence": 0.8,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
+      "tags": [
+        "DOE",
+        "Unidentified object",
+        "Sandia Base",
+        "Pantex Plant",
+        "Radar"
+      ]
+    },
+    {
+      "doc_id": "19e82d28f421efb3",
+      "release": "release-2",
+      "title": "James L. Tuck Correspondence - Atmospheric Vortices and UFO Propulsion",
+      "record_title": "James L. Tuck Correspondence - Atmospheric Vortices and UFO Propulsion",
+      "kicker": "Los Alamos physicist letters",
+      "summary": "Correspondence involving Los Alamos physicist James L. Tuck. In one 1970s letter to the U.S. Army Engineer School at Fort Belvoir, Virginia, the writer asks for the \"recipe\" used in simulated atomic-bomb demonstrations, citing interest in \"large atmospheric vortices\" reported in Dr. Edward U. Condon's \"Scientific Study of Unidentified Flying Objects\" (the Condon Report). Another letter discusses UFO author James M. McCampbell's 1976 book \"UFOLOGY,\" its \"Flight and Propulsion\" chapter, and Einstein's unified field theory.",
+      "facts": [
+        "Agency: Department of Energy / Los Alamos",
+        "Records era: 1970s",
+        "Source: James L. Tuck correspondence files",
+        "Why it stands out: a working nuclear physicist engaging with UFO propulsion ideas and the Condon Report"
+      ],
+      "agency": "DOE",
+      "release_date": "5/22/26",
+      "incident_date": "N/A",
+      "incident_location": "Los Alamos, NM",
+      "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D002_JamesTuck_Correspondence.pdf",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D002_JamesTuck_Correspondence.pdf",
+        "video_url": ""
+      },
+      "locations": [
+        {
+          "location_id": "0ab1cd79977413e77f7c84b7",
+          "chunk_id": null,
+          "raw_location": "Los Alamos, NM",
+          "normalized_location": "Los Alamos, NM",
+          "latitude": 35.8881,
+          "longitude": -106.3031,
+          "precision": "city",
+          "confidence": 0.8,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
+      "tags": [
+        "DOE",
+        "Unidentified object",
+        "Los Alamos"
+      ]
+    },
+    {
+      "doc_id": "acacbdc8537b708d",
+      "release": "release-2",
+      "title": "Pajarito Astronomers - Why Should a Scientist Be Concerned About UFOs (1986)",
+      "record_title": "Pajarito Astronomers - Why Should a Scientist Be Concerned About UFOs (1986)",
+      "kicker": "Los Alamos meeting notice",
+      "summary": "A meeting notice from the Pajarito Astronomers of Los Alamos, New Mexico, dated Tuesday, May 20, 1986, announces a meeting on Thursday, May 29, 1986 in the Ranch Room at Fuller Lodge. The guest speaker is Dr. John Warren of group AT-6, with the topic billed as \"Why Should a Scientist Be Concerned about UFO's?\"",
+      "facts": [
+        "Agency: Department of Energy / Los Alamos",
+        "Incident date: May 1986",
+        "Source: Pajarito Astronomers meeting notice",
+        "Why it stands out: a Los Alamos science group openly taking up the UFO question"
+      ],
+      "agency": "DOE",
+      "release_date": "5/22/26",
+      "incident_date": "1986",
+      "incident_location": "Los Alamos, NM",
+      "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D003_Pajarito_Astronomers.pdf",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D003_Pajarito_Astronomers.pdf",
+        "video_url": ""
+      },
+      "locations": [
+        {
+          "location_id": "173b9b611cdfbab16553ba23",
+          "chunk_id": null,
+          "raw_location": "Los Alamos, NM",
+          "normalized_location": "Los Alamos, NM",
+          "latitude": 35.8881,
+          "longitude": -106.3031,
+          "precision": "city",
+          "confidence": 0.8,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
+      "tags": [
+        "DOE",
+        "1986",
+        "Los Alamos",
+        "New Mexico",
+        "UFO"
       ]
     }
   ],
@@ -2381,11 +2683,6 @@
       },
       "related_documents": [
         {
-          "doc_id": "6642fa4f7b4eb756",
-          "title": "65_HS1-834228961_62-HQ-83894_Section_6",
-          "reason": "Shared tags: discs, flying discs, lights"
-        },
-        {
           "doc_id": "990d4537136acf88",
           "title": "342_HS1-416511228_319.1 Flying Discs 1949",
           "reason": "Shared tags: discs, flying discs, lights"
@@ -2403,6 +2700,11 @@
         {
           "doc_id": "454b08e50354755b",
           "title": "65_HS1-834228961_62-HQ-83894_SUB_A",
+          "reason": "Shared tags: discs, flying discs, lights"
+        },
+        {
+          "doc_id": "433b10f7cf1a2574",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_10",
           "reason": "Shared tags: discs, flying discs, lights"
         }
       ]
@@ -2860,10 +3162,11 @@
         "Flying discs",
         "Unidentified object",
         "Lights",
+        "Green fireballs",
+        "New Mexico",
         "Discs",
         "Fireball",
-        "Aerial phenomena",
-        "Missile"
+        "Aerial phenomena"
       ],
       "summary": {
         "doc_id": "6642fa4f7b4eb756",
@@ -3221,11 +3524,6 @@
           "reason": "Shared tags: air force, discs, flying discs"
         },
         {
-          "doc_id": "c95181d8eb1816d8",
-          "title": "65_HS1-834228961_62-HQ-83894_Section_4",
-          "reason": "Shared tags: discs, flying discs, lights"
-        },
-        {
           "doc_id": "4a34364aba83d121",
           "title": "65_HS1-834228961_62-HQ-83894_Section_7",
           "reason": "Shared tags: aerial phenomena, air force, discs"
@@ -3234,6 +3532,11 @@
           "doc_id": "76ae2a6e79ff0827",
           "title": "65_HS1-834228961_62-HQ-83894_Section_8",
           "reason": "Shared tags: aerial phenomena, air force, discs"
+        },
+        {
+          "doc_id": "6345ce1107b76d07",
+          "title": "Sandia Base Correspondence - New Mexico Aerial Phenomena and Green Fireballs (1948-1949)",
+          "reason": "Shared tags: aerial phenomena, fireball, flying discs"
         },
         {
           "doc_id": "990d4537136acf88",
@@ -5669,6 +5972,7 @@
         "FBI",
         "Flying discs",
         "Unidentified object",
+        "New Mexico",
         "Discs"
       ],
       "summary": {
@@ -6002,6 +6306,11 @@
       },
       "related_documents": [
         {
+          "doc_id": "6642fa4f7b4eb756",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_6",
+          "reason": "Shared tags: discs, flying discs, new mexico"
+        },
+        {
           "doc_id": "990d4537136acf88",
           "title": "342_HS1-416511228_319.1 Flying Discs 1949",
           "reason": "Shared tags: discs, flying discs, unidentified object"
@@ -6019,11 +6328,6 @@
         {
           "doc_id": "433b10f7cf1a2574",
           "title": "65_HS1-834228961_62-HQ-83894_Section_10",
-          "reason": "Shared tags: discs, flying discs, unidentified object"
-        },
-        {
-          "doc_id": "934e5a1ecf4195a8",
-          "title": "65_HS1-834228961_62-HQ-83894_Section_2",
           "reason": "Shared tags: discs, flying discs, unidentified object"
         }
       ]
@@ -9017,7 +9321,8 @@
       "tags": [
         "War Department",
         "Azerbaijan",
-        "Aircraft"
+        "Aircraft",
+        "Soviet Union"
       ],
       "summary": {
         "doc_id": "0b34c5fb1832ce50",
@@ -20309,11 +20614,6 @@
           "reason": "Shared tags: air force, anomalous object, missile"
         },
         {
-          "doc_id": "6642fa4f7b4eb756",
-          "title": "65_HS1-834228961_62-HQ-83894_Section_6",
-          "reason": "Shared tags: air force, missile"
-        },
-        {
           "doc_id": "a62a3e4cb6146f59",
           "title": "DOW-UAP-D10, Mission Report, Middle East, May 2022",
           "reason": "Shared tags: anomalous object, missile"
@@ -20326,6 +20626,11 @@
         {
           "doc_id": "b05f90372db178f0",
           "title": "DOW-UAP-D16, Mission Report, Syria, July 2022",
+          "reason": "Shared tags: air force, anomalous object"
+        },
+        {
+          "doc_id": "8086f123c83094a7",
+          "title": "DOW-UAP-D20, Mission Report, Southern United States, 2020",
           "reason": "Shared tags: air force, anomalous object"
         }
       ]
@@ -20692,11 +20997,6 @@
           "reason": "Shared tags: air force, radar"
         },
         {
-          "doc_id": "6642fa4f7b4eb756",
-          "title": "65_HS1-834228961_62-HQ-83894_Section_6",
-          "reason": "Shared tags: air force, missile"
-        },
-        {
           "doc_id": "4e35062c093dc153",
           "title": "65_HS1-834228961_62-HQ-83894_Serial_164",
           "reason": "Shared tags: air force, radar"
@@ -20709,6 +21009,11 @@
         {
           "doc_id": "b05f90372db178f0",
           "title": "DOW-UAP-D16, Mission Report, Syria, July 2022",
+          "reason": "Shared tags: air force, radar"
+        },
+        {
+          "doc_id": "8086f123c83094a7",
+          "title": "DOW-UAP-D20, Mission Report, Southern United States, 2020",
           "reason": "Shared tags: air force, radar"
         }
       ]
@@ -41386,6 +41691,11 @@
           "reason": "Shared tags: ufo"
         },
         {
+          "doc_id": "acacbdc8537b708d",
+          "title": "Pajarito Astronomers - Why Should a Scientist Be Concerned About UFOs (1986)",
+          "reason": "Shared tags: ufo"
+        },
+        {
           "doc_id": "f2a5de1b63abbf20",
           "title": "State Department UAP Cable 3, Tbilisi, Georgia, October 30, 2001",
           "reason": "Shared tags: ufo"
@@ -42163,6 +42473,11 @@
       },
       "related_documents": [
         {
+          "doc_id": "4657f3da707518cd",
+          "title": "ODNI USPER Narrative - Senior Intelligence Officer Orb Encounter (2025)",
+          "reason": "Shared tags: helicopter, orbs, united states"
+        },
+        {
           "doc_id": "828f5e58bf988202",
           "title": "Western US Event",
           "reason": "Shared tags: helicopter, lights, orbs"
@@ -42180,11 +42495,6 @@
         {
           "doc_id": "02eeb04b5c07466a",
           "title": "38_143685_box_Incident_Summaries_101-172",
-          "reason": "Shared tags: aircraft, lights"
-        },
-        {
-          "doc_id": "c95181d8eb1816d8",
-          "title": "65_HS1-834228961_62-HQ-83894_Section_4",
           "reason": "Shared tags: aircraft, lights"
         }
       ]
@@ -42740,6 +43050,11 @@
           "reason": "Shared tags: united states"
         },
         {
+          "doc_id": "4657f3da707518cd",
+          "title": "ODNI USPER Narrative - Senior Intelligence Officer Orb Encounter (2025)",
+          "reason": "Shared tags: united states"
+        },
+        {
           "doc_id": "c64504c14ca3e82a",
           "title": "USPER Statement about UAP Sighting",
           "reason": "Shared tags: united states"
@@ -43062,6 +43377,7 @@
         "2023",
         "Western United States",
         "AARO",
+        "Orange orbs",
         "Orbs",
         "Anomalous object",
         "Helicopter",
@@ -43402,6 +43718,1660 @@
           "doc_id": "b4a9868164151201",
           "title": "DOW-UAP-PR32, Unresolved UAP Report, Syria, October 2024",
           "reason": "Shared tags: aaro, anomalous object, lights"
+        }
+      ]
+    },
+    {
+      "doc_id": "f3332a3539a5e448",
+      "row_number": 163,
+      "title": "CIA Intelligence Information Report - Sary Shagan, USSR (1973)",
+      "release_type": "PDF",
+      "agency": "CIA",
+      "release_date": "5/22/26",
+      "incident_date": "1973",
+      "incident_location": "Sary Shagan",
+      "description": "Declassified CIA Intelligence Information Report (distributed December 1973) based on a former Soviet citizen's account of the Sary Shagan weapons testing range in Kazakhstan. Most of the report concerns Soviet missile systems - the System-75/SA-2 and the System-300/Aldan (ABM-1 GALOSH) anti-missile warheads - and rumored laser research. It also records that, on one evening in late summer 1973, the source observed an unidentified bright green circular object in the sky west of Site 7; within 10-15 seconds the green circle widened and several concentric green rings formed around it before the color faded, with no sound.",
+      "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf",
+        "video_url": ""
+      },
+      "assets": [
+        {
+          "kind": "document",
+          "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf",
+          "media_type": "document",
+          "bytes": 154038
+        }
+      ],
+      "locations": [
+        {
+          "location_id": "1b6d8c5f2097c46feeec9bd5",
+          "chunk_id": null,
+          "raw_location": "Sary Shagan",
+          "normalized_location": "Sary Shagan",
+          "latitude": 46.05,
+          "longitude": 73.5,
+          "precision": "region",
+          "confidence": 0.55,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
+      "tags": [
+        "CIA",
+        "1973",
+        "Sary Shagan",
+        "Soviet Union",
+        "Missile",
+        "Weapons",
+        "Spherical object",
+        "Kazakhstan",
+        "Aerial phenomena"
+      ],
+      "summary": {
+        "doc_id": "f3332a3539a5e448",
+        "title": "CIA Intelligence Information Report - Sary Shagan, USSR (1973)",
+        "agency": "CIA",
+        "incident_date": "1973",
+        "incident_location": "Sary Shagan",
+        "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf",
+        "overview": "CIA Intelligence Information Report - Sary Shagan, USSR (1973) is indexed as a CIA record with incident date 1973 and location Sary Shagan. Declassified CIA Intelligence Information Report (distributed December 1973) based on a former Soviet citizen's account of the Sary Shagan weapons testing range in Kazakhstan. Most of the report concerns Soviet missile systems the System-75/SA-2 and the System-300/Aldan (ABM-1 GALOSH) anti-missile warheads and rumored laser research. It also records that, on one evening in late summer 1973, the source observed an unidentified bright green circular object in the sky west of Site 7; within 10-15 seconds the green circle widened and several concentric green rings formed around it before the color faded, with no sound.",
+        "quick_summary": "CIA Intelligence Information Report - Sary Shagan, USSR (1973) is indexed as a CIA record with incident date 1973 and location Sary Shagan. Declassified CIA Intelligence Information Report (distributed December 1973) based on a former Soviet citizen's account of the Sary Shagan weapons testing range in Kazakhstan. Most of the report concerns Soviet missile systems the System-75/SA-2 and the System-300/Aldan (ABM-1 GALOSH) anti-missile warheads and rumored laser research. It also records that, on one evening in late summer 1973, the source observed an unidentified bright green circular object in the sky west of Site 7; within 10-15 seconds the green circle widened and several concentric green rings formed around it before the color faded, with no sound.",
+        "mysterious_uap_element": [
+          {
+            "text": "According to hearsay, ecperiments involving laser weapons were being conducted at an unknown location at the range.",
+            "chunk_id": "4dece84f3c10a31f43ee0a37",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 3,
+            "label": "According to hearsay, ecperiments involving laser weapons were being conducted at an unknown location at the range. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "While watching a sport com petition between Canada and the.U::iSR on television, he stepped outside for some air and observed an.unidentified sharp (bright) green circular object or a s in the sky.",
+            "chunk_id": "dc26a187a8ce649031d53181",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 3,
+            "chunk_index": 4,
+            "label": "While watching a sport com petition between Canada and the.U::iSR on television, he stepped outside for some air and observed an.unidentified sharp (bright) green circular object or a s in the sky. (native PDF text, page 3)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=3"
+          },
+          {
+            "text": "The altitude of the object was undeter inable. (Field Comment; Although there were no clouds in the sky that even1n 6, Source believed that the green mass would have been hiiher than cloud level.",
+            "chunk_id": "dc26a187a8ce649031d53181",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 3,
+            "chunk_index": 4,
+            "label": "The altitude of the object was undeter inable. (Field Comment; Although there were no clouds in the sky that even1n 6, Source believed that the green mass would have been hiiher than cloud level. (native PDF text, page 3)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=3"
+          },
+          {
+            "text": "Source could not estimate the diameter of the object.) Within 10 to 15 seconds of observ tion, the green circle widened and w'ith'in a brief period of time several ireen concentric circles formed around the mass.",
+            "chunk_id": "dc26a187a8ce649031d53181",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 3,
+            "chunk_index": 4,
+            "label": "Source could not estimate the diameter of the object.) Within 10 to 15 seconds of observ tion, the green circle widened and w'ith'in a brief period of time several ireen concentric circles formed around the mass. (native PDF text, page 3)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=3"
+          }
+        ],
+        "detailed_contents": [
+          {
+            "text": "I Summary: This report provides limited info:rza.tion on the Sarr shagan weapons testirtg r ge, to in lude facilities, o:rk 6:re,. security fencing, the re onal headquarters (V/Ch 0.3080)_ ud warhead checkout unit (V 03142).",
+            "chunk_id": "a051b43729bbdbcfbd63516b",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "I Summary: This report provides limited info:rza.tion on the Sarr shagan weapons testirtg r ge, to in lude facilities, o:rk 6:re,. security fencing, the re onal headquarters (V/Ch 0.3080)_ ud warhead checkout unit (V 03142). (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=1"
+          },
+          {
+            "text": "Also included ii U i ed information on the followin1: System-75 [SA 2) and Syt ea--300/ Aldan [ BP:1-1 GAL SH] \"'arheads; rumored laser reset\"rch; and iua un1dent1f1ed aerial phenomenon.",
+            "chunk_id": "a051b43729bbdbcfbd63516b",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Also included ii U i ed information on the followin1: System-75 [SA 2) and Syt ea--300/ Aldan [ BP:1-1 GAL SH] \"'arheads; rumored laser reset\"rch; and iua un1dent1f1ed aerial phenomenon. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=1"
+          },
+          {
+            "text": "According to rumor, the missile as for antimissile defense (nrotivo raketna a oborona PRO). (Fie}d Comment: Sour-:e 1dent1fied the System oa;Alctan m1ss1le in avafj able rererence materi?.l as the ABMI/GALOSH.) li.",
+            "chunk_id": "62dfee736a3f130c33bff722",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "According to rumor, the missile as for antimissile defense (nrotivo raketna a oborona PRO). (Fie}d Comment: Sour-:e 1dent1fied the System oa;Alctan m1ss1le in avafj able rererence materi?.l as the ABMI/GALOSH.) li. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "The warhead for the Sy5tem-300/Aldan missile was about two meters long and 80 to 100 certimeters 1n diameter.",
+            "chunk_id": "62dfee736a3f130c33bff722",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "The warhead for the Sy5tem-300/Aldan missile was about two meters long and 80 to 100 certimeters 1n diameter. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "The war head weighed approximately 400 kilograms, and it ontained an unrecalled number of black cassettes, 45 x 12 centimeters, which housed an unknown.number of meta] balls (shariki).",
+            "chunk_id": "62dfee736a3f130c33bff722",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "The war head weighed approximately 400 kilograms, and it ontained an unrecalled number of black cassettes, 45 x 12 centimeters, which housed an unknown.number of meta] balls (shariki). (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "Warheads for the Sys:em-75 [SA-2) missile had approximately 100 grey cassettes, 30 x 7 centimeters, each of which held about 200 to 300 me Lal balls, each no more than 1.5 centimeters in diameter. (Field Comment: Source had no knowledge regarding nuclear warheads.",
+            "chunk_id": "62dfee736a3f130c33bff722",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "Warheads for the Sys:em-75 [SA-2) missile had approximately 100 grey cassettes, 30 x 7 centimeters, each of which held about 200 to 300 me Lal balls, each no more than 1.5 centimeters in diameter. (Field Comment: Source had no knowledge regarding nuclear warheads. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "He opined that all systems could be equipped ith nuclear warheads.",
+            "chunk_id": "62dfee736a3f130c33bff722",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "He opined that all systems could be equipped ith nuclear warheads. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "each of which held about 200 to 300 me Lal balls, each no more than 1.5 centimeters in diameter. (Field Comment: Source had no knowledge regarding nuclear warheads.",
+            "chunk_id": "4dece84f3c10a31f43ee0a37",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 3,
+            "label": "each of which held about 200 to 300 me Lal balls, each no more than 1.5 centimeters in diameter. (Field Comment: Source had no knowledge regarding nuclear warheads. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "However, Source stated all work done by his department was basically experimental (opytnaya).J 13.",
+            "chunk_id": "4dece84f3c10a31f43ee0a37",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 3,
+            "label": "However, Source stated all work done by his department was basically experimental (opytnaya).J 13. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "According to hearsay, ecperiments involving laser weapons were being conducted at an unknown location at the range.",
+            "chunk_id": "4dece84f3c10a31f43ee0a37",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 3,
+            "label": "According to hearsay, ecperiments involving laser weapons were being conducted at an unknown location at the range. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          }
+        ],
+        "key_points": [
+          {
+            "text": "I Summary: This report provides limited info:rza.tion on the Sarr shagan weapons testirtg r ge, to in lude facilities, o:rk 6:re,. security fencing, the re onal headquarters (V/Ch 0.3080)_ ud warhead checkout unit (V 03142).",
+            "chunk_id": "a051b43729bbdbcfbd63516b",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "I Summary: This report provides limited info:rza.tion on the Sarr shagan weapons testirtg r ge, to in lude facilities, o:rk 6:re,. security fencing, the re onal headquarters (V/Ch 0.3080)_ ud warhead checkout unit (V 03142). (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=1"
+          },
+          {
+            "text": "Also included ii U i ed information on the followin1: System-75 [SA 2) and Syt ea--300/ Aldan [ BP:1-1 GAL SH] \"'arheads; rumored laser reset\"rch; and iua un1dent1f1ed aerial phenomenon.",
+            "chunk_id": "a051b43729bbdbcfbd63516b",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Also included ii U i ed information on the followin1: System-75 [SA 2) and Syt ea--300/ Aldan [ BP:1-1 GAL SH] \"'arheads; rumored laser reset\"rch; and iua un1dent1f1ed aerial phenomenon. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=1"
+          },
+          {
+            "text": "According to rumor, the missile as for antimissile defense (nrotivo raketna a oborona PRO). (Fie}d Comment: Sour-:e 1dent1fied the System oa;Alctan m1ss1le in avafj able rererence materi?.l as the ABMI/GALOSH.) li.",
+            "chunk_id": "62dfee736a3f130c33bff722",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "According to rumor, the missile as for antimissile defense (nrotivo raketna a oborona PRO). (Fie}d Comment: Sour-:e 1dent1fied the System oa;Alctan m1ss1le in avafj able rererence materi?.l as the ABMI/GALOSH.) li. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "The warhead for the Sy5tem-300/Aldan missile was about two meters long and 80 to 100 certimeters 1n diameter.",
+            "chunk_id": "62dfee736a3f130c33bff722",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "The warhead for the Sy5tem-300/Aldan missile was about two meters long and 80 to 100 certimeters 1n diameter. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "The war head weighed approximately 400 kilograms, and it ontained an unrecalled number of black cassettes, 45 x 12 centimeters, which housed an unknown.number of meta] balls (shariki).",
+            "chunk_id": "62dfee736a3f130c33bff722",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "The war head weighed approximately 400 kilograms, and it ontained an unrecalled number of black cassettes, 45 x 12 centimeters, which housed an unknown.number of meta] balls (shariki). (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "Warheads for the Sys:em-75 [SA-2) missile had approximately 100 grey cassettes, 30 x 7 centimeters, each of which held about 200 to 300 me Lal balls, each no more than 1.5 centimeters in diameter. (Field Comment: Source had no knowledge regarding nuclear warheads.",
+            "chunk_id": "62dfee736a3f130c33bff722",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "Warheads for the Sys:em-75 [SA-2) missile had approximately 100 grey cassettes, 30 x 7 centimeters, each of which held about 200 to 300 me Lal balls, each no more than 1.5 centimeters in diameter. (Field Comment: Source had no knowledge regarding nuclear warheads. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "He opined that all systems could be equipped ith nuclear warheads.",
+            "chunk_id": "62dfee736a3f130c33bff722",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "He opined that all systems could be equipped ith nuclear warheads. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "each of which held about 200 to 300 me Lal balls, each no more than 1.5 centimeters in diameter. (Field Comment: Source had no knowledge regarding nuclear warheads.",
+            "chunk_id": "4dece84f3c10a31f43ee0a37",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 3,
+            "label": "each of which held about 200 to 300 me Lal balls, each no more than 1.5 centimeters in diameter. (Field Comment: Source had no knowledge regarding nuclear warheads. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "However, Source stated all work done by his department was basically experimental (opytnaya).J 13.",
+            "chunk_id": "4dece84f3c10a31f43ee0a37",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 3,
+            "label": "However, Source stated all work done by his department was basically experimental (opytnaya).J 13. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "text": "According to hearsay, ecperiments involving laser weapons were being conducted at an unknown location at the range.",
+            "chunk_id": "4dece84f3c10a31f43ee0a37",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 3,
+            "label": "According to hearsay, ecperiments involving laser weapons were being conducted at an unknown location at the range. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          }
+        ],
+        "references": [
+          {
+            "chunk_id": "4dece84f3c10a31f43ee0a37",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 3,
+            "label": "native PDF text, page 2, chunk 4dece84f3c10a31f43ee0a37",
+            "snippet": "According to hearsay, ecperiments involving laser weapons were being conducted at an unknown location at the range.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "chunk_id": "dc26a187a8ce649031d53181",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 3,
+            "chunk_index": 4,
+            "label": "native PDF text, page 3, chunk dc26a187a8ce649031d53181",
+            "snippet": "While watching a sport com petition between Canada and the.U::iSR on television, he stepped outside for some air and observed an.unidentified sharp (bright) green circular object or a s in the sky.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=3"
+          },
+          {
+            "chunk_id": "62dfee736a3f130c33bff722",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "native PDF text, page 2, chunk 62dfee736a3f130c33bff722",
+            "snippet": "The war head weighed approximately 400 kilograms, and it ontained an unrecalled number of black cassettes, 45 x 12 centimeters, which housed an unknown.number of meta] balls (shariki).",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=2"
+          },
+          {
+            "chunk_id": "a051b43729bbdbcfbd63516b",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "native PDF text, page 1, chunk a051b43729bbdbcfbd63516b",
+            "snippet": "I Summary: This report provides limited info:rza.tion on the Sarr shagan weapons testirtg r ge, to in lude facilities, o:rk 6:re,. security fencing, the re onal headquarters (V/Ch 0.3080)_ ud warhead checkout unit (V 03142).",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/CIA-UAP-D001_Intelligence_Information_Report_USSR_1973.pdf#page=1"
+          }
+        ],
+        "source_note": "Summary generated locally from the entire indexed source text for this document. Source mix: 4 native PDF text chunks. OCR text may contain recognition errors; verify important points against the source file."
+      },
+      "related_documents": [
+        {
+          "doc_id": "4a34364aba83d121",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_7",
+          "reason": "Shared tags: aerial phenomena, spherical object"
+        },
+        {
+          "doc_id": "4c2d179d11bf4ee3",
+          "title": "DOW-UAP-D28, Mission Report, Iraq, September 2024",
+          "reason": "Shared tags: missile, weapons"
+        },
+        {
+          "doc_id": "1a8f055223cfaa5e",
+          "title": "255_413270_UFO's_and_Defense_What_Should_we_Prepare_For",
+          "reason": "Shared tags: aerial phenomena"
+        },
+        {
+          "doc_id": "0b34c5fb1832ce50",
+          "title": "341_110677_Numerical_File,_5-2500",
+          "reason": "Shared tags: soviet union"
+        },
+        {
+          "doc_id": "c95181d8eb1816d8",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_4",
+          "reason": "Shared tags: missile"
+        }
+      ]
+    },
+    {
+      "doc_id": "844d26beec70caeb",
+      "row_number": 164,
+      "title": "Pantex Plant Unidentified Object Incident - Radar Tower Image",
+      "release_type": "PDF",
+      "agency": "DOE",
+      "release_date": "5/22/26",
+      "incident_date": "N/A",
+      "incident_location": "Amarillo, TX",
+      "description": "A Department of Energy / Pantex Plant 'Unidentified Object Incident Report' from the US nuclear-weapons assembly facility near Amarillo, Texas. The released pages contain an image of an unidentified object captured from a Ground Surveillance Radar Tower together with Sandia National Laboratories enhanced images of the object. The material is marked UCNI (Unclassified Controlled Nuclear Information).",
+      "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf",
+        "video_url": ""
+      },
+      "assets": [
+        {
+          "kind": "document",
+          "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf",
+          "media_type": "document",
+          "bytes": 164108
+        }
+      ],
+      "locations": [
+        {
+          "location_id": "12decaa9316db42f633b3004",
+          "chunk_id": null,
+          "raw_location": "Amarillo, TX",
+          "normalized_location": "Amarillo, TX",
+          "latitude": 35.222,
+          "longitude": -101.8313,
+          "precision": "city",
+          "confidence": 0.8,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
+      "tags": [
+        "DOE",
+        "Unidentified object",
+        "Sandia Base",
+        "Pantex Plant",
+        "Radar"
+      ],
+      "summary": {
+        "doc_id": "844d26beec70caeb",
+        "title": "Pantex Plant Unidentified Object Incident - Radar Tower Image",
+        "agency": "DOE",
+        "incident_date": "N/A",
+        "incident_location": "Amarillo, TX",
+        "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf",
+        "overview": "Pantex Plant Unidentified Object Incident - Radar Tower Image is indexed as a DOE record and location Amarillo, TX. A Department of Energy / Pantex Plant 'Unidentified Object Incident Report' from the US nuclear-weapons assembly facility near Amarillo, Texas. The released pages contain an image of an unidentified object captured from a Ground Surveillance Radar Tower together with Sandia National Laboratories enhanced images of the object. The material is marked UCNI (Unclassified Controlled Nuclear Information).",
+        "quick_summary": "Pantex Plant Unidentified Object Incident - Radar Tower Image is indexed as a DOE record and location Amarillo, TX. A Department of Energy / Pantex Plant 'Unidentified Object Incident Report' from the US nuclear-weapons assembly facility near Amarillo, Texas. The released pages contain an image of an unidentified object captured from a Ground Surveillance Radar Tower together with Sandia National Laboratories enhanced images of the object. The material is marked UCNI (Unclassified Controlled Nuclear Information).",
+        "mysterious_uap_element": [
+          {
+            "text": "UENT Panrexby N Managed and Operated by Consobdated Nuclear Secunty, LUC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower VENE Page Sof6",
+            "chunk_id": "f138f75d297a2d651d69448c",
+            "source_kind": "ocr_text",
+            "source_label": "OCR text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "UENT Panrexby N Managed and Operated by Consobdated Nuclear Secunty, LUC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower VENE Page Sof6 (OCR text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf#page=1"
+          },
+          {
+            "text": "UCNI PanTEX/ M.,,..t,,olO,,.,l,r Comolnaittd N id Hr SNunly, LlC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower 0 (bX3) (UCNI) UCNI Page 5 of 6",
+            "chunk_id": "fe5edadb4176fc4a020a1a5d",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "UCNI PanTEX/ M.,,..t,,olO,,.,l,r Comolnaittd N id Hr SNunly, LlC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower 0 (bX3) (UCNI) UCNI Page 5 of 6 (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf#page=1"
+          },
+          {
+            "text": "Panr x _ U C _ N I and O,,.rlNCI by Ccmoloat<d Nldnr s urity llC Pantex Unidentified Object Incident Report Sandia National Labs Enhanced Images of the Object UCNI Page 6 of 6",
+            "chunk_id": "821fb917ed0d42b6cb298557",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "Panr x _ U C _ N I and O,,.rlNCI by Ccmoloat<d Nldnr s urity llC Pantex Unidentified Object Incident Report Sandia National Labs Enhanced Images of the Object UCNI Page 6 of 6 (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf#page=2"
+          }
+        ],
+        "detailed_contents": [
+          {
+            "text": "UCNI PanTEX/ M.,,..t,,olO,,.,l,r Comolnaittd N id Hr SNunly, LlC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower 0 (bX3) (UCNI) UCNI Page 5 of 6",
+            "chunk_id": "fe5edadb4176fc4a020a1a5d",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "UCNI PanTEX/ M.,,..t,,olO,,.,l,r Comolnaittd N id Hr SNunly, LlC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower 0 (bX3) (UCNI) UCNI Page 5 of 6 (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf#page=1"
+          },
+          {
+            "text": "Panr x _ U C _ N I and O,,.rlNCI by Ccmoloat<d Nldnr s urity llC Pantex Unidentified Object Incident Report Sandia National Labs Enhanced Images of the Object UCNI Page 6 of 6",
+            "chunk_id": "821fb917ed0d42b6cb298557",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "Panr x _ U C _ N I and O,,.rlNCI by Ccmoloat<d Nldnr s urity llC Pantex Unidentified Object Incident Report Sandia National Labs Enhanced Images of the Object UCNI Page 6 of 6 (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf#page=2"
+          },
+          {
+            "text": "UENT Panrexby N Managed and Operated by Consobdated Nuclear Secunty, LUC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower VENE Page Sof6",
+            "chunk_id": "f138f75d297a2d651d69448c",
+            "source_kind": "ocr_text",
+            "source_label": "OCR text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "UENT Panrexby N Managed and Operated by Consobdated Nuclear Secunty, LUC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower VENE Page Sof6 (OCR text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf#page=1"
+          }
+        ],
+        "key_points": [
+          {
+            "text": "UCNI PanTEX/ M.,,..t,,olO,,.,l,r Comolnaittd N id Hr SNunly, LlC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower 0 (bX3) (UCNI) UCNI Page 5 of 6",
+            "chunk_id": "fe5edadb4176fc4a020a1a5d",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "UCNI PanTEX/ M.,,..t,,olO,,.,l,r Comolnaittd N id Hr SNunly, LlC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower 0 (bX3) (UCNI) UCNI Page 5 of 6 (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf#page=1"
+          },
+          {
+            "text": "Panr x _ U C _ N I and O,,.rlNCI by Ccmoloat<d Nldnr s urity llC Pantex Unidentified Object Incident Report Sandia National Labs Enhanced Images of the Object UCNI Page 6 of 6",
+            "chunk_id": "821fb917ed0d42b6cb298557",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "Panr x _ U C _ N I and O,,.rlNCI by Ccmoloat<d Nldnr s urity llC Pantex Unidentified Object Incident Report Sandia National Labs Enhanced Images of the Object UCNI Page 6 of 6 (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf#page=2"
+          },
+          {
+            "text": "UENT Panrexby N Managed and Operated by Consobdated Nuclear Secunty, LUC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower VENE Page Sof6",
+            "chunk_id": "f138f75d297a2d651d69448c",
+            "source_kind": "ocr_text",
+            "source_label": "OCR text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "UENT Panrexby N Managed and Operated by Consobdated Nuclear Secunty, LUC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower VENE Page Sof6 (OCR text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf#page=1"
+          }
+        ],
+        "references": [
+          {
+            "chunk_id": "f138f75d297a2d651d69448c",
+            "source_kind": "ocr_text",
+            "source_label": "OCR text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "OCR text, page 1, chunk f138f75d297a2d651d69448c",
+            "snippet": "UENT Panrexby N Managed and Operated by Consobdated Nuclear Secunty, LUC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower VENE Page Sof6",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf#page=1"
+          },
+          {
+            "chunk_id": "fe5edadb4176fc4a020a1a5d",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "native PDF text, page 1, chunk fe5edadb4176fc4a020a1a5d",
+            "snippet": "UCNI PanTEX/ M,,..t,,olO,,,l,r Comolnaittd N id Hr SNunly, LlC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower 0 (bX3) (UCNI) UCNI Page 5 of 6",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf#page=1"
+          },
+          {
+            "chunk_id": "821fb917ed0d42b6cb298557",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 2,
+            "label": "native PDF text, page 2, chunk 821fb917ed0d42b6cb298557",
+            "snippet": "Panr x _ U C _ N I and O,,.rlNCI by Ccmoloat<d Nldnr s urity llC Pantex Unidentified Object Incident Report Sandia National Labs Enhanced Images of the Object UCNI Page 6 of 6",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D001_PANTEX_Image.pdf#page=2"
+          }
+        ],
+        "source_note": "Summary generated locally from the entire indexed source text for this document. Source mix: 2 OCR text chunks, 2 native PDF text chunks. OCR text may contain recognition errors; verify important points against the source file."
+      },
+      "related_documents": [
+        {
+          "doc_id": "4e35062c093dc153",
+          "title": "65_HS1-834228961_62-HQ-83894_Serial_164",
+          "reason": "Shared tags: radar, unidentified object"
+        },
+        {
+          "doc_id": "23811320893c19b3",
+          "title": "DOW-UAP-D61, Mission Report, Persian Gulf, August 2020",
+          "reason": "Shared tags: radar, unidentified object"
+        },
+        {
+          "doc_id": "f2d7821d6a90b6f2",
+          "title": "18_100754_ General 1946-7_Vol_2",
+          "reason": "Shared tags: radar"
+        },
+        {
+          "doc_id": "9d2c172f93f32cf0",
+          "title": "255-t-763-r1b-excerpt",
+          "reason": "Shared tags: unidentified object"
+        },
+        {
+          "doc_id": "6b47e2be1988fff6",
+          "title": "255_t_763_r1b_transcripts",
+          "reason": "Shared tags: unidentified object"
+        }
+      ]
+    },
+    {
+      "doc_id": "19e82d28f421efb3",
+      "row_number": 165,
+      "title": "James L. Tuck Correspondence - Atmospheric Vortices and UFO Propulsion",
+      "release_type": "PDF",
+      "agency": "DOE",
+      "release_date": "5/22/26",
+      "incident_date": "N/A",
+      "incident_location": "Los Alamos, NM",
+      "description": "Correspondence involving Los Alamos physicist James L. Tuck. One letter to the U.S. Army Engineer School at Fort Belvoir, Virginia requests the 'recipe' used for simulated atomic-bomb demonstrations, citing interest in the large atmospheric vortices reported in Dr. Edward U. Condon's 'Scientific Study of Unidentified Flying Objects' (the Condon Report). Another letter discusses UFO author James M. McCampbell's 1976 book 'UFOLOGY', its 'Flight and Propulsion' chapter, and Einstein's unified field theory.",
+      "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D002_JamesTuck_Correspondence.pdf",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D002_JamesTuck_Correspondence.pdf",
+        "video_url": ""
+      },
+      "assets": [
+        {
+          "kind": "document",
+          "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D002_JamesTuck_Correspondence.pdf",
+          "media_type": "document",
+          "bytes": 554461
+        }
+      ],
+      "locations": [
+        {
+          "location_id": "0ab1cd79977413e77f7c84b7",
+          "chunk_id": null,
+          "raw_location": "Los Alamos, NM",
+          "normalized_location": "Los Alamos, NM",
+          "latitude": 35.8881,
+          "longitude": -106.3031,
+          "precision": "city",
+          "confidence": 0.8,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
+      "tags": [
+        "DOE",
+        "Unidentified object",
+        "Los Alamos"
+      ],
+      "summary": {
+        "doc_id": "19e82d28f421efb3",
+        "title": "James L. Tuck Correspondence - Atmospheric Vortices and UFO Propulsion",
+        "agency": "DOE",
+        "incident_date": "N/A",
+        "incident_location": "Los Alamos, NM",
+        "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D002_JamesTuck_Correspondence.pdf",
+        "overview": "James L. Tuck Correspondence - Atmospheric Vortices and UFO Propulsion is indexed as a DOE record and location Los Alamos, NM. Correspondence involving Los Alamos physicist James L. Tuck. One letter to the U.S. Army Engineer School at Fort Belvoir, Virginia requests the 'recipe' used for simulated atomic-bomb demonstrations, citing interest in the large atmospheric vortices reported in Dr. Edward U. Condon's 'Scientific Study of Unidentified Flying Objects' (the Condon Report). Another letter discusses UFO author James M. Mc Campbell's 1976 book 'UFOLOGY', its 'Flight and Propulsion' chapter, and Einstein's unified field theory.",
+        "quick_summary": "James L. Tuck Correspondence - Atmospheric Vortices and UFO Propulsion is indexed as a DOE record and location Los Alamos, NM. Correspondence involving Los Alamos physicist James L. Tuck. One letter to the U.S. Army Engineer School at Fort Belvoir, Virginia requests the 'recipe' used for simulated atomic-bomb demonstrations, citing interest in the large atmospheric vortices reported in Dr. Edward U. Condon's 'Scientific Study of Unidentified Flying Objects' (the Condon Report). Another letter discusses UFO author James M. Mc Campbell's 1976 book 'UFOLOGY', its 'Flight and Propulsion' chapter, and Einstein's unified field theory.",
+        "mysterious_uap_element": [
+          {
+            "text": "We are intenated in the large abnospheric vortices 1mich are produced as reported in the bCJOk ' 13cientif1c Study of Unidentified l'lyitlg a,jects'' by Dr.",
+            "chunk_id": "11fa867d1e3c223a7c7980f4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 3,
+            "chunk_index": 2,
+            "label": "We are intenated in the large abnospheric vortices 1mich are produced as reported in the bCJOk ' 13cientif1c Study of Unidentified l'lyitlg a,jects'' by Dr. (native PDF text, page 3)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D002_JamesTuck_Correspondence.pdf#page=3"
+          }
+        ],
+        "detailed_contents": [
+          {
+            "text": "We are intenated in the large abnospheric vortices 1mich are produced as reported in the bCJOk ' 13cientif1c Study of Unidentified l'lyitlg a,jects'' by Dr.",
+            "chunk_id": "11fa867d1e3c223a7c7980f4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 3,
+            "chunk_index": 2,
+            "label": "We are intenated in the large abnospheric vortices 1mich are produced as reported in the bCJOk ' 13cientif1c Study of Unidentified l'lyitlg a,jects'' by Dr. (native PDF text, page 3)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D002_JamesTuck_Correspondence.pdf#page=3"
+          }
+        ],
+        "key_points": [
+          {
+            "text": "We are intenated in the large abnospheric vortices 1mich are produced as reported in the bCJOk ' 13cientif1c Study of Unidentified l'lyitlg a,jects'' by Dr.",
+            "chunk_id": "11fa867d1e3c223a7c7980f4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 3,
+            "chunk_index": 2,
+            "label": "We are intenated in the large abnospheric vortices 1mich are produced as reported in the bCJOk ' 13cientif1c Study of Unidentified l'lyitlg a,jects'' by Dr. (native PDF text, page 3)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D002_JamesTuck_Correspondence.pdf#page=3"
+          }
+        ],
+        "references": [
+          {
+            "chunk_id": "11fa867d1e3c223a7c7980f4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 3,
+            "chunk_index": 2,
+            "label": "native PDF text, page 3, chunk 11fa867d1e3c223a7c7980f4",
+            "snippet": "We are intenated in the large abnospheric vortices 1mich are produced as reported in the bCJOk ' 13cientif1c Study of Unidentified l'lyitlg a,jects'' by Dr.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D002_JamesTuck_Correspondence.pdf#page=3"
+          }
+        ],
+        "source_note": "Summary generated locally from the entire indexed source text for this document. Source mix: 2 OCR text chunks, 3 native PDF text chunks. OCR text may contain recognition errors; verify important points against the source file."
+      },
+      "related_documents": [
+        {
+          "doc_id": "9d2c172f93f32cf0",
+          "title": "255-t-763-r1b-excerpt",
+          "reason": "Shared tags: unidentified object"
+        },
+        {
+          "doc_id": "6b47e2be1988fff6",
+          "title": "255_t_763_r1b_transcripts",
+          "reason": "Shared tags: unidentified object"
+        },
+        {
+          "doc_id": "2eb53ebd8952bdd8",
+          "title": "341_110448_Records_Relating_to_the_Collection_and_Dissemination_of_Intelligence_1948-1955-TS_CONT_No.2_2-5300-2-5399",
+          "reason": "Shared tags: unidentified object"
+        },
+        {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: unidentified object"
+        },
+        {
+          "doc_id": "185eea4cee0882eb",
+          "title": "38_143685_box7_Incident_Summaries_1-100",
+          "reason": "Shared tags: unidentified object"
+        }
+      ]
+    },
+    {
+      "doc_id": "acacbdc8537b708d",
+      "row_number": 166,
+      "title": "Pajarito Astronomers - Why Should a Scientist Be Concerned About UFOs (1986)",
+      "release_type": "PDF",
+      "agency": "DOE",
+      "release_date": "5/22/26",
+      "incident_date": "1986",
+      "incident_location": "Los Alamos, NM",
+      "description": "A May 1986 meeting notice from the Pajarito Astronomers (P.O. Box 1092, Los Alamos, New Mexico) announcing a meeting on Thursday, May 29, 1986 in the Ranch Room at Fuller Lodge. The guest speaker, Dr. John Warren of group AT-6, was scheduled to present 'Why Should a Scientist Be Concerned about UFO's?'",
+      "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D003_Pajarito_Astronomers.pdf",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D003_Pajarito_Astronomers.pdf",
+        "video_url": ""
+      },
+      "assets": [
+        {
+          "kind": "document",
+          "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D003_Pajarito_Astronomers.pdf",
+          "media_type": "document",
+          "bytes": 360462
+        }
+      ],
+      "locations": [
+        {
+          "location_id": "173b9b611cdfbab16553ba23",
+          "chunk_id": null,
+          "raw_location": "Los Alamos, NM",
+          "normalized_location": "Los Alamos, NM",
+          "latitude": 35.8881,
+          "longitude": -106.3031,
+          "precision": "city",
+          "confidence": 0.8,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
+      "tags": [
+        "DOE",
+        "1986",
+        "Los Alamos",
+        "New Mexico",
+        "UFO"
+      ],
+      "summary": {
+        "doc_id": "acacbdc8537b708d",
+        "title": "Pajarito Astronomers - Why Should a Scientist Be Concerned About UFOs (1986)",
+        "agency": "DOE",
+        "incident_date": "1986",
+        "incident_location": "Los Alamos, NM",
+        "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D003_Pajarito_Astronomers.pdf",
+        "overview": "Pajarito Astronomers - Why Should a Scientist Be Concerned About UFOs (1986) is indexed as a DOE record with incident date 1986 and location Los Alamos, NM. A May 1986 meeting notice from the Pajarito Astronomers (P.O. Box 1092, Los Alamos, New Mexico) announcing a meeting on Thursday, May 29, 1986 in the Ranch Room at Fuller Lodge. The guest speaker, Dr. John Warren of group AT-6, was scheduled to present 'Why Should a Scientist Be Concerned about UFO's?'",
+        "quick_summary": "Pajarito Astronomers - Why Should a Scientist Be Concerned About UFOs (1986) is indexed as a DOE record with incident date 1986 and location Los Alamos, NM. A May 1986 meeting notice from the Pajarito Astronomers (P.O. Box 1092, Los Alamos, New Mexico) announcing a meeting on Thursday, May 29, 1986 in the Ranch Room at Fuller Lodge. The guest speaker, Dr. John Warren of group AT-6, was scheduled to present 'Why Should a Scientist Be Concerned about UFO's?'",
+        "mysterious_uap_element": [
+          {
+            "text": "John Warren of AT-6, whose topic will be \"Why Should a Scientist be Concerned about UFO's?* To find the Ranch Room, go around (outside) to the south end of the Lodge (facing Central Ave.), and go upstairs.",
+            "chunk_id": "7d6b1830ee7b0a7d5a6c2db2",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "John Warren of AT-6, whose topic will be \"Why Should a Scientist be Concerned about UFO's?* To find the Ranch Room, go around (outside) to the south end of the Lodge (facing Central Ave.), and go upstairs. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D003_Pajarito_Astronomers.pdf#page=1"
+          }
+        ],
+        "detailed_contents": [
+          {
+            "text": "John Warren of AT-6, whose topic will be \"Why Should a Scientist be Concerned about UFO's?* To find the Ranch Room, go around (outside) to the south end of the Lodge (facing Central Ave.), and go upstairs.",
+            "chunk_id": "7d6b1830ee7b0a7d5a6c2db2",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "John Warren of AT-6, whose topic will be \"Why Should a Scientist be Concerned about UFO's?* To find the Ranch Room, go around (outside) to the south end of the Lodge (facing Central Ave.), and go upstairs. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D003_Pajarito_Astronomers.pdf#page=1"
+          }
+        ],
+        "key_points": [
+          {
+            "text": "John Warren of AT-6, whose topic will be \"Why Should a Scientist be Concerned about UFO's?* To find the Ranch Room, go around (outside) to the south end of the Lodge (facing Central Ave.), and go upstairs.",
+            "chunk_id": "7d6b1830ee7b0a7d5a6c2db2",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "John Warren of AT-6, whose topic will be \"Why Should a Scientist be Concerned about UFO's?* To find the Ranch Room, go around (outside) to the south end of the Lodge (facing Central Ave.), and go upstairs. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D003_Pajarito_Astronomers.pdf#page=1"
+          }
+        ],
+        "references": [
+          {
+            "chunk_id": "7d6b1830ee7b0a7d5a6c2db2",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "native PDF text, page 1, chunk 7d6b1830ee7b0a7d5a6c2db2",
+            "snippet": "John Warren of AT-6, whose topic will be \"Why Should a Scientist be Concerned about UFO's?* To find the Ranch Room, go around (outside) to the south end of the Lodge (facing Central Ave.), and go upstairs.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOE-UAP-D003_Pajarito_Astronomers.pdf#page=1"
+          }
+        ],
+        "source_note": "Summary generated locally from the entire indexed source text for this document. Source mix: 1 native PDF text chunks. OCR text may contain recognition errors; verify important points against the source file."
+      },
+      "related_documents": [
+        {
+          "doc_id": "6345ce1107b76d07",
+          "title": "Sandia Base Correspondence - New Mexico Aerial Phenomena and Green Fireballs (1948-1949)",
+          "reason": "Shared tags: los alamos, new mexico"
+        },
+        {
+          "doc_id": "1a8f055223cfaa5e",
+          "title": "255_413270_UFO's_and_Defense_What_Should_we_Prepare_For",
+          "reason": "Shared tags: ufo"
+        },
+        {
+          "doc_id": "990d4537136acf88",
+          "title": "342_HS1-416511228_319.1 Flying Discs 1949",
+          "reason": "Shared tags: ufo"
+        },
+        {
+          "doc_id": "4950eff0b6bde22f",
+          "title": "59_64634_711.5612[7-2852",
+          "reason": "Shared tags: ufo"
+        },
+        {
+          "doc_id": "6642fa4f7b4eb756",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_6",
+          "reason": "Shared tags: new mexico"
+        }
+      ]
+    },
+    {
+      "doc_id": "6345ce1107b76d07",
+      "row_number": 167,
+      "title": "Sandia Base Correspondence - New Mexico Aerial Phenomena and Green Fireballs (1948-1949)",
+      "release_type": "PDF",
+      "agency": "DOW",
+      "release_date": "5/22/26",
+      "incident_date": "1948-1949",
+      "incident_location": "Albuquerque, NM",
+      "description": "A 116-page compilation of late-1940s correspondence centered on Sandia Base, Albuquerque, New Mexico, adjacent to the atomic-weapons complex. Alongside security-inspection letters it includes the 17th District OSI 'Summary of Observations of Aerial Phenomena in the New Mexico area' - the green-fireball investigation: a record of unexplained aerial-phenomena sightings concentrated in New Mexico from late 1948, recurring green fireballs near Los Alamos and Sandia, a noted period when 'flying saucer incidents in this region attained an all-time high,' unidentified lights observed over the 2nd Armored Division with positions triangulated by multiple observers, and a referenced 'Photo of Sighting No. 175.'",
+      "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf",
+        "video_url": ""
+      },
+      "assets": [
+        {
+          "kind": "document",
+          "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf",
+          "media_type": "document",
+          "bytes": 68764801
+        }
+      ],
+      "locations": [
+        {
+          "location_id": "a2d78f55fd2dc69e5fc94e23",
+          "chunk_id": null,
+          "raw_location": "Albuquerque, NM",
+          "normalized_location": "Albuquerque, NM",
+          "latitude": 35.0844,
+          "longitude": -106.6504,
+          "precision": "city",
+          "confidence": 0.8,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
+      "tags": [
+        "DOW",
+        "1948",
+        "Flying discs",
+        "Green fireballs",
+        "Sandia Base",
+        "Los Alamos",
+        "New Mexico",
+        "Nuclear facility",
+        "Aerial phenomena",
+        "Fireball"
+      ],
+      "summary": {
+        "doc_id": "6345ce1107b76d07",
+        "title": "Sandia Base Correspondence - New Mexico Aerial Phenomena and Green Fireballs (1948-1949)",
+        "agency": "DOW",
+        "incident_date": "1948-1949",
+        "incident_location": "Albuquerque, NM",
+        "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf",
+        "overview": "Sandia Base Correspondence - New Mexico Aerial Phenomena and Green Fireballs (1948-1949) is indexed as a DOW record with incident date 1948-1949 and location Albuquerque, NM. A 116-page compilation of late-1940s correspondence centered on Sandia Base, Albuquerque, New Mexico, adjacent to the atomic-weapons complex. Alongside security-inspection letters it includes the 17th District OSI 'Summary of Observations of Aerial Phenomena in the New Mexico area' the green-fireball investigation: a record of unexplained aerial-phenomena sightings concentrated in New Mexico from late 1948, recurring green fireballs near Los Alamos and Sandia, a noted period when 'flying saucer incidents in this region attained an all-time high,' unidentified lights observed over the 2nd Armored Division with positions triangulated by multiple observers, and a referenced 'Photo of Sighting No. 175.'",
+        "quick_summary": "Sandia Base Correspondence - New Mexico Aerial Phenomena and Green Fireballs (1948-1949) is indexed as a DOW record with incident date 1948-1949 and location Albuquerque, NM. A 116-page compilation of late-1940s correspondence centered on Sandia Base, Albuquerque, New Mexico, adjacent to the atomic-weapons complex. Alongside security-inspection letters it includes the 17th District OSI 'Summary of Observations of Aerial Phenomena in the New Mexico area' the green-fireball investigation: a record of unexplained aerial-phenomena sightings concentrated in New Mexico from late 1948, recurring green fireballs near Los Alamos and Sandia, a noted period when 'flying saucer incidents in this region attained an all-time high,' unidentified lights observed over the 2nd Armored Division with positions triangulated by multiple observers, and a referenced 'Photo of Sighting No. 175.'",
+        "mysterious_uap_element": [
+          {
+            "text": "Teller's discussion tends to disprove the hypothesis that guided missiles or informer vehicles are responsible, thero is cause for concern of the continued occurrences of unexplainable phenomena of this nature in the vicinity of sensitive installations.",
+            "chunk_id": "b35c554f5b456602a72cf3d8",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 93,
+            "chunk_index": 251,
+            "label": "Teller's discussion tends to disprove the hypothesis that guided missiles or informer vehicles are responsible, thero is cause for concern of the continued occurrences of unexplainable phenomena of this nature in the vicinity of sensitive installations. (native PDF text, page 93)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=93"
+          },
+          {
+            "text": "Further, that tho continued occurrence of unexplained phenomena of this nature in the vicinity of sensitive installations is cause for concern.",
+            "chunk_id": "5d0e806404f64744c6e9720e",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 21,
+            "chunk_index": 46,
+            "label": "Further, that tho continued occurrence of unexplained phenomena of this nature in the vicinity of sensitive installations is cause for concern. (native PDF text, page 21)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=21"
+          },
+          {
+            "text": "This compilation of sightings is not a complete r ecord of all reported observations, but includes only those in which sufficient information was available to justify their inclusion.",
+            "chunk_id": "5d42272b6b3173225070c462",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 20,
+            "chunk_index": 43,
+            "label": "This compilation of sightings is not a complete r ecord of all reported observations, but includes only those in which sufficient information was available to justify their inclusion. (native PDF text, page 20)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=20"
+          },
+          {
+            "text": "Teller has the tentative opinion they are not material objects passing through the air.",
+            "chunk_id": "173b79bd95ddadf97130d548",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 92,
+            "chunk_index": 248,
+            "label": "Teller has the tentative opinion they are not material objects passing through the air. (native PDF text, page 92)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=92"
+          }
+        ],
+        "detailed_contents": [
+          {
+            "text": "Reference is made to secret letter. your headquarters. dated 1 April 1949 Subjects Security Inspection.",
+            "chunk_id": "28157c53a0c99489d421f3d4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Reference is made to secret letter. your headquarters. dated 1 April 1949 Subjects Security Inspection. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "Guard Orders have been amended directing that the elec tric gate be closed between 1700 hours until 0700 hours the following day..",
+            "chunk_id": "28157c53a0c99489d421f3d4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Guard Orders have been amended directing that the elec tric gate be closed between 1700 hours until 0700 hours the following day.. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "Looks have repl ced the bolts in all inspection access gates in the outer fence..",
+            "chunk_id": "28157c53a0c99489d421f3d4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Looks have repl ced the bolts in all inspection access gates in the outer fence.. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "Inspection ports on both bridges are now pr ovided with locks..",
+            "chunk_id": "28157c53a0c99489d421f3d4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Inspection ports on both bridges are now pr ovided with locks.. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "The final draft of our alert plan has been reviewed and will be published and distributed for study to operating personnel.",
+            "chunk_id": "28157c53a0c99489d421f3d4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "The final draft of our alert plan has been reviewed and will be published and distributed for study to operating personnel. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "Final form of the overal l alert plan will be sub mitted to your headquarters for approval as soon as conditions will allow.",
+            "chunk_id": "9ecad6bd7aa9ea6f66f2d8f1",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "Final form of the overal l alert plan will be sub mitted to your headquarters for approval as soon as conditions will allow. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "1n the interim period. it is felt that the temporary alert plan we have prepared is adequate.",
+            "chunk_id": "9ecad6bd7aa9ea6f66f2d8f1",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "1n the interim period. it is felt that the temporary alert plan we have prepared is adequate. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "A copy of this pl an will be dis patched to your headquarters in the near future. e.!11 jeep radios are now installed in jeeps. r. lthough not entirely satisfactory. radio oom.munioation with the Camp Campbell Military Police has been in effect for sometime and was in effect at the time of the Security inspection..Pe.",
+            "chunk_id": "9ecad6bd7aa9ea6f66f2d8f1",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "A copy of this pl an will be dis patched to your headquarters in the near future. e.!11 jeep radios are now installed in jeeps. r. lthough not entirely satisfactory. radio oom.munioation with the Camp Campbell Military Police has been in effect for sometime and was in effect at the time of the Security inspection..Pe. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "Pressure has been exerted to get the Pos t 'Ehgineers to keep the dra.inage system. clear and to take measures to check the ero sion.",
+            "chunk_id": "6931c873c526be6d08e458b4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 3,
+            "label": "Pressure has been exerted to get the Pos t 'Ehgineers to keep the dra.inage system. clear and to take measures to check the ero sion. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=2"
+          },
+          {
+            "text": "These efforts will be continued but li t tle progress on erosion control can b e expected until the rains diminish.",
+            "chunk_id": "6931c873c526be6d08e458b4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 3,
+            "label": "These efforts will be continued but li t tle progress on erosion control can b e expected until the rains diminish. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=2"
+          }
+        ],
+        "key_points": [
+          {
+            "text": "Reference is made to secret letter. your headquarters. dated 1 April 1949 Subjects Security Inspection.",
+            "chunk_id": "28157c53a0c99489d421f3d4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Reference is made to secret letter. your headquarters. dated 1 April 1949 Subjects Security Inspection. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "Guard Orders have been amended directing that the elec tric gate be closed between 1700 hours until 0700 hours the following day..",
+            "chunk_id": "28157c53a0c99489d421f3d4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Guard Orders have been amended directing that the elec tric gate be closed between 1700 hours until 0700 hours the following day.. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "Looks have repl ced the bolts in all inspection access gates in the outer fence..",
+            "chunk_id": "28157c53a0c99489d421f3d4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Looks have repl ced the bolts in all inspection access gates in the outer fence.. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "Inspection ports on both bridges are now pr ovided with locks..",
+            "chunk_id": "28157c53a0c99489d421f3d4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Inspection ports on both bridges are now pr ovided with locks.. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "The final draft of our alert plan has been reviewed and will be published and distributed for study to operating personnel.",
+            "chunk_id": "28157c53a0c99489d421f3d4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "The final draft of our alert plan has been reviewed and will be published and distributed for study to operating personnel. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "Final form of the overal l alert plan will be sub mitted to your headquarters for approval as soon as conditions will allow.",
+            "chunk_id": "9ecad6bd7aa9ea6f66f2d8f1",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "Final form of the overal l alert plan will be sub mitted to your headquarters for approval as soon as conditions will allow. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "1n the interim period. it is felt that the temporary alert plan we have prepared is adequate.",
+            "chunk_id": "9ecad6bd7aa9ea6f66f2d8f1",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "1n the interim period. it is felt that the temporary alert plan we have prepared is adequate. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "A copy of this pl an will be dis patched to your headquarters in the near future. e.!11 jeep radios are now installed in jeeps. r. lthough not entirely satisfactory. radio oom.munioation with the Camp Campbell Military Police has been in effect for sometime and was in effect at the time of the Security inspection..Pe.",
+            "chunk_id": "9ecad6bd7aa9ea6f66f2d8f1",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "A copy of this pl an will be dis patched to your headquarters in the near future. e.!11 jeep radios are now installed in jeeps. r. lthough not entirely satisfactory. radio oom.munioation with the Camp Campbell Military Police has been in effect for sometime and was in effect at the time of the Security inspection..Pe. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "text": "Pressure has been exerted to get the Pos t 'Ehgineers to keep the dra.inage system. clear and to take measures to check the ero sion.",
+            "chunk_id": "6931c873c526be6d08e458b4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 3,
+            "label": "Pressure has been exerted to get the Pos t 'Ehgineers to keep the dra.inage system. clear and to take measures to check the ero sion. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=2"
+          },
+          {
+            "text": "These efforts will be continued but li t tle progress on erosion control can b e expected until the rains diminish.",
+            "chunk_id": "6931c873c526be6d08e458b4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 3,
+            "label": "These efforts will be continued but li t tle progress on erosion control can b e expected until the rains diminish. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=2"
+          }
+        ],
+        "references": [
+          {
+            "chunk_id": "b35c554f5b456602a72cf3d8",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 93,
+            "chunk_index": 251,
+            "label": "native PDF text, page 93, chunk b35c554f5b456602a72cf3d8",
+            "snippet": "Teller's discussion tends to disprove the hypothesis that guided missiles or informer vehicles are responsible, thero is cause for concern of the continued occurrences of unexplainable phenomena of this nature in the vicinity of sensitive...",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=93"
+          },
+          {
+            "chunk_id": "5d0e806404f64744c6e9720e",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 21,
+            "chunk_index": 46,
+            "label": "native PDF text, page 21, chunk 5d0e806404f64744c6e9720e",
+            "snippet": "Further, that tho continued occurrence of unexplained phenomena of this nature in the vicinity of sensitive installations is cause for concern.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=21"
+          },
+          {
+            "chunk_id": "5d42272b6b3173225070c462",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 20,
+            "chunk_index": 43,
+            "label": "native PDF text, page 20, chunk 5d42272b6b3173225070c462",
+            "snippet": "This compilation of sightings is not a complete r ecord of all reported observations, but includes only those in which sufficient information was available to justify their inclusion.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=20"
+          },
+          {
+            "chunk_id": "173b79bd95ddadf97130d548",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 92,
+            "chunk_index": 248,
+            "label": "native PDF text, page 92, chunk 173b79bd95ddadf97130d548",
+            "snippet": "Teller has the tentative opinion they are not material objects passing through the air.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=92"
+          },
+          {
+            "chunk_id": "761eb16a0d6c4736e3833ef1",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 91,
+            "chunk_index": 246,
+            "label": "native PDF text, page 91, chunk 761eb16a0d6c4736e3833ef1",
+            "snippet": "La Paz then went on to discuss the number of observers re porting the subject phenomena and the diversity or their backgrounds including commercial airlines' pilots, military pilots. special intelligence agents.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=91"
+          },
+          {
+            "chunk_id": "28157c53a0c99489d421f3d4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "native PDF text, page 1, chunk 28157c53a0c99489d421f3d4",
+            "snippet": "Reference is made to secret letter. your headquarters. dated 1 April 1949 Subjects Security Inspection.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "chunk_id": "9ecad6bd7aa9ea6f66f2d8f1",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "native PDF text, page 1, chunk 9ecad6bd7aa9ea6f66f2d8f1",
+            "snippet": "Final form of the overal l alert plan will be sub mitted to your headquarters for approval as soon as conditions will allow.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=1"
+          },
+          {
+            "chunk_id": "6931c873c526be6d08e458b4",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 3,
+            "label": "native PDF text, page 2, chunk 6931c873c526be6d08e458b4",
+            "snippet": "Pressure has been exerted to get the Pos t 'Ehgineers to keep the dra.inage system. clear and to take measures to check the ero sion.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf#page=2"
+          }
+        ],
+        "source_note": "Summary generated locally from the entire indexed source text for this document. Source mix: 34 OCR text chunks, 285 native PDF text chunks. OCR text may contain recognition errors; verify important points against the source file."
+      },
+      "related_documents": [
+        {
+          "doc_id": "6642fa4f7b4eb756",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_6",
+          "reason": "Shared tags: aerial phenomena, fireball, flying discs"
+        },
+        {
+          "doc_id": "4a34364aba83d121",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_7",
+          "reason": "Shared tags: aerial phenomena, flying discs"
+        },
+        {
+          "doc_id": "76ae2a6e79ff0827",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_8",
+          "reason": "Shared tags: aerial phenomena, flying discs"
+        },
+        {
+          "doc_id": "325e29788fa32c53",
+          "title": "65_HS1-834228961_62-HQ-83894_Serial_438",
+          "reason": "Shared tags: flying discs, new mexico"
+        },
+        {
+          "doc_id": "acacbdc8537b708d",
+          "title": "Pajarito Astronomers - Why Should a Scientist Be Concerned About UFOs (1986)",
+          "reason": "Shared tags: los alamos, new mexico"
+        }
+      ]
+    },
+    {
+      "doc_id": "4657f3da707518cd",
+      "row_number": 168,
+      "title": "ODNI USPER Narrative - Senior Intelligence Officer Orb Encounter (2025)",
+      "release_type": "PDF",
+      "agency": "ODNI",
+      "release_date": "5/22/26",
+      "incident_date": "Late 2025",
+      "incident_location": "United States",
+      "description": "A first-person narrative by a senior U.S. intelligence officer describing a late-2025 helicopter mission over a test range to investigate loud thuds and several nights of UAP sightings. The officer describes over an hour of close encounters: a 'super-hot' object on FLIR that split in two, an object that rose to within ten feet of the helicopter, two large oval orange orbs with white or yellow centers flaring just above the rotor disk, a four-to-five orb 'T' formation that dimmed in reverse order, and orange orbs that appeared above fighter jets at roughly 23,000 feet and seemed to 'chase' them. The officer states he did not photograph the event.",
+      "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf",
+      "media": {
+        "thumbnail_url": "",
+        "document_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf",
+        "video_url": ""
+      },
+      "assets": [
+        {
+          "kind": "document",
+          "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf",
+          "media_type": "document",
+          "bytes": 34195
+        }
+      ],
+      "locations": [
+        {
+          "location_id": "5ee17265308e7113644f54ca",
+          "chunk_id": null,
+          "raw_location": "United States",
+          "normalized_location": "United States",
+          "latitude": 39.8283,
+          "longitude": -98.5795,
+          "precision": "country",
+          "confidence": 0.45,
+          "source_kind": "metadata",
+          "method": "incident_location_gazetteer"
+        }
+      ],
+      "tags": [
+        "ODNI",
+        "2025",
+        "United States",
+        "Orange orbs",
+        "Test range",
+        "Helicopter",
+        "Orbs",
+        "FLIR",
+        "Aerial phenomena",
+        "Discs"
+      ],
+      "summary": {
+        "doc_id": "4657f3da707518cd",
+        "title": "ODNI USPER Narrative - Senior Intelligence Officer Orb Encounter (2025)",
+        "agency": "ODNI",
+        "incident_date": "Late 2025",
+        "incident_location": "United States",
+        "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf",
+        "overview": "ODNI USPER Narrative - Senior Intelligence Officer Orb Encounter (2025) is indexed as a ODNI record with incident date Late 2025 and location United States. A first-person narrative by a senior U.S. intelligence officer describing a late-2025 helicopter mission over a test range to investigate loud thuds and several nights of UAP sightings. The officer describes over an hour of close encounters: a 'super-hot' object on FLIR that split in two, an object that rose to within ten feet of the helicopter, two large oval orange orbs with white or yellow centers flaring just above the rotor disk, a four-to-five orb 'T' formation that dimmed in reverse order, and orange orbs that appeared above fighter jets at roughly 23,000 feet and seemed to 'chase' them. The officer states he did not photograph the event.",
+        "quick_summary": "ODNI USPER Narrative - Senior Intelligence Officer Orb Encounter (2025) is indexed as a ODNI record with incident date Late 2025 and location United States. A first-person narrative by a senior U.S. intelligence officer describing a late-2025 helicopter mission over a test range to investigate loud thuds and several nights of UAP sightings. The officer describes over an hour of close encounters: a 'super-hot' object on FLIR that split in two, an object that rose to within ten feet of the helicopter, two large oval orange orbs with white or yellow centers flaring just above the rotor disk, a four-to-five orb 'T' formation that dimmed in reverse order, and orange orbs that appeared above fighter jets at roughly 23,000 feet and seemed to 'chase' them. The officer states he did not photograph the event.",
+        "mysterious_uap_element": [
+          {
+            "text": "Our mission was to investigate loud thuds heard in the mountains on the test range, which coincided with Unidentified Aerial Phenomena (UAP) sightings reported over the previous several nights.",
+            "chunk_id": "956fcd30a6ac8d33661897fe",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Our mission was to investigate loud thuds heard in the mountains on the test range, which coincided with Unidentified Aerial Phenomena (UAP) sightings reported over the previous several nights. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "We aimed to search remote mountain areas for possible debris or objects that might explain the orb-like sightings.",
+            "chunk_id": "956fcd30a6ac8d33661897fe",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "We aimed to search remote mountain areas for possible debris or objects that might explain the orb-like sightings. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "The object then split into two and changed direction.",
+            "chunk_id": "c9dfeb84774e2f22eb63908b",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 3,
+            "label": "The object then split into two and changed direction. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "In the distance, we saw countless orange orbs swarming in all directions against the backdrop of the mountain.",
+            "chunk_id": "4c2b7a3f5d78383c7db0dcbb",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 4,
+            "label": "In the distance, we saw countless orange orbs swarming in all directions against the backdrop of the mountain. (native PDF text, page 2)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=2"
+          }
+        ],
+        "detailed_contents": [
+          {
+            "text": "In late 2025, during early evening daylight hours, I a senior U.S. intelligence officer along with a colleague and two pilots, departed our Joint Operations Center (JOC) in a helicopter.",
+            "chunk_id": "956fcd30a6ac8d33661897fe",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "In late 2025, during early evening daylight hours, I a senior U.S. intelligence officer along with a colleague and two pilots, departed our Joint Operations Center (JOC) in a helicopter. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "Our mission was to investigate loud thuds heard in the mountains on the test range, which coincided with Unidentified Aerial Phenomena (UAP) sightings reported over the previous several nights.",
+            "chunk_id": "956fcd30a6ac8d33661897fe",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Our mission was to investigate loud thuds heard in the mountains on the test range, which coincided with Unidentified Aerial Phenomena (UAP) sightings reported over the previous several nights. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "We aimed to search remote mountain areas for possible debris or objects that might explain the orb-like sightings.",
+            "chunk_id": "956fcd30a6ac8d33661897fe",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "We aimed to search remote mountain areas for possible debris or objects that might explain the orb-like sightings. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "After leaving the JOC, we flew a low-altitude map of the earth route through the mountain range for several hours.",
+            "chunk_id": "956fcd30a6ac8d33661897fe",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "After leaving the JOC, we flew a low-altitude map of the earth route through the mountain range for several hours. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "Multiple times, we spotted debris on the ground and descended for closer inspection.",
+            "chunk_id": "956fcd30a6ac8d33661897fe",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Multiple times, we spotted debris on the ground and descended for closer inspection. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "We noted the location and then pressed on.",
+            "chunk_id": "479f7253a9c451e5ad536e06",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "We noted the location and then pressed on. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "Running low on fuel, we headed to a prearranged rendezvous point to meet a ground team and let my colleague disembark.",
+            "chunk_id": "479f7253a9c451e5ad536e06",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "Running low on fuel, we headed to a prearranged rendezvous point to meet a ground team and let my colleague disembark. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "The two pilots and I then proceeded to a prepositioned tanker on the range for refueling.",
+            "chunk_id": "479f7253a9c451e5ad536e06",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "The two pilots and I then proceeded to a prepositioned tanker on the range for refueling. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "Our plan was to return to base afterward, but the JOC radioed with a request to search a nearby mountain for debris spotted by one of the ground teams.",
+            "chunk_id": "479f7253a9c451e5ad536e06",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "Our plan was to return to base afterward, but the JOC radioed with a request to search a nearby mountain for debris spotted by one of the ground teams. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "By this time, the sun had set, and the pilots switched to Forward Looking Infrared (FLIR) and Night Vision Goggles (NVG), while I continued using the unaided naked eye.",
+            "chunk_id": "479f7253a9c451e5ad536e06",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "By this time, the sun had set, and the pilots switched to Forward Looking Infrared (FLIR) and Night Vision Goggles (NVG), while I continued using the unaided naked eye. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          }
+        ],
+        "key_points": [
+          {
+            "text": "In late 2025, during early evening daylight hours, I a senior U.S. intelligence officer along with a colleague and two pilots, departed our Joint Operations Center (JOC) in a helicopter.",
+            "chunk_id": "956fcd30a6ac8d33661897fe",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "In late 2025, during early evening daylight hours, I a senior U.S. intelligence officer along with a colleague and two pilots, departed our Joint Operations Center (JOC) in a helicopter. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "Our mission was to investigate loud thuds heard in the mountains on the test range, which coincided with Unidentified Aerial Phenomena (UAP) sightings reported over the previous several nights.",
+            "chunk_id": "956fcd30a6ac8d33661897fe",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Our mission was to investigate loud thuds heard in the mountains on the test range, which coincided with Unidentified Aerial Phenomena (UAP) sightings reported over the previous several nights. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "We aimed to search remote mountain areas for possible debris or objects that might explain the orb-like sightings.",
+            "chunk_id": "956fcd30a6ac8d33661897fe",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "We aimed to search remote mountain areas for possible debris or objects that might explain the orb-like sightings. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "After leaving the JOC, we flew a low-altitude map of the earth route through the mountain range for several hours.",
+            "chunk_id": "956fcd30a6ac8d33661897fe",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "After leaving the JOC, we flew a low-altitude map of the earth route through the mountain range for several hours. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "Multiple times, we spotted debris on the ground and descended for closer inspection.",
+            "chunk_id": "956fcd30a6ac8d33661897fe",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "Multiple times, we spotted debris on the ground and descended for closer inspection. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "We noted the location and then pressed on.",
+            "chunk_id": "479f7253a9c451e5ad536e06",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "We noted the location and then pressed on. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "Running low on fuel, we headed to a prearranged rendezvous point to meet a ground team and let my colleague disembark.",
+            "chunk_id": "479f7253a9c451e5ad536e06",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "Running low on fuel, we headed to a prearranged rendezvous point to meet a ground team and let my colleague disembark. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "The two pilots and I then proceeded to a prepositioned tanker on the range for refueling.",
+            "chunk_id": "479f7253a9c451e5ad536e06",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "The two pilots and I then proceeded to a prepositioned tanker on the range for refueling. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "Our plan was to return to base afterward, but the JOC radioed with a request to search a nearby mountain for debris spotted by one of the ground teams.",
+            "chunk_id": "479f7253a9c451e5ad536e06",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "Our plan was to return to base afterward, but the JOC radioed with a request to search a nearby mountain for debris spotted by one of the ground teams. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "text": "By this time, the sun had set, and the pilots switched to Forward Looking Infrared (FLIR) and Night Vision Goggles (NVG), while I continued using the unaided naked eye.",
+            "chunk_id": "479f7253a9c451e5ad536e06",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "By this time, the sun had set, and the pilots switched to Forward Looking Infrared (FLIR) and Night Vision Goggles (NVG), while I continued using the unaided naked eye. (native PDF text, page 1)",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          }
+        ],
+        "references": [
+          {
+            "chunk_id": "956fcd30a6ac8d33661897fe",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 1,
+            "label": "native PDF text, page 1, chunk 956fcd30a6ac8d33661897fe",
+            "snippet": "Our mission was to investigate loud thuds heard in the mountains on the test range, which coincided with Unidentified Aerial Phenomena (UAP) sightings reported over the previous several nights.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "chunk_id": "c9dfeb84774e2f22eb63908b",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 3,
+            "label": "native PDF text, page 1, chunk c9dfeb84774e2f22eb63908b",
+            "snippet": "The object then split into two and changed direction.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          },
+          {
+            "chunk_id": "4c2b7a3f5d78383c7db0dcbb",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 4,
+            "label": "native PDF text, page 2, chunk 4c2b7a3f5d78383c7db0dcbb",
+            "snippet": "In the distance, we saw countless orange orbs swarming in all directions against the backdrop of the mountain.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=2"
+          },
+          {
+            "chunk_id": "d933ffeeb6e7806c53b7c340",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 2,
+            "chunk_index": 5,
+            "label": "native PDF text, page 2, chunk d933ffeeb6e7806c53b7c340",
+            "snippet": "After this encounter, the pilots briefly considered landing due to the objects proximity but opted to remain hovering at 700 feet AGL for further observation.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=2"
+          },
+          {
+            "chunk_id": "479f7253a9c451e5ad536e06",
+            "source_kind": "pdf_text",
+            "source_label": "native PDF text",
+            "page_number": 1,
+            "chunk_index": 2,
+            "label": "native PDF text, page 1, chunk 479f7253a9c451e5ad536e06",
+            "snippet": "We noted the location and then pressed on.",
+            "source_url": "https://www.war.gov/medialink/ufo/052226/release_02/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf#page=1"
+          }
+        ],
+        "source_note": "Summary generated locally from the entire indexed source text for this document. Source mix: 5 native PDF text chunks. OCR text may contain recognition errors; verify important points against the source file."
+      },
+      "related_documents": [
+        {
+          "doc_id": "c64504c14ca3e82a",
+          "title": "USPER Statement about UAP Sighting",
+          "reason": "Shared tags: helicopter, orbs, united states"
+        },
+        {
+          "doc_id": "828f5e58bf988202",
+          "title": "Western US Event",
+          "reason": "Shared tags: helicopter, orange orbs, orbs"
+        },
+        {
+          "doc_id": "6642fa4f7b4eb756",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_6",
+          "reason": "Shared tags: aerial phenomena, discs"
+        },
+        {
+          "doc_id": "4a34364aba83d121",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_7",
+          "reason": "Shared tags: aerial phenomena, discs"
+        },
+        {
+          "doc_id": "76ae2a6e79ff0827",
+          "title": "65_HS1-834228961_62-HQ-83894_Section_8",
+          "reason": "Shared tags: aerial phenomena, discs"
         }
       ]
     }
