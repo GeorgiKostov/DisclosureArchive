@@ -141,6 +141,11 @@ TITLE_PLACE_KEYS = [
 LOCATION_LABELS = {
     "tyndall afb": "Tyndall AFB",
     "eglin afb": "Eglin AFB",
+    "gulf of arabia": "Gulf of Arabia",
+    "gulf of oman": "Gulf of Oman",
+    "north atlantic ocean": "North Atlantic Ocean",
+    "east china sea": "East China Sea",
+    "yellow sea": "Yellow Sea",
     "centcom": "CENTCOM region",
     "northcom": "NORTHCOM region",
     "indopacom": "INDOPACOM region",

@@ -238,6 +238,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     .tools select {
       min-width: min(220px, 100%);
     }
+    .tools select[hidden] { display: none; }
     select {
       height: 36px;
       border: 1px solid var(--line);
@@ -492,31 +493,44 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     #globeCanvas:active { cursor: grabbing; }
     .map-releases {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 14px;
+      right: 14px;
       z-index: 5;
-      display: flex;
-      gap: 4px;
-      background: rgba(3, 12, 9, 0.78);
-      border: 1px solid rgba(120, 180, 150, 0.35);
+      width: min(220px, calc(100% - 28px));
+      border: 1px solid rgba(66,255,140,0.42);
       border-radius: 8px;
-      padding: 4px;
-      backdrop-filter: blur(2px);
+      background: rgba(2, 10, 6, 0.92);
+      box-shadow: 0 18px 42px rgba(0,0,0,0.42), 0 0 26px rgba(66,255,140,0.1);
+      padding: 8px;
     }
-    .map-releases:empty { display: none; }
-    .map-releases button {
+    .map-releases[hidden] { display: none; }
+    .map-releases.collapsed {
+      width: auto;
+      min-width: 92px;
+      padding: 6px;
+    }
+    .map-releases .legend-body {
+      display: grid;
+      gap: 4px;
+    }
+    .map-releases .legend-body button {
       font: inherit;
       font-size: 12px;
       line-height: 1;
+      width: 100%;
+      justify-content: flex-start;
       color: #bfe7d2;
       background: transparent;
       border: 0;
       border-radius: 6px;
-      padding: 6px 10px;
+      padding: 8px 10px;
       cursor: pointer;
       white-space: nowrap;
     }
-    .map-releases button.active {
+    .map-releases .legend-body button:hover {
+      background: rgba(66,255,140,0.12);
+    }
+    .map-releases .legend-body button.active {
       background: #1f7a52;
       color: #ffffff;
       font-weight: 700;
@@ -587,10 +601,12 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       min-width: 92px;
       padding: 6px;
     }
-    .map-legend.collapsed .legend-body {
+    .map-legend.collapsed .legend-body,
+    .map-releases.collapsed .legend-body {
       display: none;
     }
-    .map-legend.collapsed .legend-button::after {
+    .map-legend.collapsed .legend-button::after,
+    .map-releases.collapsed .legend-button::after {
       content: "+";
     }
     .legend-body {
@@ -826,6 +842,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       .map-zoom-controls button { width: 34px; height: 34px; min-width: 34px; min-height: 34px; }
       .map-legend { right: 10px; bottom: 10px; width: min(250px, calc(100% - 20px)); }
       .map-legend.collapsed { width: auto; }
+      .map-releases { top: 10px; right: 10px; width: min(200px, calc(100% - 20px)); }
+      .map-releases.collapsed { width: auto; }
     }
     @media (max-width: 430px) {
       .tools, .actions { grid-template-columns: 1fr; }
@@ -881,6 +899,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         <button class="primary" type="submit">Search</button>
       </form>
       <div class="tools">
+        <select id="releaseFilter" aria-label="Release filter" hidden>
+          <option value="">All releases</option>
+        </select>
         <select id="agencyFilter" aria-label="Agency filter"></select>
         <select id="sourceFilter" aria-label="Source filter">
           <option value="">All source types</option>
@@ -911,7 +932,10 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       <section id="globePanel" class="globe-panel open" aria-hidden="false">
         <div class="globe-stage">
           <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
-          <div class="map-releases" id="mapReleases" role="group" aria-label="Filter map by release"></div>
+          <div class="map-releases collapsed" id="mapReleases" aria-label="Filter map by release" hidden>
+            <button type="button" class="legend-button" id="releaseToggle" aria-expanded="false">Releases</button>
+            <div class="legend-body" id="releaseBody" role="group"></div>
+          </div>
           <div class="map-zoom-controls" aria-label="Map zoom controls">
             <button type="button" id="mapZoomIn" aria-label="Zoom in" title="Zoom in">+</button>
             <button type="button" id="mapZoomOut" aria-label="Zoom out" title="Zoom out">-</button>
@@ -1354,6 +1378,19 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       $("yearFilter").innerHTML = `<option value="">All decades</option>` + decades.map((decade) => `<option value="${decade}">${decade}s</option>`).join("");
     }
 
+    function releaseOptions() {
+      const host = $("releaseFilter");
+      if (!host) return;
+      const present = new Set(docs.map((doc) => doc.release_date).filter(Boolean));
+      const groups = (archive && archive.release_groups) || [];
+      const options = groups
+        .map((group) => ({ label: group.label || group.key, date: group.date || group.fallback_date || "" }))
+        .filter((option) => option.date && present.has(option.date));
+      if (options.length <= 1) { host.hidden = true; host.value = ""; return; }
+      host.hidden = false;
+      host.innerHTML = `<option value="">All releases</option>` + options.map((option) => `<option value="${esc(option.date)}">${esc(option.label)}</option>`).join("");
+    }
+
     function locationLabel(location) {
       return location.normalized_location || location.raw_location || `${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)}`;
     }
@@ -1416,8 +1453,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     }
 
     function buildReleaseControl() {
-      const host = $("mapReleases");
-      if (!host) return;
+      const menu = $("mapReleases");
+      const host = $("releaseBody");
+      if (!menu || !host) return;
       const present = new Set(globeState.locations.map((loc) => loc.release_date).filter(Boolean));
       const groups = (archive && archive.release_groups) || [];
       const options = [{ label: "All releases", date: null }];
@@ -1425,7 +1463,8 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         const date = group.date || group.fallback_date || "";
         if (present.has(date)) options.push({ label: group.label || group.key, date });
       });
-      if (options.length <= 2) { host.innerHTML = ""; return; }
+      if (options.length <= 2) { host.innerHTML = ""; menu.hidden = true; return; }
+      menu.hidden = false;
       host.innerHTML = options.map((option) => {
         const active = (globeState.releaseFilter == null && option.date == null) || globeState.releaseFilter === option.date;
         return `<button type="button" data-release-date="${option.date == null ? "" : esc(option.date)}" class="${active ? "active" : ""}">${esc(option.label)}</button>`;
@@ -1875,6 +1914,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       $("q").value = q;
       $("homeQ").value = q;
       if (options.resetFilters) {
+        $("releaseFilter").value = "";
         $("agencyFilter").value = "";
         $("sourceFilter").value = "";
         $("yearFilter").value = "";
@@ -1981,11 +2021,13 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
 
     function performSearch() {
       const q = $("q").value.trim().toLowerCase();
+      const release = $("releaseFilter").value;
       const agency = $("agencyFilter").value;
       const source = $("sourceFilter").value;
       const year = $("yearFilter").value;
       const terms = q.split(/\s+/).filter(Boolean);
       const scored = docs
+        .filter((doc) => !release || doc.release_date === release)
         .filter((doc) => !agency || doc.agency === agency)
         .filter((doc) => matchesSourceFilter(doc, source))
         .filter((doc) => !year || String(docDecade(doc)) === year)
@@ -2004,6 +2046,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     function resetArchiveView() {
       $("q").value = "";
       $("homeQ").value = "";
+      $("releaseFilter").value = "";
       $("agencyFilter").value = "";
       $("sourceFilter").value = "";
       $("yearFilter").value = "";
@@ -2095,6 +2138,10 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       track("search", { query_length: String($("q").value.trim().length) });
       openSearch($("q").value, { updateHash: true });
     });
+    $("releaseFilter").addEventListener("change", () => {
+      track("filter_release", { value: $("releaseFilter").value || "all" });
+      performSearch();
+    });
     $("agencyFilter").addEventListener("change", () => {
       track("filter_agency", { value: $("agencyFilter").value || "all" });
       performSearch();
@@ -2111,6 +2158,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       track("reset", { control: "title" });
       $("q").value = "";
       $("homeQ").value = "";
+      $("releaseFilter").value = "";
       $("agencyFilter").value = "";
       $("sourceFilter").value = "";
       $("yearFilter").value = "";
@@ -2127,6 +2175,13 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       legend.classList.toggle("collapsed", collapsed);
       $("legendToggle").setAttribute("aria-expanded", collapsed ? "false" : "true");
       track("map_legend_toggle", { open: collapsed ? "false" : "true" });
+    });
+    $("releaseToggle").addEventListener("click", () => {
+      const menu = $("mapReleases");
+      const collapsed = !menu.classList.contains("collapsed");
+      menu.classList.toggle("collapsed", collapsed);
+      $("releaseToggle").setAttribute("aria-expanded", collapsed ? "false" : "true");
+      track("map_release_menu_toggle", { open: collapsed ? "false" : "true" });
     });
     document.querySelectorAll("[data-overlay-toggle]").forEach((input) => {
       input.addEventListener("change", () => {
@@ -2147,6 +2202,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
         docs = payload.documents.map((doc) => ({ ...doc, _search: searchable(doc) }));
         agencyOptions();
         yearOptions();
+        releaseOptions();
         globeState.locations = allLocations();
         renderBestOf(payload.featured_documents || []);
         setupResultObserver();
@@ -3238,6 +3294,7 @@ def site_footer(generated_at: str) -> str:
         <a href="/legal.html">Legal / Impressum</a>
         <a href="/privacy.html">Privacy</a>
         <a href="/security.html">Security</a>
+        <a href="/records/">All records</a>
         <a href="/sitemap.xml">Sitemap</a>
       </div>
     </div>
@@ -3479,9 +3536,198 @@ def write_social_card(out: Path) -> None:
     image.save(out / "social-card.png", "PNG", optimize=True)
 
 
-def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str, analytics_script_url: str, google_analytics_id: str = "") -> None:
+def slugify(value: str, max_len: int = 72) -> str:
+    text = re.sub(r"[^A-Za-z0-9]+", "-", clean(value).lower()).strip("-")
+    return text[:max_len].strip("-") or "record"
+
+
+def record_relpath(doc: Dict) -> str:
+    return f"records/{slugify(doc.get('title'))}-{clean(doc.get('doc_id'))[:8]}.html"
+
+
+def _record_year(*values: str) -> str:
+    for value in values:
+        match = re.search(r"\b(18|19|20)\d{2}\b", clean(value))
+        if match:
+            return match.group(0)
+    return ""
+
+
+def _summary_points(items) -> List[str]:
+    out = []
+    for item in items or []:
+        text = clean(item.get("label") or item.get("text") or "") if isinstance(item, dict) else clean(item)
+        if text:
+            out.append(text)
+    return out
+
+
+def record_json_ld(doc: Dict, canonical: str, site_url: str, social_card_url: str) -> str:
+    summary = doc.get("summary") or {}
+    description = clean(summary.get("quick_summary") or doc.get("description") or doc.get("title"))[:5000]
+    media = doc.get("media") or {}
+    is_av = doc.get("release_type") in ("VID", "AUD") and clean(media.get("video_url"))
+    obj = {
+        "@context": "https://schema.org",
+        "@type": "VideoObject" if is_av else "CreativeWork",
+        "name": clean(doc.get("title")),
+        "description": description,
+        "url": canonical,
+        "isPartOf": {"@type": "WebSite", "name": "Disclosure Archive", "url": f"{site_url}/"},
+        "publisher": {"@type": "Organization", "name": "Disclosure Archive", "url": f"{site_url}/"},
+    }
+    year = _record_year(doc.get("incident_date"), doc.get("release_date"))
+    if is_av:
+        obj["thumbnailUrl"] = clean(media.get("thumbnail_url")) or social_card_url
+        obj["contentUrl"] = clean(media.get("video_url"))
+        if clean(doc.get("source_url")):
+            obj["embedUrl"] = clean(doc.get("source_url"))
+        if year:
+            obj["uploadDate"] = year
+    elif year:
+        obj["datePublished"] = year
+    return json.dumps(obj, ensure_ascii=False)
+
+
+def record_media_html(doc: Dict) -> str:
+    media = doc.get("media") or {}
+    video = clean(media.get("video_url"))
+    if doc.get("release_type") in ("VID", "AUD") and video:
+        return f'<video controls preload="metadata" src="{html_escape(video, quote=True)}" style="width:100%;max-height:420px;background:#000;border-radius:8px"></video>'
+    thumb = clean(media.get("thumbnail_url"))
+    doc_url = clean(media.get("document_url")) or clean(doc.get("source_url"))
+    if thumb and doc_url:
+        return (
+            f'<a href="{html_escape(doc_url, quote=True)}" target="_blank" rel="noopener">'
+            f'<img loading="lazy" src="{html_escape(thumb, quote=True)}" alt="{html_escape(clean(doc.get("title")), quote=True)}" '
+            f'style="max-width:100%;border-radius:8px"></a>'
+        )
+    return ""
+
+
+def record_page_html(doc: Dict, relpath: str, site_url: str, analytics_script_url: str, google_analytics_id: str, social_card_url: str) -> str:
+    title = clean(doc.get("title"))
+    safe_title = html_escape(title, quote=True)
+    summary = doc.get("summary") or {}
+    quick = clean(summary.get("quick_summary") or doc.get("description"))
+    description = (quick[:200].rsplit(" ", 1)[0] + "…") if len(quick) > 200 else quick
+    type_label = {"VID": "Video", "AUD": "Audio", "PDF": "Document"}.get(clean(doc.get("release_type")), clean(doc.get("release_type")))
+    meta_bits = [b for b in [clean(doc.get("agency")), clean(doc.get("incident_date")), clean(doc.get("incident_location")), type_label] if b and b != "N/A"]
+    mystery = _summary_points(summary.get("mysterious_uap_element"))
+    details = _summary_points(summary.get("detailed_contents") or summary.get("key_points"))
+    tags = [clean(t) for t in (doc.get("tags") or []) if clean(t)][:10]
+    source_url = clean(doc.get("source_url")) or clean((doc.get("media") or {}).get("document_url"))
+    img = clean((doc.get("media") or {}).get("thumbnail_url")) or social_card_url
+    deep_link = f"/#search?q={quote(title, safe='')}"
+    canonical = f"{site_url}/{relpath}"
+
+    parts = [
+        f'<p class="muted">{html_escape(" · ".join(meta_bits))}</p>' if meta_bits else "",
+        f"<p>{html_escape(quick)}</p>" if quick else "",
+        record_media_html(doc),
+    ]
+    if mystery:
+        parts.append("<h2>Notable / anomalous element</h2><ul>" + "".join(f"<li>{html_escape(p)}</li>" for p in mystery[:6]) + "</ul>")
+    if details:
+        parts.append("<h2>Details</h2><ul>" + "".join(f"<li>{html_escape(p)}</li>" for p in details[:8]) + "</ul>")
+    if tags:
+        parts.append('<p class="muted">Tags: ' + html_escape(", ".join(tags)) + "</p>")
+    actions = []
+    if source_url:
+        actions.append(f'<a class="button" href="{html_escape(source_url, quote=True)}" target="_blank" rel="noopener">Official source</a>')
+    actions.append(f'<a class="button" href="{html_escape(deep_link, quote=True)}">Open in the live archive</a>')
+    parts.append('<div class="actions">' + "".join(actions) + "</div>")
+    body = "\n      ".join(p for p in parts if p)
+    og_type = "video.other" if doc.get("release_type") in ("VID", "AUD") else "article"
+
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{safe_title} | Disclosure Archive</title>
+  <meta name="description" content="{html_escape(description, quote=True)}">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="{html_escape(canonical, quote=True)}">
+  <meta property="og:type" content="{og_type}">
+  <meta property="og:title" content="{safe_title}">
+  <meta property="og:description" content="{html_escape(description, quote=True)}">
+  <meta property="og:url" content="{html_escape(canonical, quote=True)}">
+  <meta property="og:image" content="{html_escape(img, quote=True)}">
+  <meta property="og:site_name" content="Disclosure Archive">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{safe_title}">
+  <meta name="twitter:description" content="{html_escape(description, quote=True)}">
+  <meta name="twitter:image" content="{html_escape(img, quote=True)}">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script type="application/ld+json">{record_json_ld(doc, canonical, site_url, social_card_url)}</script>
+  {analytics_markup('', analytics_script_url, google_analytics_id)}
+  <style>
+    :root {{ color-scheme: dark; --bg:#050806; --ink:#e7fff2; --muted:#8fb39e; --line:rgba(74,255,151,0.22); --accent:#42ff8c; --accent-2:#72d7ff; }}
+    * {{ box-sizing:border-box; }}
+    body {{ margin:0; min-height:100vh; background:var(--bg); color:var(--ink); font:14px/1.6 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace; }}
+    main {{ width:min(820px, calc(100% - 32px)); margin:0 auto; padding:34px 0 60px; }}
+    a {{ color:var(--accent-2); }}
+    h1 {{ color:var(--accent); font-size:22px; line-height:1.3; margin:0 0 10px; }}
+    h2 {{ color:var(--accent); font-size:15px; margin:20px 0 6px; }}
+    p,li {{ color:var(--muted); overflow-wrap:anywhere; }}
+    .crumb {{ margin:0 0 16px; }}
+    .panel {{ border:1px solid var(--line); border-radius:8px; background:rgba(5,14,10,0.92); padding:20px; }}
+    .actions {{ display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }}
+    .button {{ min-height:38px; border:1px solid var(--line); border-radius:6px; background:rgba(7,24,15,0.92); color:var(--ink); cursor:pointer; display:inline-flex; align-items:center; padding:0 12px; text-decoration:none; font-weight:650; }}
+    .button:hover {{ border-color:var(--accent); color:var(--accent); }}
+    ul {{ margin:6px 0 0; padding-left:18px; }}
+  </style>
+</head>
+<body>
+  <main>
+    <p class="crumb"><a href="/">Disclosure Archive</a> / <a href="/records/">Records</a></p>
+    <article class="panel">
+      <h1>{safe_title}</h1>
+      {body}
+    </article>
+  </main>
+</body>
+</html>
+"""
+
+
+def write_record_pages(out: Path, documents: List[Dict], site_url: str, analytics_script_url: str, google_analytics_id: str) -> List[str]:
+    social_card_url = f"{site_url}/social-card.png"
+    records_dir = out / "records"
+    records_dir.mkdir(parents=True, exist_ok=True)
+    relpaths: List[str] = []
+    by_release: Dict[str, List] = {}
+    for doc in documents:
+        relpath = record_relpath(doc)
+        (out / relpath).write_text(
+            record_page_html(doc, relpath, site_url, analytics_script_url, google_analytics_id, social_card_url),
+            encoding="utf-8",
+        )
+        relpaths.append(relpath)
+        by_release.setdefault(clean(doc.get("release_date")) or "Other", []).append((doc, relpath))
+    sections = []
+    for release in sorted(by_release, reverse=True):
+        rows = "".join(
+            f'<li><a href="/{html_escape(rp, quote=True)}">{html_escape(clean(d.get("title")))}</a> '
+            f'<span class="muted">({html_escape(clean(d.get("release_type")))})</span></li>'
+            for d, rp in by_release[release]
+        )
+        sections.append(f"<h2>Release {html_escape(release)}</h2><ul>{rows}</ul>")
+    hub_body = (
+        f"<p>Browse all {len(documents)} declassified UAP/UFO records in the Disclosure Archive. "
+        "Each entry links to its full record page and official government source.</p>" + "".join(sections)
+    )
+    (records_dir / "index.html").write_text(
+        static_info_page("All Records", hub_body, analytics_script_url, google_analytics_id),
+        encoding="utf-8",
+    )
+    return relpaths
+
+
+def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str, analytics_script_url: str, google_analytics_id: str = "", record_paths: Optional[List[str]] = None) -> None:
     canonical = f"{site_url}/"
-    sitemap_paths = ["", "contact.html", "legal.html", "privacy.html", "security.html"]
+    sitemap_paths = ["", "contact.html", "legal.html", "privacy.html", "security.html", "records/"]
     sitemap_urls = []
     for index, path in enumerate(sitemap_paths):
         loc = canonical if not path else f"{canonical}{path}"
@@ -3494,6 +3740,19 @@ def write_crawler_and_security_files(out: Path, site_url: str, generated_at: str
                     f"    <lastmod>{html_escape(generated_at[:10])}</lastmod>",
                     "    <changefreq>weekly</changefreq>",
                     f"    <priority>{priority}</priority>",
+                    "  </url>",
+                ]
+            )
+        )
+    for relpath in record_paths or []:
+        sitemap_urls.append(
+            "\n".join(
+                [
+                    "  <url>",
+                    f"    <loc>{html_escape(canonical + relpath)}</loc>",
+                    f"    <lastmod>{html_escape(generated_at[:10])}</lastmod>",
+                    "    <changefreq>monthly</changefreq>",
+                    "    <priority>0.6</priority>",
                     "  </url>",
                 ]
             )
@@ -3650,7 +3909,8 @@ def write_site(
     )
     (out / "index.html").write_text(html, encoding="utf-8")
     write_info_pages(out, site_url, analytics_script_url, contact_email, google_analytics_id)
-    write_crawler_and_security_files(out, site_url, generated_at, analytics_script_url, google_analytics_id)
+    record_paths = write_record_pages(out, documents, site_url, analytics_script_url, google_analytics_id)
+    write_crawler_and_security_files(out, site_url, generated_at, analytics_script_url, google_analytics_id, record_paths)
     return {
         "out": str(out),
         "documents": len(documents),
