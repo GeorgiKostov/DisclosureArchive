@@ -2256,8 +2256,8 @@ AGENCY_TAGS = {
 #   fallback_date - used only when no override and no document release_date.
 DEFAULT_RELEASE = "release-1"
 RELEASE_GROUPS = [
-    {"key": "release-1", "label": "RELEASE 1", "date": "", "fallback_date": "5/8/26"},
     {"key": "release-2", "label": "RELEASE 2", "date": "", "fallback_date": "5/22/26"},
+    {"key": "release-1", "label": "RELEASE 1", "date": "", "fallback_date": "5/8/26"},
 ]
 
 FEATURED_SELECTIONS = [
@@ -2512,6 +2512,90 @@ FEATURED_SELECTIONS = [
             "Incident date: May 1986",
             "Source: Pajarito Astronomers meeting notice",
             "Why it stands out: a Los Alamos science group openly taking up the UFO question",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR071",
+        "release": "release-2",
+        "kicker": "F-16 engages an object over Lake Huron",
+        "summary": "Uploader-titled \"USAF ANG F-16C Shoots Down UAP over Lake Huron with [Weapon System], 12 Feb 2023,\" this 46-second infrared clip is tied to the U.S. Northern Command area in 2023. AARO's deliberately neutral description says the sensor centers on an area of contrast and that around the 20-second mark the footage appears to show a kinetic interaction between two areas of contrast, with the initial subject fragmenting in a radial displacement pattern that AARO says suggests a high-energy event. AARO states the description is informational only and not an analytical conclusion.",
+        "facts": [
+            "Agency: Department of War (NORTHCOM)",
+            "Incident: 12 February 2023, Lake Huron",
+            "Source: infrared sensor video uploaded to a classified network",
+            "Why it stands out: appears to capture the February 2023 fighter engagement of an object over Lake Huron",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR050",
+        "release": "release-2",
+        "kicker": "Four objects in formation off Iran",
+        "summary": "Uploader-titled \"4 UAP Formation Iran 26 Aug 2022 over water,\" this short infrared clip is tied to U.S. Central Command in 2022. AARO describes four areas of contrast transiting the sensor's field of view, entering from the lower-left and exiting near the bottom center, followed by a fifth area of contrast entering from the top-left corner. AARO frames the account as an informational description only.",
+        "facts": [
+            "Agency: Department of War (CENTCOM)",
+            "Incident: 26 August 2022, over water (Iran area)",
+            "Source: infrared sensor video uploaded to a classified network",
+            "Why it stands out: a multi-object formation tracked over water",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR051",
+        "release": "release-2",
+        "kicker": "\"Instant acceleration\" over Syria",
+        "summary": "Uploader-titled \"Syrian UAP instant acceleration,\" this roughly five-minute CENTCOM infrared clip was digitally altered before upload and is presented as received. AARO notes the sensor pans to hold an object centered, then at the 20-21 second mark stops tracking, which causes the object to rapidly exit the frame; a later title card within the clip says a white-edge threshold enhancement was applied to highlight the shape. AARO presents the footage without an analytical conclusion.",
+        "facts": [
+            "Agency: Department of War (CENTCOM)",
+            "Incident year: 2021",
+            "Note: the apparent rapid acceleration coincides with the sensor ceasing to track the object",
+            "Why it stands out: a much-discussed \"instant acceleration\" clip, shown with AARO's neutral framing",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR057b",
+        "release": "release-2",
+        "kicker": "Sphere over the Yellow Sea",
+        "summary": "Uploader-titled both \"Spherical UAP in clouds\" and \"[Platform] Observes UAP in East China Sea, 05 Jan 2023,\" this 70-second infrared clip is tied to a U.S. platform operating above the Yellow Sea in January 2023. AARO describes an area of contrast entering the frame and becoming indistinguishable against the background, after which the sensor zooms and pans to re-acquire and track it. AARO frames the account as an informational description only.",
+        "facts": [
+            "Agency: Department of War (INDOPACOM)",
+            "Incident: 5 January 2023, Yellow Sea / East China Sea",
+            "Source: infrared sensor video uploaded to a classified network",
+            "Why it stands out: a spherical object tracked near cloud cover in the Pacific theater",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR065",
+        "release": "release-2",
+        "kicker": "Coast Guard \"Tic Tac\" off Tyndall",
+        "summary": "Uploader-titled \"USCG C-144 Tyndall UAP 2 TIC TAC IR hot 24 April 2024,\" this clip comes from an infrared sensor aboard a U.S. Coast Guard aircraft operating over the southeastern United States in 2024. AARO describes the sensor panning to keep an area of contrast in view for about 32 seconds before it leaves the frame. The \"tic tac\" shape and \"IR hot\" signature are the uploader's characterization, not an AARO conclusion.",
+        "facts": [
+            "Agency: Department of War / U.S. Coast Guard",
+            "Incident: 24 April 2024, southeastern United States",
+            "Source: infrared sensor video uploaded to a classified network",
+            "Why it stands out: a recent Coast Guard \"Tic Tac\" infrared track",
+        ],
+    },
+    {
+        "match": "DOW-UAP-PR086",
+        "release": "release-2",
+        "kicker": "December 2019 East Coast object",
+        "summary": "Uploader-titled \"UAP from Dec 2019 (East Coast),\" this 34-second infrared clip is tied to the U.S. Northern Command area in 2019 and was placed on a classified network in September 2020. AARO describes the sensor tracking an area of contrast and switching contrast modes during the clip, and frames the account as an informational description only.",
+        "facts": [
+            "Agency: Department of War (NORTHCOM)",
+            "Incident year: 2019, U.S. East Coast",
+            "Source: infrared sensor video uploaded to a classified network",
+            "Why it stands out: an East Coast case from the period of the Navy UAP disclosures",
+        ],
+    },
+    {
+        "match": "NASA-UAP-D009",
+        "release": "release-2",
+        "kicker": "Apollo 17 crew describe drifting lights",
+        "summary": "On Apollo 17's transit to the Moon on December 7, 1972, commander Gene Cernan, lunar module pilot Harrison Schmitt, and command module pilot Ronald Evans are heard describing bright \"particles\" or \"fragments\" drifting near the spacecraft and the separated Saturn S-IVB stage. The crew call them \"jagged\" and \"angular,\" note that they \"twinkle,\" and speculate the lights are likely paint chips or ice chips coming off the stage.",
+        "facts": [
+            "Agency: NASA",
+            "Incident: 7 December 1972, cislunar space",
+            "Source: Apollo 17 mission audio excerpt",
+            "Why it stands out: astronaut audio of unexplained drifting lights, with the crew's own mundane hypothesis on the record",
         ],
     },
 ]
