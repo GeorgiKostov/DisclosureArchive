@@ -20,6 +20,12 @@ public site needs to be refreshed.
 
 ## 1. Stage The New Raw Release
 
+The normal intake source is the government UFO page:
+`https://www.war.gov/UFO/`. The user can also provide a specific release URL.
+Treat the URL as the discovery source, then download the release package into a
+local raw archive directory before indexing or OCR. The current pipeline is
+local-first: it does not OCR remote PDFs in place.
+
 Expected raw archive shape:
 
 ```text
@@ -246,22 +252,34 @@ For each highlight:
   record link. Example: display `Orbs Launching Orbs` while matching
   `Western US Event`.
 - `kicker` should be short and descriptive.
-- `summary` should explain why the source is worth opening, while preserving
-  uncertainty.
+- `summary` should read like a front-page case brief: lead with the concrete
+  who/what/where/when and the most important reported details. If the source
+  has enough case information, summarize the case itself instead of explaining
+  tags, provenance, or why the item was selected. Preserve uncertainty with
+  source-attributed language such as "the report says" or "the witness
+  described," not generic disclaimers.
 - `facts` should include agency/date/source context and one reason it stands
   out.
 
-The current public layout groups highlights under `RELEASE 1`. The grouping is
-prepared for future collapsible releases in the client-side
-`highlightReleaseGroups()` function. When Release 2 arrives:
+Highlights are grouped into collapsible release sections. Group order, labels,
+and optional display dates are defined by `RELEASE_GROUPS` in
+`src/ufo_indexer/export_site.py`; each curated item is assigned to a group by an
+optional `release` key on its `FEATURED_SELECTIONS` entry (defaulting to
+`DEFAULT_RELEASE`, currently `release-1`). The client `highlightReleaseGroups()`
+buckets items by `release` and renders only groups that have at least one matched
+item, so a group can be defined ahead of a drop without changing the visible
+page. A group's published date is the group's `date` override if set, otherwise
+the release date of its documents, otherwise its `fallback_date`.
 
-1. Add new curated items to `FEATURED_SELECTIONS`.
-2. Add enough metadata to distinguish release groups if title matching alone is
-   insufficient.
-3. Update `highlightReleaseGroups()` so it returns separate groups such as
-   `RELEASE 1` and `RELEASE 2`, each with its government publication date.
-4. Verify each group can collapse/open independently and that title clicks still
-   open the matching record.
+`release-2` is already declared in `RELEASE_GROUPS`. When Release 2 arrives:
+
+1. Add new curated items to `FEATURED_SELECTIONS`, each with `"release":
+   "release-2"`.
+2. If the docs do not carry a usable `release_date`, set the Release 2 group's
+   `date` (or `fallback_date`) in `RELEASE_GROUPS`.
+3. Regenerate the site and verify a separate `RELEASE 2` section appears, each
+   group collapses/opens independently, and title clicks still open the matching
+   record.
 
 ## 7. Verify Media, Video, And Image Handling
 

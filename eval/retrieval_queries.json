@@ -8,8 +8,12 @@
       "expected": [
         {
           "title_contains": "Apollo 17",
-          "source_kinds": ["pdf_text"],
-          "text_contains": ["Grimaldi"]
+          "source_kinds": [
+            "pdf_text"
+          ],
+          "text_contains": [
+            "Grimaldi"
+          ]
         }
       ]
     },
@@ -19,8 +23,13 @@
       "expected": [
         {
           "title_contains": "USPER Statement",
-          "source_kinds": ["pdf_text"],
-          "text_contains": ["orbs", "formation"]
+          "source_kinds": [
+            "pdf_text"
+          ],
+          "text_contains": [
+            "orbs",
+            "formation"
+          ]
         }
       ]
     },
@@ -30,13 +39,22 @@
       "expected": [
         {
           "title_contains": "Gemini 7",
-          "source_kinds": ["pdf_text", "ocr_text"],
-          "text_contains": ["bogey"]
+          "source_kinds": [
+            "pdf_text",
+            "ocr_text"
+          ],
+          "text_contains": [
+            "bogey"
+          ]
         },
         {
           "title_contains": "255_t_763",
-          "source_kinds": ["ocr_text"],
-          "text_contains": ["BOGEY"]
+          "source_kinds": [
+            "ocr_text"
+          ],
+          "text_contains": [
+            "BOGEY"
+          ]
         }
       ]
     },
@@ -46,8 +64,12 @@
       "expected": [
         {
           "title_contains": "FBI September 2023",
-          "source_kinds": ["ocr_text"],
-          "text_contains": ["FEDERAL BUREAU OF INVESTIGATION"]
+          "source_kinds": [
+            "ocr_text"
+          ],
+          "text_contains": [
+            "FEDERAL BUREAU OF INVESTIGATION"
+          ]
         }
       ]
     },
@@ -57,13 +79,22 @@
       "expected": [
         {
           "title_contains": "Flying Discs 1949",
-          "source_kinds": ["metadata", "ocr_text"],
-          "text_contains": ["Flight Service Regulation"]
+          "source_kinds": [
+            "metadata",
+            "ocr_text"
+          ],
+          "text_contains": [
+            "Flight Service Regulation"
+          ]
         },
         {
           "title_contains": "62-HQ-83894",
-          "source_kinds": ["ocr_text"],
-          "text_contains": ["FLYING DISCS"]
+          "source_kinds": [
+            "ocr_text"
+          ],
+          "text_contains": [
+            "FLYING DISCS"
+          ]
         }
       ]
     },
@@ -73,8 +104,12 @@
       "expected": [
         {
           "title_contains": "62-HQ-83894_Section_10",
-          "source_kinds": ["ocr_text"],
-          "text_contains": ["Project Blue Book"]
+          "source_kinds": [
+            "ocr_text"
+          ],
+          "text_contains": [
+            "Project Blue Book"
+          ]
         }
       ]
     },
@@ -84,8 +119,12 @@
       "expected": [
         {
           "title_contains": "62-HQ-83894_Serial_164",
-          "source_kinds": ["ocr_text"],
-          "text_contains": ["AF Form 112"]
+          "source_kinds": [
+            "ocr_text"
+          ],
+          "text_contains": [
+            "AF Form 112"
+          ]
         }
       ]
     },
@@ -95,13 +134,21 @@
       "expected": [
         {
           "title_contains": "Incident_Summaries",
-          "source_kinds": ["ocr_text"],
-          "text_contains": ["Bethel"]
+          "source_kinds": [
+            "ocr_text"
+          ],
+          "text_contains": [
+            "Bethel"
+          ]
         },
         {
           "title_contains": "62-HQ-83894_Section_2",
-          "source_kinds": ["ocr_text"],
-          "text_contains": ["BETHEL"]
+          "source_kinds": [
+            "ocr_text"
+          ],
+          "text_contains": [
+            "BETHEL"
+          ]
         }
       ]
     },
@@ -111,8 +158,12 @@
       "expected": [
         {
           "title_contains": "62-HQ-83894_Section_1",
-          "source_kinds": ["ocr_text"],
-          "text_contains": ["NEW HAVEN"]
+          "source_kinds": [
+            "ocr_text"
+          ],
+          "text_contains": [
+            "NEW HAVEN"
+          ]
         }
       ]
     },
@@ -122,8 +173,12 @@
       "expected": [
         {
           "title_contains": "Flying Discs 1949",
-          "source_kinds": ["ocr_text"],
-          "text_contains": ["Hickam"]
+          "source_kinds": [
+            "ocr_text"
+          ],
+          "text_contains": [
+            "Hickam"
+          ]
         }
       ]
     },
@@ -133,7 +188,10 @@
       "expected": [
         {
           "title_contains": "Vandenberg AFB",
-          "source_kinds": ["pdf_text", "metadata"]
+          "source_kinds": [
+            "pdf_text",
+            "metadata"
+          ]
         }
       ]
     },
@@ -143,7 +201,10 @@
       "expected": [
         {
           "title_contains": "Persian Gulf, August 2020",
-          "source_kinds": ["metadata", "ocr_text"]
+          "source_kinds": [
+            "metadata",
+            "ocr_text"
+          ]
         }
       ]
     },
@@ -153,7 +214,10 @@
       "expected": [
         {
           "title_contains": "Skylab",
-          "source_kinds": ["metadata", "ocr_text"]
+          "source_kinds": [
+            "metadata",
+            "ocr_text"
+          ]
         }
       ]
     },
@@ -163,7 +227,9 @@
       "expected": [
         {
           "title_contains": "FBI Photo",
-          "source_kinds": ["metadata"]
+          "source_kinds": [
+            "metadata"
+          ]
         }
       ]
     },
@@ -173,7 +239,75 @@
       "expected": [
         {
           "title_contains": "Kuwait",
-          "source_kinds": ["metadata", "ocr_text"]
+          "source_kinds": [
+            "metadata",
+            "ocr_text"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sandia_green_fireballs",
+      "query": "green fireballs over New Mexico atomic installations 1949",
+      "expected": [
+        {
+          "title_contains": "Sandia Base Correspondence",
+          "source_kinds": [
+            "metadata",
+            "ocr_text",
+            "pdf_text"
+          ],
+          "text_contains": [
+            "fireball"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sary_shagan_green_object",
+      "query": "bright green concentric circles unidentified object Soviet weapons range",
+      "expected": [
+        {
+          "title_contains": "Sary Shagan",
+          "source_kinds": [
+            "metadata",
+            "pdf_text"
+          ],
+          "text_contains": [
+            "green"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "odni_usper_orb_t_formation",
+      "query": "senior intelligence officer helicopter orange orbs T formation chasing fighter jets",
+      "expected": [
+        {
+          "title_contains": "ODNI USPER Narrative",
+          "source_kinds": [
+            "metadata",
+            "pdf_text"
+          ],
+          "text_contains": [
+            "orbs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pajarito_astronomers_ufo_talk",
+      "query": "Los Alamos astronomers club why should a scientist be concerned about UFOs",
+      "expected": [
+        {
+          "title_contains": "Pajarito Astronomers",
+          "source_kinds": [
+            "metadata",
+            "pdf_text"
+          ],
+          "text_contains": [
+            "UFO"
+          ]
         }
       ]
     }

@@ -297,6 +297,9 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       background: rgba(2, 10, 6, 0.34);
       overflow: hidden;
     }
+    .release-group + .release-group {
+      margin-top: 12px;
+    }
     .release-toggle {
       position: relative;
       width: 100%;
@@ -1177,14 +1180,37 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     }
 
     function highlightReleaseGroups(items) {
-      return [
-        {
-          key: "release-1",
-          label: "RELEASE 1",
-          date: formatReleaseDate(items.find((item) => item.release_date)?.release_date || "5/8/26"),
-          items,
-        },
-      ];
+      const config = archive?.release_groups?.length
+        ? archive.release_groups
+        : [{ key: "release-1", label: "RELEASE 1", date: "", fallback_date: "5/8/26" }];
+      const byRelease = new Map();
+      items.forEach((item) => {
+        const key = item.release || "release-1";
+        if (!byRelease.has(key)) byRelease.set(key, []);
+        byRelease.get(key).push(item);
+      });
+      const groups = [];
+      const seen = new Set();
+      const pushGroup = (cfg, groupItems) => {
+        if (!groupItems?.length) return;
+        const derived = cfg.date || groupItems.find((item) => item.release_date)?.release_date || cfg.fallback_date || "";
+        groups.push({
+          key: cfg.key,
+          label: cfg.label || String(cfg.key || "").toUpperCase(),
+          date: derived ? formatReleaseDate(derived) : "",
+          items: groupItems,
+        });
+      };
+      config.forEach((cfg) => {
+        seen.add(cfg.key);
+        pushGroup(cfg, byRelease.get(cfg.key));
+      });
+      // Render any release keys not declared in the config so highlights are never dropped.
+      byRelease.forEach((groupItems, key) => {
+        if (seen.has(key)) return;
+        pushGroup({ key, label: key.toUpperCase(), date: "", fallback_date: "" }, groupItems);
+      });
+      return groups;
     }
 
     function renderBestOf(items) {
@@ -1202,7 +1228,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
           <section class="release-group" data-release-group="${esc(group.key)}">
             <button type="button" class="release-toggle" data-release-toggle="${esc(group.key)}" aria-expanded="true">
               <span class="release-name">${esc(group.label)}</span>
-              <span class="release-date">Published ${esc(group.date)}</span>
+              <span class="release-date">${group.date ? `Published ${esc(group.date)}` : ""}</span>
             </button>
             <div class="release-body">
               <div class="best-grid">
@@ -2156,12 +2182,14 @@ TAG_ALIASES = {
     "fbi": "FBI",
     "fireball": "Fireball",
     "fireballs": "Fireball",
+    "flir": "FLIR",
     "foo": "Foo fighters",
     "foofighter": "Foo fighters",
     "foofighters": "Foo fighters",
     "gemini": "Gemini",
     "helicopter": "Helicopter",
     "helicopters": "Helicopter",
+    "kazakhstan": "Kazakhstan",
     "light": "Lights",
     "lights": "Lights",
     "missile": "Missile",
@@ -2175,6 +2203,7 @@ TAG_ALIASES = {
     "rockets": "Rocket",
     "saucer": "Saucers",
     "saucers": "Saucers",
+    "soviet": "Soviet Union",
     "sphere": "Spherical object",
     "spheres": "Spherical object",
     "uap": "UAP",
@@ -2183,6 +2212,7 @@ TAG_ALIASES = {
     "ufos": "UFO",
     "usaf": "USAF",
     "uss": "Navy",
+    "ussr": "Soviet Union",
     "weapon": "Weapons",
     "weapons": "Weapons",
 }
@@ -2199,6 +2229,15 @@ TAG_PHRASES = [
     (re.compile(r"\bhelicopter\s+(?:crew|sighting|encounter)\b", re.I), "Helicopter encounter"),
     (re.compile(r"\bflight\s+(?:crew|service|safety|operations?)\b", re.I), "Flight operations"),
     (re.compile(r"\b(?:photo|image|photograph|video|film)\s+(?:analysis|evidence|footage)\b", re.I), "Media evidence"),
+    (re.compile(r"\bgreen\s+fireballs?\b", re.I), "Green fireballs"),
+    (re.compile(r"\borange\s+orbs?\b", re.I), "Orange orbs"),
+    (re.compile(r"\bsandia\s+(?:base|national\s+lab)", re.I), "Sandia Base"),
+    (re.compile(r"\blos\s+alamos\b", re.I), "Los Alamos"),
+    (re.compile(r"\bnew\s+mexico\b", re.I), "New Mexico"),
+    (re.compile(r"\bsary\s+shagan\b", re.I), "Sary Shagan"),
+    (re.compile(r"\bpantex\b", re.I), "Pantex Plant"),
+    (re.compile(r"\b(?:nuclear|atomic|weapons?)\s+(?:facilit|site|complex|plant|range|reservation)", re.I), "Nuclear facility"),
+    (re.compile(r"\btest\s+range\b", re.I), "Test range"),
 ]
 
 AGENCY_TAGS = {
@@ -2208,12 +2247,25 @@ AGENCY_TAGS = {
     "NASA": "NASA",
 }
 
+# Ordered highlight release groups. Each curated selection belongs to one group
+# via its optional "release" key (defaulting to DEFAULT_RELEASE). A group only
+# renders on the public site once it has at least one matched selection, so new
+# groups can be defined ahead of a drop without changing the visible page.
+#   date          - hard display-date override; empty means derive from the
+#                   group's documents (their release_date).
+#   fallback_date - used only when no override and no document release_date.
+DEFAULT_RELEASE = "release-1"
+RELEASE_GROUPS = [
+    {"key": "release-1", "label": "RELEASE 1", "date": "", "fallback_date": "5/8/26"},
+    {"key": "release-2", "label": "RELEASE 2", "date": "", "fallback_date": "5/22/26"},
+]
+
 FEATURED_SELECTIONS = [
     {
         "match": "Western US Event",
         "title": "Orbs Launching Orbs",
         "kicker": "Multi-team orb report",
-        "summary": "The first page of the Western US Event slides summarizes a dusk report from two separate days in the western United States. Three two-person teams of federal law-enforcement special agents, labeled USPER1 through USPER6 in the source, independently described orange orbs appearing briefly and emitting smaller red orbs in groups of roughly two to four. The source says this happened at least five times and notes that the follow-on red orbs sometimes moved horizontally, angled upward, or swooped downward. This is the clearest highlight entry for the multi-witness orb-launching account while still keeping the full Western US Event context one click away.",
+        "summary": "Over two dusk periods in the western United States, three separate two-person teams of federal law-enforcement special agents reported the same pattern: a large orange orb appeared for one or two seconds, released smaller red orbs in groups of two to four, then vanished. The source says the sequence happened at least five times, with the red orbs moving horizontally, angling upward, or swooping downward after launch.",
         "facts": [
             "Agency: Department of War",
             "Incident year: 2023",
@@ -2224,7 +2276,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "USPER Statement about UAP Sighting",
         "kicker": "Senior official narrative",
-        "summary": "A heavily redacted witness statement attributed in the archive metadata to a US person, describing a multi-hour western US encounter and response activity. It became one of the most discussed documents because it reads like a narrative report while still preserving the uncertainty and redactions of the source record.",
+        "summary": "In an FBI 302 interview, a senior U.S. intelligence official described a search near a military facility after earlier orb sightings. The account says a helicopter crew found a \"super-hot\" orb hovering near the ground, pursued it for roughly 20 miles, then saw a swarm of lights and repeated groups of four or five orbs flaring up and fading over the next half hour.",
         "facts": [
             "Agency: Department of State",
             "Incident year: 2025",
@@ -2234,7 +2286,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "FBI September 2023 Sighting - Composite Sketch",
         "kicker": "FBI visual reconstruction",
-        "summary": "A site photo with an FBI Lab graphic overlay tied to September 2023 eyewitness material. The public metadata describes an apparent bronze ellipsoid emerging from a bright light, with estimated size and abrupt disappearance recorded as part of the case file.",
+        "summary": "The FBI Lab composite places a rendered bronze ellipsoid over a real site photo to show what corroborating witnesses reported in September 2023. The object was described as emerging from a bright light, measuring roughly 130 to 195 feet, and disappearing instantaneously.",
         "facts": [
             "Agency: FBI",
             "Incident date: September 1, 2023",
@@ -2244,7 +2296,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "FBI Photo A1",
         "kicker": "Late-2025 image set",
-        "summary": "One of the release's western US evidence images, presented as an infrared still with accompanying source media. It belongs near the top because many readers look first for photos and videos, and this image cluster is part of the same modern visual trail that drew outside attention.",
+        "summary": "This FBI-submitted still image came from a U.S. government system and was redacted before being sent to AARO. The record describes a monochrome sensor frame with a crosshair reticle and a small, dark, irregular object just below and to the right of center; no mission report, date, or location was provided.",
         "facts": [
             "Agency: FBI",
             "Incident date: Late 2025",
@@ -2254,7 +2306,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "NASA-UAP-VM6, Apollo 17, 1972",
         "kicker": "Apollo lunar image",
-        "summary": "A released Apollo 17 lunar image record showing a highlighted area above the Moon's surface. It is one of the strongest landing-page visuals in the archive because it connects the public image set to the Apollo transcript and debriefing cluster.",
+        "summary": "A December 1972 Apollo 17 photograph shows three dots in a triangular formation in the lower-right lunar sky when magnified. The case notes say the original film was obtained for review and that preliminary U.S. government analysis considered whether the feature could reflect a physical object in the scene, while stopping short of a conclusion.",
         "facts": [
             "Agency: NASA",
             "Incident year: 1972",
@@ -2264,7 +2316,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "NASA-UAP-D2, Apollo 17 Transcript, 1972",
         "kicker": "Lunar transcript",
-        "summary": "An Apollo 17 air-to-ground transcript excerpt centered on a lunar-surface observation near Grimaldi. The record anchors the lunar imagery cluster to mission context, speakers, and page-level transcript provenance rather than leaving the image as a free-floating curiosity.",
+        "summary": "The Apollo 17 transcript excerpt gathers three unusual observation windows from the mission: bright particles or fragments near the spacecraft, repeated flashing or rotating phenomena during a later three-hour stretch, and Jack Schmitt's report of a flash on the lunar surface north of Grimaldi. The crew discussed possible mundane explanations, including ice, paint, rocket-stage debris, and adapter panels.",
         "facts": [
             "Agency: NASA",
             "Incident year: 1972",
@@ -2274,7 +2326,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "255-t-763-r1b-excerpt",
         "kicker": "Gemini VII audio",
-        "summary": "A NASA audio excerpt from Gemini VII in which Frank Borman reports an unidentified object during air-to-ground communications. The pairing of audio metadata and transcript material makes it one of the archive's most approachable spaceflight entries.",
+        "summary": "During Gemini VII air-to-ground communications on December 5, 1965, astronaut Frank Borman reported seeing an unidentified object he called a \"bogey.\" The audio excerpt also includes comments from crewmate Jim Lovell and NASA Public Affairs narration, making the exchange directly listenable rather than just summarized.",
         "facts": [
             "Agency: NASA",
             "Incident date: December 5, 1965",
@@ -2284,7 +2336,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "State Department UAP Cable 1, Papua New Guinea",
         "kicker": "Diplomatic cable",
-        "summary": "A State Department cable from Port Moresby relaying a 1985 Papua New Guinea report through diplomatic channels. It is useful because the UFO account appears inside ordinary embassy traffic rather than a dedicated UFO case file.",
+        "summary": "A January 1985 cable from the U.S. Embassy in Port Moresby reports that Papua New Guinea intelligence officials asked about high-altitude, high-speed aircraft after residents were frightened by nighttime overflights. The cable cites reports of fast-moving lights, contrails, noise, and an Air Niugini pilot's radar account, while calling the available information \"very sketchy.\"",
         "facts": [
             "Agency: Department of State",
             "Incident date: January 24, 1985",
@@ -2294,7 +2346,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "State Department UAP Cable 2, Kazakhstan",
         "kicker": "Post-Soviet cable",
-        "summary": "A Kazakhstan cable that broadens the archive beyond US military sensor cases and legacy FBI files. It gives researchers a diplomatic-document comparison point for how unusual reports were forwarded, summarized, and preserved outside the headline American cases.",
+        "summary": "A January 1994 State Department cable says one Tajik pilot and three American citizens encountered an intense bright object while flying a 747 at 41,000 feet over Kazakhstan. The report describes a bullet-like light approaching at great speed, making 90-degree turns, corkscrews, and circles, with contrails visually estimated near 100,000 feet.",
         "facts": [
             "Agency: Department of State",
             "Incident year: 1994",
@@ -2304,7 +2356,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "331_120752_Numeric_Files_1944",
         "kicker": "Wartime foo-fighter file",
-        "summary": "A SHAEF-era file collecting messages and memorandums about night phenomena, flak rockets, cylindrical objects, and blinking lights. It gives the archive historical depth: UAP-like reports appear here in the vocabulary and operational worries of 1944-1945 air war records.",
+        "summary": "This 1944-1945 SHAEF file collects wartime messages about \"night phenomena,\" flak rockets, unidentified cylindrical objects, and blinking lights. Several records point back to observations by the 415th Night Fighter Squadron, placing the so-called foo-fighter material inside operational military traffic rather than later folklore.",
         "facts": [
             "Agency: Department of War",
             "Incident date: March 18, 1945",
@@ -2314,7 +2366,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "65_HS1-834228961_62-HQ-83894_Section_5",
         "kicker": "FBI master file",
-        "summary": "Part of the large FBI 62-HQ-83894 flying-disc file. This section represents the dense historical core of the release: memos, reports, and correspondence where the value is not one dramatic clip but the accumulated paper trail across the early UFO era.",
+        "summary": "The FBI's 62-HQ-83894 file gathers more than two decades of flying-disc and UFO material, including investigative records, eyewitness reports, public correspondence, Oak Ridge photographic material, propulsion proposals, convention programs, and press coverage. This release includes a fuller version of the file than the FBI Vault posting, with newly declassified pages and fewer redactions.",
         "facts": [
             "Agency: FBI",
             "Records span: 1947-1968 cluster",
@@ -2324,7 +2376,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "DOW-UAP-PR46",
         "kicker": "INDOPACOM video",
-        "summary": "A 2024 Indo-Pacific Command video record that drew attention because the object is described in outside coverage as football-shaped with radial projections. It gives the highlights section a clear modern sensor-video entry from the Pacific theater.",
+        "summary": "INDOPACOM submitted nine seconds of 2024 infrared footage from a U.S. military platform over the East China Sea. The release description says the sensor focused on a football-shaped area of contrast with three radial projections, while noting that no oral or written reporter description accompanied the video.",
         "facts": [
             "Agency: Department of War",
             "Incident region: East China Sea",
@@ -2334,7 +2386,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "DOW-UAP-PR47",
         "kicker": "Japan sensor case",
-        "summary": "A 2023 INDOPACOM unresolved report connected to Japan-area sensor footage. It pairs well with PR46 because the two entries let visitors compare nearby command-region videos without starting in the full document table.",
+        "summary": "This Japan-area INDOPACOM record contains one minute and 59 seconds of 2023 infrared sensor footage. The official video description says the sensor tracks three distinct areas of contrast that remain generally centered and appear to hold a fixed position and orientation relative to one another.",
         "facts": [
             "Agency: Department of War",
             "Incident region: Japan",
@@ -2344,7 +2396,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "DOW-UAP-PR48",
         "kicker": "Wind-farm video",
-        "summary": "A longer 2024 INDOPACOM video entry that outside coverage highlighted for its small bright target moving through a field of wind turbines. It is a good landing-page clip because the setting is visually distinctive and easy to recognize.",
+        "summary": "In this 2024 INDOPACOM video, an infrared sensor aboard a U.S. military platform tracks one area of contrast for one minute and 39 seconds. The official description is sparse: the target remains generally centered in frame, and the reporter provided no separate oral or written account.",
         "facts": [
             "Agency: Department of War",
             "Incident year: 2024",
@@ -2354,7 +2406,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "DOW-UAP-PR34",
         "kicker": "Aegean maneuver video",
-        "summary": "A Greece/Aegean video report discussed for sharp-looking directional changes over water. It belongs in highlights because it is one of the more memorable non-US locations in the modern sensor-video set.",
+        "summary": "CENTCOM's October 2023 Greece report includes nearly three minutes of infrared footage and an accompanying mission report describing a UAP near the ocean surface making multiple 90-degree turns at about 80 miles per hour. The video description says an area of contrast enters from the lower-left field of view, then moves back and forth as the sensor pans to track it.",
         "facts": [
             "Agency: Department of War",
             "Incident region: Greece",
@@ -2364,7 +2416,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "DOW-UAP-PR28",
         "kicker": "Glowing IR signature",
-        "summary": "A Greece-related unresolved report with an infrared frame described in release readers as a diffuse glowing halo around a central point. It adds a different visual flavor from the aircraft and maritime clips: less object-outline, more sensor signature.",
+        "summary": "In the January 2024 Greece case, CENTCOM submitted one minute and five seconds of multi-sensor footage. The accompanying mission report described a diamond-shaped UAP moving at about 434 knots and detectable only in short-wave infrared, with the video opening in split-screen electro-optical and SWIR views.",
         "facts": [
             "Agency: Department of War",
             "Incident region: Greece",
@@ -2374,7 +2426,7 @@ FEATURED_SELECTIONS = [
     {
         "match": "DOW-UAP-PR43",
         "kicker": "Africa airspace video",
-        "summary": "A 2025 Africa unresolved report, useful because it widens the video set beyond the Middle East, Europe, and INDOPACOM clusters. The official release preview describes a military operator's reported UAP within African airspace.",
+        "summary": "AFRICOM's 2025 Djibouti entry is only two seconds long. The infrared sensor footage shows a small, barely distinguishable area of contrast moving from the left side of the frame toward the lower-right edge; the reporter supplied no separate description.",
         "facts": [
             "Agency: Department of War",
             "Incident region: Africa",
@@ -2384,11 +2436,82 @@ FEATURED_SELECTIONS = [
     {
         "match": "DOW-UAP-PR49",
         "kicker": "2026 Army report",
-        "summary": "A North America / Department of the Army video entry from 2026, making it one of the newest records in Release 01. It closes the highlights list by showing that the archive is not just historical material: it also includes very recent unresolved reporting.",
+        "summary": "The Department of the Army's 2026 North America report includes one minute and 49 seconds of infrared video. The sensor first tracks one area of interest, then pans to follow two areas of contrast, zooming in and out while keeping them generally centered; no oral or written reporter description came with the footage.",
         "facts": [
             "Agency: Department of War",
             "Incident year: 2026",
             "Why it stands out: one of the newest records in the release",
+        ],
+    },
+    {
+        "match": "ODNI USPER Narrative",
+        "release": "release-2",
+        "kicker": "Senior officer orb encounter",
+        "summary": "In a first-person narrative, a senior U.S. intelligence officer says that in late 2025 he, a colleague, and two pilots flew a helicopter from a Joint Operations Center to investigate loud thuds in mountains on a test range during several nights of UAP sightings. Over more than an hour of close encounters, the officer recounts ground teams reporting a \"super-hot\" object on FLIR that split in two, an object rising from the ground to within ten feet of the helicopter before speeding away, and large oval orange orbs with bright centers that flared stationary just above the rotor disk and formed a \"T\" of four to five orbs that dimmed in reverse order. He says orange orbs later appeared above fighter jets at about 23,000 feet, matched their flight path as if chasing them, and formed a triangle around the helicopter before vanishing.",
+        "facts": [
+            "Agency: ODNI",
+            "Incident year: 2025",
+            "Source: ODNI USPER (US Person) narrative; the officer did not photograph the event",
+            "Why it stands out: detailed close-encounter account that parallels Release 1's orange-orb cases",
+        ],
+    },
+    {
+        "match": "Sandia Base Correspondence",
+        "release": "release-2",
+        "kicker": "Green fireballs investigation",
+        "summary": "This 116-page compilation of late-1940s correspondence centers on Sandia Base in Albuquerque, New Mexico, beside the atomic-weapons complex. Its centerpiece is the 17th District OSI \"Summary of Observations of Aerial Phenomena in the New Mexico area\" — the green fireballs investigation — cataloging unexplained sightings concentrated in New Mexico from late 1948 onward, recurring green fireballs near Los Alamos and Sandia, and a noted surge where the summary says flying-saucer incidents in the region \"attained an all-time high.\" The file describes unidentified lights over the 2nd Armored Division triangulated from multiple observers and references a \"Photo of Sighting No. 175.\"",
+        "facts": [
+            "Agency: Department of War",
+            "Incident years: 1948-1949",
+            "Source: Sandia Base security and OSI correspondence, 116 pages",
+            "Why it stands out: primary-source material from the early-Cold-War New Mexico green-fireball wave",
+        ],
+    },
+    {
+        "match": "Sary Shagan",
+        "release": "release-2",
+        "kicker": "Soviet test-range sighting",
+        "summary": "A CIA Intelligence Information Report sourced to a former Soviet citizen, acquired via Germany and dated December 1973, mostly describes the Soviet Sary Shagan weapons testing range in Kazakhstan, its facilities, the System-75/SA-2 and System-300/Aldan anti-missile warheads, and rumored laser research. The UAP element: one evening in late summer 1973 at \"Site 7,\" the source stepped outside during a televised Canada-USSR sport competition and reports seeing a bright green circular object in the western sky at about 70 degrees elevation. Within 10 to 15 seconds, the source says, the green circle widened and several concentric green circles formed around the mass before the color faded over a few minutes, with no sound and no explanation offered.",
+        "facts": [
+            "Agency: CIA",
+            "Incident year: 1973 (declassified 2026)",
+            "Source: CIA Intelligence Information Report, source was a former Soviet citizen",
+            "Why it stands out: a Soviet weapons-range observation echoing the green-phenomena pattern",
+        ],
+    },
+    {
+        "match": "Pantex Plant Unidentified Object",
+        "release": "release-2",
+        "kicker": "Radar-tower image",
+        "summary": "A Pantex Unidentified Object Incident Report from the U.S. nuclear-weapons assembly and disassembly facility near Amarillo, Texas, centers on an image of an unidentified object captured from a Ground Surveillance Radar Tower, plus Sandia National Labs enhanced images of the object. The release is essentially the imagery pages with little narrative text, and the material is marked UCNI (Unclassified Controlled Nuclear Information).",
+        "facts": [
+            "Agency: Department of Energy / Pantex Plant",
+            "Source: Ground Surveillance Radar Tower image with Sandia enhancements; marked UCNI",
+            "Why it stands out: a radar-tower image of an unidentified object over a nuclear-weapons site",
+        ],
+    },
+    {
+        "match": "James L. Tuck Correspondence",
+        "release": "release-2",
+        "kicker": "Los Alamos physicist letters",
+        "summary": "Correspondence involving Los Alamos physicist James L. Tuck. In one 1970s letter to the U.S. Army Engineer School at Fort Belvoir, Virginia, the writer asks for the \"recipe\" used in simulated atomic-bomb demonstrations, citing interest in \"large atmospheric vortices\" reported in Dr. Edward U. Condon's \"Scientific Study of Unidentified Flying Objects\" (the Condon Report). Another letter discusses UFO author James M. McCampbell's 1976 book \"UFOLOGY,\" its \"Flight and Propulsion\" chapter, and Einstein's unified field theory.",
+        "facts": [
+            "Agency: Department of Energy / Los Alamos",
+            "Records era: 1970s",
+            "Source: James L. Tuck correspondence files",
+            "Why it stands out: a working nuclear physicist engaging with UFO propulsion ideas and the Condon Report",
+        ],
+    },
+    {
+        "match": "Pajarito Astronomers",
+        "release": "release-2",
+        "kicker": "Los Alamos meeting notice",
+        "summary": "A meeting notice from the Pajarito Astronomers of Los Alamos, New Mexico, dated Tuesday, May 20, 1986, announces a meeting on Thursday, May 29, 1986 in the Ranch Room at Fuller Lodge. The guest speaker is Dr. John Warren of group AT-6, with the topic billed as \"Why Should a Scientist Be Concerned about UFO's?\"",
+        "facts": [
+            "Agency: Department of Energy / Los Alamos",
+            "Incident date: May 1986",
+            "Source: Pajarito Astronomers meeting notice",
+            "Why it stands out: a Los Alamos science group openly taking up the UFO question",
         ],
     },
 ]
@@ -2668,6 +2791,7 @@ def featured_documents(documents: List[Dict]) -> List[Dict]:
         featured.append(
             {
                 "doc_id": doc["doc_id"],
+                "release": selection.get("release", DEFAULT_RELEASE),
                 "title": selection.get("title") or doc["title"],
                 "record_title": doc["title"],
                 "kicker": selection["kicker"],
@@ -2687,24 +2811,7 @@ def featured_documents(documents: List[Dict]) -> List[Dict]:
 
 
 def featured_summary(selection: Dict, doc: Dict) -> str:
-    context = []
-    agency = clean(doc.get("agency"))
-    date = clean(doc.get("incident_date"))
-    location = clean(doc.get("incident_location"))
-    if agency:
-        context.append(f"agency provenance: {agency}")
-    if date and date != "N/A":
-        context.append(f"incident date: {date}")
-    if location and location != "N/A":
-        context.append(f"location: {location}")
-    sentences = [selection["summary"]]
-    if context:
-        sentences.append(f"The public index catalogs it with {', '.join(context)}, giving the highlight enough context to compare it against the linked source record.")
-    tags = [tag for tag in doc.get("tags", [])[:3] if tag]
-    if tags:
-        sentences.append(f"Useful comparison tags include {', '.join(tags)}.")
-    sentences.append("This highlight is descriptive, not conclusive: it points to why the record is worth opening while leaving interpretation to the source text, media, and page references.")
-    return " ".join(sentences)
+    return selection["summary"]
 
 
 def export_documents(conn) -> List[Dict]:
@@ -3326,6 +3433,7 @@ def write_site(
         "schema": "disclosurearchive.public_site.v1",
         "generated_at": generated_at,
         "document_count": len(documents),
+        "release_groups": RELEASE_GROUPS,
         "featured_documents": featured,
         "documents": documents,
     }
