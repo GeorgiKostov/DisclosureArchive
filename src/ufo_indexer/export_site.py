@@ -3067,6 +3067,29 @@ def featured_summary(selection: Dict, doc: Dict) -> str:
     return selection["summary"]
 
 
+SMART_PUNCT = {
+    "‘": "'", "’": "'", "‚": "'", "‛": "'",
+    "′": "'", "´": "'", "`": "'",
+    "“": '"', "”": '"', "„": '"', "‟": '"',
+    "″": '"', "«": '"', "»": '"',
+    "‐": "-", "‑": "-", "‒": "-", "–": "-", "—": "-", "―": "-",
+    "…": "...", " ": " ", "�": "",
+}
+_SMART_RE = re.compile("|".join(re.escape(ch) for ch in SMART_PUNCT))
+
+
+def normalize_display(value):
+    """Normalize smart punctuation/mojibake to plain ASCII for readable, font-safe
+    public output. Applied at export time only (does not touch the DB or doc_ids)."""
+    if isinstance(value, str):
+        return _SMART_RE.sub(lambda m: SMART_PUNCT[m.group(0)], value)
+    if isinstance(value, list):
+        return [normalize_display(item) for item in value]
+    if isinstance(value, dict):
+        return {key: normalize_display(item) for key, item in value.items()}
+    return value
+
+
 def export_documents(conn) -> List[Dict]:
     rows = conn.execute(
         """
@@ -3083,7 +3106,7 @@ def export_documents(conn) -> List[Dict]:
         locations = public_locations(conn, row["doc_id"])
         summary = add_reference_urls(source_summary(conn, row["doc_id"]), media["document_url"] or clean(row["source_url"]))
         documents.append(
-            {
+            normalize_display({
                 "doc_id": row["doc_id"],
                 "row_number": row["row_number"],
                 "title": clean(row["title"]),
@@ -3099,7 +3122,7 @@ def export_documents(conn) -> List[Dict]:
                 "locations": locations,
                 "tags": tags_for(row, summary, assets, locations),
                 "summary": summary,
-            }
+            })
         )
     attach_related_documents(documents)
     return documents
