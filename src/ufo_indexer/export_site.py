@@ -972,6 +972,7 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
     const icon = (name) => {
       if (name === "source") return '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8"/><path d="M3.6 15h16.8"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/><path d="M15 9h5v5"/><path d="m20 9-6 6"/></svg>';
       if (name === "map") return '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11z"/><circle cx="12" cy="10" r="2.3"/></svg>';
+      if (name === "share") return '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>';
       return '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h5"/><path d="M8 11h8"/><path d="M8 15h8"/><path d="M8 19h5"/></svg>';
     };
     const track = (name, props = {}) => {
@@ -1321,7 +1322,35 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       if (video) links.push(`<a class="button icon-button source-button" href="${esc(video)}" target="_blank" rel="noopener" data-track="video" data-doc-id="${esc(doc.doc_id)}" aria-label="Open video" title="Open video">${icon("source")}<span>Video</span></a>`);
       if (hasMapLocation(doc)) links.push(`<button type="button" class="icon-button map-button" data-doc-map="${esc(doc.doc_id)}" aria-label="Open map location" title="Open map location">${icon("map")}<span>Map</span></button>`);
       links.push(`<button type="button" class="icon-button summary-button details-button" data-doc-id="${esc(doc.doc_id)}" aria-label="Read summary details" title="Read summary details">${icon("summary")}<span>Summary</span></button>`);
+      links.push(`<button type="button" class="icon-button share-button" data-doc-share="${esc(doc.doc_id)}" aria-label="Share this record" title="Share / copy direct link">${icon("share")}<span>Share</span></button>`);
       return `<div class="actions">${links.join("")}</div>`;
+    }
+
+    function recordUrl(doc) {
+      return doc.page_url
+        ? `${window.location.origin}/${doc.page_url}`
+        : `${window.location.origin}/#search?q=${encodeURIComponent(doc.title)}`;
+    }
+
+    async function shareRecord(doc, button) {
+      const url = recordUrl(doc);
+      track("share_record", { doc_id: doc.doc_id });
+      if (navigator.share) {
+        try { await navigator.share({ title: doc.title, url }); return; }
+        catch (error) { if (error && error.name === "AbortError") return; }
+      }
+      try {
+        await navigator.clipboard.writeText(url);
+      } catch (error) {
+        window.prompt("Copy this link:", url);
+        return;
+      }
+      const label = button && button.querySelector("span");
+      if (label) {
+        const previous = label.textContent;
+        label.textContent = "Copied!";
+        window.setTimeout(() => { label.textContent = previous; }, 1500);
+      }
     }
 
     function renderTags(tags) {
@@ -2126,6 +2155,11 @@ PUBLIC_SITE_HTML = r"""<!doctype html>
       const docMap = event.target.closest("[data-doc-map]");
       if (docMap) {
         openMapForDoc(docMap.dataset.docMap, { updateHash: true, scroll: true, source: "index" });
+      }
+      const docShare = event.target.closest("[data-doc-share]");
+      if (docShare) {
+        const doc = docs.find((item) => item.doc_id === docShare.dataset.docShare);
+        if (doc) shareRecord(doc, docShare);
       }
     });
     $("homeSearchForm").addEventListener("submit", (event) => {
@@ -3109,6 +3143,7 @@ def export_documents(conn) -> List[Dict]:
             normalize_display({
                 "doc_id": row["doc_id"],
                 "row_number": row["row_number"],
+                "page_url": record_relpath({"title": clean(row["title"]), "doc_id": row["doc_id"]}),
                 "title": clean(row["title"]),
                 "release_type": clean(row["release_type"]),
                 "agency": clean(row["agency"]),
@@ -3659,6 +3694,7 @@ def record_page_html(doc: Dict, relpath: str, site_url: str, analytics_script_ur
     if source_url:
         actions.append(f'<a class="button" href="{html_escape(source_url, quote=True)}" target="_blank" rel="noopener">Official source</a>')
     actions.append(f'<a class="button" href="{html_escape(deep_link, quote=True)}">Open in the live archive</a>')
+    actions.append('<button class="button" id="shareBtn" type="button">Share / copy link</button>')
     parts.append('<div class="actions">' + "".join(actions) + "</div>")
     body = "\n      ".join(p for p in parts if p)
     og_type = "video.other" if doc.get("release_type") in ("VID", "AUD") else "article"
@@ -3710,6 +3746,24 @@ def record_page_html(doc: Dict, relpath: str, site_url: str, analytics_script_ur
       {body}
     </article>
   </main>
+  <script>
+    (function() {{
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = {json.dumps(canonical)};
+      btn.addEventListener("click", async function() {{
+        if (navigator.share) {{
+          try {{ await navigator.share({{ title: document.title, url: url }}); return; }}
+          catch (e) {{ if (e && e.name === "AbortError") return; }}
+        }}
+        try {{
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() {{ btn.textContent = prev; }}, 1500);
+        }} catch (e) {{ window.prompt("Copy this link:", url); }}
+      }});
+    }})();
+  </script>
 </body>
 </html>
 """
