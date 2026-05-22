@@ -251,6 +251,7 @@
     .tools select {
       min-width: min(220px, 100%);
     }
+    .tools select[hidden] { display: none; }
     select {
       height: 36px;
       border: 1px solid var(--line);
@@ -505,31 +506,44 @@
     #globeCanvas:active { cursor: grabbing; }
     .map-releases {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 14px;
+      right: 14px;
       z-index: 5;
-      display: flex;
-      gap: 4px;
-      background: rgba(3, 12, 9, 0.78);
-      border: 1px solid rgba(120, 180, 150, 0.35);
+      width: min(220px, calc(100% - 28px));
+      border: 1px solid rgba(66,255,140,0.42);
       border-radius: 8px;
-      padding: 4px;
-      backdrop-filter: blur(2px);
+      background: rgba(2, 10, 6, 0.92);
+      box-shadow: 0 18px 42px rgba(0,0,0,0.42), 0 0 26px rgba(66,255,140,0.1);
+      padding: 8px;
     }
-    .map-releases:empty { display: none; }
-    .map-releases button {
+    .map-releases[hidden] { display: none; }
+    .map-releases.collapsed {
+      width: auto;
+      min-width: 92px;
+      padding: 6px;
+    }
+    .map-releases .legend-body {
+      display: grid;
+      gap: 4px;
+    }
+    .map-releases .legend-body button {
       font: inherit;
       font-size: 12px;
       line-height: 1;
+      width: 100%;
+      justify-content: flex-start;
       color: #bfe7d2;
       background: transparent;
       border: 0;
       border-radius: 6px;
-      padding: 6px 10px;
+      padding: 8px 10px;
       cursor: pointer;
       white-space: nowrap;
     }
-    .map-releases button.active {
+    .map-releases .legend-body button:hover {
+      background: rgba(66,255,140,0.12);
+    }
+    .map-releases .legend-body button.active {
       background: #1f7a52;
       color: #ffffff;
       font-weight: 700;
@@ -600,10 +614,12 @@
       min-width: 92px;
       padding: 6px;
     }
-    .map-legend.collapsed .legend-body {
+    .map-legend.collapsed .legend-body,
+    .map-releases.collapsed .legend-body {
       display: none;
     }
-    .map-legend.collapsed .legend-button::after {
+    .map-legend.collapsed .legend-button::after,
+    .map-releases.collapsed .legend-button::after {
       content: "+";
     }
     .legend-body {
@@ -839,6 +855,8 @@
       .map-zoom-controls button { width: 34px; height: 34px; min-width: 34px; min-height: 34px; }
       .map-legend { right: 10px; bottom: 10px; width: min(250px, calc(100% - 20px)); }
       .map-legend.collapsed { width: auto; }
+      .map-releases { top: 10px; right: 10px; width: min(200px, calc(100% - 20px)); }
+      .map-releases.collapsed { width: auto; }
     }
     @media (max-width: 430px) {
       .tools, .actions { grid-template-columns: 1fr; }
@@ -894,6 +912,9 @@
         <button class="primary" type="submit">Search</button>
       </form>
       <div class="tools">
+        <select id="releaseFilter" aria-label="Release filter" hidden>
+          <option value="">All releases</option>
+        </select>
         <select id="agencyFilter" aria-label="Agency filter"></select>
         <select id="sourceFilter" aria-label="Source filter">
           <option value="">All source types</option>
@@ -924,7 +945,10 @@
       <section id="globePanel" class="globe-panel open" aria-hidden="false">
         <div class="globe-stage">
           <canvas id="globeCanvas" aria-label="Interactive globe with document locations"></canvas>
-          <div class="map-releases" id="mapReleases" role="group" aria-label="Filter map by release"></div>
+          <div class="map-releases collapsed" id="mapReleases" aria-label="Filter map by release" hidden>
+            <button type="button" class="legend-button" id="releaseToggle" aria-expanded="false">Releases</button>
+            <div class="legend-body" id="releaseBody" role="group"></div>
+          </div>
           <div class="map-zoom-controls" aria-label="Map zoom controls">
             <button type="button" id="mapZoomIn" aria-label="Zoom in" title="Zoom in">+</button>
             <button type="button" id="mapZoomOut" aria-label="Zoom out" title="Zoom out">-</button>
@@ -957,7 +981,7 @@
     <div class="wrap footer-inner">
       <div class="footer-links">
         <span>&copy; 2026 Disclosure Archive.</span>
-        <span class="footer-updated">Last updated May 22, 2026, 14:03 UTC</span>
+        <span class="footer-updated">Last updated May 22, 2026, 14:15 UTC</span>
         <a href="/contact.html">Contact</a>
         <a href="/legal.html">Legal / Impressum</a>
         <a href="/privacy.html">Privacy</a>
@@ -1380,6 +1404,19 @@
       $("yearFilter").innerHTML = `<option value="">All decades</option>` + decades.map((decade) => `<option value="${decade}">${decade}s</option>`).join("");
     }
 
+    function releaseOptions() {
+      const host = $("releaseFilter");
+      if (!host) return;
+      const present = new Set(docs.map((doc) => doc.release_date).filter(Boolean));
+      const groups = (archive && archive.release_groups) || [];
+      const options = groups
+        .map((group) => ({ label: group.label || group.key, date: group.date || group.fallback_date || "" }))
+        .filter((option) => option.date && present.has(option.date));
+      if (options.length <= 1) { host.hidden = true; host.value = ""; return; }
+      host.hidden = false;
+      host.innerHTML = `<option value="">All releases</option>` + options.map((option) => `<option value="${esc(option.date)}">${esc(option.label)}</option>`).join("");
+    }
+
     function locationLabel(location) {
       return location.normalized_location || location.raw_location || `${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)}`;
     }
@@ -1442,8 +1479,9 @@
     }
 
     function buildReleaseControl() {
-      const host = $("mapReleases");
-      if (!host) return;
+      const menu = $("mapReleases");
+      const host = $("releaseBody");
+      if (!menu || !host) return;
       const present = new Set(globeState.locations.map((loc) => loc.release_date).filter(Boolean));
       const groups = (archive && archive.release_groups) || [];
       const options = [{ label: "All releases", date: null }];
@@ -1451,7 +1489,8 @@
         const date = group.date || group.fallback_date || "";
         if (present.has(date)) options.push({ label: group.label || group.key, date });
       });
-      if (options.length <= 2) { host.innerHTML = ""; return; }
+      if (options.length <= 2) { host.innerHTML = ""; menu.hidden = true; return; }
+      menu.hidden = false;
       host.innerHTML = options.map((option) => {
         const active = (globeState.releaseFilter == null && option.date == null) || globeState.releaseFilter === option.date;
         return `<button type="button" data-release-date="${option.date == null ? "" : esc(option.date)}" class="${active ? "active" : ""}">${esc(option.label)}</button>`;
@@ -1901,6 +1940,7 @@
       $("q").value = q;
       $("homeQ").value = q;
       if (options.resetFilters) {
+        $("releaseFilter").value = "";
         $("agencyFilter").value = "";
         $("sourceFilter").value = "";
         $("yearFilter").value = "";
@@ -2007,11 +2047,13 @@
 
     function performSearch() {
       const q = $("q").value.trim().toLowerCase();
+      const release = $("releaseFilter").value;
       const agency = $("agencyFilter").value;
       const source = $("sourceFilter").value;
       const year = $("yearFilter").value;
       const terms = q.split(/\s+/).filter(Boolean);
       const scored = docs
+        .filter((doc) => !release || doc.release_date === release)
         .filter((doc) => !agency || doc.agency === agency)
         .filter((doc) => matchesSourceFilter(doc, source))
         .filter((doc) => !year || String(docDecade(doc)) === year)
@@ -2030,6 +2072,7 @@
     function resetArchiveView() {
       $("q").value = "";
       $("homeQ").value = "";
+      $("releaseFilter").value = "";
       $("agencyFilter").value = "";
       $("sourceFilter").value = "";
       $("yearFilter").value = "";
@@ -2121,6 +2164,10 @@
       track("search", { query_length: String($("q").value.trim().length) });
       openSearch($("q").value, { updateHash: true });
     });
+    $("releaseFilter").addEventListener("change", () => {
+      track("filter_release", { value: $("releaseFilter").value || "all" });
+      performSearch();
+    });
     $("agencyFilter").addEventListener("change", () => {
       track("filter_agency", { value: $("agencyFilter").value || "all" });
       performSearch();
@@ -2137,6 +2184,7 @@
       track("reset", { control: "title" });
       $("q").value = "";
       $("homeQ").value = "";
+      $("releaseFilter").value = "";
       $("agencyFilter").value = "";
       $("sourceFilter").value = "";
       $("yearFilter").value = "";
@@ -2153,6 +2201,13 @@
       legend.classList.toggle("collapsed", collapsed);
       $("legendToggle").setAttribute("aria-expanded", collapsed ? "false" : "true");
       track("map_legend_toggle", { open: collapsed ? "false" : "true" });
+    });
+    $("releaseToggle").addEventListener("click", () => {
+      const menu = $("mapReleases");
+      const collapsed = !menu.classList.contains("collapsed");
+      menu.classList.toggle("collapsed", collapsed);
+      $("releaseToggle").setAttribute("aria-expanded", collapsed ? "false" : "true");
+      track("map_release_menu_toggle", { open: collapsed ? "false" : "true" });
     });
     document.querySelectorAll("[data-overlay-toggle]").forEach((input) => {
       input.addEventListener("change", () => {
@@ -2173,6 +2228,7 @@
         docs = payload.documents.map((doc) => ({ ...doc, _search: searchable(doc) }));
         agencyOptions();
         yearOptions();
+        releaseOptions();
         globeState.locations = allLocations();
         renderBestOf(payload.featured_documents || []);
         setupResultObserver();

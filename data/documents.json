@@ -1,6 +1,6 @@
 {
   "schema": "disclosurearchive.public_site.v1",
-  "generated_at": "2026-05-22T14:03:26+00:00",
+  "generated_at": "2026-05-22T14:15:40+00:00",
   "document_count": 226,
   "release_groups": [
     {
@@ -347,7 +347,7 @@
       },
       "locations": [
         {
-          "location_id": "e95d2be8390612168c9c6012",
+          "location_id": "e42fb4a25a3d7b33f694ac9a",
           "chunk_id": null,
           "raw_location": "Kazakhstan",
           "normalized_location": "Kazakhstan",
@@ -356,7 +356,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -24525,7 +24525,7 @@
       ],
       "locations": [
         {
-          "location_id": "8a1768d9ba76af41def72126",
+          "location_id": "3e276f732bd100de2fc8a236",
           "chunk_id": null,
           "raw_location": "Syria",
           "normalized_location": "Syria",
@@ -24534,7 +24534,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -25793,7 +25793,7 @@
       ],
       "locations": [
         {
-          "location_id": "c68c5fe5c7c84333b5e088c3",
+          "location_id": "e78c903db470d78e12f9ee9e",
           "chunk_id": null,
           "raw_location": "Syria",
           "normalized_location": "Syria",
@@ -25802,7 +25802,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -29882,9 +29882,23 @@
           "bytes": 101111
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "fd64eb950dd1dab289c88edd",
+          "chunk_id": null,
+          "raw_location": "N/A",
+          "normalized_location": "Arabian Gulf",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.45,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
+        "Arabian Gulf",
         "Aircraft",
         "Radar",
         "AARO",
@@ -30495,7 +30509,7 @@
       ],
       "locations": [
         {
-          "location_id": "dd82c762188b53731699c095",
+          "location_id": "dbc3f57199bd1cf23350dd39",
           "chunk_id": null,
           "raw_location": "Syria",
           "normalized_location": "Syria",
@@ -30504,7 +30518,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -31204,7 +31218,7 @@
       ],
       "locations": [
         {
-          "location_id": "705f4a0328bcf394c0952d61",
+          "location_id": "ed7b58bc4e9e587e251b17ba",
           "chunk_id": null,
           "raw_location": "Syria",
           "normalized_location": "Syria",
@@ -31213,7 +31227,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -31707,7 +31721,7 @@
       ],
       "locations": [
         {
-          "location_id": "faa9c1483ae0a111a4aa1450",
+          "location_id": "0be58ddce7c21b1ce0211eff",
           "chunk_id": null,
           "raw_location": "Syria",
           "normalized_location": "Syria",
@@ -31716,7 +31730,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -34116,9 +34130,23 @@
           "bytes": 29121
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "75da7670d5217fff678e5e22",
+          "chunk_id": null,
+          "raw_location": "N/A",
+          "normalized_location": "Arabian Gulf",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.45,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
+        "Arabian Gulf",
         "AARO",
         "Anomalous object"
       ],
@@ -34213,29 +34241,29 @@
       },
       "related_documents": [
         {
-          "doc_id": "a62a3e4cb6146f59",
-          "title": "DOW-UAP-D10, Mission Report, Middle East, May 2022",
-          "reason": "Shared tags: aaro, anomalous object"
+          "doc_id": "26b6493a58cf6f05",
+          "title": "DOW-UAP-D3, Mission Report, Arabian Gulf, 2020",
+          "reason": "Shared tags: aaro, anomalous object, arabian gulf"
         },
         {
-          "doc_id": "af26db934b49ec62",
-          "title": "DOW-UAP-D12, Mission Report, Iraq, May 2022",
-          "reason": "Shared tags: aaro, anomalous object"
+          "doc_id": "f6337fd468cfbc34",
+          "title": "DOW-UAP-D7, Mission Report, Arabian Gulf, 2020",
+          "reason": "Shared tags: aaro, anomalous object, arabian gulf"
         },
         {
-          "doc_id": "cd2d5f62f89e3977",
-          "title": "DOW-UAP-D14, Mission Report, Iraq, May 2022",
-          "reason": "Shared tags: aaro, anomalous object"
+          "doc_id": "84304e7ad1c60557",
+          "title": "DOW-UAP-PR37, Unresolved UAP Report, Middle East, 2020",
+          "reason": "Shared tags: aaro, anomalous object, arabian gulf"
         },
         {
-          "doc_id": "b05f90372db178f0",
-          "title": "DOW-UAP-D16, Mission Report, Syria, July 2022",
-          "reason": "Shared tags: aaro, anomalous object"
+          "doc_id": "39b4716a66dbecf5",
+          "title": "DOW-UAP-PR39, Unresolved UAP Report, Middle East, 2020",
+          "reason": "Shared tags: aaro, anomalous object, arabian gulf"
         },
         {
-          "doc_id": "fb7c64204549e1ed",
-          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
-          "reason": "Shared tags: aaro, anomalous object"
+          "doc_id": "0e82136269d494da",
+          "title": "DOW-UAP-PR40, Unresolved UAP Report, Middle East, 2020",
+          "reason": "Shared tags: aaro, anomalous object, arabian gulf"
         }
       ]
     },
@@ -34717,6 +34745,21 @@
       },
       "related_documents": [
         {
+          "doc_id": "26b6493a58cf6f05",
+          "title": "DOW-UAP-D3, Mission Report, Arabian Gulf, 2020",
+          "reason": "Shared tags: arabian gulf"
+        },
+        {
+          "doc_id": "9dc821481509d405",
+          "title": "DOW-UAP-D4, Mission Report, Arabian Gulf, 2020",
+          "reason": "Shared tags: arabian gulf"
+        },
+        {
+          "doc_id": "f6337fd468cfbc34",
+          "title": "DOW-UAP-D7, Mission Report, Arabian Gulf, 2020",
+          "reason": "Shared tags: arabian gulf"
+        },
+        {
           "doc_id": "84304e7ad1c60557",
           "title": "DOW-UAP-PR37, Unresolved UAP Report, Middle East, 2020",
           "reason": "Shared tags: arabian gulf"
@@ -34724,21 +34767,6 @@
         {
           "doc_id": "39b4716a66dbecf5",
           "title": "DOW-UAP-PR39, Unresolved UAP Report, Middle East, 2020",
-          "reason": "Shared tags: arabian gulf"
-        },
-        {
-          "doc_id": "0e82136269d494da",
-          "title": "DOW-UAP-PR40, Unresolved UAP Report, Middle East, 2020",
-          "reason": "Shared tags: arabian gulf"
-        },
-        {
-          "doc_id": "72fa124676fa358a",
-          "title": "DOW-UAP-PR41, Unresolved UAP Report, Middle East, 2020",
-          "reason": "Shared tags: arabian gulf"
-        },
-        {
-          "doc_id": "326c4e1c317d32ef",
-          "title": "DOW-UAP-PR42, Unresolved UAP Report, Middle East, 2020",
           "reason": "Shared tags: arabian gulf"
         }
       ]
@@ -36474,16 +36502,16 @@
       ],
       "locations": [
         {
-          "location_id": "f1ecd00cdd16dcc918d5765c",
+          "location_id": "372166d67d7f367497ed2f34",
           "chunk_id": null,
           "raw_location": "Mediterranean Sea",
-          "normalized_location": "Mediterranean Sea",
-          "latitude": 35.0,
-          "longitude": 18.0,
+          "normalized_location": "Arabian Gulf",
+          "latitude": 26.8,
+          "longitude": 52.0,
           "precision": "region",
-          "confidence": 0.35,
+          "confidence": 0.45,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -37434,7 +37462,7 @@
       ],
       "locations": [
         {
-          "location_id": "16b4178108d7ecb56b11c4b4",
+          "location_id": "df4156a95995df75e8ee5659",
           "chunk_id": null,
           "raw_location": "Syria",
           "normalized_location": "Syria",
@@ -37443,7 +37471,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -37683,7 +37711,7 @@
       ],
       "locations": [
         {
-          "location_id": "599fbad8a57032073869b5d5",
+          "location_id": "881f1aedda857867c63c79bc",
           "chunk_id": null,
           "raw_location": "Arabian Sea",
           "normalized_location": "Arabian Sea",
@@ -37692,7 +37720,7 @@
           "precision": "region",
           "confidence": 0.35,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -38696,16 +38724,16 @@
       ],
       "locations": [
         {
-          "location_id": "05e1fb1d393ab31d0225c8cc",
+          "location_id": "0cc9cabae6543de93c754ada",
           "chunk_id": null,
           "raw_location": "Pacific Ocean",
-          "normalized_location": "Pacific Ocean",
-          "latitude": 0.0,
-          "longitude": -160.0,
+          "normalized_location": "Arabian Gulf",
+          "latitude": 26.8,
+          "longitude": 52.0,
           "precision": "region",
-          "confidence": 0.2,
+          "confidence": 0.45,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -38832,7 +38860,7 @@
       ],
       "locations": [
         {
-          "location_id": "aec509921a609cf63c504279",
+          "location_id": "d79152967450c67ad9d90993",
           "chunk_id": null,
           "raw_location": "Persian Gulf",
           "normalized_location": "Persian Gulf",
@@ -38841,7 +38869,7 @@
           "precision": "region",
           "confidence": 0.45,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -38955,7 +38983,7 @@
       ],
       "locations": [
         {
-          "location_id": "9a9806f00f8cfbbbc883c5a3",
+          "location_id": "528f6b81fe201ca41fa17300",
           "chunk_id": null,
           "raw_location": "Persian Gulf",
           "normalized_location": "Persian Gulf",
@@ -38964,7 +38992,7 @@
           "precision": "region",
           "confidence": 0.45,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -39356,16 +39384,16 @@
       ],
       "locations": [
         {
-          "location_id": "b2d68c4fbe1bafd9aede8c2b",
+          "location_id": "2d264df2d2784e89b638a73f",
           "chunk_id": null,
           "raw_location": "Strait of Hormuz",
-          "normalized_location": "Strait of Hormuz",
+          "normalized_location": "Strait Of Hormuz",
           "latitude": 26.6,
           "longitude": 56.25,
           "precision": "region",
           "confidence": 0.5,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -39734,16 +39762,16 @@
       ],
       "locations": [
         {
-          "location_id": "147701a5f9ed782dbf2d0c20",
+          "location_id": "9b1a376d4da3e9ac7ae1cb79",
           "chunk_id": null,
           "raw_location": "Strait of Hormuz",
-          "normalized_location": "Strait of Hormuz",
+          "normalized_location": "Strait Of Hormuz",
           "latitude": 26.6,
           "longitude": 56.25,
           "precision": "region",
           "confidence": 0.5,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -39857,7 +39885,7 @@
       ],
       "locations": [
         {
-          "location_id": "e1f490c5b46536e0d063e721",
+          "location_id": "1271446fa807fab305928dab",
           "chunk_id": null,
           "raw_location": "Iran",
           "normalized_location": "Iran",
@@ -39866,7 +39894,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -40154,7 +40182,7 @@
       ],
       "locations": [
         {
-          "location_id": "8a4c05e4ed8ffe48364c6496",
+          "location_id": "f3374c1c6d572084cd6bc6cc",
           "chunk_id": null,
           "raw_location": "Persian Gulf",
           "normalized_location": "Persian Gulf",
@@ -40163,7 +40191,7 @@
           "precision": "region",
           "confidence": 0.45,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -40288,9 +40316,23 @@
           "bytes": 27337
         }
       ],
-      "locations": [],
+      "locations": [
+        {
+          "location_id": "2f961a46ac4e2676d94ff299",
+          "chunk_id": null,
+          "raw_location": "N/A",
+          "normalized_location": "Arabian Gulf",
+          "latitude": 26.8,
+          "longitude": 52.0,
+          "precision": "region",
+          "confidence": 0.45,
+          "source_kind": "metadata",
+          "method": "title_place_gazetteer"
+        }
+      ],
       "tags": [
         "War Department",
+        "Arabian Gulf",
         "AARO",
         "Anomalous object"
       ],
@@ -40341,29 +40383,29 @@
       },
       "related_documents": [
         {
-          "doc_id": "a62a3e4cb6146f59",
-          "title": "DOW-UAP-D10, Mission Report, Middle East, May 2022",
-          "reason": "Shared tags: aaro, anomalous object"
+          "doc_id": "26b6493a58cf6f05",
+          "title": "DOW-UAP-D3, Mission Report, Arabian Gulf, 2020",
+          "reason": "Shared tags: aaro, anomalous object, arabian gulf"
         },
         {
-          "doc_id": "af26db934b49ec62",
-          "title": "DOW-UAP-D12, Mission Report, Iraq, May 2022",
-          "reason": "Shared tags: aaro, anomalous object"
+          "doc_id": "9dc821481509d405",
+          "title": "DOW-UAP-D4, Mission Report, Arabian Gulf, 2020",
+          "reason": "Shared tags: aaro, anomalous object, arabian gulf"
         },
         {
-          "doc_id": "cd2d5f62f89e3977",
-          "title": "DOW-UAP-D14, Mission Report, Iraq, May 2022",
-          "reason": "Shared tags: aaro, anomalous object"
+          "doc_id": "84304e7ad1c60557",
+          "title": "DOW-UAP-PR37, Unresolved UAP Report, Middle East, 2020",
+          "reason": "Shared tags: aaro, anomalous object, arabian gulf"
         },
         {
-          "doc_id": "b05f90372db178f0",
-          "title": "DOW-UAP-D16, Mission Report, Syria, July 2022",
-          "reason": "Shared tags: aaro, anomalous object"
+          "doc_id": "39b4716a66dbecf5",
+          "title": "DOW-UAP-PR39, Unresolved UAP Report, Middle East, 2020",
+          "reason": "Shared tags: aaro, anomalous object, arabian gulf"
         },
         {
-          "doc_id": "fb7c64204549e1ed",
-          "title": "DOW-UAP-D18, Mission Report, Iraq, December 2022",
-          "reason": "Shared tags: aaro, anomalous object"
+          "doc_id": "0e82136269d494da",
+          "title": "DOW-UAP-PR40, Unresolved UAP Report, Middle East, 2020",
+          "reason": "Shared tags: aaro, anomalous object, arabian gulf"
         }
       ]
     },
@@ -40399,7 +40441,7 @@
       ],
       "locations": [
         {
-          "location_id": "121739f9fc9413a114e40308",
+          "location_id": "b0ad448e341344b5cc2bd88c",
           "chunk_id": null,
           "raw_location": "Syria",
           "normalized_location": "Syria",
@@ -40408,7 +40450,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -40913,16 +40955,16 @@
       ],
       "locations": [
         {
-          "location_id": "b9abfaf18ce5d16a9ddef2d6",
+          "location_id": "611018d3dd42d9ccd27f35af",
           "chunk_id": null,
           "raw_location": "Mediterranean Sea",
-          "normalized_location": "Mediterranean Sea",
-          "latitude": 35.0,
-          "longitude": 18.0,
-          "precision": "region",
-          "confidence": 0.35,
+          "normalized_location": "Djibouti",
+          "latitude": 11.8251,
+          "longitude": 42.5903,
+          "precision": "country",
+          "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -41517,7 +41559,7 @@
       ],
       "locations": [
         {
-          "location_id": "d54f391412f30325a15c6aa8",
+          "location_id": "b38a48cdb3e7ff879af604d0",
           "chunk_id": null,
           "raw_location": "Syria",
           "normalized_location": "Syria",
@@ -41526,7 +41568,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -42768,7 +42810,7 @@
       ],
       "locations": [
         {
-          "location_id": "0823a870e6b048f4935a2905",
+          "location_id": "eb670b8cf4e43a03a40efdfb",
           "chunk_id": null,
           "raw_location": "Syria",
           "normalized_location": "Syria",
@@ -42777,7 +42819,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -42935,7 +42977,7 @@
       ],
       "locations": [
         {
-          "location_id": "a275eba19837ed1278925402",
+          "location_id": "f2b33ba727024d6af44dcccb",
           "chunk_id": null,
           "raw_location": "Syria",
           "normalized_location": "Syria",
@@ -42944,7 +42986,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -43138,7 +43180,7 @@
       ],
       "locations": [
         {
-          "location_id": "dd47234fd9d8bff1d7ba5c8b",
+          "location_id": "79f22e29870c3ceed5249e9e",
           "chunk_id": null,
           "raw_location": "Syria",
           "normalized_location": "Syria",
@@ -43147,7 +43189,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
@@ -56117,7 +56159,7 @@
       ],
       "locations": [
         {
-          "location_id": "e95d2be8390612168c9c6012",
+          "location_id": "e42fb4a25a3d7b33f694ac9a",
           "chunk_id": null,
           "raw_location": "Kazakhstan",
           "normalized_location": "Kazakhstan",
@@ -56126,7 +56168,7 @@
           "precision": "country",
           "confidence": 0.55,
           "source_kind": "metadata",
-          "method": "incident_location_gazetteer"
+          "method": "title_place_gazetteer"
         }
       ],
       "tags": [
