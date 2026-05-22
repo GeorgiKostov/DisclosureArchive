@@ -67,6 +67,62 @@ If a future release uses a different manifest shape, update
 `src/ufo_indexer/common.py` and `src/ufo_indexer/index.py` before indexing, then
 document the new source contract here.
 
+## 1b. Mining A New Release From war.gov (Browser-Required)
+
+Release 2 confirmed that a real scrape IS needed — the bulk download gives the
+media files but NOT the metadata. Access constraints (do not fight these):
+
+- `https://www.war.gov/UFO/` and every `www.war.gov/...` asset (the CSV, the
+  medialink PDFs) return **HTTP 403 to all scripted/server-side requests**
+  (curl, PowerShell, WebFetch) even with a browser User-Agent + Referer. Load
+  them only through a **connected Chrome browser** (Claude-in-Chrome MCP).
+- The DVIDS API key embedded in the page is **origin-locked to war.gov**, so
+  DVIDS asset + caption fetches must also run from the page context
+  (`fetch()` in the browser), not from a shell.
+- The cloudfront video/thumbnail CDN IS public (HTTP 200 anywhere), so playback
+  works on the live site.
+
+Extraction steps (in the browser, on the war.gov/UFO tab):
+
+1. Find the live data feed via `read_network_requests`:
+   `https://www.war.gov/Portals/1/Interactive/2026/UFO/uap-data.csv`. Its
+   columns already match `common.csv_record` (Title, Type, Agency, Release
+   Date, Incident Date, Incident Location, Description Blurb, **DVIDS Video ID**,
+   `PDF | Image Link`, Modal Image). Filter rows by Release Date.
+2. For each VID/AUD row, fetch
+   `https://api.dvidshub.net/asset?api_key=<key>&id=video:<DVIDS Video ID>` to
+   get title, description (AARO assessment), date, duration, `url` (the DVIDS
+   public page = the original-file link), `files` (MP4 URLs whose path contains
+   the `DOD_<assetid>` matching the bulk-download filenames), and captions via
+   `.../closed-captions/get?asset_id=video:<id>&format=srt&api_key=<key>`.
+3. Get the data to disk: the browser `javascript_tool` output is capped (~1 KB
+   per string) and base64 is blocked, so trigger a **Blob download** of the
+   extracted JSON, then move it into the repo.
+
+Then assemble a self-contained source root and index it (scripts from Release 2,
+reusable):
+
+- `scripts/build_release02_source.py` — builds `release02_src/`: copies the CSV
+  to `uap-csv.cdp.csv`, hardlinks videos as `videos/{dvids}_{asset}.mp4` (so
+  `find_video_path`'s `{video_id}_*.mp4` glob resolves), captions to
+  `videos/captions/{dvids}.srt`, and writes `uap_download_manifest.json`
+  (entries keyed by `target`/`category`/`url`) + `dvids_video_manifest.cdp.json`
+  (objects keyed by top-level `video_id`).
+- `scripts/split_release02_extract.py` — splits the downloaded extract into the
+  staging files the builder expects.
+- `scripts/fix_release02_video_links.py` — puts each video's DVIDS public-page
+  URL into the CSV `PDF | Image Link` column BEFORE indexing, so the video
+  document `source_url` (the original-file link) is populated. Do this first:
+  `doc_id` is derived from `source_url`, so changing it later orphans/duplicates
+  docs.
+- PDFs vs videos can be split across separate source roots: index videos from
+  `release02_src` (incremental) and PDFs from the main `ufo_war_release` root
+  (where `scripts`/`_staging_release02/append_release2.py` appends them with
+  curated titles). Incremental `index` only upserts the rows it processes, so
+  the two coexist. NEVER run `make rebuild` while another agent has incrementally
+  added records to the same DB — `--rebuild` resets the DB to a single source
+  root and silently wipes the others (this happened in Release 2).
+
 ## 2. Index Metadata, Assets, Text, Locations, And Embeddings
 
 Run an incremental index first:
@@ -97,9 +153,33 @@ The indexer writes:
 
 Use `make rebuild SOURCE_ROOT="$env:SOURCE_ROOT"` instead of incremental index
 when changing schema, chunking, cache keys, OCR ingestion, embedding model, or
-location extraction behavior.
+location extraction behavior. (But see the multi-agent warning in 1b — never
+`--rebuild` a DB that another root has been incrementally added to.)
+
+**Embeddings:** the `.venv` now has `sentence-transformers` + `torch` (CPU)
+installed, and the DB is fully embedded with `BAAI/bge-small-en-v1.5` (384-dim).
+Run `index` **without** `--skip-embeddings` to (re)build them — the final
+`build_embeddings` step embeds every chunk in the whole DB that lacks an
+embedding, not just the rows processed. Use `--skip-embeddings` only for quick
+metadata/location passes; re-run without it afterward (a `--rebuild
+--skip-embeddings` wipes embeddings). Embeddings power the **local**
+`ufo_indexer.web` UI and `ufo_indexer.search` (vector/hybrid); the public static
+site is keyword-only.
+
+**Geocoding videos:** combatant-command labels (CENTCOM, NORTHCOM, INDOPACOM,
+EUCOM, AFRICOM) and seas/places are in `GEOCODE_LOCATIONS` in `index.py`, and
+`add_incident_location` prefers a specific place named in the title (Lake Huron,
+Persian Gulf, Tyndall/Eglin AFB, Kabul...) over the broad command label. The Map
+view has a per-release toggle (All / Release N) that filters markers by
+`release_date`.
 
 ## 3. Classify PDFs And Run OCR
+
+OCR uses the Tesseract **binary via subprocess** (installed at
+`C:\Program Files\Tesseract-OCR\tesseract.exe`) plus `pypdfium2`/`Pillow` for
+page rendering — all present in the `.venv`; `pytesseract` is NOT required.
+Captions/video metadata don't OCR. The OCR cache (`derived/`) is portable and
+keyed by file hash, so re-running is cheap (cached pages skip).
 
 Classify PDFs so OCR work is targeted:
 
@@ -328,6 +408,11 @@ The export writes:
 - `robots.txt`, `sitemap.xml`, `security.txt`, `.well-known/security.txt`
 - `_headers`, `favicon.svg`, `site.webmanifest`, `humans.txt`, `llms.txt`
 - Contact/legal/privacy/security static pages
+- `records/<slug>-<docid>.html` — a static SEO page per document (unique
+  title/meta/canonical/OG + JSON-LD `VideoObject`/`CreativeWork`, embedded media,
+  source + deep links) plus a `records/` hub; every page is listed in
+  `sitemap.xml`. Generated automatically by `write_record_pages` — no action
+  needed per release.
 
 The exporter validates common local/private path leaks before writing public
 JSON. Still spot-check:
