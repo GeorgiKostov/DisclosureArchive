@@ -1,19 +1,19 @@
 {
   "schema": "disclosurearchive.public_site.v1",
-  "generated_at": "2026-05-22T13:39:05+00:00",
+  "generated_at": "2026-05-22T13:43:24+00:00",
   "document_count": 226,
   "release_groups": [
-    {
-      "key": "release-1",
-      "label": "RELEASE 1",
-      "date": "",
-      "fallback_date": "5/8/26"
-    },
     {
       "key": "release-2",
       "label": "RELEASE 2",
       "date": "",
       "fallback_date": "5/22/26"
+    },
+    {
+      "key": "release-1",
+      "label": "RELEASE 1",
+      "date": "",
+      "fallback_date": "5/8/26"
     }
   ],
   "featured_documents": [
