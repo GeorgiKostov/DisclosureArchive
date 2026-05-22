@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection.</li></ul>
       <h2>Details</h2><ul><li>The indexed PDF/OCR/caption text did not contain enough clean sentences for a reliable extractive summary. Use the government source link for manual review.</li></ul>
       <p class="muted">Tags: FBI, 2025, Western United States, AARO, Anomalous object</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/fbi-photo-b9.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=FBI%20Photo%20B9">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/fbi-photo-b9.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=FBI%20Photo%20B9">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/fbi-photo-b9-d7940e4d.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection.</li></ul>
       <h2>Details</h2><ul><li>Gordon Cooper Jr. notes that he sees John s fireflies, referring to John Glenn s term from the Mercury-Atlas 6 mission. (video metadata, no page)</li><li>NASA later determined that the fireflies are attributable to frozen condensation separating from the spacecraft body. (video metadata, no page)</li><li>The white, green-hued appearance of this phenomenon results from sunlight reflecting off frozen condensation. (video metadata, no page)</li></ul>
       <p class="muted">Tags: NASA, Low Earth Orbit, Videos</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007874/nasa-uap-d010-mercury-atlas-9-audio-excerpt-may-15-1963" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D010%2C%20Mercury%20Atlas%209%20Audio%20Excerpt%2C%20May%2015%2C%201963">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007874/nasa-uap-d010-mercury-atlas-9-audio-excerpt-may-15-1963" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D010%2C%20Mercury%20Atlas%209%20Audio%20Excerpt%2C%20May%2015%2C%201963">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/nasa-uap-d010-mercury-atlas-9-audio-excerpt-may-15-1963-9ac4b2f2.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

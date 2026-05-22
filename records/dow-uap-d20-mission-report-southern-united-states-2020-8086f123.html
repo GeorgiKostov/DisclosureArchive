@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>1.4a iflt compared targeting pod between poss UAP and star. (native PDF text, page 6)</li></ul>
       <h2>Details</h2><ul><li>NFTR.// (SRlELIBffl Mission Narrative Admin CLASSIFICATION Classification: 8i36RE&gt;f Associated Caveats: Wf&#x27;8RJ!l Classification Source (MS or Classification Guide ID): MS Declassification Date (YYYYMMDD): 20480401 OPERATION Operation: INHERENT RESOLVE 3.5c. (native PDF text, page 1)</li><li>3.5c, F0IA Exemption (b}(6) Service: Air Force Operations Center: 609 CAOC INGEST Rank: Full Name: Unit: Wing: Phone Number: Email: Service: Operations Center: ACEQUIP ACEQUIP I Aircraft Callsign: 1.4a I Radar Name or Destination:! (native PDF text, page 3)</li><li>Harrison USCENTCOM Chief of Staff BE!Hl&#x27;lfflifMOlt!if Declassified on: 8 October 2025 Additional Avionics: HTS-P R7.85 Data Link: LINK 16 Gentext: Timeline Takeoff Callsign 1.4a Number of Aircraft: 2 Asset Type (Aircraft). (native PDF text, page 5)</li><li>On Station Time On Station DTG: 312058:00ZMAR23 Callsign:I 1.4a I JTAR Number: Killbox (Location): ESSA Mission Type: DCA JTAC Callsign: KINGPIN Gentext/Additional Details: (U) NSTR. (native PDF text, page 5)</li><li>1.4a iflt compared targeting pod between poss (native PDF text, page 6)</li><li>1.4a iflt compared targeting pod between poss UAP and star. (native PDF text, page 6)</li></ul>
       <p class="muted">Tags: War Department, Iraq, Air Force, Aircraft, AARO, Anomalous object, Radar</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d20-mission-report-southern-united-states-2020.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D20%2C%20Mission%20Report%2C%20Southern%20United%20States%2C%202020">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d20-mission-report-southern-united-states-2020.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D20%2C%20Mission%20Report%2C%20Southern%20United%20States%2C%202020">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-d20-mission-report-southern-united-states-2020-8086f123.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

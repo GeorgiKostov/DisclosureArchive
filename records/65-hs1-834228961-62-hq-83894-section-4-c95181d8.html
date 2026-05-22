@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>indicates thet trailing lights are elongated. (OCR text, page 116)</li><li>Disk in comparatively good condition. (OCR text, page 76)</li><li>According to Colonel Gasser a Czechoslovakian transport hed reportedly collided with some unidentified missile while in mid-air over the ocean, end that the migsile and transport were completely disintegrated without recovery of parts or survivors from either. (OCR text, page 105)</li><li>No lights or flame were observed during the entire course with exception of the previous described reflections twice. (OCR text, page 159)</li></ul>
       <h2>Details</h2><ul><li>Reference is made to Portland teletype dated September 13. (OCR text, page 2)</li><li>Upon looking at the sky ADAIR observed the very bright reflection of the sun on some object which was apparently made of silvery metal. (OCR text, page 2)</li><li>The object was coming from the east and made a wide turn over the city and disappeared to the south. (OCR text, page 2)</li><li>He watched it for a period of about two minutes and during that time it gradually disappeared in such a manner as to appear that the angle was slowly changing, so that the sun was no longer reflected into ADAIR&#x27;s eyes. (OCR text, page 2)</li><li>CALDWELL states that the object appearred to him to take the same course as that described by ADAIR. (OCR text, page 2)</li><li>He pointed out that the speed, height, and size of the object were difficult to judge, because of the interdependence of the three factors. (OCR text, page 2)</li><li>However, he believes that the object when first sighted was about three miles away and about two miles high. (OCR text, page 2)</li><li>6 He believes it was traveling at a much greater speed than a conventional airplane and was a great deal larger. (OCR text, page 2)</li></ul>
       <p class="muted">Tags: FBI, Flying discs, Unidentified object, Discs, Lights, Aircraft, Missile</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_4.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Section_4">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_4.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Section_4">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/65-hs1-834228961-62-hq-83894-section-4-c95181d8.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

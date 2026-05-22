@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The individual reported that they observed the object for approximately eight minutes. (native PDF text, page 4)</li><li>Reported Behavior: The reporter described the object as &quot;hovering&quot; stationary above or near a national security facility for approximately three minutes. (native PDF text, page 4)</li><li>1.4(a) CURRENT CLASSIFICATION S//NF-REQUESTED CLASSIFICATION UNCLASSIFIED Reported Appearance: An individual reported observing a large blue featureless triangular object with a solid, unwavering silhouette emitting powerful &quot;whitish blue&quot; light from multiple points along its perimeter. (native PDF text, page 4)</li><li>Speed: Not reported Size: Large Shape: Triangular Color: Blue Material: Not reported Markings: Featureless Behavior: Emitting light, erratic movement The IIR and draft report are attached. (native PDF text, page 5)</li></ul>
       <h2>Details</h2><ul><li>Thank you for your patience on this-like I said, this was a first for me. (native PDF text, page 1)</li><li>Upon consulting internally here at HQ, our folks confirmed we do have the authority to process this as a derivative classification review, instead of a declassification request. (native PDF text, page 1)</li><li>Based upon the summary you provided below, I concur with using this at the UNCLASSIFIED level in your product. (native PDF text, page 1)</li><li>1.4(a) Good morning, Thank you for your request. (native PDF text, page 2)</li><li>Our process for declassifying IIRs is lengthy and requires AFOSI Commander signature so I&#x27;m exploring options akin to a security review of the UNCLASS summary you have provided below. (native PDF text, page 2)</li><li>This is a first for me so I appreciate your patience as I try to streamline this request for you! (native PDF text, page 2)</li><li>1.4(a) CURRENT CLASSIFICATION S//NF-REQUESTED CLASSIFICATION UNCLASSIFIED Reported Appearance: An individual reported observing a large blue featureless triangular object with a solid, unwavering silhouette emitting powerful &quot;whitish blue&quot; light from multiple points along its perimeter. (native PDF text, page 4)</li><li>Reported Behavior: The reporter described the object as &quot;hovering&quot; stationary above or near a national security facility for approximately three minutes. (native PDF text, page 4)</li></ul>
       <p class="muted">Tags: War Department, Pacific Time Zone, Lights</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d51-email-correspondence-pacific-time-zone-march-2023.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D51%2C%20Email%20Correspondence%2C%20Pacific%20Time%20Zone%2C%20March%202023">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d51-email-correspondence-pacific-time-zone-march-2023.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D51%2C%20Email%20Correspondence%2C%20Pacific%20Time%20Zone%2C%20March%202023">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-d51-email-correspondence-pacific-time-zone-march-2023-94383480.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

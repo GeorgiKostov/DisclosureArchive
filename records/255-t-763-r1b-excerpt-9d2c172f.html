@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>In this excerpted segment of audio, Astronaut Frank Borman reports to NASA mission control in Houston his sighting of an unidentified object, which he referred to as a &quot;bogey.&quot; This sighting occurred on December 5. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>DVIDS title: NASA Audio 12/5/1965 Low Earth Orbit DVIDS date: 1965-12-04T00:00:00-05:00 DVIDS description: This audio recording contains air to ground communications and the NASA Public Affairs audio feed with commentary, recorded during the flight of the Gemini VII mission. (video metadata, no page)</li><li>In this excerpted segment of audio, Astronaut Frank Borman reports to NASA mission control in Houston his sighting of an unidentified object, which he referred to as a &quot;bogey.&quot; This sighting occurred on December 5. (video metadata, no page)</li><li>The dialogue includes Borman&#x27;s initial report, as well as additional comments by Astronaut Jim Lovell, Borman&#x27;s fellow crew member. (video metadata, no page)</li></ul>
       <p class="muted">Tags: NASA, Low Earth Orbit, Videos, Unidentified object, Astronauts, Radar contact, DVIDS, Gemini</p>
-      <div class="actions"><a class="button" href="/#search?q=255-t-763-r1b-excerpt">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="/#search?q=255-t-763-r1b-excerpt">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/255-t-763-r1b-excerpt-9d2c172f.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

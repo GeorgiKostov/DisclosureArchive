@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>valve caused vehicle instability and tumbling. (native PDF text, page 135)</li><li>Sustainer began tumbling at booster staging when control was essentially lost. (native PDF text, page 128)</li><li>The vehicle began an accelerated nose-down tumbling motion that subsequently resulted in early and erratic main-engine shutdown due to propellant starvation. (native PDF text, page 139)</li><li>Transtage experienced a guidance anomaly during coast prior to second bum resulting in an improper orbit. (native PDF text, page 171)</li></ul>
       <h2>Details</h2><ul><li>10/95-77, Subtask 2.0 September 10, 1996 Modeling Unlikely Space-Booster Failures in Risk Calculations Final Report Prepared by James A. (native PDF text, page 2)</li><li>Form Approved REPORT DOCUMENTATION PAGE 0MB No. (native PDF text, page 3)</li><li>0704-0188 Public tel)Ort1ng burden for this collection of information is estimated to average 1 hour per response. induding the time for reviewing instructions, searching exi5ting data sources. gathering and maintain in!,! the data needed, and completing and rev,ew,ng the collection of Information. (native PDF text, page 3)</li><li>Send comments r ardlng tlils burden estimate or any other aspect of this collection of Information, including suggestions tor reducing this burden. tO Washington Headquarters Services, Directorate or Information Operations and Reports, 1215 Jefferwn Davis Highway, Suite 1204, Arlington, VA 12202-4302, and to the. (native PDF text, page 3)</li><li>REPORT TYPE AND DATES COVERED. eptember 10, 1996 Final 4. (native PDF text, page 3)</li><li>DISTRIBUTION CODE Distribution authorized to US Government agencies and their contractors to protect administrative/operational use data; 10 September 96. (native PDF text, page 3)</li><li>ABSTRACT (Maximum 200 words) Missile and space-vehicle performance histories contain many examples of failures that cause, or have the potential to cause, significant vehicle deviations from the intended flight line. (native PDF text, page 3)</li><li>In RTl&#x27;s risk-analysis program, DAMP, such failures are referred to as Mode-5 failure responses. (native PDF text, page 3)</li></ul>
       <p class="muted">Tags: War Department, Air Force, Anomalous object, Missile</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d48-report-september-1996.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D48%2C%20Department%20of%20the%20Air%20Force%20Report%2C%201996">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d48-report-september-1996.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D48%2C%20Department%20of%20the%20Air%20Force%20Report%2C%201996">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-d48-department-of-the-air-force-report-1996-b907de0f.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

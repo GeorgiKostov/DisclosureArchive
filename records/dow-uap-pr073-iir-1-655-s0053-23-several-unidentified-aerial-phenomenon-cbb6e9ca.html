@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>House of Representatives requested access to 51 potentially UAP-related records allegedly held by the Department of War and the Intelligence Community. (video metadata, no page)</li><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li><li>Many of these materials lack a substantiated chain-of-custody. (video metadata, no page)</li><li>A user uploaded this video to a classified network in March 2023. (video metadata, no page)</li><li>00:05-00:07: The sensor pans to center a small area of contrast within its field-of-view. (video metadata, no page)</li><li>remains generally within the sensor field-of-view. (video metadata, no page)</li><li>00:38-00:41: The orientation of the sensor relative to the area of contrast causes the area of contrast to appear to rotate. (video metadata, no page)</li><li>00:42-01:14: A second area of contrast enters the frame from near the center of the top of the screen. (video metadata, no page)</li></ul>
       <p class="muted">Tags: War Department, 2022, Midwestern United States, Videos, AARO, Aerial phenomena, Anomalous object</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007790/dow-uap-pr073-iir-1-655-s0053-23-several-unidentified-aerial-phenomenon-encountered-vicinity-columbus-oh" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR073%2C%20IIR%201%20655%20S0053%2023%2FSeveral%20Unidentified%20Aerial%20Phenomenon%20Encountered%20In%20The%20Vicinity%20of%20Columbus%20OH%22">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007790/dow-uap-pr073-iir-1-655-s0053-23-several-unidentified-aerial-phenomenon-encountered-vicinity-columbus-oh" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR073%2C%20IIR%201%20655%20S0053%2023%2FSeveral%20Unidentified%20Aerial%20Phenomenon%20Encountered%20In%20The%20Vicinity%20of%20Columbus%20OH%22">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-pr073-iir-1-655-s0053-23-several-unidentified-aerial-phenomenon-cbb6e9ca.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

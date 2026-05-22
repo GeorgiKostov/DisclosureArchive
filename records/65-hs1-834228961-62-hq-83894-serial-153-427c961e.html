@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection.</li></ul>
       <h2>Details</h2><ul><li>Photostatic copy of newspaper clipping appearing in the Knoxville News-Sentinel concerning these &quot;flying saucers.&quot; t. baad \ (OCR text, page 2)</li></ul>
       <p class="muted">Tags: FBI, Flying discs, Unidentified object, Discs, Saucers</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-8342289+M5+M11" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Serial_153">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-8342289+M5+M11" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Serial_153">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/65-hs1-834228961-62-hq-83894-serial-153-427c961e.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

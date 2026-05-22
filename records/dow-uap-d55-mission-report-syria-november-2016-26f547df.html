@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>Hamson USCENTCOM Chief of Staff Declassified on: 20 M 67.1 P-8A OBSERVES UNIDENTIFIED LOW-FLYING OBJECT 55 NM NORTHWEST OF LATAKIA, SYRIA 18 NOV 2016 J!!Jlf: Whtie monitoring KCTG activity In the Ea tem FLIGHT PATH Mediterranean, P-IA, obe rved an unidentified low-ftylng object 86 nm northweet of Latakla from an. (native PDF text, page 1)</li></ul>
       <h2>Details</h2><ul><li>Hamson USCENTCOM Chief of Staff Declassified on: 20 M 67.1 P-8A OBSERVES UNIDENTIFIED LOW-FLYING OBJECT 55 NM NORTHWEST OF LATAKIA, SYRIA 18 NOV 2016 J!!Jlf: Whtie monitoring KCTG activity In the Ea tem FLIGHT PATH Mediterranean, P-IA, obe rved an unidentified low-ftylng object 86 nm northweet of Latakla from an. (native PDF text, page 1)</li><li>The missile was observed to pass between (RUS) INGUL ARS and 1x U/1 vessel. (native PDF text, page 1)</li><li>Weather: Uf P-8 aircrew charactenzeavisioilfty as clear, no range limitations..! (RUS) INGUL ARS US P-8A Location 1 3 1 0 2: -CTG 67.1 Comment: The mission commander for P 8 characterized the interaction as safe. (native PDF text, page 1)</li><li>VVhile this was the first observed occurrence of possible missile activity by P-8 aircraft in the Eastern Mediterranean it (native PDF text, page 1)</li><li>(RUS) INGUL ARS US P-8A Location 1 3 1 0 2: -CTG 67.1 Comment: The mission commander for P 8 characterized the interaction as safe. (native PDF text, page 1)</li><li>Video footage can be found at this link. (b)(6l 81!8PU!! (native PDF text, page 1)</li></ul>
       <p class="muted">Tags: War Department, Syria, Media evidence, Aircraft, Anomalous object, Missile</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d55-mission-report-syria-november-2016.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D55%2C%20Mission%20Report%2C%20Syria%2C%20November%202016">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d55-mission-report-syria-november-2016.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D55%2C%20Mission%20Report%2C%20Syria%2C%20November%202016">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-d55-mission-report-syria-november-2016-26f547df.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

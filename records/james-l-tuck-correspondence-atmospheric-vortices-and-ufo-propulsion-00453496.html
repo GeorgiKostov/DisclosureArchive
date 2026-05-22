@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>We are intenated in the large abnospheric vortices 1mich are produced as reported in the bCJOk &#x27; 13cientif1c Study of Unidentified l&#x27;lyitlg a,jects&#x27;&#x27; by Dr. (native PDF text, page 3)</li></ul>
       <h2>Details</h2><ul><li>We are intenated in the large abnospheric vortices 1mich are produced as reported in the bCJOk &#x27; 13cientif1c Study of Unidentified l&#x27;lyitlg a,jects&#x27;&#x27; by Dr. (native PDF text, page 3)</li></ul>
       <p class="muted">Tags: DOE, Unidentified object, Los Alamos</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/052226/release_02/documents/DOE-UAP-D002_JamesTuck_Correspondence.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=James%20L.%20Tuck%20Correspondence%20-%20Atmospheric%20Vortices%20and%20UFO%20Propulsion">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/052226/release_02/documents/DOE-UAP-D002_JamesTuck_Correspondence.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=James%20L.%20Tuck%20Correspondence%20-%20Atmospheric%20Vortices%20and%20UFO%20Propulsion">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/james-l-tuck-correspondence-atmospheric-vortices-and-ufo-propulsion-00453496.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

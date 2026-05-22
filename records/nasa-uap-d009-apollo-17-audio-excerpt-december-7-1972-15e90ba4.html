@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The Apollo 17 crew speculate that paint chips or ice chips are likely the source of these lights and note that they twinkle and move away from the Saturn S-IVB stage. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>The crew describe bright particles or fragments as being jagged, angular, and drifting near the Apollo spacecraft and the separated Saturn S-IVB stage. (video metadata, no page)</li><li>The Apollo 17 crew speculate that paint chips or ice chips are likely the source of these lights and note that they twinkle and move away from the Saturn S-IVB stage. (video metadata, no page)</li></ul>
       <p class="muted">Tags: NASA, Cislunar Space, Videos, Apollo, Lights, Moon</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007872/nasa-uap-d009-apollo-17-audio-excerpt-december-7-1972" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D009%2C%20Apollo%2017%20Audio%20Excerpt%2C%20December%207%2C%201972">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007872/nasa-uap-d009-apollo-17-audio-excerpt-december-7-1972" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D009%2C%20Apollo%2017%20Audio%20Excerpt%2C%20December%207%2C%201972">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/nasa-uap-d009-apollo-17-audio-excerpt-december-7-1972-15e90ba4.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

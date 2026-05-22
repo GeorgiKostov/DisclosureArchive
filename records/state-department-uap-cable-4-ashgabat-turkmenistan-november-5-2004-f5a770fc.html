@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>UOU President Ovezberdy Muradov said the Turkmen military and government authorities had consulted him about mysterious occurrences in Turkmen airspace, but he said there had been no confirmed sightings of UFOs in Turkmenistan. (native PDF text, page 2)</li><li>Members of the Union have attended international UFO fora and published on the subject, but most members assured the DCM, they had limited or no interest in the subject at all. (native PDF text, page 2)</li></ul>
       <h2>Details</h2><ul><li>Somehow, over time, the Union of Released in Full John Powers, Act ing-Director US Department of State 2/25/2026 UNCLASSIFIED Sitt, Page l of 5 (native PDF text, page 1)</li><li>UNCLASSIFIED Sitt, UFOiogists of Turkmenabat has established a reputation as a reliable NGO partner for a variety of activities from assisting with small and medium businesses, to distributing humanitarian assistance, to assisting NGOs with registering under the 2003 NGO law. (native PDF text, page 2)</li><li>The UFOiogists have developed a good rapport with local authorities, they say, and are able to accomplish their tasks because &amp;quot;everyone is interested in UFOs.&amp;quot; The UFOiogists next initiative is to publish an independent newsletter, the first in independent Turkmenistan. (native PDF text, page 2)</li><li>In the appearances-are-deceiving world of Turkmenistan, it almost seems fitting that one of the USG&amp;apos;s most reliable implementers is equally committed to looking for life on another planet. (native PDF text, page 2)</li><li>On November 5, DCM and USAID Director met with the Board and interested members of the Union of Uf Ologists (UOU) of Turkmenabat, Lebap Welayet (province). (native PDF text, page 2)</li><li>The Union of UFOiogists is working on an $8,532 grant to assist other local NGOs navigate the NGO registration process of the new NGO law (reftels). (native PDF text, page 2)</li><li>register after independence in 1992 and was the first independent NGO to reregister successfully under the new 2003 NGO law. (native PDF text, page 2)</li><li>Though the Union first was established to pursue the study of life on other planets, over time its activities became more &amp;quot;practical,&amp;quot; Board members told the DCM. (native PDF text, page 2)</li></ul>
       <p class="muted">Tags: State Department, Turkmenistan, UFO</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/059uap00012.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=State%20Department%20UAP%20Cable%204%2C%20Ashgabat%2C%20Turkmenistan%2C%20November%205%2C%202004">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/059uap00012.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=State%20Department%20UAP%20Cable%204%2C%20Ashgabat%2C%20Turkmenistan%2C%20November%205%2C%202004">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/state-department-uap-cable-4-ashgabat-turkmenistan-november-5-2004-f5a770fc.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

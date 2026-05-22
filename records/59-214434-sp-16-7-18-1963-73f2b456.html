@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The most widely held theory of stellar formation would predict the formation of planetary systems to be a natural consequence of stellar evolution. (OCR text, page 2)</li><li>The third possibility, scientifically abhorrent, is that the Einstein theory may only be an approximation, and an alien race which actually travels faster than light exists. (OCR text, page 5)</li><li>One school of flying saucer advocates claims that the Martians have been mining our moon for natural resources for some time. (OCR text, page 3)</li><li>The flying saucer advocates claim, of course, that the scientific viewpoint iS nonsense, and that there is overwhelming evidence of such beings. (OCR text, page 1)</li></ul>
       <h2>Details</h2><ul><li>The consensus of scientific view says, with quite good reasons, that YW the possibility of running across an alien intelligent race in our solar system 7s negligible. (OCR text, page 1)</li><li>The flying saucer advocates claim, of course, that the scientific viewpoint iS nonsense, and that there is overwhelming evidence of such beings. (OCR text, page 1)</li><li>In my own mind, I find it difficult to side with the flying ea saucer advocates, but the almost total impossibility envisioned by most scientists also is disturbing. (OCR text, page 1)</li><li>Up until a few decades ago it seemed very improbable that intelligent life existed anywhere outside of the solar system. (OCR text, page 1)</li><li>The chief reasons for this were a combination of scientific theory, scientific knowledge, and religious belief. (OCR text, page 1)</li><li>Religious belief said, furthermore, that life was a gift bestowed by God. (OCR text, page 2)</li><li>This was a relatively undisputed point since no scientific data existed to bridge the gap between non-living and living materials. (OCR text, page 2)</li><li>The situation today is vastly changed in these respects. (OCR text, page 2)</li></ul>
       <p class="muted">Tags: State Department, Flying discs, Saucers, Lights, Moon</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/59_214434_sp_16_[7.18.1963].pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=59_214434_SP%2016%20%5B7.18.1963%5D">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/59_214434_sp_16_[7.18.1963].pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=59_214434_SP%2016%20%5B7.18.1963%5D">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/59-214434-sp-16-7-18-1963-73f2b456.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

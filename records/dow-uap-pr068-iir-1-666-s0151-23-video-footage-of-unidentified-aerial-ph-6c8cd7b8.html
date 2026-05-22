@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>House of Representatives requested access to 51 potentially UAP-related records allegedly held by the Department of War and the Intelligence Community. (video metadata, no page)</li><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li><li>Many of these materials lack a substantiated chain-of-custody. (video metadata, no page)</li><li>A user uploaded this video to a classified network in July 2023. (video metadata, no page)</li><li>Video Duration: 00:01:03 Video Description: 00:00-00:31: A sensor tracks an area of contrast, keeping it generally within the center of the field-of-view. (video metadata, no page)</li><li>briefly moves in and out of the field-of-view from the top of the frame as the sensor pans to track it. (video metadata, no page)</li><li>00:48: A second area of contrast becomes visible in the upper right quarter of the screen. (video metadata, no page)</li><li>This video description is provided for informational purposes only. (video metadata, no page)</li></ul>
       <p class="muted">Tags: War Department, 2023, NORTHCOM, Videos, AARO, Media evidence, Aerial phenomena, Aircraft, Anomalous object</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007780/dow-uap-pr068-iir-1-666-s0151-23-video-footage-unidentified-aerial-phenomenon-uap-captured-fifth-generation-aircraft" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR068%2C%20%22IIR%201%20666%20S0151%2023%2FVideo%20Footage%20of%20Unidentified%20Aerial%20Phenomenon%20%28UAP%29%20captured%20by%20fifth%20generation%20aircraft%20on%2020%20Jan%2023%22">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007780/dow-uap-pr068-iir-1-666-s0151-23-video-footage-unidentified-aerial-phenomenon-uap-captured-fifth-generation-aircraft" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR068%2C%20%22IIR%201%20666%20S0151%2023%2FVideo%20Footage%20of%20Unidentified%20Aerial%20Phenomenon%20%28UAP%29%20captured%20by%20fifth%20generation%20aircraft%20on%2020%20Jan%2023%22">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-pr068-iir-1-666-s0151-23-video-footage-of-unidentified-aerial-ph-6c8cd7b8.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

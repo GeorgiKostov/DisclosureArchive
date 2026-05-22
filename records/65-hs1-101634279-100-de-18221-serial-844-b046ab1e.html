@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>He said this object was passing in a northern direction from southwest and crossed the City three blocks south of Six Mile at Lamphere Street. (OCR text, page 1)</li><li>WEAVER stated he was on his way home from his employment in Detroit when he observed instant object. (OCR text, page 1)</li></ul>
       <h2>Details</h2><ul><li>He said this object was passing in a northern direction from southwest and crossed the City three blocks south of Six Mile at Lamphere Street. (OCR text, page 1)</li><li>WRAVER advised that he attempted to call Selfridge Field to get in touch with the Air Force but his attempts were un. productive. (OCR text, page 1)</li><li>WEAVER stated he was on his way home from his employment in Detroit when he observed instant object. (OCR text, page 1)</li></ul>
       <p class="muted">Tags: FBI, Air Force</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-101634279_100-de-18221_serial_844.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-101634279_100-DE-18221_Serial_844">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-101634279_100-de-18221_serial_844.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-101634279_100-DE-18221_Serial_844">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/65-hs1-101634279-100-de-18221-serial-844-b046ab1e.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

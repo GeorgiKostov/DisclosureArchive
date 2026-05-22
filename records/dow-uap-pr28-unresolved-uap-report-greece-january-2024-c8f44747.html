@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The observer also reported that the UAP was only detectable via short-wave infrared (SWIR) sensor. (video metadata, no page)</li><li>An accompanying mission report, DoW-UAP-D7, described the UAP as diamond-shaped and moving at approximately 434 knots. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>An accompanying mission report, DoW-UAP-D7, described the UAP as diamond-shaped and moving at approximately 434 knots. (video metadata, no page)</li><li>The observer also reported that the UAP was only detectable via short-wave infrared (SWIR) sensor. (video metadata, no page)</li><li>Video Description: The screen is split into two viewing areas for the first ten seconds of the video, with the right side displaying electro-optical footage and the left side displaying SWIR footage. (video metadata, no page)</li><li>00:04: An area of contrast becomes distinguishable against the background in the center of the right frame. (video metadata, no page)</li><li>00:10: The display shifts to a full-screen view of the SWIR feed to better focus on the area of contrast. (video metadata, no page)</li><li>visually resembles an inverted teardrop with a vertically linear trailing mass suspended below. (video metadata, no page)</li><li>00:56: The operator switches the sensor modality to visible spectrum, losing the subject against the background. (video metadata, no page)</li><li>00:57-01:05: The operator switches the sensor modality to SWIR (Black-Hot) but does not reacquire the area of contrast. (video metadata, no page)</li></ul>
       <p class="muted">Tags: War Department, Greece, Videos, AARO, Media evidence, Anomalous object</p>
-      <div class="actions"><a class="button" href="/#search?q=DOW-UAP-PR28%2C%20Unresolved%20UAP%20Report%2C%20Greece%2C%20January%202024">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="/#search?q=DOW-UAP-PR28%2C%20Unresolved%20UAP%20Report%2C%20Greece%2C%20January%202024">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-pr28-unresolved-uap-report-greece-january-2024-c8f44747.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

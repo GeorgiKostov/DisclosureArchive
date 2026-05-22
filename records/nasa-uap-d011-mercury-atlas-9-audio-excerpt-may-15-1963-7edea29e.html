@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>Cooper describes observing fireflies after deploying beacons, which are spherical mission-related equipment with xenon strobe lights. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>These small luminescent particles drift 18 00:01:26,972 --&gt; 00:01:30,269 away from you slowly and forward. (caption text, no page)</li><li>Gordon Cooper Jr. describes the brilliant blue of sunrise beneath the haze layer of the Earth s atmosphere. (video metadata, no page)</li><li>As he approaches sunrise, he describes small, luminous, brilliant white particles drifting away from the spacecraft. (video metadata, no page)</li><li>Cooper describes observing fireflies after deploying beacons, which are spherical mission-related equipment with xenon strobe lights. (video metadata, no page)</li></ul>
       <p class="muted">Tags: NASA, Low Earth Orbit, Videos, Lights</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007876/nasa-uap-d011-mercury-atlas-9-audio-excerpt-may-15-1963" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D011%2C%20Mercury%20Atlas%209%20Audio%20Excerpt%2C%20May%2015%2C%201963">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007876/nasa-uap-d011-mercury-atlas-9-audio-excerpt-may-15-1963" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D011%2C%20Mercury%20Atlas%209%20Audio%20Excerpt%2C%20May%2015%2C%201963">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/nasa-uap-d011-mercury-atlas-9-audio-excerpt-may-15-1963-7edea29e.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

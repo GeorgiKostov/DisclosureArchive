@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>New preliminary US government analysis suggests the image feature is potentially the result of a physical object in the scene. (release metadata, no page)</li><li>The image contains three dots in a triangular formation in the lower right quadrant of the lunar sky that is clearly visible upon magnification of the image. (release metadata, no page)</li><li>While this photo has been previously released and discussed by keen observers, there is no consensus about the nature of the anomaly. (release metadata, no page)</li><li>Title: NASA-UAP-VM6, Apollo 17, 1972 Type: IMG Agency: NASA Release Date: 5/8/26 Incident Date: 1972 Incident Location: Moon Description: As part of the review of historical UAP materials under PURSUE, DOW has opened a case to investigate the accompanying NASA photograph from the Apollo 17 mission, taken December 1972. (release metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>Title: NASA-UAP-VM6, Apollo 17, 1972 Type: IMG Agency: NASA Release Date: 5/8/26 Incident Date: 1972 Incident Location: Moon Description: As part of the review of historical UAP materials under PURSUE, DOW has opened a case to investigate the accompanying NASA photograph from the Apollo 17 mission, taken December 1972. (release metadata, no page)</li><li>The image contains three dots in a triangular formation in the lower right quadrant of the lunar sky that is clearly visible upon magnification of the image. (release metadata, no page)</li><li>While this photo has been previously released and discussed by keen observers, there is no consensus about the nature of the anomaly. (release metadata, no page)</li><li>New preliminary US government analysis suggests the image feature is potentially the result of a physical object in the scene. (release metadata, no page)</li><li>Additionally, as part of this investigation, the government has obtained the original film from the Apollo 17 mission and the results of the full NASA and DOW analysis will be released when completed. (release metadata, no page)</li></ul>
       <p class="muted">Tags: NASA, 1972, Moon, Photos, Apollo, Anomalous object</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/nasa-uap-vm6-apollo-17-1972.jpg" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-VM6%2C%20Apollo%2017%2C%201972">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/nasa-uap-vm6-apollo-17-1972.jpg" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-VM6%2C%20Apollo%2017%2C%201972">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/nasa-uap-vm6-apollo-17-1972-fe0885d6.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li><li>AARO assesses that this video, whose uploader-defined title is, USCG C-144 Tyndall UAP 2 TIC TAC IR hot 24 April 2024, is likely derived from an infrared sensor aboard a U.S. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>House of Representatives requested access to 51 potentially UAP-related records allegedly held by the Department of War and the Intelligence Community. (video metadata, no page)</li><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li><li>Many of these materials lack a substantiated chain-of-custody. (video metadata, no page)</li><li>AARO assesses that this video, whose uploader-defined title is, USCG C-144 Tyndall UAP 2 TIC TAC IR hot 24 April 2024, is likely derived from an infrared sensor aboard a U.S. (video metadata, no page)</li><li>Coast Guard platform operating in the Southeastern United States in 2024. (video metadata, no page)</li></ul>
       <p class="muted">Tags: War Department, 2024, Southeastern United States, Videos, AARO, Anomalous object</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007777/dow-uap-pr065-uscg-c-144-tyndall-uap-2-tic-tac-ir-hot-24-april-2024" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR065%2C%20%22USCG%20C-144%20Tyndall%20UAP%202%20TIC%20TAC%20IR%20hot%2024%20April%202024%22">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007777/dow-uap-pr065-uscg-c-144-tyndall-uap-2-tic-tac-ir-hot-24-april-2024" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR065%2C%20%22USCG%20C-144%20Tyndall%20UAP%202%20TIC%20TAC%20IR%20hot%2024%20April%202024%22">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-pr065-uscg-c-144-tyndall-uap-2-tic-tac-ir-hot-24-april-2024-9d9ced06.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

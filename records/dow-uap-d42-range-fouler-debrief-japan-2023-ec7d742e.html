@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>Initial object was surpassed by another object of same size and shape but much higher speed. (native PDF text, page 1)</li><li>At one p4int during tracking the objects, there were three on the screen at the same time moving amongst each other. (native PDF text, page 1)</li><li>MGRS Grid of initial contact: 39RWL2fijij.1:Mlm]a I Saw the initial object fly through the screen and started tracking. (native PDF text, page 1)</li></ul>
       <h2>Details</h2><ul><li>1 Please complete this form to the best of your ability. (native PDF text, page 1)</li><li>If you do not have the requested information, please leave the fi ld blank. (native PDF text, page 1)</li><li>If there was more t n one &quot;group!&quot; le se rep rt each on a separate form for data collection purposes. (native PDF text, page 1)</li><li>You should receive a response within 5 business days. (native PDF text, page 1)</li><li>Last Name, First Name Rank Squadron SfP R Email Address Crew Position 0-2 j482ATKS Pilot This information is for contact only. (native PDF text, page 1)</li><li>SPEAR sanitizes all r ports of identifying information. for or be! (native PDF text, page 1)</li><li>Absolutely no identifying information aircrew squadr n will recorded for analysis. (native PDF text, page 1)</li><li>Contact Alt Speed (From) Please attempt to determine a Lat I Long for the contact at initial detection. (native PDF text, page 1)</li></ul>
       <p class="muted">Tags: War Department, Arabian Gulf</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d42-range-fouler-debrief-japan-2023.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D42%2C%20Range%20Fouler%20Debrief%2C%20Japan%2C%202023">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d42-range-fouler-debrief-japan-2023.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D42%2C%20Range%20Fouler%20Debrief%2C%20Japan%2C%202023">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-d42-range-fouler-debrief-japan-2023-ec7d742e.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The light stayed the same size throughout the incident. (OCR text, page 1)</li><li>The light was bright white and was visible for ten seconds before it disappeared. (OCR text, page 1)</li><li>The light was stationary in the air, then started moving to the right and then disappeared. (OCR text, page 1)</li><li>JJ could see the light through the top right of the vehicle&#x27;s windshield. (OCR text, page 1)</li></ul>
       <h2>Details</h2><ul><li>5-8-10) / (/ September 2023 UAP Continuation of FD-302 of, On 09/ /2023, Page 2 of 2 (/ thought the light might have been a meteor coming straight toward them and burning up in the atmosphere. / (native PDF text, page 2)</li><li>The light was stationary in the air, then started moving to the right and then disappeared. (OCR text, page 1)</li><li>JJ could see the light through the top right of the vehicle&#x27;s windshield. (OCR text, page 1)</li><li>The light was bright white and was visible for ten seconds before it disappeared. (OCR text, page 1)</li><li>was visible for ten seconds before it disappeared. (OCR text, page 1)</li><li>The light stayed the same size throughout the incident. (OCR text, page 1)</li></ul>
       <p class="muted">Tags: FBI, United States, Lights</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/serial 5 redacted_redacted.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=FBI%20September%202023%20Sighting%20-%20Serial%203">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/serial 5 redacted_redacted.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=FBI%20September%202023%20Sighting%20-%20Serial%203">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/fbi-september-2023-sighting-serial-3-c0adbe2a.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

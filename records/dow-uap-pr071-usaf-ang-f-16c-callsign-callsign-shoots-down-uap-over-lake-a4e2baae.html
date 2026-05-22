@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>House of Representatives requested access to 51 potentially UAP-related records allegedly held by the Department of War and the Intelligence Community. (video metadata, no page)</li><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li><li>Many of these materials lack a substantiated chain-of-custody. (video metadata, no page)</li><li>A user uploaded this video to a classified network in February 2023. (video metadata, no page)</li><li>Video Duration: 00:00:46 Video Description: At the 11 second mark, the sensor focuses on an area of contrast in the center of its field-of-view. (video metadata, no page)</li><li>depict a kinetic interaction between two distinct areas of contrast, with the initial subject of the footage fragmenting in a radial displacement pattern that suggests a high-energy event. (video metadata, no page)</li><li>This video description is provided for informational purposes only. (video metadata, no page)</li><li>Readers should not interpret any part of this description as reflecting an analytical judgment, investigative conclusion, or factual determination regarding the described event s validity, nature, or significance. (video metadata, no page)</li></ul>
       <p class="muted">Tags: War Department, 2023, NORTHCOM, Videos, AARO, Anomalous object, USAF, Weapons</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007784/dow-uap-pr071-usaf-ang-f-16c-callsign-callsign-shoots-down-uap-over-lake-huron-with-weapon-system-12-feb" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR071%2C%20%22USAF%20ANG%20F-16C%20%28callsign%20%5BCALLSIGN%5D%29%20Shoots%20Down%20UAP%20over%20Lake%20Huron%20with%20%5BWeapon%20System%5D%2C%2012%20Feb%202023%22">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007784/dow-uap-pr071-usaf-ang-f-16c-callsign-callsign-shoots-down-uap-over-lake-huron-with-weapon-system-12-feb" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR071%2C%20%22USAF%20ANG%20F-16C%20%28callsign%20%5BCALLSIGN%5D%29%20Shoots%20Down%20UAP%20over%20Lake%20Huron%20with%20%5BWeapon%20System%5D%2C%2012%20Feb%202023%22">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-pr071-usaf-ang-f-16c-callsign-callsign-shoots-down-uap-over-lake-a4e2baae.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

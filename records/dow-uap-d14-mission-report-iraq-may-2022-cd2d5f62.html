@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection.</li></ul>
       <h2>Details</h2><ul><li>Harrison USCENTCOM Chief of Staff SECRET//REL TO USA, FVEY Declassified on: 8 October 2025 Misrep undefined-7561279 Narrative (S//REL) AT 13552, TOOK OFF FROM SIGONELLA AIRBASE (LIC2). (native PDF text, page 1)</li><li>From 15072 to 09062, collected sigint via airhandler. (native PDF text, page 1)</li><li>Harrison USCENTCOM Chief of Staff SECRET//REL TO USA, FVEY Declassified on: 8 October 2025 Classification: SECRET Associated Caveats: REL TO USA, FVEY Classification Source (MS or Classification Guide ID): MULTIPLE SOURCES Declassification Date (YYYYMMDD): 20470529 OPERATION Operation:! (native PDF text, page 2)</li><li>Harrison USCENTCOM Chief of Staff SECRET//REL TO USA, FVEY Declassified on: 8 October 2025 Rank: Ctr Full Nam - c, F0IA Exemption (b)) Unit: 12 AF PAROC Wing: Other Phone Numller;FOIA Exemption b}(6) EmaiU 3.5c, F0IA Exemption (b)(6) Service: Air Force Operations Center: Other APPROVER Rank: SSgt Full Nan,. (native PDF text, page 3)</li><li>3.5c, F0IA Exemption (b)(6) Service: Air Force Operations Center: 603 AOC INGEST Rank: Full Name: Unit: Wing: Phone Number: Email: Service: Operations Center: ACEQUIP ACEQUIP Aircraft Callsign:I 1.4a Radar Name or Destination: Radar Software Load or Mission Data: Radar Warning Receiver (RWR) Name or Designator: RWR. (native PDF text, page 3)</li><li>Harrison USCENTCOM Chief of Staff SECRET//REL TO USA, FVEY Declassified on: 8 October 2025 IRCM Name or Designator: IRCM Software Load or Mission Data: ECM Name or Designator: ECM Software Load or Mission Data: CMD Name or Designator: Chaff Designator: Num Chaff or Cartridges: Flare Designator: Num Flares: Towed Decoy. (native PDF text, page 4)</li><li>Harrison USCENTCOM Chief of Staff Mfflffl&#x27;f/l:RB &#x27;fO tiM, f I)) Declassified on: 8 October 2025 Last Engine Shutdown Time: 301035:00ZMAY22 Total Mission Time: 20 hours 30 minutes Gentext/Additional Details: On Station Time On Station DTG: 291551:00ZMAY22 I Callsign:I 1.4a JTAR Number: Killbox (Location): Mission Type:. (native PDF text, page 5)</li><li>Beirut military facility karantina (36syc3. (native PDF text, page 6)</li></ul>
       <p class="muted">Tags: War Department, Syria, Videos, Air Force, Radar, AARO, Anomalous object, Aircraft</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d14-mission-report-iraq-may-2022.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D14%2C%20Mission%20Report%2C%20Iraq%2C%20May%202022">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d14-mission-report-iraq-may-2022.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D14%2C%20Mission%20Report%2C%20Iraq%2C%20May%202022">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-d14-mission-report-iraq-may-2022-cd2d5f62.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

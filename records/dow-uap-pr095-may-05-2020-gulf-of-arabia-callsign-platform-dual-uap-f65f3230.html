@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li><li>AARO assesses that this video, whose uploader-defined title is, May 05 2020 Gulf of Arabia [CALLSIGN] (Platform) Dual UAP, is likely derived from an infrared sensor aboard a U.S. military platform operating within the United States Central Command area of responsibility in 2020. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>House of Representatives requested access to 51 potentially UAP-related records allegedly held by the Department of War and the Intelligence Community. (video metadata, no page)</li><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li><li>Many of these materials lack a substantiated chain-of-custody. (video metadata, no page)</li><li>AARO assesses that this video, whose uploader-defined title is, May 05 2020 Gulf of Arabia [CALLSIGN] (Platform) Dual UAP, is likely derived from an infrared sensor aboard a U.S. military platform operating within the United States Central Command area of responsibility in 2020. (video metadata, no page)</li><li>A user uploaded this video to a classified network in May 2020. (video metadata, no page)</li><li>and out of the field-of-view as the sensor pans to keep them in frame. (video metadata, no page)</li><li>The areas of contrast again become more distinct at higher magnification. (video metadata, no page)</li><li>The areas enter and exit the field-of-view as the sensor pans to keep them in frame. (video metadata, no page)</li></ul>
       <p class="muted">Tags: War Department, 2020, CENTCOM, Videos, AARO, Anomalous object</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007725/dow-uap-pr095-may-05-2020-gulf-arabia-callsign-platform-dual-uap" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR095%2C%20%22May%2005%202020%20Gulf%20of%20Arabia%20%5BCALLSIGN%5D%20%28Platform%29%20Dual%20UAP%22">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007725/dow-uap-pr095-may-05-2020-gulf-arabia-callsign-platform-dual-uap" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR095%2C%20%22May%2005%202020%20Gulf%20of%20Arabia%20%5BCALLSIGN%5D%20%28Platform%29%20Dual%20UAP%22">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-pr095-may-05-2020-gulf-of-arabia-callsign-platform-dual-uap-f65f3230.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>Any visual sightings on countdown that were significant? (OCR text, page 7)</li><li>Someone asked me if that was in conjunction with the South Atlantic anomaly. (OCR text, page 2)</li><li>LOUSMA Okay, other visual sightings was the one out the wardroom window. (OCR text, page 8)</li><li>CARR One other area of unusual events that we reported on the dump tapes was that on occasion we saw some lights flashing outside with very a definite motion relative to ours. (OCR text, page 10)</li></ul>
       <h2>Details</h2><ul><li>Requests for its release to persons outside the U. (OCR text, page 1)</li><li>KERWIN Unusual or Unexpected Visual Phenomenon. (OCR text, page 2)</li><li>They tended to wax and wane in frequency. (OCR text, page 2)</li><li>Someone asked me if that was in conjunction with the South Atlantic anomaly. (OCR text, page 2)</li><li>KERWIN We didn&#x27;t feel it was operationally necessary for anybody to know about it right now. (OCR text, page 3)</li><li>WEITZ I had a couple that I thought were cosmic particles. (OCR text, page 3)</li><li>Requests for its release to persons outside the U.S. (OCR text, page 4)</li><li>National Aeronautics and Space Administration Ge LYNDON B. (OCR text, page 4)</li></ul>
       <p class="muted">Tags: Lights, Anomalous object</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/nasa-uap-d7-skylab-technical-crew-debriefing-1973.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D7%2C%20Skylab%20Techincal%20Crew%20Debriefing%201973">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/nasa-uap-d7-skylab-technical-crew-debriefing-1973.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D7%2C%20Skylab%20Techincal%20Crew%20Debriefing%201973">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/nasa-uap-d7-skylab-techincal-crew-debriefing-1973-a2f63aca.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

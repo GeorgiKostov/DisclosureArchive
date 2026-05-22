@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection.</li></ul>
       <h2>Details</h2><ul><li>The original reporter digitally altered the imagery by pausing the video playback and adding a white line encircling an area of interest at timestamp 00:10, annotated with the phrase U/I SMALL THERMAL SIGNATURE. (video metadata, no page)</li><li>AARO did not edit the originally reported material, and this media is presented as received. (video metadata, no page)</li><li>Video Description: 00:00-00:09: An area of contrast brightens within the sensor field-of-view, becoming increasingly distinct against the background. (video metadata, no page)</li><li>00:10-00:14: Playback pauses to display a white line encircling an area of interest, annotated with the phrase U/I SMALL THERMAL SIGNATURE. (video metadata, no page)</li><li>00:15-01:03: Playback resumes, with the sensor panning to track the area of contrast against the background, generally maintaining the area of contrast s position within the top third of the display area. (video metadata, no page)</li><li>period, the sensor cycles through several contrast and zoom settings. (video metadata, no page)</li><li>This video description is provided for informational purposes only. (video metadata, no page)</li><li>Readers should not interpret any part of this description as reflecting an analytical judgment, investigative conclusion, or factual determination regarding the described event s validity, nature, or significance. (video metadata, no page)</li></ul>
       <p class="muted">Tags: War Department, Arabian Gulf, Videos, AARO, Media evidence, Anomalous object</p>
-      <div class="actions"><a class="button" href="/#search?q=DOW-UAP-PR40%2C%20Unresolved%20UAP%20Report%2C%20Middle%20East%2C%202020">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="/#search?q=DOW-UAP-PR40%2C%20Unresolved%20UAP%20Report%2C%20Middle%20East%2C%202020">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-pr40-unresolved-uap-report-middle-east-2020-0e821362.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

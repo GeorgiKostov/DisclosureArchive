@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection.</li></ul>
       <h2>Details</h2><ul><li>Cot fiddhial iunclassi fl ed kind classified by polmincouns george krol. (native PDF text, page 2)</li><li>J,e&#x27;f summary: deputy foreign minister mamedov told ambassador vershbow october 30 that according to the russian ministry of defense, no russian planes flew over or bombed positions in the kodori gorge october 28-29, despite georgian accusations to the contrary. (native PDF text, page 2)</li><li>Mfa georgia desk chief tereoken echoed mamedov&#x27;s statement. (native PDF text, page 2)</li><li>Tereoken further confirmed that one railway car full of russian military equipment left gudauta base and entered russia october 29 (ref a) and that two other railway cars are loaded and awaiting abkhaz permission to leave for russia. (native PDF text, page 2)</li><li>There are no plans to withdraw personnel until tbilisi agrees that approximately 340 russian &quot;guards&quot; can remain at gudauta. (native PDF text, page 2)</li><li>Tereoken denied media reports that defense minister sergey ivanov was planning to visit tbilisi soon but did not rule out a visit completely. (native PDF text, page 2)</li><li>Mamedov agreed that such incidents would have a negative effect on the summit, but quoted the russian ministry of defense as categorically denying that russian plans were involved in any incidents in georgian airspace. (native PDF text, page 2)</li><li>Jj&amp;&#x27;j mfa georgia desk chief tereoken, echoing mamedov&#x27;s claims, denied to us october 30 reports of russian planes bombing kodori gorge in abkhazia. (native PDF text, page 2)</li></ul>
       <p class="muted">Tags: State Department, 2001, Georgia, UFO, Aircraft, Helicopter</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/059uap00011.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=State%20Department%20UAP%20Cable%203%2C%20Tbilisi%2C%20Georgia%2C%20October%2030%2C%202001">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/059uap00011.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=State%20Department%20UAP%20Cable%203%2C%20Tbilisi%2C%20Georgia%2C%20October%2030%2C%202001">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/state-department-uap-cable-3-tbilisi-georgia-october-30-2001-f2a5de1b.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

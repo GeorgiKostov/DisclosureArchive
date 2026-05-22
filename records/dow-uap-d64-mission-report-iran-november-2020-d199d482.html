@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection.</li></ul>
       <h2>Details</h2><ul><li>Type of IR-Guided AAM: Num IR-Guided AAM: Gun Name or Designator: Num Gun Rounds: Air-to-Ground Wpn to lndude Num of Each: 1.4(a) TGT Pod Name or Designator (native PDF text, page 3)</li><li>ANDAS4 Additional Avionics: AH_GMESH_ VORTEX Data Link: USCENTCOM MOR 26-0028 Approved for Release to MRO FOUO / IPA applies 03/1 6/26 000003 (native PDF text, page 3)</li><li>Takt1off Cal Jsign 1.4a Number of Aircraft: 1 Asset Type (Aircr fl&#x27;t1.4a. (bH1)1.4g Aircraft Tail Number j1,4a,!b}(1)1.4g Takeoff Location (ICAO Code): OK.AS Takeoff Time DTG: 020608:00ZNOV20 Mode 3 (IFF Codes): Gentext/ Additional Details: Mission Canceled: On Station Time On Station DTG: 020618:00ZNOV20 I Callsign:I. (native PDF text, page 4)</li><li>Hamson USCENTCOM Chi for Sta Declass1fi don 16 Marcil 2026 FOUO / Pnvacy Act applies Sensors Available: AH\GMESH Tasking Type: PLANNED Tasking or Request Number (JTAR#, AEM#, PRI#, or TIC#): BE Number (ifNTISR): Tasked Start Point: 3 9 R U P a Activity Description: ISR FMV or Image File Name (ifNTISR): GENTEXTIISR I. (native PDF text, page 5)</li><li>AT l l 2 Z A S CLEARED OFF TASKING AND RETURNED TO BASE (RTB) JSR ASSET UTILIZATION Snpported Unit: NAVCENT Supported Operation: OPERATION._! _ _..Cb..).C.. l.).,14&#x27;&quot;&quot;&#x27;a,, Precoord Time: 24 HOURS Precoord Effectiveness: SATISFACTORY WEATHER Weather: (U) HAZE PRECLUDED!MINT COLLECTION EFFECTIVENESS Tasker: Intel Gap. (native PDF text, page 5)</li><li>Orders given: standard call responded with standard response. (native PDF text, page 6)</li><li>WEATHER Weather: OBSERVATION 3 sc (b)/6) USCENTCOM MOR 26-0028 Approved for Release to MRO FOUO / PA applies 03/16/26 000006 (native PDF text, page 6)</li></ul>
       <p class="muted">Tags: War Department, Iran, AARO, Aircraft, Anomalous object</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d64-mission-report-iran-november-2020.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D64%2C%20Mission%20Report%2C%20Iran%2C%20November%202020">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d64-mission-report-iran-november-2020.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D64%2C%20Mission%20Report%2C%20Iran%2C%20November%202020">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-d64-mission-report-iran-november-2020-d199d482.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

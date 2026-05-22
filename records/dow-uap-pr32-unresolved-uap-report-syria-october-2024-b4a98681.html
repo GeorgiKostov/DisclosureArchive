@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection.</li></ul>
       <h2>Details</h2><ul><li>Video Description: 00:02-00:04: An area of irregular color and brightness, mainly consisting of white and red highlights, appears near the center of the top edge of the sensor display. (video metadata, no page)</li><li>The area extends to a width of approximately one-third of the horizontal frame, with a vertical area comprising approximately one-sixth of the viewing area. (video metadata, no page)</li><li>Overall, its shape is best described as a horizontally-oriented half-oval bisected along its major axis. (video metadata, no page)</li><li>This video description is provided for informational purposes only. (video metadata, no page)</li><li>Readers should not interpret any part of this description as reflecting an analytical judgment, investigative conclusion, or factual determination regarding the described event s validity, nature, or significance. (video metadata, no page)</li></ul>
       <p class="muted">Tags: War Department, Syria, Videos, AARO, Lights, Media evidence, Anomalous object, Spherical object</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d32-mission-report,-syria-october-2024.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR32%2C%20Unresolved%20UAP%20Report%2C%20Syria%2C%20October%202024">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d32-mission-report,-syria-october-2024.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR32%2C%20Unresolved%20UAP%20Report%2C%20Syria%2C%20October%202024">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-pr32-unresolved-uap-report-syria-october-2024-b4a98681.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

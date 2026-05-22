@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>We had light flashes just about continuously during the whole flight when we were dark adapted. (OCR text, page 2)</li></ul>
       <h2>Details</h2><ul><li>Section public disclosure under the Freedom of InforSEESEESIE mation Act (5 U.S.C. (OCR text, page 1)</li><li>SCHMITT Transearth we had only a small crescent of an Earth and it was not feasible to do any extensive weather observations. (OCR text, page 2)</li><li>We had light flashes just about continuously during the whole flight when we were dark adapted. (OCR text, page 2)</li></ul>
       <p class="muted">Tags: Lunar observation, Lights, Apollo, Astronauts, Moon</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/nasa-uap-d6-apollo-17-technical-crew-debriefing-1973.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D6%2C%20Apollo%2017%20Technical%20Crew%20Debriefing%2C%201973">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/nasa-uap-d6-apollo-17-technical-crew-debriefing-1973.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D6%2C%20Apollo%2017%20Technical%20Crew%20Debriefing%2C%201973">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/nasa-uap-d6-apollo-17-technical-crew-debriefing-1973-ece50e6d.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>House of Representatives requested access to 51 potentially UAP-related records allegedly held by the Department of War and the Intelligence Community. (video metadata, no page)</li><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li><li>Many of these materials lack a substantiated chain-of-custody. (video metadata, no page)</li><li>AARO assesses that this video, whose uploader-defined title is, [CALLSIGN] (Mission) HD_20220613, is likely derived from an infrared sensor aboard a U.S. military platform operating in the United States Central Command area of responsibility in June 2022. (video metadata, no page)</li><li>A user uploaded this video to a classified network in June 2022. (video metadata, no page)</li><li>An area of contrast transits the sensor field-of-view, entering from the right and exiting from the left side of the frame. (video metadata, no page)</li><li>00:48-01:05: The sensor cycles its zoom settings multiple times. (video metadata, no page)</li><li>01:06-01:13: A small area of contrast transits from the right to the center of the sensor field-of-view. (video metadata, no page)</li></ul>
       <p class="muted">Tags: War Department, 2022, CENTCOM, Videos, AARO, Anomalous object</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007791/dow-uap-pr074-callsign-missionhd-20220613" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR074%2C%20%22%5BCALLSIGN%5D%20%28Mission%29HD_20220613%22">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007791/dow-uap-pr074-callsign-missionhd-20220613" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR074%2C%20%22%5BCALLSIGN%5D%20%28Mission%29HD_20220613%22">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-pr074-callsign-mission-hd-20220613-1f2e7fc9.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

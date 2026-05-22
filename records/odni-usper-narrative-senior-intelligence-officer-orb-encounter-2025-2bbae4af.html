@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>Our mission was to investigate loud thuds heard in the mountains on the test range, which coincided with Unidentified Aerial Phenomena (UAP) sightings reported over the previous several nights. (native PDF text, page 1)</li><li>We aimed to search remote mountain areas for possible debris or objects that might explain the orb-like sightings. (native PDF text, page 1)</li><li>The object then split into two and changed direction. (native PDF text, page 1)</li><li>In the distance, we saw countless orange orbs swarming in all directions against the backdrop of the mountain. (native PDF text, page 2)</li></ul>
       <h2>Details</h2><ul><li>In late 2025, during early evening daylight hours, I a senior U.S. intelligence officer along with a colleague and two pilots, departed our Joint Operations Center (JOC) in a helicopter. (native PDF text, page 1)</li><li>Our mission was to investigate loud thuds heard in the mountains on the test range, which coincided with Unidentified Aerial Phenomena (UAP) sightings reported over the previous several nights. (native PDF text, page 1)</li><li>We aimed to search remote mountain areas for possible debris or objects that might explain the orb-like sightings. (native PDF text, page 1)</li><li>After leaving the JOC, we flew a low-altitude map of the earth route through the mountain range for several hours. (native PDF text, page 1)</li><li>Multiple times, we spotted debris on the ground and descended for closer inspection. (native PDF text, page 1)</li><li>We noted the location and then pressed on. (native PDF text, page 1)</li><li>Running low on fuel, we headed to a prearranged rendezvous point to meet a ground team and let my colleague disembark. (native PDF text, page 1)</li><li>The two pilots and I then proceeded to a prepositioned tanker on the range for refueling. (native PDF text, page 1)</li></ul>
       <p class="muted">Tags: ODNI, 2025, Western United States, Orange orbs, Test range, Helicopter, Orbs, FLIR, Aerial phenomena, Discs</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/052226/release_02/documents/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=ODNI%20USPER%20Narrative%20-%20Senior%20Intelligence%20Officer%20Orb%20Encounter%20%282025%29">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/052226/release_02/documents/ODNI-UAP-D001_USPER_Narrative_Senior_USIC.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=ODNI%20USPER%20Narrative%20-%20Senior%20Intelligence%20Officer%20Orb%20Encounter%20%282025%29">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/odni-usper-narrative-senior-intelligence-officer-orb-encounter-2025-2bbae4af.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

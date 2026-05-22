@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>UNIDENTIFIED FLYING OBJECT by Officer Zamora. (OCR text, page 3)</li><li>UNIDENTIFIED FLYING OBJECT went over the mountain. (OCR text, page 16)</li><li>UNIDENTIFIED FIYING OBINCT went over the mountain. (OCR text, page 26)</li><li>UNIDENTIFIED FLYING OBJECT whine lasted maybe a second. (OCR text, page 15)</li></ul>
       <h2>Details</h2><ul><li>M, Nep Lopez, radio operator in the Socorro County Sheriff&#x27;s Office, located about thirty feet down the hall from the State Police Office, came into the State Police Office. (OCR text, page 2)</li><li>Chavez, New Mexico State Police, that he had just received a radio call from Officer Lonnie Zamora to come to an area about one mile southwest of Socorro. (OCR text, page 2)</li><li>Chavez, and Officer Ted Jordan, New Mexico State Police, were assembled. (OCR text, page 2)</li><li>It may be noted that it has been the observation of Agent Byrnes that Officer Zamora, known intimately for approximately five years, is well regarded as a sober, industrious, and conscientious officer and not given to fantasy. (OCR text, page 2)</li><li>Officer Zamora was noted to be perfectly sober and somewhat agitated over his experience. (OCR text, page 2)</li><li>UNIDENTIFIED FLYING OBJECT by Officer Zamora. (OCR text, page 3)</li><li>These depressions appeared regular in shape, approximately sixteen by six inches rectangular. (OCR text, page 3)</li><li>Each depression seemed to have been made by an object going into the earth at an angle from a center line. (OCR text, page 3)</li></ul>
       <p class="muted">Tags: FBI, Flying discs, Unidentified object, New Mexico, Discs</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_438.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Serial_438">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_438.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Serial_438">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/65-hs1-834228961-62-hq-83894-serial-438-325e2978.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

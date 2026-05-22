@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>This headquarters has no further information or explanation in connection with these phenomena. (OCR text, page 13)</li><li>We turned port and starboard and the lights followed. (OCR text, page 15)</li><li>Do subject lights cross Allied lines and in what direction are they seen to travel? (OCR text, page 14)</li><li>The lights come very close and fly in formation with our planes. (OCR text, page 14)</li></ul>
       <h2>Details</h2><ul><li>It appeared to be suspended vertically with small fins and a mast projecting from the lower end. (OCR text, page 9)</li><li>This headquarters has no further information or explanation in connection with these phenomena. (OCR text, page 13)</li><li>Since appropriate technical personnel are not available within the First Tactical Air Force, the matter is forwarded for such further investigation as may be advisable. (OCR text, page 13)</li><li>The lights come very close and fly in formation with our planes. (OCR text, page 14)</li><li>They are agitating and keep the crews on edge when they encounter them, mainly because they cannot explain them. (OCR text, page 14)</li><li>It is requested further information be furnished on this subject, such as similar experiences of other night units. (OCR text, page 14)</li><li>There have been no instances reported as above. (OCR text, page 14)</li><li>Before an investigation can be made it will be necessary to have more complete information, such as colors of the lights, their intensity,) size, duration, and at what altitudes seen; also if the lights are observed at any specific hours. (OCR text, page 14)</li></ul>
       <p class="muted">Tags: War Department, Germany, Air Force, Foo fighters, Lights, Rocket</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/331_120752_numeric_files_1944-1945_37153_german_armament_equipment_documents.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=331_120752_Numeric_Files_1944-1945_37153_German_Armament_Equipment_Documents">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/331_120752_numeric_files_1944-1945_37153_german_armament_equipment_documents.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=331_120752_Numeric_Files_1944-1945_37153_German_Armament_Equipment_Documents">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/331-120752-numeric-files-1944-1945-37153-german-armament-equipment-docum-22e263c2.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

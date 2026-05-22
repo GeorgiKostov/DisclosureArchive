@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The U.S Aircraft had eyes on the poss UAP for over 2 hours. //UNCLASSIFIED// (b) (6) CLASSIFICATION: SECRET//NOFORN Hello, Could you please approve the use of the year this incident took place? (native PDF text, page 2)</li></ul>
       <h2>Details</h2><ul><li>(b) (6) CLASSIFICATION: SECRET//NOFORN Good morning, Below is the requested additional information (include the year) to the UNCLASS tear line. (native PDF text, page 1)</li><li>shaped, likely moving at a low speed. (native PDF text, page 2)</li><li>The U.S Aircraft had eyes on the poss UAP for over 2 hours. //UNCLASSIFIED// (b) (6) CLASSIFICATION: SECRET//NOFORN Hello, Could you please approve the use of the year this incident took place? (native PDF text, page 2)</li><li>Currently you have approved the month and the day, we request it includes the year. (native PDF text, page 2)</li></ul>
       <p class="muted">Tags: War Department, Aircraft</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d52-email-correspondance-na-august-2024.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D52%2C%20Email%20Correspondance%2C%20NA%2C%20August%202024">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d52-email-correspondance-na-august-2024.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D52%2C%20Email%20Correspondance%2C%20NA%2C%20August%202024">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-d52-email-correspondance-na-august-2024-45c4162a.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

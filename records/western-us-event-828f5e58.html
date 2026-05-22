@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>leading them to believe the object was somewhat transparent. (native PDF text, page 4)</li><li>Witnesses stated that the object did not emit any noticeable sound. (native PDF text, page 2)</li><li>Note: Outline was not Transparent Kite definitive, but location of lights stayed in exact formation. (native PDF text, page 4)</li><li>The object didn t change height and appeared to move with zero resistance. (native PDF text, page 3)</li></ul>
       <h2>Details</h2><ul><li>Time of Day: Dusk (on two separate days) Three teams of two federal law enforcement special agents each (USPER1 through USPER6) independently describe seeing orange orbs in the sky emit/launch smaller red orbs in groups of two to four, with three being the general consensus. (native PDF text, page 1)</li><li>This is stated to have occurred at least five times. (native PDF text, page 1)</li><li>Each time, the orange orb would appear, launch red orbs, then disappear. (native PDF text, page 1)</li><li>The orange orb was only visible for one or two seconds. (native PDF text, page 1)</li><li>The red orbs would generally move away from the orange mother orb in a horizontal path, but in a couple of instances, one red orb was stated to move heading up at an angle, while another witness stated sometimes the red orbs would swoop down after being launched from the larger orange orb. (native PDF text, page 1)</li><li>Artist Rendering Time of Day: Dusk Two federal law enforcement special agents (USPER5 and USPER6) witness a glowing orange orb at a distance of approximately 500-600 meters, * where it was perched close to a rock pinnacle. (native PDF text, page 2)</li><li>Size was difficult to determine, but it appeared to be similar in size to a small helicopter cockpit. ** Witnesses were unable to clearly see any structure other than the glowing orb, though USPER6 noted that the object did almost appear it might have had a small spindle or something connecting it from underneath to. (native PDF text, page 2)</li><li>Witnesses stated that the object did not emit any noticeable sound. (native PDF text, page 2)</li></ul>
       <p class="muted">Tags: War Department, 2023, Western United States, AARO, Orange orbs, Orbs, Anomalous object, Helicopter, Lights, Spherical object</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/western_us_event_slides_5.08.2026.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=Western%20US%20Event">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/western_us_event_slides_5.08.2026.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=Western%20US%20Event">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/western-us-event-828f5e58.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

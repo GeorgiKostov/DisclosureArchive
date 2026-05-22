@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>Finding time for his literary career between details GRAY BARKER of operating his business, he publishes The Saucerian, a flying saucer periodical, and contributes to educaUNIVERSITY tional journals and motion picture technical magazines. (OCR text, page 3)</li></ul>
       <h2>Details</h2><ul><li>Outwardly, nothing seems to have happened to. these men. (OCR text, page 2)</li><li>sober and GRAY BARKER aii successful a business man as Mr. (OCR text, page 2)</li><li>Finding time for his literary career between details GRAY BARKER of operating his business, he publishes The Saucerian, a flying saucer periodical, and contributes to educaUNIVERSITY tional journals and motion picture technical magazines. (OCR text, page 3)</li></ul>
       <p class="muted">Tags: FBI, Flying discs, Unidentified object, Discs, Saucers</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_403.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Serial_403">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_403.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Serial_403">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/65-hs1-834228961-62-hq-83894-serial-403-de176ae4.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

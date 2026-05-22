@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>Subject advised the basis for his theory concerning the Flying Saucer Mystery was obtained from simple experiments which he conducted while driving his automobile. (OCR text, page 54)</li><li>Legge reported his sighting shortly afterwards to Mrs. (OCR text, page 20)</li><li>Or unidintifiable objects williams field, chanoler, arizona. (OCR text, page 48)</li><li>Adams, where Arnold first reported seeing objects henceforth described as saucers or dises. (OCR text, page 86)</li></ul>
       <h2>Details</h2><ul><li>White, f navigator on this trip, sighted unidentifieble flying objects. (OCR text, page 1)</li><li>Mr Powell lost sight of the object, when a cloud came between the aircraft and the object. (OCR text, page 1)</li><li>The pursuit of the object was not continued, inasmuch as it would have necessitated a departure from the established airways, (OCR text, page 1)</li><li>White haa-been employed by: merican Airways or the past five years as Wavigator, and during the war worked with PAA (OCR text, page 2)</li><li>dt es in conjunction with contract flying for the AAF. (OCR text, page 3)</li><li>Mr, Powell has a fear of publicity and seemed hesitant to even tell his story lest he become the object of ridicule, Mr Powell was questioned as to the possibility that what he sighted might have been a tow target, a pilot balloon, or a radiosonic device used for meteorological purposes. (OCR text, page 4)</li><li>Forwarded for information of your Headquarters. (OCR text, page 5)</li><li>Some said the objects were large, some small. (OCR text, page 9)</li></ul>
       <p class="muted">Tags: FBI, Flying discs, Unidentified object, Discs, Saucers, Aircraft</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_130.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Serial_130">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_130.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Serial_130">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/65-hs1-834228961-62-hq-83894-serial-130-537c1006.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

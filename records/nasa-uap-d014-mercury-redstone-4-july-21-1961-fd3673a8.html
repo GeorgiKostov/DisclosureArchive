@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection.</li></ul>
       <h2>Details</h2><ul><li>After the lift off, do you think to check on it? (caption text, no page)</li></ul>
       <p class="muted">Tags: NASA, North Atlantic Ocean, Videos</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007878/nasa-uap-d014-mercury-redstone-4-july-21-1961" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D014%2C%20Mercury-Redstone%204%2C%20July%2021%2C%201961">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007878/nasa-uap-d014-mercury-redstone-4-july-21-1961" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D014%2C%20Mercury-Redstone%204%2C%20July%2021%2C%201961">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/nasa-uap-d014-mercury-redstone-4-july-21-1961-fd3673a8.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

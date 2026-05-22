@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>John Warren of AT-6, whose topic will be &quot;Why Should a Scientist be Concerned about UFO&#x27;s?* To find the Ranch Room, go around (outside) to the south end of the Lodge (facing Central Ave.), and go upstairs. (native PDF text, page 1)</li></ul>
       <h2>Details</h2><ul><li>John Warren of AT-6, whose topic will be &quot;Why Should a Scientist be Concerned about UFO&#x27;s?* To find the Ranch Room, go around (outside) to the south end of the Lodge (facing Central Ave.), and go upstairs. (native PDF text, page 1)</li></ul>
       <p class="muted">Tags: DOE, 1986, Los Alamos, New Mexico, UFO</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/052226/release_02/documents/DOE-UAP-D003_Pajarito_Astronomers.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=Pajarito%20Astronomers%20-%20Why%20Should%20a%20Scientist%20Be%20Concerned%20About%20UFOs%20%281986%29">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/052226/release_02/documents/DOE-UAP-D003_Pajarito_Astronomers.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=Pajarito%20Astronomers%20-%20Why%20Should%20a%20Scientist%20Be%20Concerned%20About%20UFOs%20%281986%29">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/pajarito-astronomers-why-should-a-scientist-be-concerned-about-ufos-1986-e5acdd59.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

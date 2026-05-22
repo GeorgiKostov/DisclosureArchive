@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>Estimated Distance of Object from Cbserver. (OCR text, page 41)</li><li>Mr Angier thought the object remained stationary. (OCR text, page 9)</li><li>Estimated Distance f Object from Observer. (OCR text, page 18)</li><li>Objects disappeared on a northerly course. (OCR text, page 58)</li></ul>
       <h2>Details</h2><ul><li>Time in Sient: Sufficiently long to emable Williams to make a fairly detailed edservation. (OCR text, page 3)</li><li>Focusing his attention on the object he perceived that it was perfectly white, neither transparent or translucent and that it had no metallic sheen, It woe perfectly circular, the side visible to hin being flat mech a coin would aypear when observed from a distance. (OCR text, page 7)</li><li>went into o builiing transacted their business and at the eni of eight mimtes they went tatcide and perceived the gbject in avproximately the sane position. (OCR text, page 7)</li><li>Mr Angier thought the object remained stationary. (OCR text, page 9)</li><li>Howver the disi crepancy in time could have accounted for tiie, Apparently Hr Fairchild observed the object some 15 mimtes before Mr Angier obgerved i it. (OCR text, page 9)</li><li>Occimation and/or hocdles: Retired army colonel formerly a veterinarian _ presently employed as a Meat Inspector by Calif State Dept of Agr. b, Attention Attroctcd Cy! (OCR text, page 10)</li><li>Tactics: appendages seemed to flap or (OCR text, page 10)</li><li>He asked his companion, Mr Bentham, if he were seeing things, tham substantiated the fact that there was an object above the bomber. (OCR text, page 11)</li></ul>
       <p class="muted">Tags: War Department, Unidentified object</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/38_143685_box7_incident_summaries_173-233.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=38_143685_box_Incident_Summaries_173-233">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/38_143685_box7_incident_summaries_173-233.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=38_143685_box_Incident_Summaries_173-233">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/38-143685-box-incident-summaries-173-233-567b0aa2.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

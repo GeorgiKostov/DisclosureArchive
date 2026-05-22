@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li><li>AARO assesses that this video, whose uploader-defined title is, Spherical UAP in clouds, is likely derived from an infrared sensor aboard a U.S. military platform operating above the Yellow Sea in January 2023. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>House of Representatives requested access to 51 potentially UAP-related records allegedly held by the Department of War and the Intelligence Community. (video metadata, no page)</li><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li><li>Many of these materials lack a substantiated chain-of-custody. (video metadata, no page)</li><li>AARO assesses that this video, whose uploader-defined title is, Spherical UAP in clouds, is likely derived from an infrared sensor aboard a U.S. military platform operating above the Yellow Sea in January 2023. (video metadata, no page)</li><li>A user uploaded this video to a classified network in June 2024. (video metadata, no page)</li><li>An area of contrast becomes distinguishable against the background near the center of the frame. (video metadata, no page)</li><li>00:35-00:52: The sensor pans to track the area of contrast from left to right. (video metadata, no page)</li><li>An area of contrast transits the sensor field-of-view from left to right in the bottom third of the frame. (video metadata, no page)</li></ul>
       <p class="muted">Tags: War Department, 2023, Yellow Sea, Videos, AARO, Anomalous object</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007720/dow-uap-pr057a-spherical-uap-clouds" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR057b%2C%20%22%5BPlatform%5D%20Observes%20UAP%20in%20East%20China%20Sea%2005%20JAN%202023%20INDOPACOM%22">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007720/dow-uap-pr057a-spherical-uap-clouds" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR057b%2C%20%22%5BPlatform%5D%20Observes%20UAP%20in%20East%20China%20Sea%2005%20JAN%202023%20INDOPACOM%22">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-pr057b-platform-observes-uap-in-east-china-sea-05-jan-2023-indop-79f1c312.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

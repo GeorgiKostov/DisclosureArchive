@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection.</li></ul>
       <h2>Details</h2><ul><li>They have been reported by so many sources and from such a variety of places that swe are convinced that they cannot be disregarded and must be explained on some - s basis whiich is perhaps slightly beyond the scope of our present intelligence _ s was that some reliable and fully technically qualified people have. (OCR text, page 5)</li><li>Divers had discovered a previously uncharted crater on the floor of the lake, No further information is available, but we have been promised knowledge of the results, In their opinion, the (OCR text, page 5)</li><li>This equipment involved the installation of a small external array. (OCR text, page 6)</li></ul>
       <p class="muted">Tags: War Department, Netherlands, Air Force, Flying discs, Unidentified object, Saucers</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/341_110448_records_relating_to_the_collection_and_dissemination_of_intelligence_1948-1955-ts_cont_no.2_2-5300-2-5399.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=341_110448_Records_Relating_to_the_Collection_and_Dissemination_of_Intelligence_1948-1955-TS_CONT_No.2_2-5300-2-5399">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/341_110448_records_relating_to_the_collection_and_dissemination_of_intelligence_1948-1955-ts_cont_no.2_2-5300-2-5399.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=341_110448_Records_Relating_to_the_Collection_and_Dissemination_of_Intelligence_1948-1955-TS_CONT_No.2_2-5300-2-5399">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/341-110448-records-relating-to-the-collection-and-dissemination-of-intel-2eb53ebd.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

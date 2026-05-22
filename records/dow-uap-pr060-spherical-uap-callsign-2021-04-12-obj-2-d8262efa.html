@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li><li>AARO assesses that this video, whose uploader-defined title is, Spherical UAP [CALLSIGN] 2021/04/12 obj 2, is likely derived from a full-motion video camera and an infrared sensor aboard a U.S. military platform operating within the United States Central Command area of responsibility in 2021. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>House of Representatives requested access to 51 potentially UAP-related records allegedly held by the Department of War and the Intelligence Community. (video metadata, no page)</li><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li><li>Many of these materials lack a substantiated chain-of-custody. (video metadata, no page)</li><li>AARO assesses that this video, whose uploader-defined title is, Spherical UAP [CALLSIGN] 2021/04/12 obj 2, is likely derived from a full-motion video camera and an infrared sensor aboard a U.S. military platform operating within the United States Central Command area of responsibility in 2021. (video metadata, no page)</li><li>A user uploaded this video to a classified network in June 2024. (video metadata, no page)</li><li>02:05-04:50: The sensor refocuses on the original subject matter of the video. (video metadata, no page)</li><li>This video description is provided for informational purposes only. (video metadata, no page)</li><li>Readers should not interpret any part of this description as reflecting an analytical judgment, investigative conclusion, or factual determination regarding the described event s validity, nature, or significance. (video metadata, no page)</li></ul>
       <p class="muted">Tags: War Department, 2021, CENTCOM, Videos, AARO, Anomalous object</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007734/dow-uap-pr060-spherical-uap-callsign-2021-04-12-obj-2" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR060%2C%20%22Spherical%20UAP%20%5BCALLSIGN%5D%202021%2F04%2F12%20obj%202%22">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007734/dow-uap-pr060-spherical-uap-callsign-2021-04-12-obj-2" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR060%2C%20%22Spherical%20UAP%20%5BCALLSIGN%5D%202021%2F04%2F12%20obj%202%22">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-pr060-spherical-uap-callsign-2021-04-12-obj-2-d8262efa.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

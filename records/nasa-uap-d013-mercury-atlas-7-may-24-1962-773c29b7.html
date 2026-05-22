@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>He describes these phenomena as reflective, and that some seemed to move faster than the Aurora 7 spacecraft. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>He describes these phenomena as reflective, and that some seemed to move faster than the Aurora 7 spacecraft. (video metadata, no page)</li></ul>
       <p class="muted">Tags: NASA, Low Earth Orbit, Videos</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007879/nasa-uap-d013-mercury-atlas-7-may-24-1962" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D013%2C%20Mercury%20Atlas%207%2C%20May%2024%2C%201962">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007879/nasa-uap-d013-mercury-atlas-7-may-24-1962" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D013%2C%20Mercury%20Atlas%207%2C%20May%2024%2C%201962">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/nasa-uap-d013-mercury-atlas-7-may-24-1962-773c29b7.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

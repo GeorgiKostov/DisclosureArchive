@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>After some time, the object adopted a horizontal high-speed course and disappeared over the horizon. (native PDF text, page 2)</li><li>A very small object gives off a much larger trailing wave of heat/light. (native PDF text, page 2)</li><li>Tajik air chief pilot, amcit ed rhodes, and his two american pilot colleagues reported january 29 that, on january 27, they had encountered a UFO while fly ing at 41,000 feet in their boeing unclassified released in full john powers, acting-director us department of state 2/25/2026 unclassified pagel of 3 (native PDF text, page 1)</li><li>Rhodes expressed the opinion, which his crew seemed to support, that the object was extraterrestrial and under intelligent control. (native PDF text, page 2)</li></ul>
       <h2>Details</h2><ul><li>Tajik air chief pilot, amcit ed rhodes, and his two american pilot colleagues reported january 29 that, on january 27, they had encountered a UFO while fly ing at 41,000 feet in their boeing unclassified released in full john powers, acting-director us department of state 2/25/2026 unclassified pagel of 3 (native PDF text, page 1)</li><li>Captain rhodes took several photos with a pocket olympus camera and will send copies to the embassy and the tajikistan desk (lowry taylor) in the department, if they come out. (native PDF text, page 2)</li><li>After some time, the object adopted a horizontal high-speed course and disappeared over the horizon. (native PDF text, page 2)</li><li>The plane was making over 500 knots. (native PDF text, page 2)</li><li>A very small object gives off a much larger trailing wave of heat/light. (native PDF text, page 2)</li><li>This, they insisted, was nothing like a meteor. (native PDF text, page 2)</li><li>Escudero unclassified unclassified page 2 of 3 (native PDF text, page 2)</li><li>Rhodes expressed the opinion, which his crew seemed to support, that the object was extraterrestrial and under intelligent control. (native PDF text, page 2)</li></ul>
       <p class="muted">Tags: State Department, Kazakhstan, Lights, Aircraft</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dos-uap-d2-cable-2-kazakhstan-january-1994.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=State%20Department%20UAP%20Cable%202%2C%20Kazakhstan%2C%20January%2031%2C%201994">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dos-uap-d2-cable-2-kazakhstan-january-1994.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=State%20Department%20UAP%20Cable%202%2C%20Kazakhstan%2C%20January%2031%2C%201994">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/state-department-uap-cable-2-kazakhstan-january-31-1994-d51ce915.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

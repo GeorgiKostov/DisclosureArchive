@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>House of Representatives requested access to 51 potentially UAP-related records allegedly held by the Department of War and the Intelligence Community. (video metadata, no page)</li><li>The All-domain Anomaly Resolution Office (AARO) identified a collection of responsive materials held on a classified network. (video metadata, no page)</li><li>Many of these materials lack a substantiated chain-of-custody. (video metadata, no page)</li><li>A user uploaded this video to a classified network in July 2020. (video metadata, no page)</li><li>00:13-00:21: Two areas of contrast enter the lower right side of the screen and exit the bottom of the screen. (video metadata, no page)</li><li>of contrast is no longer visible within the frame at this level of magnification. (video metadata, no page)</li><li>The area of contrast within the sensor field-of-view appears as three distinct areas of contrast in a generally straight line. (video metadata, no page)</li><li>00:47-00:58: The distance between the rightmost area of contrast and the center and left areas of contrast appears to increase. (video metadata, no page)</li></ul>
       <p class="muted">Tags: War Department, 2018, CENTCOM, Videos, AARO, Anomalous object, UAP</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007726/dow-uap-pr096-hh11-03-july-2018-uaps" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR096%2C%20%22HH11%2003%20July%202018%20UAPs%22">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007726/dow-uap-pr096-hh11-03-july-2018-uaps" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-PR096%2C%20%22HH11%2003%20July%202018%20UAPs%22">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-pr096-hh11-03-july-2018-uaps-a81196f8.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

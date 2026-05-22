@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection.</li></ul>
       <h2>Details</h2><ul><li>News report of mysterious vehicle in Texas causing engines to stall prompted him to communicate with the United States Government concerning a similar phenomenon observed by him in 1944 in the area of Gut Alt (OCR text, page 9)</li><li>he has been employed at the Gobel Brewery, Detroit. (OCR text, page 9)</li><li>No machinery or other vehicle was then visible although a noise was heard described as a high-pitched whine Similar to that produced by a large electric generator. (OCR text, page 9)</li><li>The approximate three foot middle section appeared 1. to be a rapidly moving component produeing a continuous blur (OCR text, page 10)</li></ul>
       <p class="muted">Tags: FBI, Germany</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-101634279_100-de-26505.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-101634279_100-DE-26505">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-101634279_100-de-26505.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-101634279_100-DE-26505">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/65-hs1-101634279-100-de-26505-666ff0d3.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The objects were in sight approximately four seconds. (OCR text, page 176)</li><li>of the objects seen by various reliable individuals. (OCR text, page 131)</li><li>Adams, where Arnold first reported seeing objects henceforth described as saucers or discs. (OCR text, page 169)</li><li>LADD Chamberlin and General Todd that the Army is conducting no experimentations with anything which could possibly be mistaken for a flying disc. (OCR text, page 131)</li></ul>
       <h2>Details</h2><ul><li>reports: of additional reported sightings of flying discs by persons in Oregonand Arizona, together with the results of their investigations in that regard. ql It is noted that these investigations were conducted prior to the time Bureau instructions were issued that our own Bureau would conduct inquiries 4 into the. (OCR text, page 2)</li><li>TRUEX commented to CASELIA that a child had apparently lost its balloon. (OCR text, page 4)</li><li>He said it was about thirty to forty inches in diameter moving north in a horizontal plane about two hundred yards above the top of the hill at Summit Avenue and Simons Avenue. (OCR text, page 4)</li><li>CASELIA said that this man seemed excited but did nothing about it. (OCR text, page 4)</li><li>CASELLA said tnat he was positive it was no optical illusion. (OCR text, page 4)</li><li>He also said tnat ne would have thought nothing of it except for the speed at which it was traveling. (OCR text, page 4)</li><li>She went out immediately, and they pointed out the object in question. (OCR text, page 6)</li><li>She saw it just before it disappeared over tne horizon, but she declared that it was in view from that time for approximately one minute. (OCR text, page 6)</li></ul>
       <p class="muted">Tags: FBI, Flying discs, Unidentified object, Discs, Saucers</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_2.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Section_2">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_2.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Section_2">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/65-hs1-834228961-62-hq-83894-section-2-934e5a1e.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

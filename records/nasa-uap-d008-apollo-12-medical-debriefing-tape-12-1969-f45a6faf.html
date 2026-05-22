@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>Bean describe their observations of instances of light flashes or streaks of lights. (video metadata, no page)</li><li>NASA later determined that the phenomena reported by the Apollo 12 flight crew were internal to the astronauts vision rather than external light sources. (video metadata, no page)</li><li>The NASA medical team considered whether similar phenomena reported by Apollo 11 Lunar Module Pilot Buzz Aldrin had been attributable to exposure of the retina by cosmic rays. (video metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>Gordon, and Lunar Module Pilot Alan L. (video metadata, no page)</li><li>Bean describe their observations of instances of light flashes or streaks of lights. (video metadata, no page)</li><li>The astronauts each reported that these experiences occurred in the dark as they tried to sleep. (video metadata, no page)</li><li>The NASA medical team considered whether similar phenomena reported by Apollo 11 Lunar Module Pilot Buzz Aldrin had been attributable to exposure of the retina by cosmic rays. (video metadata, no page)</li><li>NASA later determined that the phenomena reported by the Apollo 12 flight crew were internal to the astronauts vision rather than external light sources. (video metadata, no page)</li></ul>
       <p class="muted">Tags: NASA, 1969, Texas, Videos, Flight operations, Apollo, Lights, Astronauts</p>
-      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007870/nasa-uap-d008-apollo-12-medical-debriefing-tape-12-1969" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D008%2C%20Apollo%2012%20Medical%20Debriefing%20-%20Tape%2012%2C%201969">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.dvidshub.net/video/1007870/nasa-uap-d008-apollo-12-medical-debriefing-tape-12-1969" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D008%2C%20Apollo%2012%20Medical%20Debriefing%20-%20Tape%2012%2C%201969">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/nasa-uap-d008-apollo-12-medical-debriefing-tape-12-1969-f45a6faf.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

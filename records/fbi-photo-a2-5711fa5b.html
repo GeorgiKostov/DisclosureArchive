@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The operator reported that they were unable to positively identify the UAP. (release metadata, no page)</li><li>Title: FBI Photo A2 Type: IMG Agency: FBI Release Date: 5/8/26 Incident Date: Late 2025 Incident Location: N/A Description: The Federal Bureau of Investigation (FBI) submitted a report of an unidentified anomalous phenomenon (UAP) to the All-domain Anomaly Resolution Office (AARO) consisting of a still image derived. (release metadata, no page)</li></ul>
       <h2>Details</h2><ul><li>Title: FBI Photo A2 Type: IMG Agency: FBI Release Date: 5/8/26 Incident Date: Late 2025 Incident Location: N/A Description: The Federal Bureau of Investigation (FBI) submitted a report of an unidentified anomalous phenomenon (UAP) to the All-domain Anomaly Resolution Office (AARO) consisting of a still image derived. (release metadata, no page)</li><li>The date and location of the event have not been provided. (release metadata, no page)</li><li>The original imagery was altered with redactions before being submitted to AARO. (release metadata, no page)</li><li>An accompanying mission report was not provided. (release metadata, no page)</li><li>The operator reported that they were unable to positively identify the UAP. (release metadata, no page)</li></ul>
       <p class="muted">Tags: FBI, 2025, Photos, AARO, Anomalous object</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/fbi-photo-a2.png" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=FBI%20Photo%20A2">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/fbi-photo-a2.png" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=FBI%20Photo%20A2">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/fbi-photo-a2-5711fa5b.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

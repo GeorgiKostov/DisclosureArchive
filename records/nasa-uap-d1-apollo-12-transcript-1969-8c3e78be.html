@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>Our electrical watchers say that the current indicates that your tracking light is on. (native PDF text, page 4)</li><li>And on the first nightside pass we had little bits and pieces floating along vith us and we could tell that the tracking light va.; flashing on them. (native PDF text, page 4)</li><li>Your blinking light&#x27;s Just not blinking, that&#x27;s all. (native PDF text, page 4)</li><li>I didn&#x27;t notice earlier, but it may just be because the lights i:,.re brighter now. (native PDF text, page 3)</li></ul>
       <h2>Details</h2><ul><li>05 19 16 37 CC If you will give us PO0 and ACCEPI&#x27;, we&#x27;ll give you a CSM state vector and RLS update. (native PDF text, page 1)</li><li>I hope you would like to have some company for a change. (native PDF text, page 1)</li><li>I sure do; got everything in order; ready to go towards the IM and bring back. (native PDF text, page 1)</li><li>That&#x27;s quite a chore; keeping this thing clean. cc 05 19 20 53 Roger. (native PDF text, page 1)</li><li>You got a couple of coal miners coming up to see you. (native PDF text, page 1)</li><li>05 19 23 14 CDR-I.M Houston, you got the lift-off time for me? (native PDF text, page 1)</li><li>And Jerry, will you find out what they want to do about this battery charge, be use. (native PDF text, page 2)</li><li>I&#x27;m using the bus tics during the rendezvous? (native PDF text, page 2)</li></ul>
       <p class="muted">Tags: NASA, 1969, Moon, Lights, Lunar observation, Flight operations, Apollo, Astronauts</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/nasa-uap-d1-apollo-12-transcript-1969.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D1%2C%20Apollo%2012%20Transcript%2C%201969">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/nasa-uap-d1-apollo-12-transcript-1969.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D1%2C%20Apollo%2012%20Transcript%2C%201969">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/nasa-uap-d1-apollo-12-transcript-1969-8c3e78be.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

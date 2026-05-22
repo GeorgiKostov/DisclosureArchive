@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>The IR sensor was set to black hot an the object in question was a bright white. (b)(6) I. (native PDF text, page 1)</li></ul>
       <h2>Details</h2><ul><li>2f XtL 2r e and emairffie complete Tile manually Range Fouler Reportin Form {see below). (native PDF text, page 1)</li><li>Please complete this form to the best of your ability. (native PDF text, page 1)</li><li>If you do n:ot have the requested information, please leave the field blank. (native PDF text, page 1)</li><li>If there was more than one &quot;group!&quot; please report each on a separate form for data collection purposes. (native PDF text, page 1)</li><li>You should receive a response within 5 business days. (native PDF text, page 1)</li><li>Please attempt to determine a Lat I Long for the contact at initial detection. (native PDF text, page 1)</li><li>We recommend using JMPS to reference the sensor-derived beanng and range relative to the bullseye you had Was the contact moving? (native PDF text, page 1)</li><li>If that method is not available, any reasonable derivation of location will worl&lt;, but please be as specfflc as possible and make a note in the comments section. (native PDF text, page 1)</li></ul>
       <p class="muted">Tags: War Department, Arabian Sea, Radar</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d44-range-fouler-arabian-sea-october-2020.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D44%2C%20Range%20Fouler%20Reporting%20Form%2C%20Gulf%20of%20Aden%2C%20October%202020">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d44-range-fouler-arabian-sea-october-2020.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D44%2C%20Range%20Fouler%20Reporting%20Form%2C%20Gulf%20of%20Aden%2C%20October%202020">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-d44-range-fouler-reporting-form-gulf-of-aden-october-2020-1d0f93d3.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

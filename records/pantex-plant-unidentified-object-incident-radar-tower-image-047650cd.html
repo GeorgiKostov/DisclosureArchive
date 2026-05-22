@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>UENT Panrexby N Managed and Operated by Consobdated Nuclear Secunty, LUC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower VENE Page Sof6 (OCR text, page 1)</li><li>UCNI PanTEX/ M.,,..t,,olO,,.,l,r Comolnaittd N id Hr SNunly, LlC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower 0 (bX3) (UCNI) UCNI Page 5 of 6 (native PDF text, page 1)</li><li>Panr x _ U C _ N I and O,,.rlNCI by Ccmoloat&lt;d Nldnr s urity llC Pantex Unidentified Object Incident Report Sandia National Labs Enhanced Images of the Object UCNI Page 6 of 6 (native PDF text, page 2)</li></ul>
       <h2>Details</h2><ul><li>UCNI PanTEX/ M.,,..t,,olO,,.,l,r Comolnaittd N id Hr SNunly, LlC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower 0 (bX3) (UCNI) UCNI Page 5 of 6 (native PDF text, page 1)</li><li>Panr x _ U C _ N I and O,,.rlNCI by Ccmoloat&lt;d Nldnr s urity llC Pantex Unidentified Object Incident Report Sandia National Labs Enhanced Images of the Object UCNI Page 6 of 6 (native PDF text, page 2)</li><li>UENT Panrexby N Managed and Operated by Consobdated Nuclear Secunty, LUC Pantex Unidentified Object Incident Report Image from Ground Surveillance Radar Tower VENE Page Sof6 (OCR text, page 1)</li></ul>
       <p class="muted">Tags: DOE, Unidentified object, Sandia Base, Pantex Plant, Radar</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/052226/release_02/documents/DOE-UAP-D001_PANTEX_Image.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=Pantex%20Plant%20Unidentified%20Object%20Incident%20-%20Radar%20Tower%20Image">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/052226/release_02/documents/DOE-UAP-D001_PANTEX_Image.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=Pantex%20Plant%20Unidentified%20Object%20Incident%20-%20Radar%20Tower%20Image">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/pantex-plant-unidentified-object-incident-radar-tower-image-047650cd.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

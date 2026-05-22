@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>To enunciate continuing Air Force requirements for information pertaining to sightings of unconventional aircraft and unidentified flying objects, including the so-called Flying Discs.. (OCR text, page 2)</li><li>If object came sufficiently near other aircraft or known objects check surfaces with Geiger counters for possible radioactivity. (OCR text, page 8)</li><li>Make comparisons with other unaffected aircraft objects, etc. (OCR text, page 8)</li><li>Comments of interrogator regarding the intelligence and character of person interrogated.; Relative to Radar Sightings 1. (OCR text, page 15)</li></ul>
       <h2>Details</h2><ul><li>PURPOSE The purpose of this memorandum is twofold:. (OCR text, page 2)</li><li>To enunciate continuing Air Force requirements for information pertaining to sightings of unconventional aircraft and unidentified flying objects, including the so-called Flying Discs.. (OCR text, page 2)</li><li>To establish procedures for reporting such information. (OCR text, page 2)</li><li>Non-Air Force Agencies (1) Addressees other than those of the United States Air Force are requested to forward reports direct to the Commanding General, Air Materiel Command, Wright-Patterson Air Force Base, (OCR text, page 3)</li><li>their control in connection with the development of information on this subject.. (OCR text, page 3)</li><li>Observable celestial phenomena or planets that may account for the sighting. (Local facilities or organizations which follow such celestial phenomena should be consulted for such information.) 6. (OCR text, page 4)</li><li>Apparent construction. (Of what material or substance). (OCR text, page 4)</li><li>Aerostatic lift (balloon or dirigible). (OCR text, page 5)</li></ul>
       <p class="muted">Tags: FBI, Air Force, Flying discs, Unidentified object, Aircraft, Discs, Radar</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_164.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Serial_164">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_164.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=65_HS1-834228961_62-HQ-83894_Serial_164">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/65-hs1-834228961-62-hq-83894-serial-164-4e35062c.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

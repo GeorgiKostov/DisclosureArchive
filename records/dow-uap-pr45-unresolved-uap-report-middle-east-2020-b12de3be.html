@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection.</li></ul>
       <h2>Details</h2><ul><li>The reporter did not provide any oral or written description of the observation. (video metadata, no page)</li><li>Video Description: 00:00-00:03: The sensor tracks an area of contrast acquiring a reticle lock. (video metadata, no page)</li><li>00:04-00:30: The area of contrast gradually increases in distinctiveness against the background. (video metadata, no page)</li><li>00:31: The sensor narrows its field-of-view to zoom in on the area of contrast. (video metadata, no page)</li><li>00:32-00:56: The area of contrast increases in apparent size and distinctiveness. (video metadata, no page)</li></ul>
       <p class="muted">Tags: War Department, Southern United States, Videos, AARO, Air Force, Media evidence, Anomalous object</p>
-      <div class="actions"><a class="button" href="/#search?q=DOW-UAP-PR45%2C%20Unresolved%20UAP%20Report%2C%20Middle%20East%2C%202020">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="/#search?q=DOW-UAP-PR45%2C%20Unresolved%20UAP%20Report%2C%20Middle%20East%2C%202020">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-pr45-unresolved-uap-report-middle-east-2020-b12de3be.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

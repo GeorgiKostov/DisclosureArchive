@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>And the with the maneuver complete, the fragment field is essentially static, except for very slight tumbling within the fragments. (native PDF text, page 2)</li><li>Rima Gamma now is is coming a lit tle bit closer to our oval track in the horseshoe in the larger and more western end of it; the dark horseshoe is quite clear in this light. (native PDF text, page 15)</li><li>CMP Bob, for the most part, these fragments are not or are tumbling at a very slow rate. (native PDF text, page 2)</li><li>it is where there was just a thin streak of light. (native PDF text, page 16)</li></ul>
       <h2>Details</h2><ul><li>Tape 5/2 CC Yes, we copied your VI and your EMS numbers, and we&#x27;ve got a number for you. (native PDF text, page 1)</li><li>Maneuver start time will be at 03 plus 33 plus 27. (native PDF text, page 1)</li><li>LMP You guys didn&#x27;t tell us we couldn&#x27;t see anything going through the sunrise. cc (Laughter) Roger. cc 00 03 25 01 17, Houston. (native PDF text, page 1)</li><li>We&#x27;re making plans here for a space craft SEP time of 03 plus 43. (native PDF text, page 1)</li><li>We&#x27;re copying cabin press of 5.9 this time. (native PDF text, page 1)</li><li>They look like pieces of something. (native PDF text, page 2)</li><li>CMP Bob, for the most part, these fragments are not or are tumbling at a very slow rate. (native PDF text, page 2)</li><li>I tried a couple of pictures of them different settings. (native PDF text, page 2)</li></ul>
       <p class="muted">Tags: NASA, 1972, Moon, Lunar observation, Apollo, Astronauts, Lights, Rocket</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/nasa-uap-d2-apollo-17-transcript-1972.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D2%2C%20Apollo%2017%20Transcript%2C%201972">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/nasa-uap-d2-apollo-17-transcript-1972.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=NASA-UAP-D2%2C%20Apollo%2017%20Transcript%2C%201972">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/nasa-uap-d2-apollo-17-transcript-1972-113a3def.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

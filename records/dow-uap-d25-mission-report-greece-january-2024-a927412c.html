@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>Harrison USCENTCOM Chief of Staff SECRET//REL TO USA, FVEY Declassified on: 24 October 2025 CLEAR WX (UNCLASSIFIED) EFFECTIVENESS Tasker: Intel Gap Filled?: Yes Gentext: (UNCLASSIFIED) SATISFACTORY (UNCLASSIFIED) UAP Initial Contact DTG: 250509:00ZJAN24 UAP Event Type: UAP Incident UAP Maneuverability Observations:. (native PDF text, page 6)</li></ul>
       <h2>Details</h2><ul><li>Harrison USCENTCOM Chief of Staff SECRET//REL TO USA, FVEY Declassified on: 24 October 2025 MSGID Report Type: MISREP Originator (Unit or Squadron): 33 SOS Submit Date: MSNID Tasking Order (ATO): 24-024 Mission Type: ISR ATO Mission Number: 4055 Country Tasked: US UNITED STATES Service Tasked: A AIR FORCE Poc POC. (native PDF text, page 2)</li><li>Harrison USCENTCOM Chief of Staff SECRET//REL TO USA, FVEY Declassified on: 24 October 2025 Wing: Other Phone Number: 3.5c, FOIA Exemption (b)(6) Email: 3.5c, FOIA Exemption (b)(6) Service: Air Force Operations Center: 603 AOC INGEST Rank: Full Name: Unit: Wing: Phone Number: Email: Service: Operations Center: ACEQUIP. (native PDF text, page 3)</li><li>Harrison USCENTCOM Chief of Staff SECRET//REL TO USA, FVEY Declassified on: 24 October 2025 Type of IR-Guided AAM: Num IR-Guided AAM: Gun Name or Designator: Num Gun Rounds: Air-to-Ground Wpn to Include Num of Each: TGT Pod Name or Designator: AN/DAS-4 Additional Avionics: AH/GMESH/SANTA FE Data Link: LINK 16 Gentext:. (native PDF text, page 4)</li><li>Harrison USCENTCOM Chief of Staff SECRET//REL TO USA, FVEY Declassified on: 24 October 2025 Off Station Time Off Station DTG: 251504:00ZJAN24 Total Time On Station: 8 hours 29 minutes Gentext/Additional Details: ISR Time-on Station DTG: 250635:00ZJAN24 Time-off Station DTG: 251504:00ZJAN24 Aircraft Callsign:. (native PDF text, page 5)</li><li>Harrison USCENTCOM Chief of Staff SECRET//REL TO USA, FVEY Declassified on: 24 October 2025 CLEAR WX (UNCLASSIFIED) EFFECTIVENESS Tasker: Intel Gap Filled?: Yes Gentext: (UNCLASSIFIED) SATISFACTORY (UNCLASSIFIED) UAP Initial Contact DTG: 250509:00ZJAN24 UAP Event Type: UAP Incident UAP Maneuverability Observations:. (native PDF text, page 6)</li></ul>
       <p class="muted">Tags: War Department, Mediterranean Sea, Air Force, AARO, Anomalous object, Aircraft</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d25-mission-report-greece-january-2024.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D25%2C%20Mission%20Report%2C%20Greece%2C%20January%202024">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d25-mission-report-greece-january-2024.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D25%2C%20Mission%20Report%2C%20Greece%2C%20January%202024">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-d25-mission-report-greece-january-2024-a927412c.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>Report of Unidentified Flying Object. (OCR text, page 80)</li><li>Object did not come sufficiently near known objects to obtain radicactivity readings. (OCR text, page 112)</li><li>Sketches of object&#x27;s configuration: Sketches of object&#x27;s configuration are not availables (OCR text, page 9)</li><li>The following report of sighting unidentified flying objects is submitted:. (OCR text, page 15)</li></ul>
       <h2>Details</h2><ul><li>They appeared to be motionless over Olathe for ten to fifteen minutes, then moved off very fast. (OCR text, page 1)</li><li>The incident was witnessed by James F. (OCR text, page 1)</li><li>Two objects were sighted, both spherical in shape. (OCR text, page 1)</li><li>They appeared to be the size of old fashioned street lights about two blocks: distant. (OCR text, page 1)</li><li>The estimted altitude was between seven and eight thousand feet. (OCR text, page 1)</li><li>No sound was emitted, nor exhaust trail apparent. (OCR text, page 1)</li><li>Time in sights Not stated: % Appearance of objects fe Color: Silvery or aluminum Ce Apparent constructions opinion di&lt; Sizes ndetermined due to distance and speed (neepENTIAL (OCR text, page 4)</li><li>The approximate dise tance of the object from the observer was thirty miles, be How attention was drawn to objects: Yormal pilot surveillance o itnessess 4 (OCR text, page 6)</li></ul>
       <p class="muted">Tags: War Department, Flying discs, Unidentified object, Flight operations, AACS, Discs, UFO, Lights</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/342_hs1-416511228_box186_319.1-flying-discs-1949.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=342_HS1-416511228_319.1%20Flying%20Discs%201949">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/342_hs1-416511228_box186_319.1-flying-discs-1949.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=342_HS1-416511228_319.1%20Flying%20Discs%201949">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/342-hs1-416511228-319-1-flying-discs-1949-990d4537.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

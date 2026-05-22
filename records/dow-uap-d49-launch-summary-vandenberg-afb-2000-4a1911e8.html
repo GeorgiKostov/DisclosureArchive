@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>No clear anomaly-focused passage was found in the indexed text for this source; review the PDF/media manually if the title or metadata suggests a UAP connection.</li></ul>
       <h2>Details</h2><ul><li>FOREWORD This is the official registry of all major launch operations conducted from Vandenberg Air Force Base, California. (native PDF text, page 3)</li><li>The vehicles are presented in chronofogical order beginning with the first launch on 16 December 1958. (native PDF text, page 3)</li><li>Launch dates reflect Vandenberg local time. (native PDF text, page 3)</li><li>The information is further grouped into two matrixes titled: &quot;ANNUAL LAUNCH SUMMARY BY BOOSTER&quot; and &quot;ANNUAL LAUNCH SUMMARY BY COMMAND.&quot; Two additional items contained in this document are a &quot;LAUNCH FACILITY GUIDE&quot; and a &#x27;&#x27;GLOSSARY.&quot; In the main chronology section, the two columns reporting cumulative numbers by. (native PDF text, page 3)</li><li>They do not include, for instance, Titan IV launches conducted on the East Coast at Cape Canaveral, Florida. (native PDF text, page 3)</li><li>GLOSSARY ABRES Advanced Ballistic Reentry System ABRV Advanced Ballistic Reentry Vehicle (Formerly LBRV) ACC Air Combat Command (Strategic Air Command [SAC] prior to 1 June 1992.) ACE Advanced Control Experiment ADC Aerospace Defense Command AE Atmosphere Explorer AEC Atomic Energy Commission AFMC Air Force Materiel. (native PDF text, page 4)</li><li>DT&amp;E Development Test &amp; Evaluation DT&amp;E PHASE I Development Test &amp; Evaluation (Missile Functional Performance [Peacekeeperll DT&amp;E PHASE II Development Test &amp; Evaluation (Missile Reentry Vehicle Capabilities and Silo lntergradation [Peacekeeper]) DUAL LAUNCH The launch of two missiles one after another EOS Earth. (native PDF text, page 5)</li><li>KOMPSAT Korea Multi-Purpose Satellite LAGEOS Laser Geodynamic Satellite LANDSAT Earth Resources Satellite LBRV Large Ballistic Reentry Vehicle (See ABRV) LE Launch Emplacement LF Launch Facility LLL Lawrence Livermore Laboratory LLV-1 Lockheed Launch Vehicle 1. (Became Lockheed Martin Launch Vehicle, and in Sept 97. (native PDF text, page 6)</li></ul>
       <p class="muted">Tags: War Department, Air Force, Missile, Radar</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d49-launch-summary-february-2000.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D49%2C%20Launch%20Summary%2C%20Vandenberg%20AFB%2C%202000">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/release_1/dow-uap-d49-launch-summary-february-2000.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=DOW-UAP-D49%2C%20Launch%20Summary%2C%20Vandenberg%20AFB%2C%202000">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/dow-uap-d49-launch-summary-vandenberg-afb-2000-4a1911e8.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>

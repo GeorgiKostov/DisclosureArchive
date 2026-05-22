@@ -54,8 +54,26 @@
       <h2>Notable / anomalous element</h2><ul><li>Teller&#x27;s discussion tends to disprove the hypothesis that guided missiles or informer vehicles are responsible, thero is cause for concern of the continued occurrences of unexplainable phenomena of this nature in the vicinity of sensitive installations. (native PDF text, page 93)</li><li>Further, that tho continued occurrence of unexplained phenomena of this nature in the vicinity of sensitive installations is cause for concern. (native PDF text, page 21)</li><li>This compilation of sightings is not a complete r ecord of all reported observations, but includes only those in which sufficient information was available to justify their inclusion. (native PDF text, page 20)</li><li>Teller has the tentative opinion they are not material objects passing through the air. (native PDF text, page 92)</li></ul>
       <h2>Details</h2><ul><li>Reference is made to secret letter. your headquarters. dated 1 April 1949 Subjects Security Inspection. (native PDF text, page 1)</li><li>Guard Orders have been amended directing that the elec tric gate be closed between 1700 hours until 0700 hours the following day.. (native PDF text, page 1)</li><li>Looks have repl ced the bolts in all inspection access gates in the outer fence.. (native PDF text, page 1)</li><li>Inspection ports on both bridges are now pr ovided with locks.. (native PDF text, page 1)</li><li>The final draft of our alert plan has been reviewed and will be published and distributed for study to operating personnel. (native PDF text, page 1)</li><li>Final form of the overal l alert plan will be sub mitted to your headquarters for approval as soon as conditions will allow. (native PDF text, page 1)</li><li>1n the interim period. it is felt that the temporary alert plan we have prepared is adequate. (native PDF text, page 1)</li><li>A copy of this pl an will be dis patched to your headquarters in the near future. e.!11 jeep radios are now installed in jeeps. r. lthough not entirely satisfactory. radio oom.munioation with the Camp Campbell Military Police has been in effect for sometime and was in effect at the time of the Security inspection..Pe. (native PDF text, page 1)</li></ul>
       <p class="muted">Tags: DOW, 1948, Flying discs, Green fireballs, Sandia Base, Los Alamos, New Mexico, Nuclear facility, Aerial phenomena, Fireball</p>
-      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/052226/release_02/documents/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=Sandia%20Base%20Correspondence%20-%20New%20Mexico%20Aerial%20Phenomena%20and%20Green%20Fireballs%20%281948-1949%29">Open in the live archive</a></div>
+      <div class="actions"><a class="button" href="https://www.war.gov/medialink/ufo/052226/release_02/documents/DOW-UAP-D017_General_Correspondence_Of_Sandia.pdf" target="_blank" rel="noopener">Official source</a><a class="button" href="/#search?q=Sandia%20Base%20Correspondence%20-%20New%20Mexico%20Aerial%20Phenomena%20and%20Green%20Fireballs%20%281948-1949%29">Open in the live archive</a><button class="button" id="shareBtn" type="button">Share / copy link</button></div>
     </article>
   </main>
+  <script>
+    (function() {
+      var btn = document.getElementById("shareBtn");
+      if (!btn) return;
+      var url = "https://disclosurearchive.org/records/sandia-base-correspondence-new-mexico-aerial-phenomena-and-green-firebal-09d135b4.html";
+      btn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try { await navigator.share({ title: document.title, url: url }); return; }
+          catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          var prev = btn.textContent; btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = prev; }, 1500);
+        } catch (e) { window.prompt("Copy this link:", url); }
+      });
+    })();
+  </script>
 </body>
 </html>
