@@ -1,6 +1,6 @@
 {
   "schema": "disclosurearchive.public_site.v1",
-  "generated_at": "2026-05-22T14:15:40+00:00",
+  "generated_at": "2026-05-22T14:51:32+00:00",
   "document_count": 226,
   "release_groups": [
     {
@@ -29671,7 +29671,7 @@
           "location_id": "da91ea7387732c88a08bd0d2",
           "chunk_id": null,
           "raw_location": "CENTCOM",
-          "normalized_location": "Gulf Of Arabia",
+          "normalized_location": "Gulf of Arabia",
           "latitude": 20.0,
           "longitude": 60.0,
           "precision": "region",
@@ -30912,7 +30912,7 @@
           "location_id": "d5b0cf5cf9be3f6567c2ab9e",
           "chunk_id": null,
           "raw_location": "CENTCOM",
-          "normalized_location": "Gulf Of Arabia",
+          "normalized_location": "Gulf of Arabia",
           "latitude": 20.0,
           "longitude": 60.0,
           "precision": "region",
