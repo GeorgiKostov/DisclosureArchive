@@ -94,6 +94,59 @@ GEOCODE_LOCATIONS = {
     "united arab emirates": (23.4241, 53.8478, "country", 0.55),
     "united states": (39.8283, -98.5795, "country", 0.45),
     "western united states": (39.0, -114.0, "region", 0.35),
+    # Combatant-command areas of responsibility (coarse region centroids).
+    "centcom": (26.8, 52.0, "region", 0.30),
+    "northcom": (44.0, -98.0, "region", 0.25),
+    "indopacom": (15.0, 130.0, "region", 0.22),
+    "eucom": (50.0, 15.0, "region", 0.28),
+    "africom": (8.0, 21.0, "region", 0.22),
+    "southcom": (-15.0, -60.0, "region", 0.22),
+    # Regions / seas seen in Release 2 video metadata and titles.
+    "southeastern united states": (31.0, -84.0, "region", 0.35),
+    "midwestern united states": (41.5, -93.0, "region", 0.35),
+    "north atlantic ocean": (40.0, -40.0, "region", 0.22),
+    "yellow sea": (35.5, 123.5, "region", 0.40),
+    "gulf of arabia": (20.0, 60.0, "region", 0.40),
+    "texas": (31.0, -99.0, "region", 0.40),
+    "afghanistan": (33.9391, 67.7100, "country", 0.55),
+    "kabul": (34.5553, 69.2075, "city", 0.75),
+    "lake huron": (44.8, -82.4, "lake", 0.75),
+    "tyndall afb": (30.07, -85.58, "base", 0.78),
+    "eglin afb": (30.46, -86.55, "base", 0.78),
+}
+
+# Specific place phrases to look for inside a record title; the first (most
+# specific) match wins over the broader incident_location gazetteer so videos
+# tagged only with a combatant command still land on a meaningful point.
+TITLE_PLACE_KEYS = [
+    ("lake huron", "lake huron"),
+    ("tyndall", "tyndall afb"),
+    ("eglin", "eglin afb"),
+    ("kabul", "kabul"),
+    ("strait of hormuz", "strait of hormuz"),
+    ("persian gulf", "persian gulf"),
+    ("gulf of arabia", "gulf of arabia"),
+    ("gulf of oman", "gulf of oman"),
+    ("arabian gulf", "arabian gulf"),
+    ("arabian sea", "arabian sea"),
+    ("east china sea", "east china sea"),
+    ("yellow sea", "yellow sea"),
+    ("kazakhstan", "kazakhstan"),
+    ("djibouti", "djibouti"),
+    ("syria", "syria"),
+    ("iran", "iran"),
+]
+
+# Human-readable labels for gazetteer keys whose title-cased form is awkward.
+LOCATION_LABELS = {
+    "tyndall afb": "Tyndall AFB",
+    "eglin afb": "Eglin AFB",
+    "centcom": "CENTCOM region",
+    "northcom": "NORTHCOM region",
+    "indopacom": "INDOPACOM region",
+    "eucom": "EUCOM region",
+    "africom": "AFRICOM region",
+    "southcom": "SOUTHCOM region",
 }
 
 
@@ -177,6 +230,32 @@ def add_location(
 
 def add_incident_location(conn, record) -> None:
     raw = clean(record.incident_location)
+    title = clean(record.title).lower()
+
+    # 1. Prefer a specific place named in the title (e.g. "Lake Huron",
+    #    "Persian Gulf") over a broad combatant-command label.
+    for phrase, key in TITLE_PLACE_KEYS:
+        if phrase in title:
+            geo = GEOCODE_LOCATIONS.get(key)
+            if geo:
+                latitude, longitude, precision, confidence = geo
+                add_location(
+                    conn,
+                    doc_id=record.doc_id,
+                    chunk_id=None,
+                    raw_location=raw or phrase,
+                    normalized_location=LOCATION_LABELS.get(key, key.title()),
+                    latitude=latitude,
+                    longitude=longitude,
+                    precision=precision,
+                    confidence=confidence,
+                    source_kind="metadata",
+                    method="title_place_gazetteer",
+                    metadata={"field": "title", "matched_place": key},
+                )
+                return
+
+    # 2. Fall back to the incident_location gazetteer (now incl. commands).
     if not raw or raw == "N/A":
         return
     geo = GEOCODE_LOCATIONS.get(raw.lower())
@@ -188,7 +267,7 @@ def add_incident_location(conn, record) -> None:
         doc_id=record.doc_id,
         chunk_id=None,
         raw_location=raw,
-        normalized_location=raw,
+        normalized_location=LOCATION_LABELS.get(raw.lower(), raw),
         latitude=latitude,
         longitude=longitude,
         precision=precision,
