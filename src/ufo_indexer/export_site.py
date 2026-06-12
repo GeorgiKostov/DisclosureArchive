@@ -2405,6 +2405,23 @@ TAG_PHRASES = [
     (re.compile(r"\bpantex\b", re.I), "Pantex Plant"),
     (re.compile(r"\b(?:nuclear|atomic|weapons?)\s+(?:facilit|site|complex|plant|range|reservation)", re.I), "Nuclear facility"),
     (re.compile(r"\btest\s+range\b", re.I), "Test range"),
+    # Release 3 themes.
+    (re.compile(r"\bfd[- ]?302\b", re.I), "FBI FD-302"),
+    (re.compile(r"\bfd[- ]?1057\b", re.I), "FBI FD-1057"),
+    (re.compile(r"\borbs?\s+over\s+the\s+pond\b", re.I), "Orbs Over the Pond"),
+    (re.compile(r"\bnortheastern\s+orb\b", re.I), "Northeastern orb"),
+    (re.compile(r"\btriangle\s+orbs?\b", re.I), "Triangle orbs"),
+    (re.compile(r"\bred\s+orb\b", re.I), "Red orb"),
+    (re.compile(r"\bplasma[- ]?like\s+sphere\b", re.I), "Plasma-like sphere"),
+    (re.compile(r"\bcolorado\s+springs\b", re.I), "Colorado Springs"),
+    (re.compile(r"\bharare\b", re.I), "Harare"),
+    (re.compile(r"\bcape\s+kennedy\b", re.I), "Cape Kennedy"),
+    (re.compile(r"\bj\.\s*edgar\s+hoover\b", re.I), "J. Edgar Hoover"),
+    (re.compile(r"\bapollo\s+1[126]\b", re.I), "Apollo"),
+    (re.compile(r"\bcascade\s+mountains?\b", re.I), "Cascade Mountains"),
+    (re.compile(r"\b(?:flying[- ]?saucer\s+study|saucer\s+study)\b", re.I), "Flying Saucer Study"),
+    (re.compile(r"\b(?:angular,?\s+non[- ]symmetrical\s+potato|potato[- ]shaped)\b", re.I), "Potato-shaped object"),
+    (re.compile(r"\baaro\b", re.I), "AARO"),
 ]
 
 AGENCY_TAGS = {
@@ -2412,6 +2429,9 @@ AGENCY_TAGS = {
     "Department of State": "State Department",
     "FBI": "FBI",
     "NASA": "NASA",
+    "CIA": "CIA",
+    "Intelligence Community Agency": "IC Partner",
+    "U.S. Government": "U.S. Government",
 }
 
 # Ordered highlight release groups. Each curated selection belongs to one group
@@ -2423,6 +2443,7 @@ AGENCY_TAGS = {
 #   fallback_date - used only when no override and no document release_date.
 DEFAULT_RELEASE = "release-1"
 RELEASE_GROUPS = [
+    {"key": "release-3", "label": "RELEASE 3", "date": "", "fallback_date": "6/12/26"},
     {"key": "release-2", "label": "RELEASE 2", "date": "", "fallback_date": "5/22/26"},
     {"key": "release-1", "label": "RELEASE 1", "date": "", "fallback_date": "5/8/26"},
 ]
@@ -2799,6 +2820,129 @@ FEATURED_SELECTIONS = [
             "Incident: Kabul, Afghanistan (uploader-dated July 2017)",
             "Source: infrared sensor video uploaded to a classified network",
             "Why it stands out: an over-city special-operations sensor capture",
+        ],
+    },
+    # ===================== Release 3 highlights ============================ #
+    {
+        "match": "FBI-UAP-PR003",
+        "release": "release-3",
+        "title": "Orbs Over the Pond",
+        "kicker": "Plasma-like sphere above a pond",
+        "summary": "In October 2024, around 1851 local time in the northeastern United States, a witness reported a light source hovering above a pond at an estimated 2,700 feet, calling it a \"plasma-like sphere\" that intermittently changed shape and luminosity and at times appeared to separate into smaller luminous points. A second luminous point sat just above the water and did not appear consistent with a surface reflection. The object stayed roughly stationary for about 45 minutes before disappearing, with no sound reported. The footage was captured by a private citizen on an iPhone, later analyzed and authenticated by the U.S. government, and cropped only to protect the witness's privacy.",
+        "facts": [
+            "Agency: FBI",
+            "Incident: October 2024, northeastern United States",
+            "Source: iPhone footage submitted to the FBI; FBI assesses the witness as highly credible",
+            "Why it stands out: extended, multi-feature object on civilian video, government-authenticated",
+        ],
+    },
+    {
+        "match": "FBI-UAP-PR004",
+        "release": "release-3",
+        "kicker": "Two red orbs in a backyard",
+        "summary": "In July 2025, around 2100 local time in the northeastern United States, a witness pulling into their driveway reported an intense bright light hovering about 25 feet off the ground, roughly 90 feet away below a tree line. The witness's spouse described it as a \"brilliant red sphere\" about a meter across with a white plasma \"sun\" inside the size of a basketball. A second identical orb appeared above the first; both moved westward in silent, smooth tandem, as if flying in formation, before appearing to merge as they passed out of view. The witnesses had recently observed nearby cases the FBI is grouping as \"Triangle Orbs,\" \"Red Orb Rotation,\" and \"Orbs Over the Pond.\"",
+        "facts": [
+            "Agency: FBI",
+            "Incident: July 2025, northeastern United States",
+            "Source: iPhone 14 Pro Max footage; FBI assesses the witnesses as credible",
+            "Why it stands out: two paired red orbs filmed in tandem within a cluster of related FBI cases",
+        ],
+    },
+    {
+        "match": "FBI-UAP-D009",
+        "release": "release-3",
+        "kicker": "FBI FD-302 interview, Northeastern orb",
+        "summary": "An FBI FD-302 records a February 2026 interview with a U.S. person about incidents potentially involving unidentified anomalous phenomena in the northeastern United States. The document is part of a cluster of FBI records (FBI-UAP-D009, -D010, and video PR004) that the FBI says all originate from the same general area and witness pool.",
+        "facts": [
+            "Agency: FBI",
+            "Interview: February 2026",
+            "Source: FBI FD-302 form (used to record interviews)",
+            "Why it stands out: contemporary FBI interview tied to the northeastern orb video cluster",
+        ],
+    },
+    {
+        "match": "FBI-UAP-D002",
+        "release": "release-3",
+        "kicker": "FBI FD-1057, Colorado Springs",
+        "summary": "An FBI FD-1057 records a first-hand narrative of a UAP incident reported near Colorado Springs, Colorado in 2022. The interviewee provided the statement to FBI special agents to support a digital artistic reconstruction of the incident, which the FBI later released as FBI-UAP-D003. The incident is one of three Release 3 records (FBI-UAP-D002, FBI-UAP-D003, ICA-UAP-D001) that all turn on the same 2022 Colorado Springs sighting.",
+        "facts": [
+            "Agency: FBI",
+            "Incident: 2022, Colorado Springs, Colorado",
+            "Source: FBI FD-1057 form (used to record investigative activity)",
+            "Why it stands out: a witness narrative paired with both an artistic rendering and a separate IC analysis",
+        ],
+    },
+    {
+        "match": "ICA-UAP-D001",
+        "release": "release-3",
+        "kicker": "IC analysis: \"non-symmetrical potato\"",
+        "summary": "An All-domain Anomaly Resolution Office (AARO) Intelligence Community partner analyzed a 2022 airborne-object incident near Colorado Springs, Colorado, reported to AARO by U.S. military service members in 2023. With low confidence, the IC partner attributed the phenomenon — which witnesses described as resembling an \"angular, non-symmetrical potato\" — to sunlight backscattering, where sunlight reflecting off mountain snow cover illuminated the underside of low clouds. The case remains unresolved as of June 2026.",
+        "facts": [
+            "Agency: AARO IC partner",
+            "Incident: 2022, Colorado Springs, Colorado",
+            "Source: IC partner analytic note paired with FBI FD-1057 and digital rendering",
+            "Why it stands out: rare published low-confidence IC assessment for a still-unresolved sighting",
+        ],
+    },
+    {
+        "match": "CIA-UAP-017",
+        "release": "release-3",
+        "title": "Harare Airport UFO, 2008",
+        "kicker": "CIA report from Zimbabwe",
+        "summary": "A previously unreleased CIA report describes a July 2008 UFO sighting at Harare International Airport in Zimbabwe. The report says local discussion split between two hypotheses — that the object was an advanced reconnaissance device of a foreign government, or that it was extraterrestrial. The document is filed under the CIA's release-3 packaging tied to perceived foreign-posturing alerts.",
+        "facts": [
+            "Agency: CIA",
+            "Incident: July 2008, Harare, Zimbabwe",
+            "Source: CIA report",
+            "Why it stands out: rare African-airport UAP case in CIA channels with a foreign-state-aircraft angle",
+        ],
+    },
+    {
+        "match": "DOW-UAP-D084",
+        "release": "release-3",
+        "kicker": "1949 Army flying-saucer study",
+        "summary": "A 1949 \"Evaluation Study of the Phenomenon (Flying Saucers)\" prepared at the request of the U.S. Army's Plans & Operations Division (P&O, GSUSA) to assess whether reported sightings could be traced to natural phenomena or to foreign-power activity. This is a contemporaneous Army staff-level review from the same period as Project Sign / Project Grudge and the rapidly growing FBI flying-disc files.",
+        "facts": [
+            "Agency: Department of War (U.S. Army)",
+            "Records era: 1949",
+            "Source: P&O, GSUSA staff evaluation",
+            "Why it stands out: early-Cold-War Army staff treatment of flying-saucer reports",
+        ],
+    },
+    {
+        "match": "FBI-UAP-D011",
+        "release": "release-3",
+        "kicker": "Hoover correspondence, Cascade Mountains",
+        "summary": "A 1949 correspondence file between FBI Director J. Edgar Hoover and Reverend Charles Barnes. Rev. Barnes describes four beams of light \"converging in the Cascade Mountains\" at about 10,000 feet, with a \"great explosion\" visible at the convergence point for at least ten minutes. Hoover replies and forwards the letter to the Atomic Energy Commission, telling the AEC that Rev. Barnes believed the event may relate to a military or scientific experiment within the commission's purview.",
+        "facts": [
+            "Agency: FBI",
+            "Incident: 1949, Cascade Mountains",
+            "Source: Director Hoover ↔ Rev. Charles Barnes correspondence; AEC referral",
+            "Why it stands out: documented Hoover routing of a UFO report to the early Atomic Energy Commission",
+        ],
+    },
+    {
+        "match": "FBI-UAP-D003",
+        "release": "release-3",
+        "kicker": "Artistic rendering from witness narrative",
+        "summary": "A digital artistic interpretation of the 2022 Colorado Springs UAP sighting, derived from the first-hand witness narrative recorded in FBI-UAP-D002 (FD-1057). The rendering is released alongside the witness statement and the IC partner's low-confidence sunlight-backscatter analysis, making this one of the rare cases in PURSUE where you can read the narrative, see the reconstruction, and read the IC's working hypothesis side by side.",
+        "facts": [
+            "Agency: FBI",
+            "Incident: 2022, Colorado Springs, Colorado",
+            "Source: FBI Lab rendering paired with FD-1057 witness narrative",
+            "Why it stands out: official visual reconstruction of an unresolved 2022 case",
+        ],
+    },
+    {
+        "match": "FBI-UAP-D010",
+        "release": "release-3",
+        "kicker": "Second FBI interview, Northeastern orb",
+        "summary": "A second FBI FD-302 covering an interview with a U.S. person about the same northeastern-United-States UAP cluster as FBI-UAP-D009 and the FBI-UAP-PR004 \"Northeastern Orb Sighting\" video. The FBI groups these records as originating from the same general area and overlapping witness pool, which is what makes the Release 3 northeastern set unusual: multiple independently interviewed witnesses tied to the same local geography.",
+        "facts": [
+            "Agency: FBI",
+            "Incident year: 2025 (interview dated 2026)",
+            "Source: FBI FD-302 interview",
+            "Why it stands out: independent corroborating interview for a single contemporary geographic cluster",
         ],
     },
 ]

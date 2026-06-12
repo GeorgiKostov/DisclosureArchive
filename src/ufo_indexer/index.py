@@ -113,6 +113,25 @@ GEOCODE_LOCATIONS = {
     "lake huron": (44.8, -82.4, "lake", 0.75),
     "tyndall afb": (30.07, -85.58, "base", 0.78),
     "eglin afb": (30.46, -86.55, "base", 0.78),
+    # Release 3 locations (CSV "Incident Location" exact-match keys).
+    "harare, zimbabwe": (-17.8252, 31.0335, "city", 0.8),
+    "zimbabwe": (-19.0154, 29.1549, "country", 0.55),
+    "colorado springs, colorado, u.s.": (38.8339, -104.8214, "city", 0.8),
+    "cape kennedy, florida": (28.4889, -80.5778, "base", 0.78),
+    "budapest, hungary": (47.4979, 19.0402, "city", 0.8),
+    "hungary": (47.1625, 19.5033, "country", 0.55),
+    "houston, texas": (29.7604, -95.3698, "city", 0.8),
+    "baku, azerbaijan": (40.4093, 49.8671, "city", 0.8),
+    "new jersey, united states": (40.0583, -74.4057, "region", 0.45),
+    "washington state, united states": (47.7511, -120.7401, "region", 0.4),
+    "northeastern united states": (42.5, -73.5, "region", 0.35),
+    "australia": (-25.2744, 133.7751, "country", 0.5),
+    "ussr": (55.7558, 37.6173, "country", 0.4),
+    # Typo seen in the live CSV (7 R3 rows): "Westen" -> Western United States.
+    "westen united states": (39.0, -114.0, "region", 0.35),
+    # Catch-all for orbital records; placed over the equator at GEO-ish lon
+    # so they at least appear on the map rather than getting dropped silently.
+    "low earth orbit": (0.0, 0.0, "region", 0.15),
 }
 
 # Specific place phrases to look for inside a record title; the first (most

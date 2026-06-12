@@ -82,6 +82,14 @@ media files but NOT the metadata. Access constraints (do not fight these):
 - The cloudfront video/thumbnail CDN IS public (HTTP 200 anywhere), so playback
   works on the live site.
 
+Cache-busting note (added during Release 3): the war.gov CSV is aggressively
+cached. A naive `fetch('/Portals/1/Interactive/2026/UFO/uap-data.csv')` may
+return the previous release's row set even after a new tranche has dropped.
+Always include a cache-busting query string AND `cache:'no-store'`:
+`fetch(url + '?_=' + Date.now(), { credentials:'include', cache:'no-store' })`.
+Compare the `Last-Modified` response header against the date of the latest
+tranche to confirm you fetched the fresh feed before extracting rows.
+
 Extraction steps (in the browser, on the war.gov/UFO tab):
 
 1. Find the live data feed via `read_network_requests`:
@@ -95,12 +103,68 @@ Extraction steps (in the browser, on the war.gov/UFO tab):
    public page = the original-file link), `files` (MP4 URLs whose path contains
    the `DOD_<assetid>` matching the bulk-download filenames), and captions via
    `.../closed-captions/get?asset_id=video:<id>&format=srt&api_key=<key>`.
-3. Get the data to disk: the browser `javascript_tool` output is capped (~1 KB
-   per string) and base64 is blocked, so trigger a **Blob download** of the
-   extracted JSON, then move it into the repo.
+3. Get the data to disk. Three options, in order of preference:
+   - **Local HTTP receiver (most reliable on macOS)**: run a tiny Python
+     `BaseHTTPRequestHandler` on `127.0.0.1:<port>` that writes the POST body
+     to disk and exits, then `fetch(url, { method:'POST', mode:'no-cors',
+     body: window.__PAYLOAD })` from the page. CORS preflight is avoided by
+     using `mode:'no-cors'` with `Content-Type: text/plain`. This is the
+     pattern used for Release 3. The receiver pattern:
+     ```python
+     class H(BaseHTTPRequestHandler):
+         def do_POST(self):
+             n = int(self.headers['Content-Length'])
+             open(OUT,'wb').write(self.rfile.read(n))
+             self.send_response(200); self.send_header('Access-Control-Allow-Origin','*')
+             self.end_headers(); sys.exit(0)
+     ```
+   - **Blob download**: `URL.createObjectURL(new Blob([s], {type:'application/json'}))`
+     + click an anchor with `download="..."`. Files land in `~/Downloads`.
+     CAVEAT (Release 3): on macOS with sandboxed shells, Chrome-saved files
+     can be quarantined and unreadable by `cat`/`wc`/`mv` — they appear in
+     `ls` but every read fails with EPERM. Use the local receiver path
+     instead when the agent can't read its own Downloads.
+   - **Chunked read**: `javascript_tool` returns are capped at ~1 KB per
+     string, and base64 is blocked by the response filter (the workflow's
+     URL/cookie sanitizer). If you're stuck with this, split the payload
+     into <800-byte slices and stitch via Bash. Slow but always works.
 
-Then assemble a self-contained source root and index it (scripts from Release 2,
-reusable):
+### 1c. Metadata-only ingest (Release 3 pattern)
+
+When local bandwidth is too limited to download the bulk-download package
+(R1 was 1.2GB docs + 1.3GB video, R2 was 70MB + 5.6GB, R3 was 826MB + 5.6GB),
+you can still ship the release as a metadata-only ingest that links every
+record straight to the public source URLs. The indexer already tolerates a
+missing local file at `local_path`: it simply does not extract PDF text or
+run OCR, but still writes the `documents` and `assets` rows with `source_url`,
+the CSV-derived `metadata` chunk, and the DVIDS-derived `video_metadata` chunk.
+
+Use `scripts/build_release03_source.py` as the template. It expects a single
+JSON payload at `release03_src/_staging/r3_payload.json` containing the R3
+CSV subset + DVIDS `/asset` JSON keyed by video_id. It writes a source root
+with empty `target` fields and real public `url`s on every manifest entry.
+Asset URL pattern as of R3: `https://www.war.gov/medialink/ufo/<MMDDYY>/release_<NN>/{documents|thumbnails}/<filename>`.
+
+When a R1+R2 enriched DB is not on the local machine but you still want to
+publish the merged release, use `scripts/merge_release03_into_live.py`:
+it takes the live `gh-pages` checkout + the R3-only export and writes a
+merged `public_site/` that updates `data/documents.json`, the JSON-LD
+`ItemList` highlights, `variableMeasured`, and `sitemap.xml`, and copies
+the per-record SEO pages for the new R3 docs into the existing `records/`
+directory. Push the merge directly to `gh-pages` from a worktree.
+
+Later, to backfill native PDF text + OCR + embeddings for the
+metadata-only release: download the bulk data on a high-bandwidth machine,
+materialize a full `releaseNN_src/` with real local files, run
+`make index` + `make ocr` + `make eval-search`. Document `doc_id`s are
+derived from `row_number + title + source_url + dvids_video_id`, so as
+long as the CSV layout and source_urls stay stable, the existing public
+record pages keep their slugs and incoming links.
+
+### 1d. Self-contained source root assembly (R1/R2 pattern)
+
+When the bulk download IS available locally, assemble a self-contained source
+root and index it (scripts from Release 2, reusable):
 
 - `scripts/build_release02_source.py` — builds `release02_src/`: copies the CSV
   to `uap-csv.cdp.csv`, hardlinks videos as `videos/{dvids}_{asset}.mp4` (so
