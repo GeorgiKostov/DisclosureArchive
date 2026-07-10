@@ -2422,6 +2422,26 @@ TAG_PHRASES = [
     (re.compile(r"\b(?:flying[- ]?saucer\s+study|saucer\s+study)\b", re.I), "Flying Saucer Study"),
     (re.compile(r"\b(?:angular,?\s+non[- ]symmetrical\s+potato|potato[- ]shaped)\b", re.I), "Potato-shaped object"),
     (re.compile(r"\baaro\b", re.I), "AARO"),
+    # Release 4 themes.
+    (re.compile(r"\bunresolved\s+uap\b", re.I), "Unresolved UAP"),
+    (re.compile(r"\brange\s+fouler\b", re.I), "Range Fouler"),
+    (re.compile(r"\bproject\s+sign\b", re.I), "Project Sign"),
+    (re.compile(r"\bproject\s+blue\s*book\b", re.I), "Project Blue Book"),
+    (re.compile(r"\bsenator\s+russell\b", re.I), "Senator Russell"),
+    (re.compile(r"\bstarvation\s+peak\b", re.I), "Starvation Peak"),
+    (re.compile(r"\bsts[- ]?80\b", re.I), "STS-80"),
+    (re.compile(r"\blight\s+flash\s+phenomen(?:a|on)\b", re.I), "Light flash phenomena"),
+    (re.compile(r"\byellow\s+sea\b", re.I), "Yellow Sea"),
+    (re.compile(r"\beast\s+china\s+sea\b", re.I), "East China Sea"),
+    (re.compile(r"\bsouth\s+china\s+sea\b", re.I), "South China Sea"),
+    (re.compile(r"\bgulf\s+of\s+america\b", re.I), "Gulf of America"),
+    (re.compile(r"\binfrared\s+sensor\b", re.I), "Infrared sensor"),
+    (re.compile(r"\bindo[- ]?pacific\s+command\b", re.I), "INDOPACOM"),
+    (re.compile(r"\bnorthern\s+command\b", re.I), "NORTHCOM"),
+    (re.compile(r"\bcentral\s+command\b", re.I), "CENTCOM"),
+    (re.compile(r"\blos\s+alamos\s+conference\b", re.I), "Los Alamos Conference"),
+    (re.compile(r"\bavro(?:car)?\b", re.I), "Avro VTOL"),
+    (re.compile(r"\bproject\s+silver\s*bug\b", re.I), "Project Silver Bug"),
 ]
 
 AGENCY_TAGS = {
@@ -2430,6 +2450,7 @@ AGENCY_TAGS = {
     "FBI": "FBI",
     "NASA": "NASA",
     "CIA": "CIA",
+    "Department of Energy": "Energy Department",
     "Intelligence Community Agency": "IC Partner",
     "U.S. Government": "U.S. Government",
 }
@@ -2443,12 +2464,134 @@ AGENCY_TAGS = {
 #   fallback_date - used only when no override and no document release_date.
 DEFAULT_RELEASE = "release-1"
 RELEASE_GROUPS = [
+    {"key": "release-4", "label": "RELEASE 4", "date": "", "fallback_date": "7/10/26"},
     {"key": "release-3", "label": "RELEASE 3", "date": "", "fallback_date": "6/12/26"},
     {"key": "release-2", "label": "RELEASE 2", "date": "", "fallback_date": "5/22/26"},
     {"key": "release-1", "label": "RELEASE 1", "date": "", "fallback_date": "5/8/26"},
 ]
 
 FEATURED_SELECTIONS = [
+    # --- Release 4 (7/10/26) ------------------------------------------------- #
+    {
+        "match": "Pantex Unidentified Object Incident Report",
+        "title": "A Silent Object Over a Nuclear-Weapons Plant",
+        "kicker": "Pantex intrusion, 2015",
+        "release": "release-4",
+        "summary": "On September 1, 2015, the Pantex Plant near Amarillo, Texas — where the U.S. assembles and disassembles nuclear weapons — picked up an unknown object on its ground surveillance radar and locked down its gates. The report says security officers chased it for several miles: it made no sound, showed no visible propulsion under binoculars, and a weapon-camera tracked it 100–200 feet up for 3–5 minutes. Witnesses described a roughly four-foot “diamond” shape that sped up and changed direction as it was followed before crossing offsite.",
+        "facts": [
+            "Agency: Department of Energy",
+            "Incident date: September 1, 2015",
+            "Why it stands out: radar, multiple trained observers, weapon-camera video, Sandia Labs analysis, and FBI handoff — at a nuclear site",
+        ],
+    },
+    {
+        "match": "CIA-UAP-D020",
+        "title": "A U.S. Senator's Flying Saucers Over the USSR",
+        "kicker": "CIA debrief, 1955",
+        "release": "release-4",
+        "summary": "A formerly Top Secret CIA memorandum to the Director of Central Intelligence debriefs four Americans who, on an October 1955 train ride from Baku toward Tbilisi, reported unconventional aircraft after dark. One witness was Senator Richard Russell, chairman of the Senate Armed Services Committee, who described a greenish-yellow ball rising rapidly; a companion reported a shadowy object with rotating lights climbing in a steep, whirling trajectory. CIA's scientific-intelligence chief concluded the evidence was not firm enough to prove a new Soviet aircraft.",
+        "facts": [
+            "Agency: CIA",
+            "Incident year: 1955",
+            "Why it stands out: a sitting U.S. senator as a UAP witness behind the Iron Curtain, debriefed at the highest classification",
+        ],
+    },
+    {
+        "match": "Los Alamos Conference on Aerial Phenomena",
+        "title": "When Teller and Reines Discussed “Green Fireballs”",
+        "kicker": "Los Alamos, 1949",
+        "release": "release-4",
+        "summary": "Minutes of a Secret February 16, 1949 conference at Los Alamos convened to explain the “green fireballs” repeatedly seen over New Mexico's atomic installations. The attendee list is the story: physicists Edward Teller and Frederick Reines, lab director Norris Bradbury, and meteoriticist Lincoln LaPaz, with the FBI, the AEC, and Army weapons officers. LaPaz recounts the December 12, 1948 Starvation Peak fireball — an unusual green, nearly horizontal path lasting about two seconds — while Teller questions him on the physics.",
+        "facts": [
+            "Agency: Atomic Energy Commission (declassified)",
+            "Incident year: 1948–1949",
+            "Why it stands out: nuclear-weapons scientists taking UFO reports seriously, on the record",
+        ],
+    },
+    {
+        "match": "Unresolved UAP Report, East China Sea, 2025",
+        "title": "Five Minutes Over the East China Sea",
+        "kicker": "AARO infrared video, 2025",
+        "release": "release-4",
+        "summary": "Five minutes of infrared footage from a U.S. military platform, submitted to AARO by U.S. Indo-Pacific Command — the longest and among the newest of the release's “Unresolved” videos. The government's shot-by-shot description tracks an “area of contrast” the sensor keeps centered, that repeatedly loses distinctiveness against the background as the operator zooms and pans, before it exits the frame.",
+        "facts": [
+            "Agency: Department of War (INDOPACOM)",
+            "Incident year: 2025",
+            "Why it stands out: five continuous minutes of sensor tracking, officially left unresolved",
+        ],
+    },
+    {
+        "match": "Unresolved UAP Report, Yellow Sea, 2025",
+        "title": "A “Six-Pointed Star” Over the Yellow Sea",
+        "kicker": "AARO infrared video, 2025",
+        "release": "release-4",
+        "summary": "An 18-second infrared clip submitted to AARO by U.S. Indo-Pacific Command. In the government's own words, the sensor tracks an area of contrast “resembling a six-pointed star,” holding it centered on screen. AARO attaches its standard caveat that the description is informational only and not an analytical conclusion.",
+        "facts": [
+            "Agency: Department of War (INDOPACOM)",
+            "Incident year: 2025",
+            "Why it stands out: a rare shape descriptor — a six-pointed star — in an otherwise clinical record",
+        ],
+    },
+    {
+        "match": "Unresolved UAP Report, Western United States, 1996",
+        "title": "The Oldest Tape in the Release",
+        "kicker": "Navy UAPTF legacy video, 1996",
+        "release": "release-4",
+        "summary": "Nearly three minutes of footage the Navy's UAP Task Force transferred to AARO in 2022, likely from an infrared sensor in 1996 — the earliest video in the release. AARO notes that no formal UAP data-handling existed then and that this media was digitally altered before it was ever reported; it is presented as received. An area of contrast transits the field of view, after which the clip repeats frame-by-frame and slows.",
+        "facts": [
+            "Agency: Department of War (Navy UAPTF)",
+            "Incident year: 1996",
+            "Why it stands out: a candid look at the messy legacy chain of custody for UAP media",
+        ],
+    },
+    {
+        "match": "Project Sign Progress Report",
+        "kicker": "Where it all began, 1948",
+        "release": "release-4",
+        "summary": "The initial Air Materiel Command report for Project Sign, the first official U.S. Air Force effort to investigate flying objects. It cites the HQ USAF directive of December 30, 1947, signed by General L. C. Craigie under the subject “Flying Discs,” and records that the project was formally activated on January 26, 1948 — the documentary origin of every U.S. government UFO program that followed.",
+        "facts": [
+            "Agency: Department of War",
+            "Incident year: 1948",
+            "Why it stands out: the founding paperwork of official U.S. UFO investigation",
+        ],
+    },
+    {
+        "match": "Range Fouler Debrief, Atlantic Ocean, 2020",
+        "title": "“Range Foulers”: The Navy's Own Forms",
+        "kicker": "Debrief + cockpit video, 2020",
+        "release": "release-4",
+        "summary": "A Navy Range Fouler Debrief — the standardized form for an unauthorized intrusion into controlled airspace during active training — filed for a 2020 Atlantic event and paired in this release with its infrared clip (PR116). It is one of three such debriefs in the tranche, each matched to footage, putting the “range fouler” encounters Navy aircrews described publicly onto official forms with the video beside them.",
+        "facts": [
+            "Agency: Department of War (U.S. Navy)",
+            "Incident year: 2020",
+            "Why it stands out: the actual intrusion-report form paired with the matching cockpit sensor video",
+        ],
+    },
+    {
+        "match": "STS-80 Unidentified Object Image 1",
+        "title": "Three Frames From Orbit",
+        "kicker": "Shuttle Columbia, 1996",
+        "release": "release-4",
+        "summary": "Between November 19 and December 7, 1996, astronauts aboard Space Shuttle Columbia photographed an unidentified object in low-Earth orbit during mission STS-80. NASA releases the sequence here as a set of three images.",
+        "facts": [
+            "Agency: NASA",
+            "Incident year: 1996",
+            "Why it stands out: an orbital image set from a crewed shuttle mission",
+        ],
+    },
+    {
+        "match": "Committee to Review Project Bluebook",
+        "title": "The Committee That Led to Condon",
+        "kicker": "Blue Book review, 1966–1967",
+        "release": "release-4",
+        "summary": "Deliberations of the Air Force Scientific Advisory Board's ad hoc committee on Project Blue Book — the review that recommended an outside university study and led to the Condon Committee. The file includes an April 17, 1967 Pentagon meeting with Dr. James McDonald, the University of Arizona atmospheric physicist and prominent advocate that UFOs warranted serious study.",
+        "facts": [
+            "Agency: Department of War",
+            "Incident year: 1966–1967",
+            "Why it stands out: the bureaucratic hinge point between Blue Book and the Condon Report",
+        ],
+    },
+    # --- Release 3 and earlier ---------------------------------------------- #
     {
         "match": "Western US Event",
         "title": "Orbs Launching Orbs",

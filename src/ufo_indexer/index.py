@@ -132,6 +132,14 @@ GEOCODE_LOCATIONS = {
     # Catch-all for orbital records; placed over the equator at GEO-ish lon
     # so they at least appear on the map rather than getting dropped silently.
     "low earth orbit": (0.0, 0.0, "region", 0.15),
+    # Release 4 locations (CSV "Incident Location" exact-match keys). Several of
+    # these are AARO combatant-command sea/region labels for infrared UAP videos.
+    "low-earth orbit": (0.0, 0.0, "region", 0.15),
+    "eastern united states": (37.5, -76.5, "region", 0.35),
+    "atlantic ocean": (30.0, -50.0, "region", 0.20),
+    "south china sea": (13.0, 114.0, "region", 0.35),
+    "gulf of america": (25.0, -90.0, "region", 0.35),
+    "virginia": (37.5, -78.6, "region", 0.45),
 }
 
 # Specific place phrases to look for inside a record title; the first (most
