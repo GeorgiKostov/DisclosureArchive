@@ -1,4 +1,4 @@
 Contact: https://disclosurearchive.org/contact.html
-Expires: 2027-09-18T14:47:58Z
+Expires: 2027-10-23T14:58:06Z
 Preferred-Languages: en
 Canonical: https://disclosurearchive.org/.well-known/security.txt
